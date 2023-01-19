@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void main(){
-    printf("Hellow world");
+int main(){
+    printf("Hellow world\n");
+
+    return 0;
 }
 
