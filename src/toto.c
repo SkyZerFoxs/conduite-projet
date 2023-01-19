@@ -1,2 +1,8 @@
-Salut toto ca va ?
-Oui la mif et toi
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void main(){
+    printf("Hellow world");
+}
+
