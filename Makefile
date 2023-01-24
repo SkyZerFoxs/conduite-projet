@@ -1,10 +1,19 @@
 CC = gcc
 CFLAGS = -Wall -g
 EXEC = nomExec
+LIBS = 
 
 SRCDIR=src
 OBJDIR=obj
 BINDIR=bin
+
+SDL_DIR=${HOME}/libs/SDL2
+SDLLIB_DIR=${SDL_DIR}/lib
+SDLINC_DIR=${SDL_DIR}/include
+
+LIBS=-L${SDLLIB_DIR} -lSDL2
+INCLUDES=-I${SDLINC_DIR} 
+
 
 DIRS=$(OBJDIR) $(BINDIR)
 
@@ -21,7 +30,7 @@ SOURCES = $(wildcard $(SRCDIR)/*.c)
 OBJ = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 $(BINDIR)/$(EXEC): $(OBJ)
-	$(CC) $(OBJ) -o $(BINDIR)/$(EXEC) $(CFLAGS) -lm
+	$(CC) $(OBJ) -o $(BINDIR)/$(EXEC) $(CFLAGS) ${LIBS} ${INCLUDES}
 
 obj/%.o: src/%.c
 	$(CC) -o $@ -c $< $(CFLAGS)
