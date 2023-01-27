@@ -8,7 +8,10 @@ TESTDIR=test
 
 INCLUDE=-I./$(INCLUDEDIR)
 
-all: $(TESTDIR)/test_map $(OBJDIR)
+$(OBJDIR) :
+	mkdir $(OBJDIR)
+
+all: $(OBJDIR) $(TESTDIR)/test_map $(OBJDIR)
 
 $(TESTDIR)/test_map : $(OBJDIR)/map.o $(TESTDIR)/test_map.o
 	$(CC) $(OBJDIR)/map.o $(TESTDIR)/test_map.o -o $(TESTDIR)/test_map $(CFLAGS) $(INCLUDE)
