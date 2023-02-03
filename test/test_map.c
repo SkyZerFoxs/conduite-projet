@@ -6,11 +6,11 @@ int main() {
 
     for (int i = 0; i < continent->height; i++) {
         for (int j = 0; j < continent->width; j++) {
-            printf("%d ", continent->matrice[i][j]);
+            printf("%d ", continent->matriceMap[i][j]);
         }
         printf("\n");
     }
-
+    
     detruire_map(continent);
 
 }

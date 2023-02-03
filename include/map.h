@@ -8,7 +8,9 @@ typedef struct map_s{
     int width;
     int height;
     int tileSize;
-    int **matrice;
+    int **matriceMap;
+    int **matriceDecor;
+
 }map_t;
 
 /* 
