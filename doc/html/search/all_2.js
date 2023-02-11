@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['load_5fmap_2',['load_map',['../map_8c.html#aabaf51b5fadabd86f7044e6414f7aa4b',1,'map.c']]]
+  ['getwininfo_6',['getWinInfo',['../affichage_8c.html#aaef40fe4d2adc6a443bb2b5669f16fe9',1,'getWinInfo(SDL_Window *window, map_t *map, int *width, int *height, float *dstCoef, int *xBorder):&#160;affichage.c'],['../affichage_8h.html#aaef40fe4d2adc6a443bb2b5669f16fe9',1,'getWinInfo(SDL_Window *window, map_t *map, int *width, int *height, float *dstCoef, int *xBorder):&#160;affichage.c']]]
 ];

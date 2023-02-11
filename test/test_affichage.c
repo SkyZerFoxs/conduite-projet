@@ -1,62 +1,64 @@
 #include <stdlib.h>
+#include <affichage.h>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+/**
+ * \file test_affichage.c
+ * \brief Test des fonctionnalité d'affichage
+ * \author Yamis MANFALOTI
+ * \version 1.0
+ * \date 11 février 2023
+ *
+ * Test des fonctionnalités d'affichage: 
+ * \n Chargement et Affichage d'une image
+ * \n Affichage d'une map
+ * \n Obtention des informations de la fenetres
+ */
 
-void Init_SDL(SDL_Window **window, SDL_Renderer **renderer) {
-    // initialisaiton librairy SDL
-    SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-	// Création d'une fenètre et d'un rendu par défaut
-    SDL_CreateWindowAndRenderer(500, 500,0, window, renderer);
-	// initialisaiton librairy SDL_image
-    IMG_Init(IMG_INIT_PNG);
-}
-
-void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer) {
-    // Deinitialise la librairy SDL_image.
-    IMG_Quit();
-	// destruction en mémoire du Renderer
-    SDL_DestroyRenderer(renderer);
-	// destruction en mémoire de la Fenètre
-    SDL_DestroyWindow(window);
-	// Deinitialise la librairy SDL_image.
-    SDL_Quit();
-}
-
-void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture) {
-    // chargement d'une texture avec le Moteur de Rendu Graphique et le fichier de l'image
-    if ( (*texture) == NULL ) {
-        (*texture) = IMG_LoadTexture(renderer, IMG);
-    }
-    // envoie de la texture vers le Moteur de Rendu Graphique
-    SDL_RenderCopy(renderer, (*texture), NULL, NULL);
-}
-
-void Detruire_Texture(SDL_Texture *texture) {
-    SDL_DestroyTexture(texture);
-}
+/**
+ * \brief Fonction principale du test
+ * 
+ * \param void Aucun paramètre en entrée 
+ * \return Int qui caractérise la réussite de la fonction
+ */
 
 int main(void) {
 	// initalisation variable et pointeur
     SDL_Window *window = NULL;
     SDL_Renderer *renderer = NULL;
-    SDL_Texture *texture = NULL;
     SDL_Event event;
     
 	// initalisation de SDL
-    Init_SDL(&window,&renderer);
+    Init_SDL(&window,&renderer, 1600, 900);
 
-    while (1) {
-        // afficher image
-        Afficher_IMG("asset/test.png",renderer, &texture);
+    // initialisation de la map continent
+    map_t * continent = initialiser_map("asset/map/map53.txt");
+
+    // teste getWinInfo()
+    int win_width,win_height;
+    float dstCoef;
+    int xBorder;
+    getWinInfo(window, NULL, &win_width, &win_height, NULL, NULL);
+    printf("getWinInfo(No Map, No dstCoef, No xBorder): {window width:%d , window height:%d , dstCoef:%f , xBorder:%d} \n",win_width,win_height,dstCoef,xBorder);
+    getWinInfo(window, continent, &win_width, &win_height, &dstCoef, &xBorder);
+    printf("getWinInfo(Full): {window width:%d , window height:%d , dstCoef:%f , xBorder:%d} \n",win_width,win_height,dstCoef,xBorder);
+
+    // boucle qui s'arrete a la fermeture de la fenetre 
+    int continuer = 1;
+    while ( continuer ) {
+    
+        Afficher_Map("asset/tileset_with_shadow_v3.png",continent, window, renderer);
 
         SDL_RenderPresent(renderer);
+
 		// detection fermeture fenetre qui stop la boucle
-        if (SDL_PollEvent(&event) && event.type == SDL_QUIT)
+        if (SDL_PollEvent(&event) && event.type == SDL_QUIT) {
             break;
+            continuer = 0;
+        }
     }
-	// destruction en mémoire de la texture préciser
-	Detruire_Texture(texture);
+    
+    // destruction en mémoire de la map en paramètre
+    detruire_map(continent);
 
     // Fin de SDL + destruction allocation mémoire
     Quit_SDL(window,renderer);

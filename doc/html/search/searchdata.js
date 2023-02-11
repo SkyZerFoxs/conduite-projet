@@ -1,9 +1,9 @@
 var indexSectionsWithContent =
 {
-  0: "dilmt",
+  0: "adgilmqt",
   1: "m",
-  2: "mt",
-  3: "dilm"
+  2: "amt",
+  3: "adgilmq"
 };
 
 var indexSectionNames =
@@ -17,7 +17,7 @@ var indexSectionNames =
 var indexSectionLabels =
 {
   0: "Tout",
-  1: "Classes",
+  1: "Structures de données",
   2: "Fichiers",
   3: "Fonctions"
 };

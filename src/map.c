@@ -50,7 +50,7 @@ int load_map(char * fichier, map_t * map) {
     // chargement des numéros de tile dans la matriceMap depuis le fichier
     for (int i = 0; i < map->height; i++) {
         for (int j = 0; j < map->width; j++) {
-            fscanf(file, "%d:", &tile);
+            fscanf(file, "%d,", &tile);
             map->matriceMap[i][j] = tile;
         }
     }
@@ -64,7 +64,7 @@ int load_map(char * fichier, map_t * map) {
     // chargement des numéros de tile dans la matriceDecor depuis le fichier
     for (int i = 0; i < map->height; i++) {
         for (int j = 0; j < map->width; j++) {
-            fscanf(file, "%d:", &tile);
+            fscanf(file, "%d,", &tile);
             map->matriceDecor[i][j] = tile;
         }
     }
