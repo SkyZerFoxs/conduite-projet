@@ -36,5 +36,5 @@ Dans le manuel d'installation
 instruction autre
 
 Diagramme de gantt
-https://docs.google.com/spreadsheets/d/11Fheh6d6mvlOA_9Tneqe4Yj4dO5gCCciR5xYAsMs5go
+https://docs.google.com/spreadsheets/d/1DZzRiIsoBUpBN3pmYb6aemPsn6XqX6zBIC3njUfudq8/
 
