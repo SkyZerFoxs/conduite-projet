@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 1.0
- * \date 11 février 2023
+ * \version 2.0
+ * \date 14 février 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -20,6 +20,7 @@
  */
 
 /**
+ * 
  * \fn void Init_SDL(SDL_Window **window, SDL_Renderer **renderer)
  * \brief Fonction externe qui initialise les composants de SDL
  * 
@@ -27,15 +28,28 @@
  * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
  * \param width  Largeur de la fenêtre
  * \param height  Hauteur de la fenêtre
- * \return Aucun retour effectué en fin de fonction
+ * \return SDL_TRUE = erreur, SDL_FALSE = success
  */
-extern void Init_SDL(SDL_Window **window, SDL_Renderer **renderer, int width, int height) {
+extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, int height) {
     // Initialisation library SDL
     SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
-	// Création d'une fenêtre et d'un rendu par défaut
-    SDL_CreateWindowAndRenderer(width, height, 0, window, renderer);
-	// Initialisation library SDL_image
-    IMG_Init(IMG_INIT_PNG);
+    // Création d'une fenêtre
+    if ( SDL_CreateWindowAndRenderer(width, height, 0, window, renderer) == -1 ) {
+        printf("Une erreur s'est produite lors de la création de la fenêtre : %s",SDL_GetError());
+        return SDL_TRUE;
+    }
+	// Initialisation de la library SDL_image
+    if ( IMG_Init(IMG_INIT_PNG) == 0 ) {
+        printf("Une erreur s'est produite lors du lancement de SDL_IMG: %s",IMG_GetError());
+        return SDL_TRUE;
+    }
+    // Initialisation de la library SDL_ttf
+    if (TTF_Init() == -1) {
+        printf("Une erreur s'est produite lors du lancement de SDL_TTF : %s",TTF_GetError());
+        return SDL_TRUE;
+    }
+    // return status
+    return SDL_FALSE;
 }
 
 /**
@@ -78,6 +92,7 @@ extern void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **textu
 }
 
 /**
+ * 
  * \fn void Detruire_Texture(SDL_Texture *texture)
  * \brief Fonction externe qui détruit en mémoire la texture en paramètres
  * 
@@ -89,35 +104,68 @@ extern void Detruire_Texture(SDL_Texture *texture) {
 }
 
 /**
- * \fn int Afficher_Tile(char * tileSet, int tileSize, float dstCoef, int xBorder, int tileNumber, int colonne, int ligne, SDL_Renderer *renderer, SDL_Texture **texture)
+ * \fn void getWinInfo(SDL_Window *window, map_t * map, SDL_Rect * view, int * width, int * height, int * dstCoef, int * xBorder, int * yBorder)
+ * \brief Fonction externe qui permet d'obtenir les informations de la fenêtre
+ * 
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param map Pointeur sur l'objet map_t, structure map nécéssaire à certain calcul
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param width  Pointeur sur un int, largeur de la fenêtre
+ * \param height  Pointeur sur un int, hauteur de la fenêtre
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \return Aucun retour effectué en fin de fonction
+ */
+extern void getWinInfo(SDL_Window *window, map_t * map, SDL_Rect * view, int * width, int * height, int * dstCoef, int * xBorder, int * yBorder) {
+    SDL_GetWindowSize(window, width, height);
+    // Vérification de map et l'utilisation de dstcCoef et xBorder
+    if ( map != NULL ) {
+        // calcule du coeficient d'affichage
+        if ( dstCoef != NULL ) {
+            double temp = (double)(*height) / (double)( (view->h) * (map->tileSize) ) ;
+            (*dstCoef) = SDL_round(temp);
+            // calcule des bordures
+            if ( xBorder != NULL && yBorder != NULL ) {
+                (*xBorder) = ( (*width) - ( view->w * map->tileSize * (*dstCoef) )  ) / 2;
+                (*yBorder) = ( (*height) - ( view->h * map->tileSize * (*dstCoef) )  ) / 2;
+            }
+        }
+    }
+} 
+
+/**
+ * \fn int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int ligne, int colonne, SDL_Rect * view, SDL_Renderer *renderer, SDL_Texture **texture)
  * \brief Fonction externe qui affiche une tile depuis un tileSet vers une zone du Renderer
  * 
  * \param tileSet Chemin du tileSet
  * \param tileSize Taille des tiles
  * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
  * \param xBorder Bordure a gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
  * \param tileNumber Numéroe de la tile à afficher
- * \param colonne Colone de la tile à afficher dans la matrice de map
  * \param ligne Ligne de la tile à afficher dans la matrice de map
+ * \param colonne Colone de la tile à afficher dans la matrice de map
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param texture Pointeur de pointeur sur l'objet SDL_Texture
  * \return int qui correspond au succès de la fonction ( tileNumber correcte )
  */
-extern int Afficher_Tile(char * tileSet, int tileSize, float dstCoef, int xBorder, int tileNumber, int colonne, int ligne, SDL_Renderer *renderer, SDL_Texture **texture) {
+extern int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int ligne, int colonne, SDL_Rect * view, SDL_Renderer *renderer, SDL_Texture **texture) {
     if ( tileNumber-1 >= -1 ) {
         /* Rectangle Source */ 
         SDL_Rect srcrect;
-        srcrect.x = tileSize * ( (tileNumber-1) % 120);
         srcrect.y = tileSize * ( (tileNumber-1) / 120);
-        srcrect.w = tileSize;
+        srcrect.x = tileSize * ( (tileNumber-1) % 120);
         srcrect.h = tileSize;
+        srcrect.w = tileSize;
 
         /* Rectangle Destination */ 
         SDL_Rect dstrect;
-        dstrect.x = (tileSize*dstCoef * ligne) + xBorder; 
-        dstrect.y = tileSize*dstCoef * colonne; 
-        dstrect.w = tileSize*dstCoef;
-        dstrect.h = tileSize*dstCoef;
+        dstrect.x = ( dstCoef * (tileSize * (colonne - view->x)) ) + xBorder;
+        dstrect.y = ( dstCoef * (tileSize * (ligne - view->y)) ) + yBorder; 
+        dstrect.h = dstCoef * tileSize;
+        dstrect.w = dstCoef * tileSize;
 
         /* Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer */
         Afficher_IMG(tileSet, renderer, texture, &srcrect, &dstrect );
@@ -130,70 +178,64 @@ extern int Afficher_Tile(char * tileSet, int tileSize, float dstCoef, int xBorde
 }
 
 /**
- * \fn void getWinInfo(SDL_Window *window, map_t * map, int * width, int * height, float * dstCoef, int * xBorder)
- * \brief Fonction externe qui permet d'obtenir les informations de la fenêtre
- * 
- * \param window Pointeur sur l'objet SDL_Window
- * \param map Pointeur sur l'objet map_t, structure map nécéssaire à certain calcul
- * \param width  Pointeur sur un int, largeur de la fenêtre
- * \param height  Pointeur sur un int, hauteur de la fenêtre
- * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
- * \param xBorder Bordure a gauche dans la fenêtre
- * \return Aucun retour effectué en fin de fonction
- */
-extern void getWinInfo(SDL_Window *window, map_t * map, int * width, int * height, float * dstCoef, int * xBorder ) {
-    SDL_GetWindowSize(window, width, height);
-    // Vérification de map et l'utilisation de dstcCoef et xBorder
-    if ( map != NULL ) {
-        if ( dstCoef != NULL ) {
-            (*dstCoef) = (float)((*height)) / ((float)(map->height) * (float)(map->tileSize));
-            if ( xBorder != NULL ) {
-                (*xBorder) = ( (*width) - (map->width * map->tileSize * (*dstCoef))  ) / 2;
-            }
-        }
-    }
-    else if (dstCoef != NULL || xBorder != NULL ) {
-        printf("getWinInfo Aucune Map Pour Les Calculs\n");
-    }
-} 
-
-/**
- * \fn void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer)
+ * \fn void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view)
  * \brief Fonction externe qui affiche une map composée des tiles d'un tileSet
  * 
  * \param tileSet Chemin du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
  * \param window Pointeur sur l'objet SDL_Window
  * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer) {
-    // Initialisation des variables propre à la fonction qui sont nécessaires plus tard
+extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view) {
+    // Initialisation des variables propre à la fonction
     SDL_Texture *texture = NULL;
     int win_width,win_height;
-    float dstCoef;
-    int xBorder;
+    int dstCoef, xBorder, yBorder;
+    int ymin, ymax;
+    int xmin, xmax;
+
+    // calcule de xmin et ymax tout en verifiant/corrigeant les sorties de map
+    if ( view->y < 0 ) {
+        ymin = view->y = 0;
+        ymax = view->y + view->h;
+    }
+    else if (view->y + view->h >= map->height ) {
+        view->y = ymin = map->height - view->h ;
+        ymax = view->y + view->h;
+    }
+    else {
+        ymin = view->y;
+        ymax = view->y + view->h;
+    }
+
+    if ( view->x < 0 ) {
+        xmin = view->x = 0;
+        xmax = view->x + view->w;
+    }
+    else if ( view->x + view->w >= map->width ) {
+        view->x = xmin = map->width - view->w;
+        xmax = view->x + view->w;
+    }
+    else {
+        xmin = view->x;
+        xmax = view->x + view->w;
+    }
+    
 
     // Récupération des informations de la fenêtre utile à l'affichage
-    getWinInfo(window, map, &win_width, &win_height, &dstCoef, &xBorder);
+    getWinInfo(window, map, view, &win_width, &win_height, &dstCoef, &xBorder, &yBorder);
 
-    // Affichage des tiles de la carte du sol (matriceMap)
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            if ( Afficher_Tile(tileSet, map->tileSize, dstCoef, xBorder,map->matriceMap[i][j], i, j, renderer, &texture) ) {
-                printf("Erreur nb tile\n");
+    // Affichage des tiles de la carte
+    for (int n = 0; n < map->layer; n++ ) {
+        for (int y = ymin; y < ymax; y++) {
+            for (int x = xmin; x < xmax; x++) {
+                Afficher_Tile(tileSet, map->tileSize, dstCoef, xBorder, yBorder,map->matrice[n][y][x], y, x, view, renderer, &texture);
             }
         }
     }
 
-    // Affichage par-dessus avec transparence des tiles de la carte des décors (matriceDecor)
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            if ( Afficher_Tile(tileSet, map->tileSize, dstCoef, xBorder, map->matriceDecor[i][j], i, j, renderer, &texture) ) {
-                printf("Erreur nb tile\n");
-            }
-        }
-    }
 
     // destruction en mémoire de la texture crée dans la fonction
     Detruire_Texture(texture);

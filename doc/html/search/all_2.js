@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getwininfo_6',['getWinInfo',['../affichage_8c.html#aaef40fe4d2adc6a443bb2b5669f16fe9',1,'getWinInfo(SDL_Window *window, map_t *map, int *width, int *height, float *dstCoef, int *xBorder):&#160;affichage.c'],['../affichage_8h.html#aaef40fe4d2adc6a443bb2b5669f16fe9',1,'getWinInfo(SDL_Window *window, map_t *map, int *width, int *height, float *dstCoef, int *xBorder):&#160;affichage.c']]]
+  ['getwininfo_6',['getWinInfo',['../affichage_8c.html#af6becf985f75737e7118d19a69ff27af',1,'getWinInfo(SDL_Window *window, map_t *map, SDL_Rect *view, int *width, int *height, int *dstCoef, int *xBorder, int *yBorder):&#160;affichage.c'],['../affichage_8h.html#af6becf985f75737e7118d19a69ff27af',1,'getWinInfo(SDL_Window *window, map_t *map, SDL_Rect *view, int *width, int *height, int *dstCoef, int *xBorder, int *yBorder):&#160;affichage.c']]]
 ];

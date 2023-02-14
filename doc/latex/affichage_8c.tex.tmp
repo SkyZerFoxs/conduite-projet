@@ -13,8 +13,8 @@ Graphe des dépendances par inclusion de affichage.\+c\+:
 \doxysubsection*{Fonctions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{affichage_8c_a435c94274ed7b89694e779fe27924795}\label{affichage_8c_a435c94274ed7b89694e779fe27924795}} 
-void {\bfseries Init\+\_\+\+SDL} (SDL\+\_\+\+Window $\ast$$\ast$window, SDL\+\_\+\+Renderer $\ast$$\ast$renderer, int width, int height)
+\mbox{\Hypertarget{affichage_8c_a8d8847dd8acd9cb9bcf669a0a79a6cf6}\label{affichage_8c_a8d8847dd8acd9cb9bcf669a0a79a6cf6}} 
+int {\bfseries Init\+\_\+\+SDL} (SDL\+\_\+\+Window $\ast$$\ast$window, SDL\+\_\+\+Renderer $\ast$$\ast$renderer, int width, int height)
 \item 
 void \mbox{\hyperlink{affichage_8c_adb7455d9e7c096d13726b1a17a53d57c}{Quit\+\_\+\+SDL}} (SDL\+\_\+\+Window $\ast$window, SDL\+\_\+\+Renderer $\ast$renderer)
 \begin{DoxyCompactList}\small\item\em Fonction externe qui ferme les composants de SDL. \end{DoxyCompactList}\item 
@@ -23,11 +23,11 @@ void \mbox{\hyperlink{affichage_8c_ade23b247c058a5222252de03edc85e62}{Afficher\+
 \mbox{\Hypertarget{affichage_8c_a6e3b3d95baa57bc816909890c541e3cb}\label{affichage_8c_a6e3b3d95baa57bc816909890c541e3cb}} 
 void {\bfseries Detruire\+\_\+\+Texture} (SDL\+\_\+\+Texture $\ast$texture)
 \item 
-int \mbox{\hyperlink{affichage_8c_a8a103d24e19838f20dcf7113e83bf3e3}{Afficher\+\_\+\+Tile}} (char $\ast$tile\+Set, int tile\+Size, float dst\+Coef, int x\+Border, int tile\+Number, int colonne, int ligne, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Texture $\ast$$\ast$texture)
-\begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Renderer. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{affichage_8c_aaef40fe4d2adc6a443bb2b5669f16fe9}{get\+Win\+Info}} (SDL\+\_\+\+Window $\ast$window, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, int $\ast$width, int $\ast$height, float $\ast$dst\+Coef, int $\ast$x\+Border)
+void \mbox{\hyperlink{affichage_8c_af6becf985f75737e7118d19a69ff27af}{get\+Win\+Info}} (SDL\+\_\+\+Window $\ast$window, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Rect $\ast$view, int $\ast$width, int $\ast$height, int $\ast$dst\+Coef, int $\ast$x\+Border, int $\ast$y\+Border)
 \begin{DoxyCompactList}\small\item\em Fonction externe qui permet d\textquotesingle{}obtenir les informations de la fenêtre. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{affichage_8c_a159abe6fb5bfacd8fb614c9b36fd6a21}{Afficher\+\_\+\+Map}} (char $\ast$tile\+Set, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Window $\ast$window, SDL\+\_\+\+Renderer $\ast$renderer)
+int \mbox{\hyperlink{affichage_8c_af48ccd7abe96d5d9a88051eea9a07389}{Afficher\+\_\+\+Tile}} (char $\ast$tile\+Set, int tile\+Size, int dst\+Coef, int x\+Border, int y\+Border, int tile\+Number, int ligne, int colonne, SDL\+\_\+\+Rect $\ast$view, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Texture $\ast$$\ast$texture)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Renderer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affichage_8c_a259231bd72f1e4662155c08ad5e15647}{Afficher\+\_\+\+Map}} (char $\ast$tile\+Set, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Window $\ast$window, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Rect $\ast$view)
 \begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une map composée des tiles d\textquotesingle{}un tile\+Set. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -38,10 +38,10 @@ Gestion affichage.
 Yamis MANFALOTI 
 \end{DoxyAuthor}
 \begin{DoxyVersion}{Version}
-1.\+0 
+2.\+0 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
-11 février 2023
+14 février 2023
 \end{DoxyDate}
 Gestion de l\textquotesingle{}affichage\+: ~\newline
  Initialisation en mémoire ~\newline
@@ -78,11 +78,11 @@ Fonction externe qui charge et affiche une image.
 \begin{DoxyReturn}{Renvoie}
 Aucun retour effectué en fin de fonction 
 \end{DoxyReturn}
-\mbox{\Hypertarget{affichage_8c_a159abe6fb5bfacd8fb614c9b36fd6a21}\label{affichage_8c_a159abe6fb5bfacd8fb614c9b36fd6a21}} 
+\mbox{\Hypertarget{affichage_8c_a259231bd72f1e4662155c08ad5e15647}\label{affichage_8c_a259231bd72f1e4662155c08ad5e15647}} 
 \index{affichage.c@{affichage.c}!Afficher\_Map@{Afficher\_Map}}
 \index{Afficher\_Map@{Afficher\_Map}!affichage.c@{affichage.c}}
 \doxysubsubsection{\texorpdfstring{Afficher\_Map()}{Afficher\_Map()}}
-{\footnotesize\ttfamily void Afficher\+\_\+\+Map (\begin{DoxyParamCaption}\item[{char $\ast$}]{tile\+Set,  }\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map,  }\item[{SDL\+\_\+\+Window $\ast$}]{window,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Afficher\+\_\+\+Map (\begin{DoxyParamCaption}\item[{char $\ast$}]{tile\+Set,  }\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map,  }\item[{SDL\+\_\+\+Window $\ast$}]{window,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{SDL\+\_\+\+Rect $\ast$}]{view }\end{DoxyParamCaption})}
 
 
 
@@ -98,15 +98,17 @@ Fonction externe qui affiche une map composée des tiles d\textquotesingle{}un t
 \hline
 {\em renderer} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Renderer \\
 \hline
+{\em view} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Rect correspondant à la vue du joueur \\
+\hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Renvoie}
 Aucun retour effectué en fin de fonction 
 \end{DoxyReturn}
-\mbox{\Hypertarget{affichage_8c_a8a103d24e19838f20dcf7113e83bf3e3}\label{affichage_8c_a8a103d24e19838f20dcf7113e83bf3e3}} 
+\mbox{\Hypertarget{affichage_8c_af48ccd7abe96d5d9a88051eea9a07389}\label{affichage_8c_af48ccd7abe96d5d9a88051eea9a07389}} 
 \index{affichage.c@{affichage.c}!Afficher\_Tile@{Afficher\_Tile}}
 \index{Afficher\_Tile@{Afficher\_Tile}!affichage.c@{affichage.c}}
 \doxysubsubsection{\texorpdfstring{Afficher\_Tile()}{Afficher\_Tile()}}
-{\footnotesize\ttfamily int Afficher\+\_\+\+Tile (\begin{DoxyParamCaption}\item[{char $\ast$}]{tile\+Set,  }\item[{int}]{tile\+Size,  }\item[{float}]{dst\+Coef,  }\item[{int}]{x\+Border,  }\item[{int}]{tile\+Number,  }\item[{int}]{colonne,  }\item[{int}]{ligne,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{SDL\+\_\+\+Texture $\ast$$\ast$}]{texture }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int Afficher\+\_\+\+Tile (\begin{DoxyParamCaption}\item[{char $\ast$}]{tile\+Set,  }\item[{int}]{tile\+Size,  }\item[{int}]{dst\+Coef,  }\item[{int}]{x\+Border,  }\item[{int}]{y\+Border,  }\item[{int}]{tile\+Number,  }\item[{int}]{ligne,  }\item[{int}]{colonne,  }\item[{SDL\+\_\+\+Rect $\ast$}]{view,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{SDL\+\_\+\+Texture $\ast$$\ast$}]{texture }\end{DoxyParamCaption})}
 
 
 
@@ -122,11 +124,15 @@ Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Rende
 \hline
 {\em x\+Border} & Bordure a gauche dans la fenêtre \\
 \hline
+{\em y\+Border} & Bordure en haut dans la fenêtre \\
+\hline
 {\em tile\+Number} & Numéroe de la tile à afficher \\
+\hline
+{\em ligne} & Ligne de la tile à afficher dans la matrice de map \\
 \hline
 {\em colonne} & Colone de la tile à afficher dans la matrice de map \\
 \hline
-{\em ligne} & Ligne de la tile à afficher dans la matrice de map \\
+{\em view} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Rect correspondant à la vue du joueur \\
 \hline
 {\em renderer} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Renderer \\
 \hline
@@ -136,11 +142,11 @@ Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Rende
 \begin{DoxyReturn}{Renvoie}
 int qui correspond au succès de la fonction ( tile\+Number correcte ) 
 \end{DoxyReturn}
-\mbox{\Hypertarget{affichage_8c_aaef40fe4d2adc6a443bb2b5669f16fe9}\label{affichage_8c_aaef40fe4d2adc6a443bb2b5669f16fe9}} 
+\mbox{\Hypertarget{affichage_8c_af6becf985f75737e7118d19a69ff27af}\label{affichage_8c_af6becf985f75737e7118d19a69ff27af}} 
 \index{affichage.c@{affichage.c}!getWinInfo@{getWinInfo}}
 \index{getWinInfo@{getWinInfo}!affichage.c@{affichage.c}}
 \doxysubsubsection{\texorpdfstring{getWinInfo()}{getWinInfo()}}
-{\footnotesize\ttfamily void get\+Win\+Info (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Window $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map,  }\item[{int $\ast$}]{width,  }\item[{int $\ast$}]{height,  }\item[{float $\ast$}]{dst\+Coef,  }\item[{int $\ast$}]{x\+Border }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void get\+Win\+Info (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Window $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map,  }\item[{SDL\+\_\+\+Rect $\ast$}]{view,  }\item[{int $\ast$}]{width,  }\item[{int $\ast$}]{height,  }\item[{int $\ast$}]{dst\+Coef,  }\item[{int $\ast$}]{x\+Border,  }\item[{int $\ast$}]{y\+Border }\end{DoxyParamCaption})}
 
 
 
@@ -152,13 +158,17 @@ Fonction externe qui permet d\textquotesingle{}obtenir les informations de la fe
 \hline
 {\em map} & Pointeur sur l\textquotesingle{}objet \mbox{\hyperlink{structmap__t}{map\+\_\+t}}, structure map nécéssaire à certain calcul \\
 \hline
+{\em view} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Rect correspondant à la vue du joueur \\
+\hline
 {\em width} & Pointeur sur un int, largeur de la fenêtre \\
 \hline
 {\em height} & Pointeur sur un int, hauteur de la fenêtre \\
 \hline
 {\em dst\+Coef} & Coeficient qui permet d\textquotesingle{}apdater l\textquotesingle{}affichage de sorties à plusieur dimensions \\
 \hline
-{\em x\+Border} & Bordure a gauche dans la fenêtre \\
+{\em x\+Border} & Bordure à gauche dans la fenêtre \\
+\hline
+{\em y\+Border} & Bordure en haut dans la fenêtre \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Renvoie}

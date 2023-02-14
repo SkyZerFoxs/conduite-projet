@@ -7,7 +7,7 @@
  * \brief Gestion map
  * \author Yamis MANFALOTI
  * \version 2.0
- * \date 03 février 2023
+ * \date 14 février 2023
  *
  * Gestion des map:
  * \n Initialisation en mémoire
@@ -36,38 +36,31 @@ int load_map(char * fichier, map_t * map) {
         return 1;
     }
 
-    // récupération des métadonnées (largeur map, longueur map, taille des tiles)
+    // récupération des métadonnées (largeur map, longueur map, taille des tiles, nombre de layer)
     fscanf(file, "%d", &(map->width));
     fscanf(file, "%d", &(map->height));
     fscanf(file, "%d", &(map->tileSize));
+    fscanf(file, "%d", &(map->layer));
 
-    // génération de la matriceMap map depuis le fichier
-    map->matriceMap = (int**) malloc( map->height * sizeof(int*) );
-    for ( int i = 0; i < map->height; i++ ) {
-        map->matriceMap[i] = (int*) malloc( map->width * sizeof(int) );
-    }
-
-    // chargement des numéros de tile dans la matriceMap depuis le fichier
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            fscanf(file, "%d,", &tile);
-            map->matriceMap[i][j] = tile;
+    // génération de la matriceMap map depuis les métadonées du fichier
+    map->matrice = (int***)malloc( map->layer * sizeof(int**));
+    for (int n = 0; n < map->layer; n++) {
+        map->matrice[n] = (int**) malloc( map->height * sizeof(int*) );
+        for ( int i = 0; i < map->height; i++ ) {
+            map->matrice[n][i] = (int*) malloc( map->width * sizeof(int) );
         }
     }
 
-    // génération de la matriceDecor map depuis le fichier
-    map->matriceDecor = (int**) malloc( map->height * sizeof(int*) );
-    for ( int i = 0; i < map->height; i++ ) {
-        map->matriceDecor[i] = (int*) malloc( map->width * sizeof(int) );
-    }
-
-    // chargement des numéros de tile dans la matriceDecor depuis le fichier
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            fscanf(file, "%d,", &tile);
-            map->matriceDecor[i][j] = tile;
+    // remplissage de la matriceMap map depuis les données du fichier
+    for (int n = 0; n < map->layer; n++) {
+        for (int i = 0; i < map->height; i++) {
+            for (int j = 0; j < map->width; j++) {
+                fscanf(file, "%d,", &tile);
+                map->matrice[n][i][j] = tile;
+            }
         }
     }
+
 
     // fermeture du fichier
     fclose(file);
@@ -97,17 +90,22 @@ extern map_t * initialiser_map(char * fichier) {
  * \return Aucun retour effectué en fin de fonction
  */
 extern void detruire_map(map_t * map) {
-    // libération de la mémoire de la matriceMap
-    for (int i = 0; i < map->height; i++) {
-        free(map->matriceMap[i]);
+    // destruction des lignes dans chaques layers de la matrice
+    for (int n = 0; n < map->layer; n++) {
+        for ( int i = 0; i < map->height; i++ ) {
+            free(map->matrice[n][i]);
+            map->matrice[n][i] = NULL;
+        }
     }
-    free(map->matriceMap);
-    // libération de la mémoire de la matriceDecor
-    for (int i = 0; i < map->height; i++) {
-        free(map->matriceDecor[i]);
+    // destruction de chaque layers dans la matrice
+    for (int n = 0; n < map->layer; n++) {
+        free(map->matrice[n]);
+        map->matrice[n] = NULL;
     }
-    free(map->matriceDecor);
-    // libération de la mémoire de structure map
+    // destruction de la matrice
+    free(map->matrice);
+    map->matrice = NULL;
+    // destruction de la structure map_t
     free(map);
     map = NULL;
 }

@@ -77,6 +77,7 @@ $(function() {
 <div class="textblock"><code>#include &lt;<a class="el" href="map_8h_source.html">map.h</a>&gt;</code><br />
 <code>#include &lt;SDL2/SDL.h&gt;</code><br />
 <code>#include &lt;SDL2/SDL_image.h&gt;</code><br />
+<code>#include &lt;SDL2/SDL_ttf.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Graphe des dépendances par inclusion de affichage.h:</div>
 <div class="dyncontent">
@@ -92,9 +93,9 @@ Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Fonctions</h2></td></tr>
-<tr class="memitem:a435c94274ed7b89694e779fe27924795"><td class="memItemLeft" align="right" valign="top"><a id="a435c94274ed7b89694e779fe27924795"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Init_SDL</b> (SDL_Window **window, SDL_Renderer **renderer, int width, int height)</td></tr>
-<tr class="separator:a435c94274ed7b89694e779fe27924795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8847dd8acd9cb9bcf669a0a79a6cf6"><td class="memItemLeft" align="right" valign="top"><a id="a8d8847dd8acd9cb9bcf669a0a79a6cf6"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Init_SDL</b> (SDL_Window **window, SDL_Renderer **renderer, int width, int height)</td></tr>
+<tr class="separator:a8d8847dd8acd9cb9bcf669a0a79a6cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb7455d9e7c096d13726b1a17a53d57c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c">Quit_SDL</a> (SDL_Window *window, SDL_Renderer *renderer)</td></tr>
 <tr class="memdesc:adb7455d9e7c096d13726b1a17a53d57c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui ferme les composants de SDL.  <a href="affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c">Plus de détails...</a><br /></td></tr>
 <tr class="separator:adb7455d9e7c096d13726b1a17a53d57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -104,21 +105,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Init_SDL</b> (SDL_Win
 <tr class="memitem:a6e3b3d95baa57bc816909890c541e3cb"><td class="memItemLeft" align="right" valign="top"><a id="a6e3b3d95baa57bc816909890c541e3cb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> (SDL_Texture *texture)</td></tr>
 <tr class="separator:a6e3b3d95baa57bc816909890c541e3cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a103d24e19838f20dcf7113e83bf3e3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#a8a103d24e19838f20dcf7113e83bf3e3">Afficher_Tile</a> (char *tileSet, int tileSize, float dstCoef, int xBorder, int tileNumber, int colonne, int ligne, SDL_Renderer *renderer, SDL_Texture **texture)</td></tr>
-<tr class="memdesc:a8a103d24e19838f20dcf7113e83bf3e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche une tile depuis un tileSet vers une zone du Renderer.  <a href="affichage_8h.html#a8a103d24e19838f20dcf7113e83bf3e3">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a8a103d24e19838f20dcf7113e83bf3e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaef40fe4d2adc6a443bb2b5669f16fe9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#aaef40fe4d2adc6a443bb2b5669f16fe9">getWinInfo</a> (SDL_Window *window, <a class="el" href="structmap__t.html">map_t</a> *map, int *width, int *height, float *dstCoef, int *xBorder)</td></tr>
-<tr class="memdesc:aaef40fe4d2adc6a443bb2b5669f16fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet d'obtenir les informations de la fenêtre.  <a href="affichage_8h.html#aaef40fe4d2adc6a443bb2b5669f16fe9">Plus de détails...</a><br /></td></tr>
-<tr class="separator:aaef40fe4d2adc6a443bb2b5669f16fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a159abe6fb5bfacd8fb614c9b36fd6a21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#a159abe6fb5bfacd8fb614c9b36fd6a21">Afficher_Map</a> (char *tileSet, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Window *window, SDL_Renderer *renderer)</td></tr>
-<tr class="memdesc:a159abe6fb5bfacd8fb614c9b36fd6a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche une map composée des tiles d'un tileSet.  <a href="affichage_8h.html#a159abe6fb5bfacd8fb614c9b36fd6a21">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a159abe6fb5bfacd8fb614c9b36fd6a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24cd67ea64dbe614871b6ff12fa7092"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#ae24cd67ea64dbe614871b6ff12fa7092">Afficher_Tile</a> (char *tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int colonne, int ligne, SDL_Rect *view, SDL_Renderer *renderer, SDL_Texture **texture)</td></tr>
+<tr class="memdesc:ae24cd67ea64dbe614871b6ff12fa7092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche une tile depuis un tileSet vers une zone du Renderer.  <a href="affichage_8h.html#ae24cd67ea64dbe614871b6ff12fa7092">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae24cd67ea64dbe614871b6ff12fa7092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6becf985f75737e7118d19a69ff27af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#af6becf985f75737e7118d19a69ff27af">getWinInfo</a> (SDL_Window *window, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Rect *view, int *width, int *height, int *dstCoef, int *xBorder, int *yBorder)</td></tr>
+<tr class="memdesc:af6becf985f75737e7118d19a69ff27af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet d'obtenir les informations de la fenêtre.  <a href="affichage_8h.html#af6becf985f75737e7118d19a69ff27af">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af6becf985f75737e7118d19a69ff27af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a259231bd72f1e4662155c08ad5e15647"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8h.html#a259231bd72f1e4662155c08ad5e15647">Afficher_Map</a> (char *tileSet, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
+<tr class="memdesc:a259231bd72f1e4662155c08ad5e15647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche une map composée des tiles d'un tileSet.  <a href="affichage_8h.html#a259231bd72f1e4662155c08ad5e15647">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a259231bd72f1e4662155c08ad5e15647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Header Gestion Affichage. </p>
 <dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>11 février 2023</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>14 février 2023</dd></dl>
 <p>Header Gestion de l'affichage: <br  />
  Signature des fonction externe de <a class="el" href="affichage_8c.html" title="Gestion affichage.">affichage.c</a> </p>
 </div><h2 class="groupheader">Documentation des fonctions</h2>
@@ -181,8 +182,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
 
 </div>
 </div>
-<a id="a159abe6fb5bfacd8fb614c9b36fd6a21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a159abe6fb5bfacd8fb614c9b36fd6a21">&#9670;&nbsp;</a></span>Afficher_Map()</h2>
+<a id="a259231bd72f1e4662155c08ad5e15647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a259231bd72f1e4662155c08ad5e15647">&#9670;&nbsp;</a></span>Afficher_Map()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +210,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">SDL_Renderer *&#160;</td>
-          <td class="paramname"><em>renderer</em>&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -226,6 +233,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
     <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher </td></tr>
     <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
     <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
   </table>
   </dd>
 </dl>
@@ -233,8 +241,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
 
 </div>
 </div>
-<a id="a8a103d24e19838f20dcf7113e83bf3e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a103d24e19838f20dcf7113e83bf3e3">&#9670;&nbsp;</a></span>Afficher_Tile()</h2>
+<a id="ae24cd67ea64dbe614871b6ff12fa7092"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae24cd67ea64dbe614871b6ff12fa7092">&#9670;&nbsp;</a></span>Afficher_Tile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +262,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>dstCoef</em>, </td>
         </tr>
         <tr>
@@ -267,7 +275,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>tileNumber</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>ligne</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -278,8 +298,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>ligne</em>, </td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -308,9 +328,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
     <tr><td class="paramname">tileSize</td><td>Taille des tiles </td></tr>
     <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
     <tr><td class="paramname">xBorder</td><td>Bordure a gauche dans la fenêtre </td></tr>
+    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
     <tr><td class="paramname">tileNumber</td><td>Numéroe de la tile à afficher </td></tr>
-    <tr><td class="paramname">colonne</td><td>Colone de la tile à afficher dans la matrice de map </td></tr>
     <tr><td class="paramname">ligne</td><td>Ligne de la tile à afficher dans la matrice de map </td></tr>
+    <tr><td class="paramname">colonne</td><td>Colone de la tile à afficher dans la matrice de map </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
     <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
     <tr><td class="paramname">texture</td><td>Pointeur de pointeur sur l'objet SDL_Texture </td></tr>
   </table>
@@ -320,8 +342,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
 
 </div>
 </div>
-<a id="aaef40fe4d2adc6a443bb2b5669f16fe9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaef40fe4d2adc6a443bb2b5669f16fe9">&#9670;&nbsp;</a></span>getWinInfo()</h2>
+<a id="af6becf985f75737e7118d19a69ff27af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6becf985f75737e7118d19a69ff27af">&#9670;&nbsp;</a></span>getWinInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,6 +363,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">int *&#160;</td>
           <td class="paramname"><em>width</em>, </td>
         </tr>
@@ -353,14 +381,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float *&#160;</td>
+          <td class="paramtype">int *&#160;</td>
           <td class="paramname"><em>dstCoef</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>xBorder</em>&#160;</td>
+          <td class="paramname"><em>xBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>yBorder</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -375,10 +409,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
   <table class="params">
     <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
     <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, structure map nécéssaire à certain calcul </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
     <tr><td class="paramname">width</td><td>Pointeur sur un int, largeur de la fenêtre </td></tr>
     <tr><td class="paramname">height</td><td>Pointeur sur un int, hauteur de la fenêtre </td></tr>
     <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
-    <tr><td class="paramname">xBorder</td><td>Bordure a gauche dans la fenêtre </td></tr>
+    <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
+    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
   </table>
   </dd>
 </dl>

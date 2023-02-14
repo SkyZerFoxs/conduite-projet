@@ -6,7 +6,7 @@
  * \brief Header Gestion map
  * \author Yamis MANFALOTI
  * \version 2.0
- * \date 03 février 2023
+ * \date 14 février 2023
  *
  * Header Gestion des map:
  * \n Structure map : map_t 
@@ -21,17 +21,16 @@
  * Contient:
  * \n width : largeur de la map
  * \n  height : hauteur de la map
- * \n  tileSize : dimension en pixel des tiles concernées
- * \n  matriceMap : Matrice qui correspond au tiles de la map principal
- * \n  matriceDecor :  Matrice qui correspond au tiles de la map des décors
+ * \n  tileSize : dimension en pixel des tiles du tileset
+ * \n  matrice : Matrice de map, Matrice[layer][ligne][colone]  
  * 
  */
 typedef struct map_s{
     int width;
     int height;
     int tileSize;
-    int **matriceMap;
-    int **matriceDecor;
+    int layer;
+    int ***matrice;
 
 }map_t;
 
