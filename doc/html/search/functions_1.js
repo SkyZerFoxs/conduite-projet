@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['detruire_5fmap_26',['detruire_map',['../map_8c.html#adfd25c50e43568024774fc24a02dff50',1,'detruire_map(map_t *map):&#160;map.c'],['../map_8h.html#adfd25c50e43568024774fc24a02dff50',1,'detruire_map(map_t *map):&#160;map.c']]]
+  ['changeresolution_28',['changeResolution',['../affichage_8c.html#ab340ffb86982124bee917684122edecb',1,'changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window):&#160;affichage.c'],['../affichage_8h.html#ab340ffb86982124bee917684122edecb',1,'changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window):&#160;affichage.c']]]
 ];

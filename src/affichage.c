@@ -117,7 +117,7 @@ extern void Detruire_Texture(SDL_Texture *texture) {
  * \param yBorder Bordure en haut dans la fenêtre
  * \return Aucun retour effectué en fin de fonction
  */
-extern void getWinInfo(SDL_Window *window, map_t * map, SDL_Rect * view, int * width, int * height, int * dstCoef, int * xBorder, int * yBorder) {
+extern void getWinInfo(SDL_Window *window, int * width, int * height, map_t * map, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder) {
     SDL_GetWindowSize(window, width, height);
     // Vérification de map et l'utilisation de dstcCoef et xBorder
     if ( map != NULL ) {
@@ -133,6 +133,48 @@ extern void getWinInfo(SDL_Window *window, map_t * map, SDL_Rect * view, int * w
         }
     }
 } 
+
+
+/**
+ * \fn void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window)
+ * \brief Fonction externe qui permet de changer la résolution de la fenêtre
+ * 
+ * \param indiceResolution [ 1: 1280x720 | 2: 1600x900 | 3: 1920x1080 | default: 1600x900 ]
+ * \param indiceFullscreen [ 0: fenêtré | 1: plein écran | 2: plein écran fenêtré | default: fenêtré ]
+ * \param window Pointeur sur l'objet SDL_Window
+ * \return Aucun retour effectué en fin de fonction
+ */
+extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window) {
+    switch (indiceResolution) {
+    case 1:
+        SDL_SetWindowSize(window, 1280, 720);
+        break;
+    case 2:
+        SDL_SetWindowSize(window, 1600, 900);
+        break;
+    case 3:
+        SDL_SetWindowSize(window, 1920, 1080);
+        break;
+    default:
+        SDL_SetWindowSize(window, 1600, 900);
+        break;
+    }
+    switch (indiceFullscreen)
+    {
+    case 0:
+        SDL_SetWindowFullscreen(window, 0);
+        break;
+    case 1:
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+        break;
+    case 2:
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+        break;
+    default:
+        SDL_SetWindowFullscreen(window, 0);
+        break;
+    }
+}
 
 /**
  * \fn int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int ligne, int colonne, SDL_Rect * view, SDL_Renderer *renderer, SDL_Texture **texture)
@@ -225,7 +267,7 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
     
 
     // Récupération des informations de la fenêtre utile à l'affichage
-    getWinInfo(window, map, view, &win_width, &win_height, &dstCoef, &xBorder, &yBorder);
+    getWinInfo(window, &win_width, &win_height, map, view, &dstCoef, &xBorder, &yBorder);
 
     // Affichage des tiles de la carte
     for (int n = 0; n < map->layer; n++ ) {

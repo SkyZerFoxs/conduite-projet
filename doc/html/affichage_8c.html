@@ -97,9 +97,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>Init_SDL</b> (SDL_Wind
 <tr class="memitem:a6e3b3d95baa57bc816909890c541e3cb"><td class="memItemLeft" align="right" valign="top"><a id="a6e3b3d95baa57bc816909890c541e3cb"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> (SDL_Texture *texture)</td></tr>
 <tr class="separator:a6e3b3d95baa57bc816909890c541e3cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6becf985f75737e7118d19a69ff27af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#af6becf985f75737e7118d19a69ff27af">getWinInfo</a> (SDL_Window *window, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Rect *view, int *width, int *height, int *dstCoef, int *xBorder, int *yBorder)</td></tr>
-<tr class="memdesc:af6becf985f75737e7118d19a69ff27af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet d'obtenir les informations de la fenêtre.  <a href="affichage_8c.html#af6becf985f75737e7118d19a69ff27af">Plus de détails...</a><br /></td></tr>
-<tr class="separator:af6becf985f75737e7118d19a69ff27af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9b2965505d565c81366c9bf2ce3718"><td class="memItemLeft" align="right" valign="top"><a id="a0a9b2965505d565c81366c9bf2ce3718"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>getWinInfo</b> (SDL_Window *window, int *width, int *height, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Rect *view, int *dstCoef, int *xBorder, int *yBorder)</td></tr>
+<tr class="separator:a0a9b2965505d565c81366c9bf2ce3718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab340ffb86982124bee917684122edecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ab340ffb86982124bee917684122edecb">changeResolution</a> (int indiceResolution, int indiceFullscreen, SDL_Window *window)</td></tr>
+<tr class="memdesc:ab340ffb86982124bee917684122edecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet de changer la résolution de la fenêtre.  <a href="affichage_8c.html#ab340ffb86982124bee917684122edecb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab340ffb86982124bee917684122edecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af48ccd7abe96d5d9a88051eea9a07389"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#af48ccd7abe96d5d9a88051eea9a07389">Afficher_Tile</a> (char *tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int ligne, int colonne, SDL_Rect *view, SDL_Renderer *renderer, SDL_Texture **texture)</td></tr>
 <tr class="memdesc:af48ccd7abe96d5d9a88051eea9a07389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche une tile depuis un tileSet vers une zone du Renderer.  <a href="affichage_8c.html#af48ccd7abe96d5d9a88051eea9a07389">Plus de détails...</a><br /></td></tr>
 <tr class="separator:af48ccd7abe96d5d9a88051eea9a07389"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,59 +342,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
 
 </div>
 </div>
-<a id="af6becf985f75737e7118d19a69ff27af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6becf985f75737e7118d19a69ff27af">&#9670;&nbsp;</a></span>getWinInfo()</h2>
+<a id="ab340ffb86982124bee917684122edecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab340ffb86982124bee917684122edecb">&#9670;&nbsp;</a></span>changeResolution()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void getWinInfo </td>
+          <td class="memname">void changeResolution </td>
           <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indiceResolution</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indiceFullscreen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">SDL_Window *&#160;</td>
-          <td class="paramname"><em>window</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
-          <td class="paramname"><em>map</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SDL_Rect *&#160;</td>
-          <td class="paramname"><em>view</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>dstCoef</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>xBorder</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>yBorder</em>&#160;</td>
+          <td class="paramname"><em>window</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -401,17 +374,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Detruire_Texture</b> 
       </table>
 </div><div class="memdoc">
 
-<p>Fonction externe qui permet d'obtenir les informations de la fenêtre. </p>
+<p>Fonction externe qui permet de changer la résolution de la fenêtre. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
+    <tr><td class="paramname">indiceResolution</td><td>[ 1: 1280x720 | 2: 1600x900 | 3: 1920x1080 | default: 1600x900 ] </td></tr>
+    <tr><td class="paramname">indiceFullscreen</td><td>[ 0: fenêtré | 1: plein écran | 2: plein écran fenêtré | default: fenêtré ] </td></tr>
     <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
-    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, structure map nécéssaire à certain calcul </td></tr>
-    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
-    <tr><td class="paramname">width</td><td>Pointeur sur un int, largeur de la fenêtre </td></tr>
-    <tr><td class="paramname">height</td><td>Pointeur sur un int, hauteur de la fenêtre </td></tr>
-    <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
-    <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
-    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
   </table>
   </dd>
 </dl>

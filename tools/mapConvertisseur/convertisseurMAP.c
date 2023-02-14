@@ -16,18 +16,8 @@
  * \n Cherche dans le dossier mapTMX les fichiers .tmx
  * \n Récupère les métadonnées de la map
  * \n Récupère les layes de la tilemap
- * \n Ecriture des données dans un fichier .txt au format:
- * \n ************************
- * \n *   Longeur Map        *  
- * \n *   Hauteur Map        *
- * \n *   Taille Des Tiles   *
- * \n *   Nombre De Layer    *
- * \n *                      *
- * \n *      Layer 1         *
- * \n *                      *
- * \n *      Layer 2         *
- * \n *        ...           *
- * \n *************************
+ * \n Ecriture des données dans un fichier .txt
+ *                      
  */
 
 int main(void) {

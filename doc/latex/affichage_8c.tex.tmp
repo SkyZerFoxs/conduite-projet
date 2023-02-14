@@ -23,8 +23,11 @@ void \mbox{\hyperlink{affichage_8c_ade23b247c058a5222252de03edc85e62}{Afficher\+
 \mbox{\Hypertarget{affichage_8c_a6e3b3d95baa57bc816909890c541e3cb}\label{affichage_8c_a6e3b3d95baa57bc816909890c541e3cb}} 
 void {\bfseries Detruire\+\_\+\+Texture} (SDL\+\_\+\+Texture $\ast$texture)
 \item 
-void \mbox{\hyperlink{affichage_8c_af6becf985f75737e7118d19a69ff27af}{get\+Win\+Info}} (SDL\+\_\+\+Window $\ast$window, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Rect $\ast$view, int $\ast$width, int $\ast$height, int $\ast$dst\+Coef, int $\ast$x\+Border, int $\ast$y\+Border)
-\begin{DoxyCompactList}\small\item\em Fonction externe qui permet d\textquotesingle{}obtenir les informations de la fenêtre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{affichage_8c_a0a9b2965505d565c81366c9bf2ce3718}\label{affichage_8c_a0a9b2965505d565c81366c9bf2ce3718}} 
+void {\bfseries get\+Win\+Info} (SDL\+\_\+\+Window $\ast$window, int $\ast$width, int $\ast$height, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Rect $\ast$view, int $\ast$dst\+Coef, int $\ast$x\+Border, int $\ast$y\+Border)
+\item 
+void \mbox{\hyperlink{affichage_8c_ab340ffb86982124bee917684122edecb}{change\+Resolution}} (int indice\+Resolution, int indice\+Fullscreen, SDL\+\_\+\+Window $\ast$window)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui permet de changer la résolution de la fenêtre. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{affichage_8c_af48ccd7abe96d5d9a88051eea9a07389}{Afficher\+\_\+\+Tile}} (char $\ast$tile\+Set, int tile\+Size, int dst\+Coef, int x\+Border, int y\+Border, int tile\+Number, int ligne, int colonne, SDL\+\_\+\+Rect $\ast$view, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Texture $\ast$$\ast$texture)
 \begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Renderer. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{affichage_8c_a259231bd72f1e4662155c08ad5e15647}{Afficher\+\_\+\+Map}} (char $\ast$tile\+Set, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Window $\ast$window, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Rect $\ast$view)
@@ -142,33 +145,23 @@ Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Rende
 \begin{DoxyReturn}{Renvoie}
 int qui correspond au succès de la fonction ( tile\+Number correcte ) 
 \end{DoxyReturn}
-\mbox{\Hypertarget{affichage_8c_af6becf985f75737e7118d19a69ff27af}\label{affichage_8c_af6becf985f75737e7118d19a69ff27af}} 
-\index{affichage.c@{affichage.c}!getWinInfo@{getWinInfo}}
-\index{getWinInfo@{getWinInfo}!affichage.c@{affichage.c}}
-\doxysubsubsection{\texorpdfstring{getWinInfo()}{getWinInfo()}}
-{\footnotesize\ttfamily void get\+Win\+Info (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Window $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map,  }\item[{SDL\+\_\+\+Rect $\ast$}]{view,  }\item[{int $\ast$}]{width,  }\item[{int $\ast$}]{height,  }\item[{int $\ast$}]{dst\+Coef,  }\item[{int $\ast$}]{x\+Border,  }\item[{int $\ast$}]{y\+Border }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{affichage_8c_ab340ffb86982124bee917684122edecb}\label{affichage_8c_ab340ffb86982124bee917684122edecb}} 
+\index{affichage.c@{affichage.c}!changeResolution@{changeResolution}}
+\index{changeResolution@{changeResolution}!affichage.c@{affichage.c}}
+\doxysubsubsection{\texorpdfstring{changeResolution()}{changeResolution()}}
+{\footnotesize\ttfamily void change\+Resolution (\begin{DoxyParamCaption}\item[{int}]{indice\+Resolution,  }\item[{int}]{indice\+Fullscreen,  }\item[{SDL\+\_\+\+Window $\ast$}]{window }\end{DoxyParamCaption})}
 
 
 
-Fonction externe qui permet d\textquotesingle{}obtenir les informations de la fenêtre. 
+Fonction externe qui permet de changer la résolution de la fenêtre. 
 
 
 \begin{DoxyParams}{Paramètres}
+{\em indice\+Resolution} & \mbox{[} 1\+: 1280x720 $\vert$ 2\+: 1600x900 $\vert$ 3\+: 1920x1080 $\vert$ default\+: 1600x900 \mbox{]} \\
+\hline
+{\em indice\+Fullscreen} & \mbox{[} 0\+: fenêtré $\vert$ 1\+: plein écran $\vert$ 2\+: plein écran fenêtré $\vert$ default\+: fenêtré \mbox{]} \\
+\hline
 {\em window} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Window \\
-\hline
-{\em map} & Pointeur sur l\textquotesingle{}objet \mbox{\hyperlink{structmap__t}{map\+\_\+t}}, structure map nécéssaire à certain calcul \\
-\hline
-{\em view} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Rect correspondant à la vue du joueur \\
-\hline
-{\em width} & Pointeur sur un int, largeur de la fenêtre \\
-\hline
-{\em height} & Pointeur sur un int, hauteur de la fenêtre \\
-\hline
-{\em dst\+Coef} & Coeficient qui permet d\textquotesingle{}apdater l\textquotesingle{}affichage de sorties à plusieur dimensions \\
-\hline
-{\em x\+Border} & Bordure à gauche dans la fenêtre \\
-\hline
-{\em y\+Border} & Bordure en haut dans la fenêtre \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Renvoie}
