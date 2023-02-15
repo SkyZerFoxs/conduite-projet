@@ -1,41 +1,17 @@
-CC = gcc
-CFLAGS = -Wall -g
-EXEC = nomExec
-LIBS = 
+test_perso : test_perso.o personnage.o objets.o
+	gcc personnage.o test_perso.o objets.o -o test_perso -I.
 
-SRCDIR=src
-OBJDIR=obj
-BINDIR=bin
+test_perso.o : test_perso.c 
+	gcc -g test_perso.c -c test_perso.o -I.
 
-SDL_DIR=${HOME}/libs/SDL2
-SDLLIB_DIR=${SDL_DIR}/lib
-SDLINC_DIR=${SDL_DIR}/include
+personnage : personnage.o
+	gcc personnage.o -o personnage -I.
 
-LIBS=-L${SDLLIB_DIR} -lSDL2
-INCLUDES=-I${SDLINC_DIR} 
+personnnage.o : personnage.c personnage.h
+	gcc -g personnage.c personnage.h -c personnage.o -I.
 
+objets : objets.o 
+	gcc objets.o -o objets -I.
 
-DIRS=$(OBJDIR) $(BINDIR)
-
-all: $(DIRS) $(BINDIR)/$(EXEC)
-
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-$(BINDIR):
-	mkdir -p $(BINDIR)
-$(DOCDIR):
-	mkdir -p $(DOCDIR)
-
-SOURCES = $(wildcard $(SRCDIR)/*.c)
-OBJ = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-
-$(BINDIR)/$(EXEC): $(OBJ)
-	$(CC) $(OBJ) -o $(BINDIR)/$(EXEC) $(CFLAGS) ${LIBS} ${INCLUDES}
-
-obj/%.o: src/%.c
-	$(CC) -o $@ -c $< $(CFLAGS)
-
-clean:
-	-rm -rf $(OBJDIR)
-mrproper:
-	-rm -rf $(BINDIR)
+objets.o : objets.c objets.h
+	gcc -g objets.c objets.h -c objets.o -I.
