@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Nom Projet:  Fichier source de include/affichage.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Nom Projet
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">affichage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="affichage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _AFFICHAGE_H_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _AFFICHAGE_H_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="map_8h.html">map.h</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;SDL2/SDL.h&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;SDL2/SDL_image.h&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;SDL2/SDL_ttf.h&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> Init_SDL(SDL_Window **window, SDL_Renderer **renderer, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c">Quit_SDL</a>(SDL_Window *window, SDL_Renderer *renderer);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#ade23b247c058a5222252de03edc85e62">Afficher_IMG</a>(<span class="keywordtype">char</span> * IMG, SDL_Renderer *renderer, SDL_Texture **texture, <span class="keyword">const</span> SDL_Rect * srcrect, <span class="keyword">const</span> SDL_Rect * dstrect );</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> Detruire_Texture(SDL_Texture *texture);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> getWinInfo(SDL_Window *window, <span class="keywordtype">int</span> * width, <span class="keywordtype">int</span> * height, <a class="code" href="structmap__t.html">map_t</a> * map, SDL_Rect * view, <span class="keywordtype">int</span> * dstCoef, <span class="keywordtype">int</span> * xBorder, <span class="keywordtype">int</span> * yBorder);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#ab340ffb86982124bee917684122edecb">changeResolution</a>(<span class="keywordtype">int</span> indiceResolution, <span class="keywordtype">int</span> indiceFullscreen, SDL_Window *window);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#ae24cd67ea64dbe614871b6ff12fa7092">Afficher_Tile</a>(<span class="keywordtype">char</span> * tileSet, <span class="keywordtype">int</span> tileSize, <span class="keywordtype">int</span> dstCoef, <span class="keywordtype">int</span> xBorder, <span class="keywordtype">int</span> yBorder, <span class="keywordtype">int</span> tileNumber, <span class="keywordtype">int</span> colonne, <span class="keywordtype">int</span> ligne, SDL_Rect * view, SDL_Renderer *renderer, SDL_Texture **texture);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#a259231bd72f1e4662155c08ad5e15647">Afficher_Map</a>(<span class="keywordtype">char</span> * tileSet, <a class="code" href="structmap__t.html">map_t</a> * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aaffichage_8h_html_a259231bd72f1e4662155c08ad5e15647"><div class="ttname"><a href="affichage_8h.html#a259231bd72f1e4662155c08ad5e15647">Afficher_Map</a></div><div class="ttdeci">void Afficher_Map(char *tileSet, map_t *map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</div><div class="ttdoc">Fonction externe qui affiche une map composée des tiles d'un tileSet.</div><div class="ttdef"><b>Definition:</b> affichage.c:233</div></div>
+<div class="ttc" id="aaffichage_8h_html_ab340ffb86982124bee917684122edecb"><div class="ttname"><a href="affichage_8h.html#ab340ffb86982124bee917684122edecb">changeResolution</a></div><div class="ttdeci">void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window)</div><div class="ttdoc">Fonction externe qui permet de changer la résolution de la fenêtre.</div><div class="ttdef"><b>Definition:</b> affichage.c:147</div></div>
+<div class="ttc" id="aaffichage_8h_html_adb7455d9e7c096d13726b1a17a53d57c"><div class="ttname"><a href="affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c">Quit_SDL</a></div><div class="ttdeci">void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui ferme les composants de SDL.</div><div class="ttdef"><b>Definition:</b> affichage.c:63</div></div>
+<div class="ttc" id="aaffichage_8h_html_ade23b247c058a5222252de03edc85e62"><div class="ttname"><a href="affichage_8h.html#ade23b247c058a5222252de03edc85e62">Afficher_IMG</a></div><div class="ttdeci">void Afficher_IMG(char *IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect *srcrect, const SDL_Rect *dstrect)</div><div class="ttdoc">Fonction externe qui charge et affiche une image.</div><div class="ttdef"><b>Definition:</b> affichage.c:85</div></div>
+<div class="ttc" id="aaffichage_8h_html_ae24cd67ea64dbe614871b6ff12fa7092"><div class="ttname"><a href="affichage_8h.html#ae24cd67ea64dbe614871b6ff12fa7092">Afficher_Tile</a></div><div class="ttdeci">int Afficher_Tile(char *tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int colonne, int ligne, SDL_Rect *view, SDL_Renderer *renderer, SDL_Texture **texture)</div><div class="ttdoc">Fonction externe qui affiche une tile depuis un tileSet vers une zone du Renderer.</div><div class="ttdef"><b>Definition:</b> affichage.c:196</div></div>
+<div class="ttc" id="amap_8h_html"><div class="ttname"><a href="map_8h.html">map.h</a></div><div class="ttdoc">Header Gestion map.</div></div>
+<div class="ttc" id="astructmap__t_html"><div class="ttname"><a href="structmap__t.html">map_t</a></div><div class="ttdoc">Structure map.</div><div class="ttdef"><b>Definition:</b> map.h:28</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>

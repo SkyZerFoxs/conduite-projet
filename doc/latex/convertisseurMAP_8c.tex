@@ -1,0 +1,44 @@
+\hypertarget{convertisseurMAP_8c}{}\doxysection{Référence du fichier tools/map\+Convertisseur/convertisseur\+MAP.c}
+\label{convertisseurMAP_8c}\index{tools/mapConvertisseur/convertisseurMAP.c@{tools/mapConvertisseur/convertisseurMAP.c}}
+
+
+Convertisseur Fichier .tmx En .txt.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+Graphe des dépendances par inclusion de convertisseur\+MAP.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{convertisseurMAP_8c_acc9794f655f61a3246ba3fd5c9c67e14}\label{convertisseurMAP_8c_acc9794f655f61a3246ba3fd5c9c67e14}} 
+\#define {\bfseries MAX\+\_\+\+FILENAME\+\_\+\+LEN}~50
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{convertisseurMAP_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{convertisseurMAP_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
+int {\bfseries main} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Convertisseur Fichier .tmx En .txt. 
+
+\begin{DoxyAuthor}{Auteur}
+Yamis MANFALOTI 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14 février 2023
+\end{DoxyDate}
+Convertir Fichier .tmx En .txt\+: ~\newline
+ Cherche dans le dossier map\+TMX les fichiers .tmx ~\newline
+ Récupère les métadonnées de la map ~\newline
+ Récupère les layes de la tilemap ~\newline
+ Ecriture des données dans un fichier .txt 
