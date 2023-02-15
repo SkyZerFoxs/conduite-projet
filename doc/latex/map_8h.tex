@@ -1,0 +1,76 @@
+\hypertarget{map_8h}{}\doxysection{Référence du fichier include/map.h}
+\label{map_8h}\index{include/map.h@{include/map.h}}
+
+
+Header Gestion map.  
+
+
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 0
+\doxysubsection*{Structures de données}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmap__t}{map\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Structure map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$ \mbox{\hyperlink{map_8h_a4aca2a559bbf6e8a0ba5ace681c1acc9}{initialiser\+\_\+map}} (char $\ast$fichier)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui charge la map depuis le fichier map sélectionné \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{map_8h_adfd25c50e43568024774fc24a02dff50}{detruire\+\_\+map}} (\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map)
+\begin{DoxyCompactList}\small\item\em Fonction qui permet de détruire en mémoire la structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} passée en paramètre ainsi que ses dépendances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Header Gestion map. 
+
+\begin{DoxyAuthor}{Auteur}
+Yamis MANFALOTI 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14 février 2023
+\end{DoxyDate}
+Header Gestion des map\+: ~\newline
+ Structure map \+: \mbox{\hyperlink{structmap__t}{map\+\_\+t}} ~\newline
+ Signature des fonction externe de \mbox{\hyperlink{map_8c}{map.\+c}} 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{map_8h_adfd25c50e43568024774fc24a02dff50}\label{map_8h_adfd25c50e43568024774fc24a02dff50}} 
+\index{map.h@{map.h}!detruire\_map@{detruire\_map}}
+\index{detruire\_map@{detruire\_map}!map.h@{map.h}}
+\doxysubsubsection{\texorpdfstring{detruire\_map()}{detruire\_map()}}
+{\footnotesize\ttfamily void detruire\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map }\end{DoxyParamCaption})}
+
+
+
+Fonction qui permet de détruire en mémoire la structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} passée en paramètre ainsi que ses dépendances. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & Pointeur sur la structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} qu\textquotesingle{}on souhaite détruire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Aucun retour effectué en fin de fonction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{map_8h_a4aca2a559bbf6e8a0ba5ace681c1acc9}\label{map_8h_a4aca2a559bbf6e8a0ba5ace681c1acc9}} 
+\index{map.h@{map.h}!initialiser\_map@{initialiser\_map}}
+\index{initialiser\_map@{initialiser\_map}!map.h@{map.h}}
+\doxysubsubsection{\texorpdfstring{initialiser\_map()}{initialiser\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmap__t}{map\+\_\+t}}$\ast$ initialiser\+\_\+map (\begin{DoxyParamCaption}\item[{char $\ast$}]{fichier }\end{DoxyParamCaption})}
+
+
+
+Fonction externe qui charge la map depuis le fichier map sélectionné 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em fichier} & Chemin du fichier map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Pointeur sur une structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} qui correspond à la map qui vient d\textquotesingle{}être créée 
+\end{DoxyReturn}

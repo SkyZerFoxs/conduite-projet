@@ -1,0 +1,97 @@
+\hypertarget{map_8c}{}\doxysection{Référence du fichier src/map.c}
+\label{map_8c}\index{src/map.c@{src/map.c}}
+
+
+Gestion map.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$map.\+h$>$}\newline
+Graphe des dépendances par inclusion de map.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{map_8c_aabaf51b5fadabd86f7044e6414f7aa4b}{load\+\_\+map}} (char $\ast$fichier, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map)
+\begin{DoxyCompactList}\small\item\em Fonction interne qui charge la map depuis le fichier map sélectionné \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$ \mbox{\hyperlink{map_8c_a8aeeb3443cec9d1bc3921a071ac36791}{initialiser\+\_\+map}} (char $\ast$fichier)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui charge la map depuis le fichier map sélectionné \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{map_8c_adfd25c50e43568024774fc24a02dff50}{detruire\+\_\+map}} (\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map)
+\begin{DoxyCompactList}\small\item\em Fonction qui permet de détruire en mémoire la structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} passée en paramètre ainsi que ses dépendances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Gestion map. 
+
+\begin{DoxyAuthor}{Auteur}
+Yamis MANFALOTI 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+14 février 2023
+\end{DoxyDate}
+Gestion des map\+: ~\newline
+ Initialisation en mémoire ~\newline
+ Chargement des données de la map depuis les assets ~\newline
+ Destruction en mémoire 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{map_8c_adfd25c50e43568024774fc24a02dff50}\label{map_8c_adfd25c50e43568024774fc24a02dff50}} 
+\index{map.c@{map.c}!detruire\_map@{detruire\_map}}
+\index{detruire\_map@{detruire\_map}!map.c@{map.c}}
+\doxysubsubsection{\texorpdfstring{detruire\_map()}{detruire\_map()}}
+{\footnotesize\ttfamily void detruire\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map }\end{DoxyParamCaption})}
+
+
+
+Fonction qui permet de détruire en mémoire la structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} passée en paramètre ainsi que ses dépendances. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & Pointeur sur la structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} qu\textquotesingle{}on souhaite détruire \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Aucun retour effectué en fin de fonction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{map_8c_a8aeeb3443cec9d1bc3921a071ac36791}\label{map_8c_a8aeeb3443cec9d1bc3921a071ac36791}} 
+\index{map.c@{map.c}!initialiser\_map@{initialiser\_map}}
+\index{initialiser\_map@{initialiser\_map}!map.c@{map.c}}
+\doxysubsubsection{\texorpdfstring{initialiser\_map()}{initialiser\_map()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$ initialiser\+\_\+map (\begin{DoxyParamCaption}\item[{char $\ast$}]{fichier }\end{DoxyParamCaption})}
+
+
+
+Fonction externe qui charge la map depuis le fichier map sélectionné 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em fichier} & Chemin du fichier map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Pointeur sur une structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} qui correspond à la map qui vient d\textquotesingle{}être créée 
+\end{DoxyReturn}
+\mbox{\Hypertarget{map_8c_aabaf51b5fadabd86f7044e6414f7aa4b}\label{map_8c_aabaf51b5fadabd86f7044e6414f7aa4b}} 
+\index{map.c@{map.c}!load\_map@{load\_map}}
+\index{load\_map@{load\_map}!map.c@{map.c}}
+\doxysubsubsection{\texorpdfstring{load\_map()}{load\_map()}}
+{\footnotesize\ttfamily int load\+\_\+map (\begin{DoxyParamCaption}\item[{char $\ast$}]{fichier,  }\item[{\mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$}]{map }\end{DoxyParamCaption})}
+
+
+
+Fonction interne qui charge la map depuis le fichier map sélectionné 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em fichier} & Chemin du fichier map \\
+\hline
+{\em map} & Structure \mbox{\hyperlink{structmap__t}{map\+\_\+t}} où sont stockées les informations de la map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Int qui caractérise la réussite de la fonction 
+\end{DoxyReturn}
