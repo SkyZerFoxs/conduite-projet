@@ -6,13 +6,14 @@
  * \file test_affichage.c
  * \brief Test des fonctionnalité d'affichage
  * \author Yamis MANFALOTI
- * \version 2.0
- * \date 14 février 2023
+ * \version 3.0
+ * \date 20 février 2023
  *
  * Test des fonctionnalités d'affichage: 
- * \n Chargement et Affichage d'une image
- * \n Affichage d'une map
  * \n Obtention des informations de la fenetres
+ * \n Chargement et Affichage d'une image
+ * \n Affichage d'une map selon la vue du joueur
+ * \n Affichage de l'animation d'un sprite
  */
 
 /**
@@ -42,9 +43,18 @@ int main(void) {
     vue.y = 0;
     vue.w = 25;
     vue.h = 15;
+
+    // initialisation du sprite slime
+    sprite_t * slime = NULL;
+    slime = Load_Sprite(0,0,0,2,"asset/Characters/SlimeV1.png",16,0);
     
     // variable utile à la boucle principal
+    int FRAME_PER_SECONDE = 30;
+    int testAffichageMap = 1;
+    int testMouvementCamera = 0;
     int down = 1;
+    int testAffichageSprite = 1;
+    
 
     // boucle qui s'arrete a la fermeture de la fenetre 
     int quit = SDL_FALSE;
@@ -58,36 +68,51 @@ int main(void) {
                 quit = SDL_TRUE;
                 break;
             }
-        }
-    
+        }   
+
         // remise à 0 du renderer ( fond noir )
         SDL_RenderClear(renderer);
+
         // affichage de la map
-        Afficher_Map("asset/tileset_with_shadow_v3.png",continent, window, renderer,&vue);
-        
+        if ( testAffichageMap ) {
+            Afficher_Map("asset/tileset_with_shadow_v3.png",continent, window, renderer,&vue);
+        }
+
+        // test affiche sprite
+        if ( testAffichageSprite ) {
+            Afficher_Sprite(slime, renderer);
+            SDL_Delay(200);
+            slime->frame += 1;
+        }
+
+        // test du mouvement de la caméra
+        if ( testMouvementCamera ) {
+            // scrolling de haut en bas
+            if ( vue.y <= 15 && down) {
+                vue.y = vue.y + 1;
+                if ( vue.y == 15) {
+                    down = 0;
+                }
+            }
+            else if ( vue.y >= 0 && !down ) {
+                vue.y = vue.y - 1;
+                if ( vue.y == 0) {
+                    down = 1;
+                }
+            }
+        }
+
         // mise à jour du renderer ( update affichage)
         SDL_RenderPresent(renderer);
 
-        // delay pour le test de deplacement
-        SDL_Delay(200);
-        // scrolling de haut en bas
-        if ( vue.y <= 15 && down) {
-            vue.y = vue.y + 1;
-            if ( vue.y == 15) {
-                down = 0;
-            }
-        }
-        else if ( vue.y >= 0 && !down ) {
-            vue.y = vue.y - 1;
-            if ( vue.y == 0) {
-                down = 1;
-            }
-        }
-        
-        
-    
+        // gestion fps
+        SDL_Delay( (1000 / FRAME_PER_SECONDE ));
+
     }
 
+    // destruction en mémoire du sprite en paramètre
+    Detruire_Sprite(&slime);
+    
     // destruction en mémoire de la map en paramètre
     detruire_map(continent);
 

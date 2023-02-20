@@ -31,7 +31,13 @@ void \mbox{\hyperlink{affichage_8c_ab340ffb86982124bee917684122edecb}{change\+Re
 int \mbox{\hyperlink{affichage_8c_af48ccd7abe96d5d9a88051eea9a07389}{Afficher\+\_\+\+Tile}} (char $\ast$tile\+Set, int tile\+Size, int dst\+Coef, int x\+Border, int y\+Border, int tile\+Number, int ligne, int colonne, SDL\+\_\+\+Rect $\ast$view, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Texture $\ast$$\ast$texture)
 \begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une tile depuis un tile\+Set vers une zone du Renderer. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{affichage_8c_a259231bd72f1e4662155c08ad5e15647}{Afficher\+\_\+\+Map}} (char $\ast$tile\+Set, \mbox{\hyperlink{structmap__t}{map\+\_\+t}} $\ast$map, SDL\+\_\+\+Window $\ast$window, SDL\+\_\+\+Renderer $\ast$renderer, SDL\+\_\+\+Rect $\ast$view)
-\begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une map composée des tiles d\textquotesingle{}un tile\+Set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Fonction externe qui affiche une map composée des tiles d\textquotesingle{}un tile\+Set. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} $\ast$ \mbox{\hyperlink{affichage_8c_a9dd47433aedae209705c04583cd4f376}{Load\+\_\+\+Sprite}} (int x, int y, int frame, int frame\+Number, char $\ast$sprite\+Sheet, int sprite\+Size, int sprite\+Line)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui initialise une structure \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affichage_8c_a89653b8c5fab0e72cbc6aff61f3262de}{Afficher\+\_\+\+Sprite}} (\mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} $\ast$sprite, SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui affiche un sprite. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{affichage_8c_ad51e69c0b5819f480385fe1fa903e0ea}{Detruire\+\_\+\+Sprite}} (\mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} $\ast$$\ast$sprite)
+\begin{DoxyCompactList}\small\item\em Fonction externe qui détruit en mémoire la structure \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} passé en paramètre ~$\ast$ ~$\ast$. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Description détaillée}
@@ -41,10 +47,10 @@ Gestion affichage.
 Yamis MANFALOTI 
 \end{DoxyAuthor}
 \begin{DoxyVersion}{Version}
-2.\+0 
+3.\+0 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
-14 février 2023
+20 février 2023
 \end{DoxyDate}
 Gestion de l\textquotesingle{}affichage\+: ~\newline
  Initialisation en mémoire ~\newline
@@ -102,6 +108,26 @@ Fonction externe qui affiche une map composée des tiles d\textquotesingle{}un t
 {\em renderer} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Renderer \\
 \hline
 {\em view} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Rect correspondant à la vue du joueur \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Aucun retour effectué en fin de fonction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{affichage_8c_a89653b8c5fab0e72cbc6aff61f3262de}\label{affichage_8c_a89653b8c5fab0e72cbc6aff61f3262de}} 
+\index{affichage.c@{affichage.c}!Afficher\_Sprite@{Afficher\_Sprite}}
+\index{Afficher\_Sprite@{Afficher\_Sprite}!affichage.c@{affichage.c}}
+\doxysubsubsection{\texorpdfstring{Afficher\_Sprite()}{Afficher\_Sprite()}}
+{\footnotesize\ttfamily void Afficher\+\_\+\+Sprite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} $\ast$}]{sprite,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})}
+
+
+
+Fonction externe qui affiche un sprite. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em sprite} & Pointeur sur la structure \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}}, correspond au sprite à afficher \\
+\hline
+{\em renderer} & Pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Renderer \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Renvoie}
@@ -166,6 +192,54 @@ Fonction externe qui permet de changer la résolution de la fenêtre.
 \end{DoxyParams}
 \begin{DoxyReturn}{Renvoie}
 Aucun retour effectué en fin de fonction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{affichage_8c_ad51e69c0b5819f480385fe1fa903e0ea}\label{affichage_8c_ad51e69c0b5819f480385fe1fa903e0ea}} 
+\index{affichage.c@{affichage.c}!Detruire\_Sprite@{Detruire\_Sprite}}
+\index{Detruire\_Sprite@{Detruire\_Sprite}!affichage.c@{affichage.c}}
+\doxysubsubsection{\texorpdfstring{Detruire\_Sprite()}{Detruire\_Sprite()}}
+{\footnotesize\ttfamily void Detruire\+\_\+\+Sprite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} $\ast$$\ast$}]{sprite }\end{DoxyParamCaption})}
+
+
+
+Fonction externe qui détruit en mémoire la structure \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} passé en paramètre ~$\ast$ ~$\ast$. 
+
+~$\ast$
+\begin{DoxyParams}{Paramètres}
+{\em sprite} & Pointeur de pointeur sur l\textquotesingle{}objet SDL\+\_\+\+Texture ~$\ast$ \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Aucun retour effectué en fin de fonction 
+\end{DoxyReturn}
+\mbox{\Hypertarget{affichage_8c_a9dd47433aedae209705c04583cd4f376}\label{affichage_8c_a9dd47433aedae209705c04583cd4f376}} 
+\index{affichage.c@{affichage.c}!Load\_Sprite@{Load\_Sprite}}
+\index{Load\_Sprite@{Load\_Sprite}!affichage.c@{affichage.c}}
+\doxysubsubsection{\texorpdfstring{Load\_Sprite()}{Load\_Sprite()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} $\ast$ Load\+\_\+\+Sprite (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{frame,  }\item[{int}]{frame\+Number,  }\item[{char $\ast$}]{sprite\+Sheet,  }\item[{int}]{sprite\+Size,  }\item[{int}]{sprite\+Line }\end{DoxyParamCaption})}
+
+
+
+Fonction externe qui initialise une structure \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}}. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em x} & Position x du sprite dans la vue du joueur \\
+\hline
+{\em y} & Position y du sprite dans la vue du joueur \\
+\hline
+{\em frame} & Frame courante du sprite \\
+\hline
+{\em frame\+Number} & Frame Final du sprite \\
+\hline
+{\em sprite\+Sheet} & Chemin du sprite\+Sheet \\
+\hline
+{\em sprite\+Size} & Taille en pixel du sprite \\
+\hline
+{\em sprite\+Line} & Indice de ligne du sprite dans la sprite\+Sheet \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Return un pointeur sur la structure \mbox{\hyperlink{structsprite__t}{sprite\+\_\+t}} formée avec les paramètres passées 
 \end{DoxyReturn}
 \mbox{\Hypertarget{affichage_8c_adb7455d9e7c096d13726b1a17a53d57c}\label{affichage_8c_adb7455d9e7c096d13726b1a17a53d57c}} 
 \index{affichage.c@{affichage.c}!Quit\_SDL@{Quit\_SDL}}

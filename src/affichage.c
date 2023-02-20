@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 2.0
- * \date 14 février 2023
+ * \version 3.0
+ * \date 20 février 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -281,4 +281,85 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
 
     // destruction en mémoire de la texture crée dans la fonction
     Detruire_Texture(texture);
+}
+
+/**
+ * \fn sprite_t * Load_Sprite(int x, int y, int frame, int frameNumber, char * spriteSheet, int spriteSize, int spriteLine)
+ * \brief Fonction externe qui initialise une structure sprite_t
+ * 
+ * \param x Position x du sprite dans la vue du joueur
+ * \param y Position y du sprite dans la vue du joueur
+ * \param frame Frame courante du sprite
+ * \param frameNumber Frame Final du sprite
+ * \param spriteSheet Chemin du spriteSheet
+ * \param spriteSize Taille en pixel du sprite
+ * \param spriteLine Indice de ligne du sprite dans la spriteSheet
+ * \return Return un pointeur sur la structure sprite_t formée avec les paramètres passées
+ */
+extern sprite_t * Load_Sprite(int x, int y, int frame, int frameNumber, char * spriteSheet, int spriteSize, int spriteLine) {
+    // Allocation en mémoire
+    sprite_t * sprite;
+    sprite = malloc( sizeof(sprite_t) );
+
+    //Initialisation des variables de position
+    sprite->x = x;
+    sprite->y = y;
+
+    //Initialisation des variables d'animation
+    sprite->frame = frame;
+    sprite->frameNumber = frameNumber;
+
+    // Initialisation des metadonnées des texture du sprite
+    sprite->spriteSheet = spriteSheet;
+    sprite->spriteSize = spriteSize;
+    sprite->spriteLine = spriteLine;
+
+    // Return un pointeur sur la structure sprite_t
+    return sprite;
+}
+
+/**
+ * \fn void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer)
+ * \brief Fonction externe qui affiche un sprite
+ * 
+ * \param sprite Pointeur sur la structure sprite_t, correspond au sprite à afficher
+ * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \return Aucun retour effectué en fin de fonction
+ * 
+*/
+extern void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer) {
+    // Initialisation des variables
+    SDL_Texture * textureSprite = NULL;
+    SDL_Rect rectSrc;
+    SDL_Rect rectDst;
+
+    // Rectangle Source
+    rectSrc.x = sprite->spriteSize * ( sprite->frame % sprite->frameNumber);
+    rectSrc.y = sprite->spriteSize * sprite->spriteLine;
+    rectSrc.w = sprite->spriteSize;
+    rectSrc.h = sprite->spriteSize;
+    
+    // Rectangle Destination
+    rectDst.x = sprite->x;// + sprite->frame * (16 / sprite->frameNumber);
+    rectDst.y = sprite->y;
+    rectDst.w = sprite->spriteSize*3.75;
+    rectDst.h = sprite->spriteSize*3.75;
+
+    // Affichage de la frame courante du sprite
+    Afficher_IMG(sprite->spriteSheet, renderer, &textureSprite, &rectSrc, &rectDst);
+
+    // Destruction en mémoire de la texture
+    Detruire_Texture(textureSprite);
+}
+
+/**
+ * \fn void Detruire_Sprite( sprite_t ** sprite)
+ * \brief Fonction externe qui détruit en mémoire la structure sprite_t passé en paramètre
+ * 
+ * \param sprite Pointeur de pointeur sur l'objet SDL_Texture
+ * \return Aucun retour effectué en fin de fonction
+ */
+extern void Detruire_Sprite( sprite_t ** sprite) {
+    free((*sprite));
+    (*sprite) = NULL;
 }
