@@ -1,0 +1,9 @@
+0
+pnj0
+role0
+1
+pnj1
+role1
+2
+pnj2
+role1

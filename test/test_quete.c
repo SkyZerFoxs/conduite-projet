@@ -2,24 +2,33 @@
  *	\file quete.c
  *  \brief fonctions de test des quetes
  *  \author Sardon William
- *  \version 1.0
- *  \date 9/02/2023
+ *  \version 2.0
+ *  \date 28/02/2023
 **/
 
 #include<stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "module.h"
-
+#include "quete.h"
 
 int main(){
-    pnj_t * pnj1 = creer_pnj("nom1",0);
-    pnj_t * pnj2 = creer_pnj("nom2",1);
 
-    afficher_pnj(pnj1);
-    quete_t * q1 = creer_quete(pnj1, "description de la premiere quete", "recompense de la premiere quete");
+    printf("TEST AJOUT QUETE ---\n");
+    quete_t * q1 = creer_quete(0);
+    printf("TEST AFFICHAGE QUETE 1 ---\n");
     afficher_quete(q1);
-    afficher_pnj(pnj1);
-    
+
+    printf("TEST VALIDATION QUETE ---\n");
+    valider_quete(&q1);
+
+    printf("TEST AFFICHAGE QUETE 2 ---\n");
+    afficher_quete(q1);
+
+    printf("TEST SUPPRESSION QUETE ---\n");
+    supprimer_quete(q1);
+
+    printf("TEST AFFICHAGE QUETE 3 ---\n");
+    afficher_quete(q1);
+
     return 0;
 }

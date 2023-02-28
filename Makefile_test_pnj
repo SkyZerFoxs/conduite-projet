@@ -1,0 +1,28 @@
+CC=gcc
+CFLAGS=-Wall
+
+SRCDIR=src
+INCLUDEDIR=include
+OBJDIR=obj
+TESTDIR=test
+
+INCLUDE=-I./$(INCLUDEDIR)
+
+$(OBJDIR) :
+	mkdir $(OBJDIR)
+
+all: $(OBJDIR) $(TESTDIR)/test_pnj $(OBJDIR)
+
+$(TESTDIR)/test_pnj : $(OBJDIR)/pnj.o $(TESTDIR)/test_pnj.o
+	$(CC) $(OBJDIR)/pnj.o $(TESTDIR)/test_pnj.o -o $(TESTDIR)/test_pnj $(CFLAGS) $(INCLUDE)
+
+$(TESTDIR)/test_pnj.o : $(TESTDIR)/test_pnj.c $(INCLUDEDIR)/pnj.h
+	$(CC) -c $(TESTDIR)/test_pnj.c -o $(TESTDIR)/test_pnj.o $(CFLAGS) $(INCLUDE)
+
+$(OBJDIR)/pnj.o : $(SRCDIR)/pnj.c $(INCLUDEDIR)/pnj.h
+	$(CC) -c $(SRCDIR)/pnj.c -o $(OBJDIR)/pnj.o $(CFLAGS) $(INCLUDE)
+
+clean:
+	rm $(TESTDIR)/test_pnj.o
+mrproper:
+	rm $(TESTDIR)/test_pnj

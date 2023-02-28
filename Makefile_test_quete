@@ -1,0 +1,28 @@
+CC=gcc
+CFLAGS=-Wall
+
+SRCDIR=src
+INCLUDEDIR=include
+OBJDIR=obj
+TESTDIR=test
+
+INCLUDE=-I./$(INCLUDEDIR)
+
+$(OBJDIR) :
+	mkdir $(OBJDIR)
+
+all: $(OBJDIR) $(TESTDIR)/test_quete $(OBJDIR)
+
+$(TESTDIR)/test_quete : $(OBJDIR)/quete.o $(TESTDIR)/test_quete.o
+	$(CC) $(OBJDIR)/quete.o $(TESTDIR)/test_quete.o -o $(TESTDIR)/test_quete $(CFLAGS) $(INCLUDE)
+
+$(TESTDIR)/test_quete.o : $(TESTDIR)/test_quete.c $(INCLUDEDIR)/quete.h
+	$(CC) -c $(TESTDIR)/test_quete.c -o $(TESTDIR)/test_quete.o $(CFLAGS) $(INCLUDE)
+
+$(OBJDIR)/quete.o : $(SRCDIR)/quete.c $(INCLUDEDIR)/quete.h
+	$(CC) -c $(SRCDIR)/quete.c -o $(OBJDIR)/quete.o $(CFLAGS) $(INCLUDE)
+
+clean:
+	rm $(TESTDIR)/test_quete.o
+mrproper:
+	rm $(TESTDIR)/test_quete
