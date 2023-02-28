@@ -1,0 +1,17 @@
+CC=gcc
+
+CFLAGS=-W -Wall -Iinclude 
+LDFLAGS= $(shell ./bin/sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_ttf
+
+SRCDIR=src
+INCLUDEDIR=include
+OBJDIR=obj
+TESTDIR=test
+
+all: test_menu
+
+test_menu: $(TESTDIR)/menu.c
+	${CC} $(TESTDIR)/menu.c -o test_menu $(CFLAGS) $(LDFLAGS)
+
+mrproper:
+	rm -f test_menu
