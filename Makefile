@@ -1,17 +1,40 @@
-test_perso : test_perso.o personnage.o objets.o
-	gcc personnage.o test_perso.o objets.o -o test_perso -I.
+OBJETS = personnage.o objets.o test_perso.o test_objet.o
+CC = gcc
+CFLAGS = -W -Wall -Iinclude
 
-test_perso.o : test_perso.c 
-	gcc -g test_perso.c -c test_perso.o -I.
+SRC=src
+INCLUDE=include
+OBJ=obj
+TEST=test
 
-personnage : personnage.o
-	gcc personnage.o -o personnage -I.
+all : test_perso test_objet test_monstre
 
-personnnage.o : personnage.c personnage.h
-	gcc -g personnage.c personnage.h -c personnage.o -I.
+test_perso : test_perso.o objets.o personnage.o 
+	$(CC) -o $@ $^ $(CFLAGS)
 
-objets : objets.o 
-	gcc objets.o -o objets -I.
+test_objet : test_objet.o objets.o 
+	$(CC) -o $@ $^ $(CFLAGS)
 
-objets.o : objets.c objets.h
-	gcc -g objets.c objets.h -c objets.o -I.
+test_monstre : test_monstre.o monstre.o
+	$(CC) -o $@ $^ $(CFLAGS)
+
+test_perso.o : $(TEST)/test_perso.c $(INCLUDE)/objets.h $(INCLUDE)/personnage.h
+	$(CC) -c $^ $(CFLAGS)
+
+test_objet.o : $(TEST)/test_objet.c $(INCLUDE)/objets.h 
+	$(CC) -c $^ $(CFLAGS)
+
+test_monstre.o : $(TEST)/test_monstre.c $(INCLUDE)/monstre.h 
+	$(CC) -c $^ $(CFLAGS)
+
+monstre.o : $(SRC)/monstre.c $(INCLUDE)/monstre.h 
+	$(CC) -c $^ $(CFLAGS)
+
+objets.o : $(SRC)/objets.c $(INCLUDE)/objets.h 
+	$(CC) -c $^ $(CFLAGS)
+
+personnage.o : $(SRC)/personnage.c $(INCLUDE)/personnage.h
+	$(CC) -c $^ $(CFLAGS)
+
+clean:
+	rm -rf $(OBJETS)
