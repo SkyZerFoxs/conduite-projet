@@ -108,7 +108,7 @@ extern void Detruire_Texture(SDL_Texture *texture) {
  * \brief Fonction externe qui permet d'obtenir les informations de la fenêtre
  * 
  * \param window Pointeur sur l'objet SDL_Window
- * \param map Pointeur sur l'objet map_t, structure map nécéssaire à certain calcul
+ * \param tileSize Taille en pixel des tiles
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \param width  Pointeur sur un int, largeur de la fenêtre
  * \param height  Pointeur sur un int, hauteur de la fenêtre
@@ -117,18 +117,18 @@ extern void Detruire_Texture(SDL_Texture *texture) {
  * \param yBorder Bordure en haut dans la fenêtre
  * \return Aucun retour effectué en fin de fonction
  */
-extern void getWinInfo(SDL_Window *window, int * width, int * height, map_t * map, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder) {
+extern void getWinInfo(SDL_Window *window, int * width, int * height, int tileSize, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder) {
     SDL_GetWindowSize(window, width, height);
     // Vérification de map et l'utilisation de dstcCoef et xBorder
-    if ( map != NULL ) {
+    if ( tileSize != 0 ) {
         // calcule du coeficient d'affichage
-        if ( dstCoef != NULL ) {
-            double temp = (double)(*height) / (double)( (view->h) * (map->tileSize) ) ;
-            (*dstCoef) = SDL_round(temp);
+        if ( dstCoef != NULL && view != NULL ) {
+            (*dstCoef) = (*width) / ( (view->w) * (tileSize) ) ;
+            printf("%d = %d / ( %d * %d )\n",(*dstCoef),(*width),(view->w) ,(tileSize));
             // calcule des bordures
             if ( xBorder != NULL && yBorder != NULL ) {
-                (*xBorder) = ( (*width) - ( view->w * map->tileSize * (*dstCoef) )  ) / 2;
-                (*yBorder) = ( (*height) - ( view->h * map->tileSize * (*dstCoef) )  ) / 2;
+                (*xBorder) = ( (*width) - ( view->w * tileSize * (*dstCoef) )  ) / 2;
+                (*yBorder) = ( (*height) - ( view->h * tileSize * (*dstCoef) )  ) / 2;
             }
         }
     }
@@ -267,7 +267,7 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
     
 
     // Récupération des informations de la fenêtre utile à l'affichage
-    getWinInfo(window, &win_width, &win_height, map, view, &dstCoef, &xBorder, &yBorder);
+    getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
 
     // Affichage des tiles de la carte
     for (int n = 0; n < map->layer; n++ ) {

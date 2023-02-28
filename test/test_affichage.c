@@ -35,14 +35,14 @@ int main(void) {
     }
 
     // initialisation de la map continent
-    map_t * continent = initialiser_map( "asset/map/cp_tmx.txt");
+    map_t * continent = initialiser_map( "asset/map/mapWithColisionTeste.txt");
 
     // vue du joueur
     SDL_Rect vue;
     vue.x = 0;
     vue.y = 0;
-    vue.w = 25;
-    vue.h = 15;
+    vue.w = 20;
+    vue.h = 11;
 
     // initialisation du sprite slime
     sprite_t * slime = NULL;
@@ -75,7 +75,7 @@ int main(void) {
 
         // affichage de la map
         if ( testAffichageMap ) {
-            Afficher_Map("asset/tileset_with_shadow_v3.png",continent, window, renderer,&vue);
+            Afficher_Map("asset/tileset.png",continent, window, renderer,&vue);
         }
 
         // test affiche sprite
