@@ -2,8 +2,8 @@
  *	\file pnj.c
  *  \brief fonctions de gestion des personnages non joueurs
  *  \author Sardon William
- *  \version 2.0
- *  \date 10/02/2023
+ *  \version 2.2
+ *  \date 3/03/2023
 **/
 
 #include<stdio.h>
@@ -13,9 +13,9 @@
 
 
 /**
- * \fn int existe_pnj(pnj_t ** pnj)
- * \brief verifie si un pnj existe deja
- * \param pnj
+ * \fn int existe_pnj(pnj_t * pnj)
+ * \brief Vérifie si un pnj existe deja
+ * \param pnj Pointeur sur le pnj à téster
  * \return FAUX si le pnj n'existe pas, VRAI sinon
 **/
 int existe_pnj(pnj_t * pnj){
@@ -26,64 +26,68 @@ int existe_pnj(pnj_t * pnj){
 }
 
 /**
- * \fn pnj_t * creer_pnj(char * nom, int num_role)
- * \brief création d'un pnj
- * \param id_pnj
+ * \fn pnj_t * creer_pnj(int id_pnj)
+ * \brief Création d'un pnj avec l'id donné en paramètre
+ * \param id_pnj Id référant au pnj à créer
  * \return Pointeur sur le pnj créer
 **/
 pnj_t * creer_pnj(int id_pnj){
     pnj_t * pnj = malloc(sizeof(pnj_t));
 
-    pnj->id_pnj=id_pnj;
+    pnj->id_pnj = id_pnj;
 
     return pnj;
 }
 
 /**
  * \fn void supprimer_pnj(pnj_t ** pnj)
- * \brief suppression d'un pnj
+ * \brief Suppression d'un pnj
  * \param pnj Pointeur de pointeur sur le pnj à supprimer
 **/
-void supprimer_pnj(pnj_t * pnj){
-    free(pnj);
-    pnj = NULL; 
+void supprimer_pnj(pnj_t ** pnj){
+    free((*pnj));
+    (*pnj) = NULL; 
 }
 
 /**
  * \fn void afficher_pnj(pnj_t * pnj)
- * \brief affiche les caractéristiques du pnj
+ * \brief Affiche les caractéristiques du pnj grace au fichier pnj.txt
  * \param pnj Pointeur sur le pnj à afficher
 **/
 void afficher_pnj(pnj_t * pnj){
     if(existe_pnj(pnj)){
         FILE * fpnj;
-        //ouvre pnj.txt ou est indiqué les informations à afficher
-        fpnj = fopen("pnj.txt","r");
+
+        //Ouvre pnj.txt ou est indiqué les informations à afficher
+        fpnj = fopen("src/pnj.txt","r");
 
         if(fpnj == NULL)
             printf("Erreur à l'ouverture du fichier 'pnj.txt'.\n");
         
         else{
-            //ligne courante
-            char line[50];
 
-            fscanf(fpnj,"%s",line);
+            //Ligne de lecture courante
+            char line[MAX_CHAR];
+
+            fgets(line, MAX_CHAR, fpnj);
             while(!feof(fpnj)){
-                if (line[0] == pnj->id_pnj){
-                    printf("Pnj --\n"); 
-                    printf("id : %d\n",pnj->id_pnj);
+                if (atoi(&line[0]) == pnj->id_pnj){
+                    printf("Pnj --"); 
+                    printf("id : %s",line);
 
-                    fscanf(fpnj,"%s",line);
-                    printf("Nom : %s\n",line);
+                    fgets(line, MAX_CHAR, fpnj);
+                    printf("Nom : %s",line);
 
-                    fscanf(fpnj,"%s",line);
-                    printf("Role : %s\n",line);
+                    fgets(line, MAX_CHAR, fpnj);
+                    printf("Role : %s",line);
+
+                    printf("\n");
                 }
                 else{
-                    fscanf(fpnj,"%s",line);
-                    fscanf(fpnj,"%s",line);
+                    fgets(line, MAX_CHAR, fpnj);
+                    fgets(line, MAX_CHAR, fpnj);
                 }
-                fscanf(fpnj,"%s",line);
+                fgets(line, MAX_CHAR, fpnj);
             }
         }
         fclose(fpnj);

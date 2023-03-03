@@ -2,7 +2,7 @@
  *	\file quete.c
  *  \brief fonctions de test des quetes
  *  \author Sardon William
- *  \version 2.0
+ *  \version 2.1
  *  \date 28/02/2023
 **/
 
@@ -25,7 +25,7 @@ int main(){
     afficher_quete(q1);
 
     printf("TEST SUPPRESSION QUETE ---\n");
-    supprimer_quete(q1);
+    supprimer_quete(&q1);
 
     printf("TEST AFFICHAGE QUETE 3 ---\n");
     afficher_quete(q1);

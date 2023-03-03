@@ -1,5 +1,8 @@
 /* dans le fichier texte :
-id_quete \n nom \n nom pnj \n description \n id_objet*/
+id_quete \n nom_quete \n nom_pnj \n description \n nom_objet*/
+
+//Maximum de characteres lus dans une ligne dans les txt
+#define MAX_CHAR 50 
 
 typedef struct quete_s{ 
     int id_quete;           //id quete unique refere a quete.txt
@@ -8,6 +11,6 @@ typedef struct quete_s{
 
 int existe_quete(quete_t * quete);
 quete_t * creer_quete(int id_quete);
-void supprimer_quete(quete_t * quete);
+void supprimer_quete(quete_t ** quete);
 void valider_quete(quete_t ** quete);
 void afficher_quete(quete_t * quete);

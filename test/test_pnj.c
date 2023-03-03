@@ -2,7 +2,7 @@
  *	\file pnj.c
  *  \brief fonctions de test des pnj
  *  \author Sardon William
- *  \version 2.0
+ *  \version 2.1
  *  \date 28/02/2023
 **/
 
@@ -19,7 +19,7 @@ int main(){
     afficher_pnj(pnj1);
 
     printf("TEST SUPPRESSION PNJ ---\n");
-    supprimer_pnj(pnj1);
+    supprimer_pnj(&pnj1);
 
     printf("TEST AFFICHAGE PNJ 3 ---\n");
     afficher_pnj(pnj1);
