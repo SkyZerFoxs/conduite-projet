@@ -1,0 +1,28 @@
+CC=gcc
+CFLAGS=-Wall
+
+SRCDIR=src
+INCLUDEDIR=include
+OBJDIR=obj
+TESTDIR=test
+
+INCLUDE=-I./$(INCLUDEDIR)
+
+$(OBJDIR) :
+	mkdir $(OBJDIR)
+
+all: $(OBJDIR) $(TESTDIR)/test_deplacement $(OBJDIR)
+
+$(TESTDIR)/test_deplacement : $(OBJDIR)/deplacement.o $(TESTDIR)/test_deplacement.o
+	$(CC) $(OBJDIR)/deplacement.o $(TESTDIR)/test_deplacement.o -o $(TESTDIR)/test_deplacement $(CFLAGS) $(INCLUDE)
+
+$(TESTDIR)/test_deplacement.o : $(TESTDIR)/test_deplacement.c $(INCLUDEDIR)/deplacement.h
+	$(CC) -c $(TESTDIR)/test_deplacement.c -o $(TESTDIR)/test_deplacement.o $(CFLAGS) $(INCLUDE)
+
+$(OBJDIR)/deplacement.o : $(SRCDIR)/deplacement.c $(INCLUDEDIR)/deplacement.h
+	$(CC) -c $(SRCDIR)/deplacement.c -o $(OBJDIR)/deplacement.o $(CFLAGS) $(INCLUDE)
+
+clean:
+	rm $(TESTDIR)/test_deplacement.o
+mrproper:
+	rm $(TESTDIR)/test_deplacement

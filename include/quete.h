@@ -9,8 +9,8 @@ typedef struct quete_s{
     int etat;               //etat de la quete : 0 pour en cours et 1 pour finis
 }quete_t;
 
-int existe_quete(quete_t * quete);
-quete_t * creer_quete(int id_quete);
-void supprimer_quete(quete_t ** quete);
-void valider_quete(quete_t ** quete);
-void afficher_quete(quete_t * quete);
+extern int existe_quete(quete_t * quete);
+extern quete_t * creer_quete(int id_quete);
+extern void supprimer_quete(quete_t ** quete);
+extern void valider_quete(quete_t ** quete);
+extern void afficher_quete(quete_t * quete);

@@ -7,7 +7,7 @@ typedef struct pnj_s{
     int id_pnj;
 }pnj_t;
 
-int existe_pnj(pnj_t * pnj);
-pnj_t * creer_pnj(int id_pnj);
-void supprimer_pnj(pnj_t ** pnj);
-void afficher_pnj(pnj_t * pnj);
+extern int existe_pnj(pnj_t * pnj);
+extern pnj_t * creer_pnj(int id_pnj);
+extern void supprimer_pnj(pnj_t ** pnj);
+extern void afficher_pnj(pnj_t * pnj);
