@@ -124,7 +124,6 @@ extern void getWinInfo(SDL_Window *window, int * width, int * height, int tileSi
         // calcule du coeficient d'affichage
         if ( dstCoef != NULL && view != NULL ) {
             (*dstCoef) = (*width) / ( (view->w) * (tileSize) ) ;
-            printf("%d = %d / ( %d * %d )\n",(*dstCoef),(*width),(view->w) ,(tileSize));
             // calcule des bordures
             if ( xBorder != NULL && yBorder != NULL ) {
                 (*xBorder) = ( (*width) - ( view->w * tileSize * (*dstCoef) )  ) / 2;
@@ -230,11 +229,14 @@ extern int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder,
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view) {
+extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder) {
     // Initialisation des variables propre à la fonction
     SDL_Texture *texture = NULL;
+    (void)window;
+    /*
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
+    */
     int ymin, ymax;
     int xmin, xmax;
 
@@ -264,13 +266,19 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
         xmin = view->x;
         xmax = view->x + view->w;
     }
-    
 
+    int layer = map->layer;
+    if ( map->layer > 3 ) {
+        layer = 3;
+    }
+
+    /*
     // Récupération des informations de la fenêtre utile à l'affichage
     getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
+    */
 
     // Affichage des tiles de la carte
-    for (int n = 0; n < map->layer; n++ ) {
+    for (int n = 0; n < layer; n++ ) {
         for (int y = ymin; y < ymax; y++) {
             for (int x = xmin; x < xmax; x++) {
                 Afficher_Tile(tileSet, map->tileSize, dstCoef, xBorder, yBorder,map->matrice[n][y][x], y, x, view, renderer, &texture);
@@ -284,41 +292,6 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
 }
 
 /**
- * \fn sprite_t * Load_Sprite(int x, int y, int frame, int frameNumber, char * spriteSheet, int spriteSize, int spriteLine)
- * \brief Fonction externe qui initialise une structure sprite_t
- * 
- * \param x Position x du sprite dans la vue du joueur
- * \param y Position y du sprite dans la vue du joueur
- * \param frame Frame courante du sprite
- * \param frameNumber Frame Final du sprite
- * \param spriteSheet Chemin du spriteSheet
- * \param spriteSize Taille en pixel du sprite
- * \param spriteLine Indice de ligne du sprite dans la spriteSheet
- * \return Return un pointeur sur la structure sprite_t formée avec les paramètres passées
- */
-extern sprite_t * Load_Sprite(int x, int y, int frame, int frameNumber, char * spriteSheet, int spriteSize, int spriteLine) {
-    // Allocation en mémoire
-    sprite_t * sprite;
-    sprite = malloc( sizeof(sprite_t) );
-
-    //Initialisation des variables de position
-    sprite->x = x;
-    sprite->y = y;
-
-    //Initialisation des variables d'animation
-    sprite->frame = frame;
-    sprite->frameNumber = frameNumber;
-
-    // Initialisation des metadonnées des texture du sprite
-    sprite->spriteSheet = spriteSheet;
-    sprite->spriteSize = spriteSize;
-    sprite->spriteLine = spriteLine;
-
-    // Return un pointeur sur la structure sprite_t
-    return sprite;
-}
-
-/**
  * \fn void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer)
  * \brief Fonction externe qui affiche un sprite
  * 
@@ -327,7 +300,7 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int frameNumber, char * s
  * \return Aucun retour effectué en fin de fonction
  * 
 */
-extern void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer) {
+extern void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Initialisation des variables
     SDL_Texture * textureSprite = NULL;
     SDL_Rect rectSrc;
@@ -340,10 +313,17 @@ extern void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer) {
     rectSrc.h = sprite->spriteSize;
     
     // Rectangle Destination
-    rectDst.x = sprite->x;// + sprite->frame * (16 / sprite->frameNumber);
-    rectDst.y = sprite->y;
-    rectDst.w = sprite->spriteSize*3.75;
-    rectDst.h = sprite->spriteSize*3.75;
+    rectDst.x = ( dstCoef * (sprite->spriteSize * sprite->x )) + xBorder ;
+    rectDst.y = ( dstCoef * (sprite->spriteSize * sprite->y )) + yBorder ;
+    rectDst.w = dstCoef * sprite->spriteSize;
+    rectDst.h = dstCoef * sprite->spriteSize;
+
+    /*
+    dstrect.x = ( dstCoef * (tileSize * (colonne - view->x)) ) + xBorder;
+    dstrect.y = ( dstCoef * (tileSize * (ligne - view->y)) ) + (1 * yBorder); 
+    dstrect.h = dstCoef * tileSize;
+    dstrect.w = dstCoef * tileSize;
+    */
 
     // Affichage de la frame courante du sprite
     Afficher_IMG(sprite->spriteSheet, renderer, &textureSprite, &rectSrc, &rectDst);
@@ -353,13 +333,25 @@ extern void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer) {
 }
 
 /**
- * \fn void Detruire_Sprite( sprite_t ** sprite)
- * \brief Fonction externe qui détruit en mémoire la structure sprite_t passé en paramètre
- * 
- * \param sprite Pointeur de pointeur sur l'objet SDL_Texture
- * \return Aucun retour effectué en fin de fonction
+ * \fn void Affichage_all(char * tileSet, map_t * map, sprite_t * sprite, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view)
+ * \brief Fonction externe qui affiche tout les ellements graphiques
+ * 
+ * \param tileSet Chemin du tileSet
+ * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param sprite Pointeur sur la structure sprite_t, correspond au sprite à afficher
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \return Aucun retour effectué en fin de fonction
  */
-extern void Detruire_Sprite( sprite_t ** sprite) {
-    free((*sprite));
-    (*sprite) = NULL;
+extern void Affichage_all(char * tileSet, map_t * map, sprite_t * sprite, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view) {
+    int win_width,win_height;
+    int dstCoef, xBorder, yBorder;
+    
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
+
+    Afficher_Map(tileSet,  map, window, renderer, view, dstCoef, xBorder, yBorder);
+
+    Afficher_Sprite(sprite, renderer, dstCoef, xBorder, yBorder);
 }

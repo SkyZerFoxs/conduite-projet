@@ -10,8 +10,8 @@ TESTDIR=test
 
 all: test_affichage
 
-test_affichage: $(TESTDIR)/test_affichage.c $(SRCDIR)/map.c  $(SRCDIR)/affichage.c
-	${CC} $(TESTDIR)/test_affichage.c $(SRCDIR)/map.c $(SRCDIR)/affichage.c -o test_affichage $(CFLAGS) $(LDFLAGS)
+test_affichage: $(TESTDIR)/test_affichage.c $(SRCDIR)/map.c  $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c
+	${CC} $(TESTDIR)/test_affichage.c $(SRCDIR)/map.c $(SRCDIR)/sprite.c $(SRCDIR)/affichage.c -o test_affichage $(CFLAGS) $(LDFLAGS)
 	
 mrproper:
 	rm -f test_affichage

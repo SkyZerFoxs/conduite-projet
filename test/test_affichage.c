@@ -34,6 +34,11 @@ int main(void) {
         return 1;
     }
 
+    int fullscreen = 0;
+    if ( fullscreen ) {
+        SDL_SetWindowFullscreen(window,SDL_WINDOW_FULLSCREEN);
+    }
+
     // initialisation de la map continent
     map_t * continent = initialiser_map( "asset/map/mapWithColisionTeste.txt");
 
@@ -41,19 +46,21 @@ int main(void) {
     SDL_Rect vue;
     vue.x = 0;
     vue.y = 0;
-    vue.w = 20;
-    vue.h = 11;
+    vue.w = 25;
+    vue.h = 14;
 
     // initialisation du sprite slime
     sprite_t * slime = NULL;
     slime = Load_Sprite(0,0,0,2,"asset/Characters/SlimeV1.png",16,0);
+
     
     // variable utile à la boucle principal
     int FRAME_PER_SECONDE = 30;
-    int testAffichageMap = 1;
+    int testAffichageMap = 0;
     int testMouvementCamera = 0;
     int down = 1;
-    int testAffichageSprite = 1;
+    int testAffichageSprite = 0;
+    int testAffichageAll = 1;
     
 
     // boucle qui s'arrete a la fermeture de la fenetre 
@@ -73,14 +80,30 @@ int main(void) {
         // remise à 0 du renderer ( fond noir )
         SDL_RenderClear(renderer);
 
+        
         // affichage de la map
         if ( testAffichageMap ) {
-            Afficher_Map("asset/tileset.png",continent, window, renderer,&vue);
+            int win_width,win_height;
+            int dstCoef, xBorder, yBorder;
+            // Récupération des informations de la fenêtre utile à l'affichage
+            getWinInfo(window, &win_width, &win_height, continent->tileSize, &vue, &dstCoef, &xBorder, &yBorder);
+            Afficher_Map("asset/tileset.png",continent, window, renderer,&vue, dstCoef, xBorder, yBorder);
         }
 
         // test affiche sprite
         if ( testAffichageSprite ) {
-            Afficher_Sprite(slime, renderer);
+            int win_width,win_height;
+            int dstCoef, xBorder, yBorder;
+            // Récupération des informations de la fenêtre utile à l'affichage
+            getWinInfo(window, &win_width, &win_height, slime->spriteSize, &vue, &dstCoef, &xBorder, &yBorder);
+            Afficher_Sprite(slime, renderer, dstCoef, xBorder, yBorder);
+            SDL_Delay(200);
+            slime->frame += 1;
+        }
+        
+
+        if ( testAffichageAll ) {
+            Affichage_all("asset/tileset.png",continent, slime, window, renderer,&vue);
             SDL_Delay(200);
             slime->frame += 1;
         }
