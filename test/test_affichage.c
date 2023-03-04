@@ -6,8 +6,8 @@
  * \file test_affichage.c
  * \brief Test des fonctionnalité d'affichage
  * \author Yamis MANFALOTI
- * \version 3.0
- * \date 20 février 2023
+ * \version 4.0
+ * \date 04 mars 2023
  *
  * Test des fonctionnalités d'affichage: 
  * \n Obtention des informations de la fenetres
@@ -40,27 +40,42 @@ int main(void) {
     }
 
     // initialisation de la map continent
-    map_t * continent = initialiser_map( "asset/map/mapWithColisionTeste.txt");
+    map_t * continent = Initialiser_Map( "asset/map/map.txt");
 
     // vue du joueur
     SDL_Rect vue;
     vue.x = 0;
     vue.y = 0;
-    vue.w = 25;
-    vue.h = 14;
+    vue.w = 20;
+    vue.h = 11;
 
-    // initialisation du sprite slime
-    sprite_t * slime = NULL;
-    slime = Load_Sprite(0,0,0,2,"asset/Characters/SlimeV1.png",16,0);
+    // initialisation de la liste de types des sprites
+    sprite_type_liste_t *listeType = Load_Sprite_Type("asset/sprite/spriteType.txt");
+
+    // initialisation de la spriteMap
+    sprite_t ***spriteMap = Load_SpriteMap(listeType,continent);
 
     
-    // variable utile à la boucle principal
+    /* variable utile à la boucle principal */
     int FRAME_PER_SECONDE = 30;
+    // Affichage de la map seule
     int testAffichageMap = 0;
+    // Deplacement de la caméra
     int testMouvementCamera = 0;
     int down = 1;
+    // Affichage de d'un sprite seule
     int testAffichageSprite = 0;
+    sprite_t * slime = NULL;
+    if ( testAffichageSprite) {
+        // initialisation du sprite slime
+        slime = Load_Sprite(0,0,0,0,listeType,continent);
+    }
+    // Affichage complet
     int testAffichageAll = 1;
+    if ( testAffichageAll ) {
+        testAffichageMap = 0;
+        testAffichageSprite = 0;
+    }
     
 
     // boucle qui s'arrete a la fermeture de la fenetre 
@@ -87,25 +102,34 @@ int main(void) {
             int dstCoef, xBorder, yBorder;
             // Récupération des informations de la fenêtre utile à l'affichage
             getWinInfo(window, &win_width, &win_height, continent->tileSize, &vue, &dstCoef, &xBorder, &yBorder);
-            Afficher_Map("asset/tileset.png",continent, window, renderer,&vue, dstCoef, xBorder, yBorder);
+            Afficher_Map("asset/tileset.png",continent, renderer,&vue, dstCoef, xBorder, yBorder);
         }
 
         // test affiche sprite
         if ( testAffichageSprite ) {
             int win_width,win_height;
             int dstCoef, xBorder, yBorder;
+            
             // Récupération des informations de la fenêtre utile à l'affichage
-            getWinInfo(window, &win_width, &win_height, slime->spriteSize, &vue, &dstCoef, &xBorder, &yBorder);
-            Afficher_Sprite(slime, renderer, dstCoef, xBorder, yBorder);
-            SDL_Delay(200);
+            int size = listeType->typeListe[slime->spriteTypeId]->spriteSize;
+            getWinInfo(window, &win_width, &win_height, size, &vue, &dstCoef, &xBorder, &yBorder);
+
+            // gestion frame
             slime->frame += 1;
+
+            // affichage du sprite
+            Afficher_Sprite(slime, listeType, renderer, &vue, dstCoef, xBorder, yBorder);
+
+            // gestion frame
+            SDL_Delay(200);
+            
         }
         
 
         if ( testAffichageAll ) {
-            Affichage_all("asset/tileset.png",continent, slime, window, renderer,&vue);
-            SDL_Delay(200);
-            slime->frame += 1;
+            AddFrame(spriteMap,continent,&vue);
+            Affichage_All("asset/tileset.png",continent, spriteMap, listeType, window, renderer,&vue);
+            SDL_Delay(300);
         }
 
         // test du mouvement de la caméra
@@ -133,11 +157,15 @@ int main(void) {
 
     }
 
+    Detruire_SpriteMap(&spriteMap,continent);
+
+    Detruire_Liste_Sprite_Type(&listeType);
+
     // destruction en mémoire du sprite en paramètre
-    Detruire_Sprite(&slime);
+    //Detruire_Sprite(&slime);
     
     // destruction en mémoire de la map en paramètre
-    detruire_map(continent);
+    Detruire_Map(continent);
 
     // Fin de SDL + destruction allocation mémoire
     Quit_SDL(window,renderer);

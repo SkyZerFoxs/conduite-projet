@@ -35,7 +35,7 @@ typedef struct map_s{
 }map_t;
 
 
-extern map_t * initialiser_map(char * fichier) ;
-extern void detruire_map(map_t * map) ;
+extern map_t * Initialiser_Map(char * fichier) ;
+extern void Detruire_Map(map_t * map) ;
 
 #endif

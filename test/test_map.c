@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <map2.h>
+#include <map.h>
 
 /**
  * \file test_map.c
@@ -21,7 +21,7 @@
  * \return Int qui caractérise la du main
  */
 int main() {
-    map_t * continent = initialiser_map("asset/map/cp_tmx.txt");
+    map_t * continent = Initialiser_Map("asset/map/map.txt");
     
     if ( continent != NULL) {
         printf("----------------------  Metadonnees  ----------------------\n");
@@ -42,7 +42,7 @@ int main() {
             printf("\n");
         }
         
-        detruire_map(continent);
+        Detruire_Map(continent);
     }
 
     return 0;

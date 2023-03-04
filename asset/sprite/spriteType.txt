@@ -1,0 +1,1 @@
+slime,2,asset/Characters/SlimeV1.png,16,0,

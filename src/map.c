@@ -16,14 +16,14 @@
  */
 
 /**
- * \fn int load_map(char * fichier, map_t * map)
+ * \fn int Load_Map(char * fichier, map_t * map)
  * \brief Fonction interne qui charge la map depuis le fichier map sélectionné
  * 
  * \param fichier Chemin du fichier map
  * \param map Structure map_t où sont stockées les informations de la map
  * \return Int qui caractérise la réussite de la fonction
  */
-int load_map(char * fichier, map_t * map) {
+int Load_Map(char * fichier, map_t * map) {
     FILE *file;
     int tile;
 
@@ -68,17 +68,17 @@ int load_map(char * fichier, map_t * map) {
 }
 
 /**
- * \fn map_t * initialiser_map(char * fichier)
+ * \fn map_t * Initialiser_Map(char * fichier)
  * \brief Fonction externe qui charge la map depuis le fichier map sélectionné
  * 
  * \param fichier Chemin du fichier map
  * \return Pointeur sur une structure map_t qui correspond à la map qui vient d'être créée
  */
-extern map_t * initialiser_map(char * fichier) {
+extern map_t * Initialiser_Map(char * fichier) {
     // initialisation et allocation mémoire de la structure map_t
     map_t * map = malloc( sizeof(map_t) );
-    // génération de la matriceMap en appellant load_map
-    load_map(fichier, map);
+    // génération de la matriceMap en appellant Load_Map
+    Load_Map(fichier, map);
     // renvoie de la map final
     return map;
 }
@@ -89,7 +89,7 @@ extern map_t * initialiser_map(char * fichier) {
  * \param map Pointeur sur la structure map_t qu'on souhaite détruire
  * \return Aucun retour effectué en fin de fonction
  */
-extern void detruire_map(map_t * map) {
+extern void Detruire_Map(map_t * map) {
     // destruction des lignes dans chaques layers de la matrice
     for (int n = 0; n < map->layer; n++) {
         for ( int i = 0; i < map->height; i++ ) {

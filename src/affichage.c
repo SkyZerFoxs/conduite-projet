@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 3.0
- * \date 20 février 2023
+ * \version 4.0
+ * \date 04 février 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -229,14 +229,10 @@ extern int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder,
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder) {
+extern void Afficher_Map(char * tileSet, map_t * map, SDL_Renderer *renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder) {
     // Initialisation des variables propre à la fonction
     SDL_Texture *texture = NULL;
-    (void)window;
-    /*
-    int win_width,win_height;
-    int dstCoef, xBorder, yBorder;
-    */
+
     int ymin, ymax;
     int xmin, xmax;
 
@@ -271,12 +267,6 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
     if ( map->layer > 3 ) {
         layer = 3;
     }
-
-    /*
-    // Récupération des informations de la fenêtre utile à l'affichage
-    getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
-    */
-
     // Affichage des tiles de la carte
     for (int n = 0; n < layer; n++ ) {
         for (int y = ymin; y < ymax; y++) {
@@ -291,67 +281,186 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Re
     Detruire_Texture(texture);
 }
 
+
 /**
- * \fn void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer)
+ * \fn void Afficher_Sprite(sprite_t * sprite, sprite_type_liste_t *listeType, SDL_Renderer * renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder)
  * \brief Fonction externe qui affiche un sprite
  * 
  * \param sprite Pointeur sur la structure sprite_t, correspond au sprite à afficher
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions.
+ * \param xBorder Bordure à gauche dans la fenêtre.
+ * \param yBorder Bordure en haut dans la fenêtre.
  * \return Aucun retour effectué en fin de fonction
  * 
 */
-extern void Afficher_Sprite(sprite_t * sprite, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+extern void Afficher_Sprite(sprite_t * sprite, sprite_type_liste_t *listeType, SDL_Renderer * renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder) {
     // Initialisation des variables
     SDL_Texture * textureSprite = NULL;
     SDL_Rect rectSrc;
     SDL_Rect rectDst;
 
+    // Recupération des informations lié au type du sprite
+    sprite_type_t * spriteType = listeType->typeListe[sprite->spriteTypeId];
+    int spriteSize = spriteType->spriteSize;
+    int frameNumber = spriteType->frameNumber;
+    int spriteLine = spriteType->spriteLine;
+    char * spriteSheet = spriteType->spriteSheet;
+   
     // Rectangle Source
-    rectSrc.x = sprite->spriteSize * ( sprite->frame % sprite->frameNumber);
-    rectSrc.y = sprite->spriteSize * sprite->spriteLine;
-    rectSrc.w = sprite->spriteSize;
-    rectSrc.h = sprite->spriteSize;
-    
-    // Rectangle Destination
-    rectDst.x = ( dstCoef * (sprite->spriteSize * sprite->x )) + xBorder ;
-    rectDst.y = ( dstCoef * (sprite->spriteSize * sprite->y )) + yBorder ;
-    rectDst.w = dstCoef * sprite->spriteSize;
-    rectDst.h = dstCoef * sprite->spriteSize;
+    rectSrc.x = spriteSize * ( sprite->frame = sprite->frame % frameNumber);
+    rectSrc.y = spriteSize * spriteLine;
+    rectSrc.w = spriteSize;
+    rectSrc.h = spriteSize;
 
-    /*
-    dstrect.x = ( dstCoef * (tileSize * (colonne - view->x)) ) + xBorder;
-    dstrect.y = ( dstCoef * (tileSize * (ligne - view->y)) ) + (1 * yBorder); 
-    dstrect.h = dstCoef * tileSize;
-    dstrect.w = dstCoef * tileSize;
-    */
+    // Rectangle Destination
+    rectDst.x = ( dstCoef * (spriteSize * (sprite->x - view->x)) ) + xBorder;
+    rectDst.y = ( dstCoef * (spriteSize * (sprite->y - view->y)) ) + yBorder; 
+    rectDst.h = dstCoef * spriteSize;
+    rectDst.w = dstCoef * spriteSize;
 
     // Affichage de la frame courante du sprite
-    Afficher_IMG(sprite->spriteSheet, renderer, &textureSprite, &rectSrc, &rectDst);
+    Afficher_IMG(spriteSheet, renderer, &textureSprite, &rectSrc, &rectDst);
 
     // Destruction en mémoire de la texture
     Detruire_Texture(textureSprite);
 }
 
 /**
- * \fn void Affichage_all(char * tileSet, map_t * map, sprite_t * sprite, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view)
+ * \fn void Afficher_SpriteMap( sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder)
+ * \brief Fonction externe qui affiche les sprites de la spriteMap qui correspondent à la view sur le renderer.
+ * 
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher.
+ * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param renderer Pointeur sur l'objet SDL_Renderer.
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions.
+ * \param xBorder Bordure à gauche dans la fenêtre.
+ * \param yBorder Bordure en haut dans la fenêtre.
+ * \return Aucun retour effectué en fin de fonction.
+ */
+extern void Afficher_SpriteMap( sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+    // initialisation variable
+    int ymin, ymax;
+    int xmin, xmax;
+
+    // calcule de xmin et ymax tout en verifiant/corrigeant les sorties de map
+    if ( view->y < 0 ) {
+        ymin = view->y = 0;
+        ymax = view->y + view->h;
+    }
+    else if (view->y + view->h >= map->height ) {
+        view->y = ymin = map->height - view->h ;
+        ymax = view->y + view->h;
+    }
+    else {
+        ymin = view->y;
+        ymax = view->y + view->h;
+    }
+
+    if ( view->x < 0 ) {
+        xmin = view->x = 0;
+        xmax = view->x + view->w;
+    }
+    else if ( view->x + view->w >= map->width ) {
+        view->x = xmin = map->width - view->w;
+        xmax = view->x + view->w;
+    }
+    else {
+        xmin = view->x;
+        xmax = view->x + view->w;
+    }
+
+    // Affichage des sprites de la spriteMap qui correspond a la view
+    for (int y = ymin; y < ymax; y++) {
+        for (int x = xmin; x < xmax; x++) {
+            if ( spriteMap[y][x] != NULL ) {
+                Afficher_Sprite(spriteMap[y][x], listeType, renderer, view, dstCoef, xBorder, yBorder);
+            }
+        }
+    }
+
+    
+}
+
+/**
+ * \fn void Affichage_All(char * tileSet, map_t * map, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view)
  * \brief Fonction externe qui affiche tout les ellements graphiques
  * 
  * \param tileSet Chemin du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
- * \param sprite Pointeur sur la structure sprite_t, correspond au sprite à afficher
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param window Pointeur sur l'objet SDL_Window
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Affichage_all(char * tileSet, map_t * map, sprite_t * sprite, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view) {
+extern void Affichage_All(char * tileSet, map_t * map, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) {
+    // Initialisation des variables
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
     // Récupération des informations de la fenêtre utile à l'affichage
     getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
+    
+    // Afficher la Map
+    Afficher_Map(tileSet, map, renderer, view, dstCoef, xBorder, yBorder);
 
-    Afficher_Map(tileSet,  map, window, renderer, view, dstCoef, xBorder, yBorder);
+    // Afficher la SpriteMap
+    Afficher_SpriteMap(spriteMap, map, listeType, view, renderer, dstCoef, xBorder, yBorder);
+}
 
-    Afficher_Sprite(sprite, renderer, dstCoef, xBorder, yBorder);
+/**
+ * \fn void AddFrame(sprite_t *** spriteMap, map_t * map, SDL_Rect * view)
+ * \brief Fonction externe qui incrémente la frame des sprites présents dans la spriteMap qui correspondent à la view.
+ * 
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher
+ * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \return Aucun retour effectué en fin de fonction
+*/
+extern void AddFrame(sprite_t *** spriteMap, map_t * map, SDL_Rect * view) {
+    // initialisation variable
+    int ymin, ymax;
+    int xmin, xmax;
+
+    // calcule de xmin et ymax tout en verifiant/corrigeant les sorties de map
+    if ( view->y < 0 ) {
+        ymin = view->y = 0;
+        ymax = view->y + view->h;
+    }
+    else if (view->y + view->h >= map->height ) {
+        view->y = ymin = map->height - view->h ;
+        ymax = view->y + view->h;
+    }
+    else {
+        ymin = view->y;
+        ymax = view->y + view->h;
+    }
+
+    if ( view->x < 0 ) {
+        xmin = view->x = 0;
+        xmax = view->x + view->w;
+    }
+    else if ( view->x + view->w >= map->width ) {
+        view->x = xmin = map->width - view->w;
+        xmax = view->x + view->w;
+    }
+    else {
+        xmin = view->x;
+        xmax = view->x + view->w;
+    }
+
+    // Parcourt la spriteMap qui correspond a la view, et augmente la frame des sprite présent
+    for (int y = ymin; y < ymax; y++) {
+        for (int x = xmin; x < xmax; x++) {
+            if ( spriteMap[y][x] != NULL ) {
+               (spriteMap[y][x])->frame += 1;
+            }
+        }
+    }
 }

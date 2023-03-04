@@ -1,28 +1,17 @@
 CC=gcc
-CFLAGS=-Wall
+
+CFLAGS=-W -Wall -Iinclude
 
 SRCDIR=src
 INCLUDEDIR=include
 OBJDIR=obj
 TESTDIR=test
 
-INCLUDE=-I./$(INCLUDEDIR)
+all: test_map
 
-$(OBJDIR) :
-	mkdir $(OBJDIR)
-
-all: $(OBJDIR) $(TESTDIR)/test_map $(OBJDIR)
-
-$(TESTDIR)/test_map : $(OBJDIR)/map.o $(TESTDIR)/test_map.o
-	$(CC) $(OBJDIR)/map.o $(TESTDIR)/test_map.o -o $(TESTDIR)/test_map $(CFLAGS) $(INCLUDE)
-
-$(TESTDIR)/test_map.o : $(TESTDIR)/test_map.c $(INCLUDEDIR)/map.h
-	$(CC) -c $(TESTDIR)/test_map.c -o $(TESTDIR)/test_map.o $(CFLAGS) $(INCLUDE)
-
-$(OBJDIR)/map.o : $(SRCDIR)/map.c $(INCLUDEDIR)/map.h
-	$(CC) -c $(SRCDIR)/map.c -o $(OBJDIR)/map.o $(CFLAGS) $(INCLUDE)
-
-clean:
-	rm $(TESTDIR)/test_map.o
+test_map: $(SRCDIR)/map.c $(TESTDIR)/test_map.c  
+	${CC} $(SRCDIR)/map.c $(TESTDIR)/test_map.c -o test_map $(CFLAGS)
+	
 mrproper:
-	rm $(TESTDIR)/test_map
+	rm -f test_map
+

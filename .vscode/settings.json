@@ -5,6 +5,8 @@
         "\"*.pl\"; \"prolog\"": "\"*.pl\"; \"prolog\"",
         "*.pl": "prolog",
         "stdlib.h": "c",
-        "sprite.h": "c"
+        "sprite.h": "c",
+        "stdio.h": "c",
+        "sdl.h": "c"
     }
 }
