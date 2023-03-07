@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 4.0
- * \date 04 février 2023
+ * \version 4.5
+ * \date 07 février 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -28,28 +28,31 @@
  * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
  * \param width  Largeur de la fenêtre
  * \param height  Hauteur de la fenêtre
- * \return SDL_TRUE = erreur, SDL_FALSE = success
+ * \return 0 success || 1 fail
  */
 extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, int height) {
     // Initialisation library SDL
-    SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
+    if ( SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0 ) {
+        printf("Erreur: SDL_Init() à échoué dans Init_SDL : %s\n",SDL_GetError());
+        return 1;
+    }
     // Création d'une fenêtre
-    if ( SDL_CreateWindowAndRenderer(width, height, 0, window, renderer) == -1 ) {
-        printf("Une erreur s'est produite lors de la création de la fenêtre : %s",SDL_GetError());
-        return SDL_TRUE;
+    if ( SDL_CreateWindowAndRenderer(width, height, 0, window, renderer) < 0 ) {
+        printf("Erreur: SDL_CreateWindowAndRenderer() à échoué dans Init_SDL : %s\n",SDL_GetError());
+        return 1;
     }
 	// Initialisation de la library SDL_image
     if ( IMG_Init(IMG_INIT_PNG) == 0 ) {
-        printf("Une erreur s'est produite lors du lancement de SDL_IMG: %s",IMG_GetError());
-        return SDL_TRUE;
+        printf("Erreur: IMG_Init() à échoué dans Init_SDL : %s\n",IMG_GetError());
+        return 1;
     }
     // Initialisation de la library SDL_ttf
-    if (TTF_Init() == -1) {
-        printf("Une erreur s'est produite lors du lancement de SDL_TTF : %s",TTF_GetError());
-        return SDL_TRUE;
+    if (TTF_Init() < 0 ) {
+        printf("Erreur: TTF_Init() à échoué dans Init_SDL : %s\n",TTF_GetError());
+        return 1;
     }
     // return status
-    return SDL_FALSE;
+    return 0;
 }
 
 /**
@@ -69,26 +72,6 @@ extern void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_DestroyWindow(window);
     // Fermeture la librairy SDL_image.
     SDL_Quit();
-}
-
-/**
- * \fn void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect )
- * \brief Fonction externe qui charge et affiche une image
- * 
- * \param IMG Chemin de l'image à afficher
- * \param renderer Pointeur sur l'objet SDL_Renderer
- * \param texture Pointeur de pointeur sur l'objet SDL_Texture
- * \param srcrect Pointeur sur l'objet SDL_Rect ( Rectangle Source )
- * \param dstrect Pointeur sur l'objet SDL_Rect ( Rectangle Destination )
- * \return Aucun retour effectué en fin de fonction
- */
-extern void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) {
-    // Chargement d'une texture avec le Moteur de Rendu Graphique et le fichier de l'image
-    if ( (*texture) == NULL ) {
-        (*texture) = IMG_LoadTexture(renderer, IMG);
-    }
-    // Envoie de la texture vers le Moteur de Rendu Graphique
-    SDL_RenderCopy(renderer, (*texture), srcrect, dstrect);
 }
 
 /**
@@ -176,62 +159,55 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
 }
 
 /**
- * \fn int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int ligne, int colonne, SDL_Rect * view, SDL_Renderer *renderer, SDL_Texture **texture)
- * \brief Fonction externe qui affiche une tile depuis un tileSet vers une zone du Renderer
+ * \fn void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect )
+ * \brief Fonction externe qui charge et affiche une image
  * 
- * \param tileSet Chemin du tileSet
- * \param tileSize Taille des tiles
- * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
- * \param xBorder Bordure a gauche dans la fenêtre
- * \param yBorder Bordure en haut dans la fenêtre
- * \param tileNumber Numéroe de la tile à afficher
- * \param ligne Ligne de la tile à afficher dans la matrice de map
- * \param colonne Colone de la tile à afficher dans la matrice de map
- * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param IMG Chemin de l'image à afficher
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param texture Pointeur de pointeur sur l'objet SDL_Texture
- * \return int qui correspond au succès de la fonction ( tileNumber correcte )
+ * \param srcrect Pointeur sur l'objet SDL_Rect ( Rectangle Source )
+ * \param dstrect Pointeur sur l'objet SDL_Rect ( Rectangle Destination )
+ * \return 0 success || 1 fail
  */
-extern int Afficher_Tile(char * tileSet, int tileSize, int dstCoef, int xBorder, int yBorder, int tileNumber, int ligne, int colonne, SDL_Rect * view, SDL_Renderer *renderer, SDL_Texture **texture) {
-    if ( tileNumber-1 >= -1 ) {
-        /* Rectangle Source */ 
-        SDL_Rect srcrect;
-        srcrect.y = tileSize * ( (tileNumber-1) / 120);
-        srcrect.x = tileSize * ( (tileNumber-1) % 120);
-        srcrect.h = tileSize;
-        srcrect.w = tileSize;
-
-        /* Rectangle Destination */ 
-        SDL_Rect dstrect;
-        dstrect.x = ( dstCoef * (tileSize * (colonne - view->x)) ) + xBorder;
-        dstrect.y = ( dstCoef * (tileSize * (ligne - view->y)) ) + yBorder; 
-        dstrect.h = dstCoef * tileSize;
-        dstrect.w = dstCoef * tileSize;
-
-        /* Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer */
-        Afficher_IMG(tileSet, renderer, texture, &srcrect, &dstrect );
-        return 0;
+extern int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) {
+    // Chargement d'une texture avec le Moteur de Rendu Graphique et le fichier de l'image
+    if ( (*texture) == NULL ) {
+        (*texture) = IMG_LoadTexture(renderer, IMG);
+        if ( (*texture) == NULL ) {
+            printf("Erreur: IMG_LoadTexture() à échoué dans Afficher_IMG\n");
+            return 1;
+        }
     }
-    else {
+    // Envoie de la texture vers le Moteur de Rendu Graphique
+    if ( SDL_RenderCopy(renderer, (*texture), srcrect, dstrect) < 0) {
+        printf("Erreur: SDL_RenderCopy() à échoué dans Afficher_IMG\n");
         return 1;
     }
 
+    return 0;
 }
 
 /**
- * \fn void Afficher_Map(char * tileSet, map_t * map, SDL_Window *window, SDL_Renderer *renderer, SDL_Rect * view)
+ * \fn int Afficher_Map(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder )
  * \brief Fonction externe qui affiche une map composée des tiles d'un tileSet
  * 
- * \param tileSet Chemin du tileSet
+ * \param texture Texture du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
- * \param window Pointeur sur l'objet SDL_Window
- * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
- * \return Aucun retour effectué en fin de fonction
+ * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \return 0 success || 1 fail
  */
-extern void Afficher_Map(char * tileSet, map_t * map, SDL_Renderer *renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder) {
-    // Initialisation des variables propre à la fonction
-    SDL_Texture *texture = NULL;
+extern int Afficher_Map(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) {
+
+
+     // Chargement d'une texture avec le Moteur de Rendu Graphique et le fichier de l'image
+    if ( texture == NULL ) {
+       printf("Erreur: La texture n'est pas chargé dans afficher_map()\n");
+       return 1;
+    }
 
     int ymin, ymax;
     int xmin, xmax;
@@ -271,16 +247,34 @@ extern void Afficher_Map(char * tileSet, map_t * map, SDL_Renderer *renderer, SD
     for (int n = 0; n < layer; n++ ) {
         for (int y = ymin; y < ymax; y++) {
             for (int x = xmin; x < xmax; x++) {
-                Afficher_Tile(tileSet, map->tileSize, dstCoef, xBorder, yBorder,map->matrice[n][y][x], y, x, view, renderer, &texture);
+                int tileNumber = map->matrice[n][y][x];
+                if ( tileNumber-1 >= -1 ) {
+                    /* Rectangle Source */ 
+                    SDL_Rect srcrect;
+                    srcrect.y = map->tileSize * ( (tileNumber-1) / 120);
+                    srcrect.x = map->tileSize * ( (tileNumber-1) % 120);
+                    srcrect.h = map->tileSize;
+                    srcrect.w = map->tileSize;
+
+                    /* Rectangle Destination */ 
+                    SDL_Rect dstrect;
+                    dstrect.x = ( dstCoef * (map->tileSize * (x - view->x)) ) + xBorder;
+                    dstrect.y = ( dstCoef * (map->tileSize * (y - view->y)) ) + yBorder; 
+                    dstrect.h = dstCoef * map->tileSize;
+                    dstrect.w = dstCoef * map->tileSize;
+
+                    /* Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer */
+                    if ( SDL_RenderCopy(renderer, texture, &srcrect, &dstrect) < 0 ) {
+                        printf("Erreur: SDL_RenderCopy() à échoué dans afficher_map\n");
+                        return 1;
+                    }
+                }
             }
         }
     }
 
-
-    // destruction en mémoire de la texture crée dans la fonction
-    Detruire_Texture(texture);
+    return 0;
 }
-
 
 /**
  * \fn void Afficher_Sprite(sprite_t * sprite, sprite_type_liste_t *listeType, SDL_Renderer * renderer, SDL_Rect * view, int dstCoef, int xBorder, int yBorder)
@@ -390,28 +384,33 @@ extern void Afficher_SpriteMap( sprite_t *** spriteMap, map_t * map, sprite_type
  * \fn void Affichage_All(char * tileSet, map_t * map, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view)
  * \brief Fonction externe qui affiche tout les ellements graphiques
  * 
- * \param tileSet Chemin du tileSet
+ * \param texture Texture du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
  * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher
  * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param window Pointeur sur l'objet SDL_Window
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
- * \return Aucun retour effectué en fin de fonction
+ * \return 0 success || 1 fail
  */
-extern void Affichage_All(char * tileSet, map_t * map, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) {
+extern int Affichage_All(SDL_Texture * texture, map_t * map, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) {
     // Initialisation des variables
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
     // Récupération des informations de la fenêtre utile à l'affichage
     getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
-    
-    // Afficher la Map
-    Afficher_Map(tileSet, map, renderer, view, dstCoef, xBorder, yBorder);
 
+    // Affciher la Map
+    if ( Afficher_Map(texture, map, view, renderer,dstCoef, xBorder, yBorder ) ) {
+        printf("Errur: Afficher_map() à echoué dans Affichage_All\n");
+        return 1;
+    }
+    
     // Afficher la SpriteMap
     Afficher_SpriteMap(spriteMap, map, listeType, view, renderer, dstCoef, xBorder, yBorder);
+
+    return 0;
 }
 
 /**
@@ -419,14 +418,17 @@ extern void Affichage_All(char * tileSet, map_t * map, sprite_t *** spriteMap, s
  * \brief Fonction externe qui incrémente la frame des sprites présents dans la spriteMap qui correspondent à la view.
  * 
  * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher
+ * \param FrameCat (int) La catégorie des sprites dont la frame sera augmenté
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param map Pointeur sur l'objet map_t, map à afficher
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return Aucun retour effectué en fin de fonction
 */
-extern void AddFrame(sprite_t *** spriteMap, map_t * map, SDL_Rect * view) {
+extern void AddFrame(sprite_t *** spriteMap, int FrameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) {
     // initialisation variable
     int ymin, ymax;
     int xmin, xmax;
+    int frame_cat;
 
     // calcule de xmin et ymax tout en verifiant/corrigeant les sorties de map
     if ( view->y < 0 ) {
@@ -455,12 +457,49 @@ extern void AddFrame(sprite_t *** spriteMap, map_t * map, SDL_Rect * view) {
         xmax = view->x + view->w;
     }
 
-    // Parcourt la spriteMap qui correspond a la view, et augmente la frame des sprite présent
+    // Parcourt la spriteMap qui correspond a la view, et augmente la frame des sprite présent qui correspondent à la categorie donnée
     for (int y = ymin; y < ymax; y++) {
         for (int x = xmin; x < xmax; x++) {
             if ( spriteMap[y][x] != NULL ) {
-               (spriteMap[y][x])->frame += 1;
+                frame_cat = listeType->typeListe[(spriteMap[y][x]->spriteTypeId)]->frameCat;
+                if ( frame_cat == FrameCat) {
+                    (spriteMap[y][x])->frame += 1;
+                }
             }
         }
     }
+}
+
+/**
+ * \fn void Timer_Start( SDL_timer_t * timer )
+ * \brief Initialise SDL_timer_t->start au temps courant
+ * 
+ * \fn timer Pointeur sur SDL_timer_t, le timer à lancer
+ * \return Aucun retour effectué en fin de fonction
+*/
+extern void Timer_Start( SDL_timer_t * timer ) {
+    timer->start = SDL_GetTicks();
+}
+
+/**
+ * \fn void Timer_Update( SDL_timer_t * timer )
+ * \brief Initialise SDL_timer_t->now au temps courant
+ * 
+ * \fn timer Pointeur sur SDL_timer_t, le timer à update
+ * \return Aucun retour effectué en fin de fonction
+*/
+extern void Timer_Update( SDL_timer_t * timer ) {
+    timer->now = SDL_GetTicks();
+}
+
+/**
+ * \fn Uint32 Timer_Get_Time( SDL_timer_t * timer )
+ * \brief Calcule le temps ecouler depuis le debut du timer
+ * 
+ * \fn timer Pointeur sur SDL_timer_t, le timer dont on doit calculer le temps
+ * \return type Uint32 , Temps ecoulé debuit le debut du timer
+*/
+extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
+    Timer_Update(timer);
+    return ( timer->now - timer->start );
 }

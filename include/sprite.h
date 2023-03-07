@@ -11,8 +11,8 @@
  * \file sprite.h
  * \brief Header Gestion Sprite
  * \author Yamis MANFALOTI
- * \version 1.0
- * \date 04 mars 2023
+ * \version 1.5
+ * \date 07 mars 2023
  *
  * Header Gestion Sprite:
  * \n structure sprite_type_t
@@ -40,6 +40,7 @@ typedef struct sprite_type_s {
 
     //Son frameNumber
     int frameNumber;
+    int frameCat;
     
     // Metadonnées Texture Sprite
     char * spriteSheet;

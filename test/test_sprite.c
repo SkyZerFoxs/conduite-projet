@@ -31,10 +31,10 @@ int main() {
     sprite_type_liste_t *listeType = Load_Sprite_Type("asset/sprite/spriteType.txt");
 
     for (int i = 0; i < listeType->nbElem; i++) {
-        printf("ID=%d, Nom=%s, Nombre de frames=%d, Sprite sheet=%s, Taille=%d, Ligne=%d\n", i, 
+        printf("ID=%d, Nom=%s, Nombre de frames=%d, Sprite sheet=%s, Taille=%d, Ligne=%d, frameCat=%d\n", i, 
         listeType->typeListe[i]->spriteName,  listeType->typeListe[i]->frameNumber,
         listeType->typeListe[i]->spriteSheet, listeType->typeListe[i]->spriteSize,
-        listeType->typeListe[i]->spriteLine);
+        listeType->typeListe[i]->spriteLine,listeType->typeListe[i]->frameCat);
     }
     printf("\nnbElem=%d\n",listeType->nbElem);
     printf("----------------------------- Test Chargemment Sprite -----------------------------\n");
@@ -46,10 +46,10 @@ int main() {
     if ( slime != NULL ) {
         int i = slime->spriteTypeId;
         printf("x=%d, y=%d, frame=%d\n", slime->x, slime->y, slime->frame);
-        printf("ID=%d, Nom=%s, Nombre de frames=%d, Sprite sheet=%s, Taille=%d, Ligne=%d\n", i, 
+        printf("ID=%d, Nom=%s, Nombre de frames=%d, Sprite sheet=%s, Taille=%d, Ligne=%d, frameCat=%d\n", i, 
         listeType->typeListe[i]->spriteName,  listeType->typeListe[i]->frameNumber,
         listeType->typeListe[i]->spriteSheet, listeType->typeListe[i]->spriteSize,
-        listeType->typeListe[i]->spriteLine);
+        listeType->typeListe[i]->spriteLine,listeType->typeListe[i]->frameCat);
     }
     Detruire_Sprite(&slime);
 

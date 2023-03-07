@@ -8,8 +8,8 @@
  * \file sprite.c
  * \brief Gestion des sprites
  * \author Yamis MANFALOTI
- * \version 1.0
- * \date 04 mars 2023
+ * \version 1.5
+ * \date 07 mars 2023
  *
  * Gestion des sprites:
  * \n Chargement des données des types de sprite depuis un fichier
@@ -136,6 +136,17 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
             return 1;
         }
         sprite->spriteLine = atoi(token);
+
+        token = strtok(NULL, ",");
+        if (token == NULL) {
+            printf("Erreur : de format dans le fichier\n");
+            fclose(fichier);
+            free(sprite->spriteName);
+            free(sprite->spriteSheet);
+            free(sprite);
+            return 1;
+        }
+        sprite->frameCat = atoi(token);
 
         liste->typeListe[i] = sprite;
         i++;

@@ -41,8 +41,11 @@ int main(void) {
 
     // initialisation de la map continent
     map_t * continent = Initialiser_Map( "asset/map/map.txt");
+    if ( continent == NULL ) {
+        printf("Erreur: Initialiser_Map() à échoué\n");
+    }
 
-    // vue du joueur
+    // initialisation vue du joueur
     SDL_Rect vue;
     vue.x = 0;
     vue.y = 0;
@@ -51,13 +54,25 @@ int main(void) {
 
     // initialisation de la liste de types des sprites
     sprite_type_liste_t *listeType = Load_Sprite_Type("asset/sprite/spriteType.txt");
+    if ( listeType == NULL ) {
+        printf("Erreur: Load_Sprite_Type() à échoué\n");
+    }
 
     // initialisation de la spriteMap
     sprite_t ***spriteMap = Load_SpriteMap(listeType,continent);
+    if ( spriteMap == NULL ) {
+        printf("Erreur: Load_SpriteMap() à échoué\n");
+    }
 
-    
+    //init map Texture
+    SDL_Texture * mapTexture;
+    mapTexture = IMG_LoadTexture(renderer, "asset/tileset.png");
+    if ( mapTexture == NULL ) {
+        printf("Erreur: IMG_LoadTexture() à échoué\n");
+    }
+
     /* variable utile à la boucle principal */
-    int FRAME_PER_SECONDE = 30;
+    int FRAME_PER_SECONDE = 25;
     // Affichage de la map seule
     int testAffichageMap = 0;
     // Deplacement de la caméra
@@ -102,7 +117,7 @@ int main(void) {
             int dstCoef, xBorder, yBorder;
             // Récupération des informations de la fenêtre utile à l'affichage
             getWinInfo(window, &win_width, &win_height, continent->tileSize, &vue, &dstCoef, &xBorder, &yBorder);
-            Afficher_Map("asset/tileset.png",continent, renderer,&vue, dstCoef, xBorder, yBorder);
+            Afficher_Map(mapTexture,continent,&vue, renderer, dstCoef, xBorder, yBorder);
         }
 
         // test affiche sprite
@@ -127,8 +142,9 @@ int main(void) {
         
 
         if ( testAffichageAll ) {
-            AddFrame(spriteMap,continent,&vue);
-            Affichage_All("asset/tileset.png",continent, spriteMap, listeType, window, renderer,&vue);
+            AddFrame(spriteMap,0,listeType,continent,&vue);
+            AddFrame(spriteMap,1,listeType,continent,&vue);
+            Affichage_All(mapTexture,continent, spriteMap, listeType, window, renderer,&vue);
             SDL_Delay(300);
         }
 
@@ -157,12 +173,14 @@ int main(void) {
 
     }
 
+    Detruire_Texture(mapTexture);
+
     Detruire_SpriteMap(&spriteMap,continent);
 
     Detruire_Liste_Sprite_Type(&listeType);
 
     // destruction en mémoire du sprite en paramètre
-    //Detruire_Sprite(&slime);
+    Detruire_Sprite(&slime);
     
     // destruction en mémoire de la map en paramètre
     Detruire_Map(continent);

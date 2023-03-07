@@ -1,0 +1,18 @@
+CC=gcc
+
+CFLAGS=-W -Wall -Iinclude
+LDFLAGS= $(shell ./bin/sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_ttf
+
+SRCDIR=src
+INCLUDEDIR=include
+OBJDIR=obj
+TESTDIR=test
+
+all: play
+
+play: $(SRCDIR)/play.c $(SRCDIR)/map.c  $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c
+	${CC} $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/sprite.c $(SRCDIR)/affichage.c -o play $(CFLAGS) $(LDFLAGS)
+	
+mrproper:
+	rm -f play
+

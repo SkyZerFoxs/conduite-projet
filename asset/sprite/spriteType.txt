@@ -1,1 +1,3 @@
-slime,2,asset/Characters/SlimeV1.png,16,0,
+slime,2,asset/sprite/SlimeV1.png,16,0,0,
+persoUpper,6,asset/sprite/perso.png,16,6,1,
+persoBottom,6,asset/sprite/perso.png,16,7,1,
