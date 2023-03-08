@@ -148,6 +148,8 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
         }
         sprite->frameCat = atoi(token);
 
+        sprite->textureId = -1;
+
         liste->typeListe[i] = sprite;
         i++;
     }

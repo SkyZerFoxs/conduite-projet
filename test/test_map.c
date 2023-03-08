@@ -42,7 +42,7 @@ int main() {
             printf("\n");
         }
         
-        Detruire_Map(continent);
+        Detruire_Map(&continent);
     }
 
     return 0;

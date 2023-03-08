@@ -89,25 +89,25 @@ extern map_t * Initialiser_Map(char * fichier) {
  * \param map Pointeur sur la structure map_t qu'on souhaite détruire
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Detruire_Map(map_t * map) {
+extern void Detruire_Map(map_t ** map) {
     // destruction des lignes dans chaques layers de la matrice
-    for (int n = 0; n < map->layer; n++) {
-        for ( int i = 0; i < map->height; i++ ) {
-            free(map->matrice[n][i]);
-            map->matrice[n][i] = NULL;
+    for (int n = 0; n < (*map)->layer; n++) {
+        for ( int i = 0; i < (*map)->height; i++ ) {
+            free((*map)->matrice[n][i]);
+            (*map)->matrice[n][i] = NULL;
         }
     }
     // destruction de chaque layers dans la matrice
-    for (int n = 0; n < map->layer; n++) {
-        free(map->matrice[n]);
-        map->matrice[n] = NULL;
+    for (int n = 0; n < (*map)->layer; n++) {
+        free((*map)->matrice[n]);
+        (*map)->matrice[n] = NULL;
     }
     // destruction de la matrice
-    free(map->matrice);
-    map->matrice = NULL;
+    free((*map)->matrice);
+    (*map)->matrice = NULL;
     // destruction de la structure map_t
-    free(map);
-    map = NULL;
+    free((*map));
+    (*map) = NULL;
 }
 
 

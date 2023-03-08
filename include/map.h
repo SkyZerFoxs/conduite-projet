@@ -36,6 +36,6 @@ typedef struct map_s{
 
 
 extern map_t * Initialiser_Map(char * fichier) ;
-extern void Detruire_Map(map_t * map) ;
+extern void Detruire_Map(map_t ** map) ;
 
 #endif

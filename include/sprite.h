@@ -47,6 +47,9 @@ typedef struct sprite_type_s {
     int spriteSize;
     int spriteLine;
 
+    // Donné de SDL_Texture
+    int textureId;
+
 }sprite_type_t;
 
 /**

@@ -76,7 +76,7 @@ int main() {
     Detruire_SpriteMap(&spriteMap,continent);
 
 
-    Detruire_Map(continent);
+    Detruire_Map(&continent);
     Detruire_Liste_Sprite_Type(&listeType);
     
     return 0;
