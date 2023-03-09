@@ -70,7 +70,7 @@ void afficher_quete(quete_t * quete){
 
         //Ouvre quete.txt ou est indiqué les informations à afficher
         FILE * fquete;
-        fquete = fopen("src/quete.txt","r"); 
+        fquete = fopen("asset/quete.txt","r"); 
 
         //Test si le fichier quete.txt existe
         if(fquete == NULL)

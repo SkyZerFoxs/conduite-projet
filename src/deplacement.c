@@ -21,7 +21,7 @@ void init_matrice (int collision[N][M]){
 	int i,j;
 	int x,y;
 	
-	fic = fopen("src/collision.txt","r");
+	fic = fopen("asset/collision.txt","r");
 	
 	for (i = 0; i < N; i++){
 		for (j = 0; j < M; j++){

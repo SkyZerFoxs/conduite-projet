@@ -59,7 +59,7 @@ void afficher_pnj(pnj_t * pnj){
         FILE * fpnj;
 
         //Ouvre pnj.txt ou est indiqué les informations à afficher
-        fpnj = fopen("src/pnj.txt","r");
+        fpnj = fopen("asset/pnj.txt","r");
 
         if(fpnj == NULL)
             printf("Erreur à l'ouverture du fichier 'pnj.txt'.\n");
