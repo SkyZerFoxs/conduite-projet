@@ -14,7 +14,7 @@
  * \file affichage.h
  * \brief Header Gestion Affichage
  * \author Yamis MANFALOTI
- * \version 5.5
+ * \version 5.6
  * \date 09 mars 2023
  *
  * Header Gestion de l'affichage:
@@ -86,7 +86,8 @@ extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, s
 extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) ;
 
 // Afficher La TileMap Et La SpriteMap
-extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
+extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
+//extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
 extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
 
 // Affichage Complet
@@ -100,8 +101,8 @@ extern void Timer_Start( SDL_timer_t * timer ) ;
 extern void Timer_Update( SDL_timer_t * timer ) ; 
 extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) ;
 
-
-extern void Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) ;
+// Gestion Deplacement Personnage
+extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) ;
 
 
 #endif 

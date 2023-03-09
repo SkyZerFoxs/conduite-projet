@@ -5,7 +5,7 @@
  * \file play.c
  * \brief Fonction Principal Du Jeu
  * \author Yamis MANFALOTI
- * \version 2.0
+ * \version 2.1
  * \date 09 mars 2023
  *
  * Fonctionnalité implémentée :
@@ -34,43 +34,43 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
     // initialisation CameraJoueur du joueur
     SDL_Rect CameraJoueur;
-    CameraJoueur.x = 0;
-    CameraJoueur.y = 0;
+    CameraJoueur.x = 21;
+    CameraJoueur.y = 34;
     CameraJoueur.w = 20;
     CameraJoueur.h = 11;
 
     // initialisation de la map continent
     map_t * continent = Initialiser_Map( "asset/map/map.txt");
     if ( continent == NULL ) {
-        printf("Erreur : Initialiser_Map() à échoué\n");
+        printf("Erreur : Echec Initialiser_Map() dans play()\n");
         return 1;
     }
 
     // initialisation de la liste de types des sprites
     sprite_type_liste_t *ListeTypeSprite = Load_Sprite_Type("asset/sprite/spriteType.txt");
     if ( ListeTypeSprite == NULL ) {
-        printf("Erreur : Load_Sprite_Type() à échoué\n");
+        printf("Erreur : Echec Load_Sprite_Type() dans play()\n");
         return 1;
     }
 
     // initialisation de la spriteMap
     sprite_t ***spriteMap = Load_SpriteMap(ListeTypeSprite,continent);
     if ( spriteMap == NULL ) {
-        printf("Erreur : Load_SpriteMap() à échoué\n");
+        printf("Erreur : Echec Load_SpriteMap() dans play()\n");
         return 1;
     }
 
     // initialisation Map Texture
     SDL_Texture * mapTexture = IMG_LoadTexture(renderer, "asset/tileset.png");
     if ( mapTexture == NULL ) {
-        printf("Erreur : IMG_LoadTexture() à échoué\n");
+        printf("Erreur : Echec IMG_LoadTexture() dans play()\n");
         return 1;
     }
 
     // initialisation Sprite Texture Liste
     Sprite_Texture_Liste_t * SpriteTextureListe = Init_Sprite_Texture_Liste();
     if ( Load_Sprite_Texture_Liste(SpriteTextureListe,ListeTypeSprite,renderer) ) {
-        printf("Erreur : Load_Sprite_Texture_Liste() à échoué\n");
+        printf("Erreur : Echec Load_Sprite_Texture_Liste() dans play()\n");
         return 1;
     }
 
@@ -107,6 +107,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         //Tant qu'il y a un événement
         SDL_PollEvent( &event );
         switch(event.type) {
+            // detection SDL_QUIT
 			case SDL_QUIT:
 				quit = SDL_TRUE;
                 break;
@@ -114,20 +115,28 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
 					case SDLK_z:
-						printf("Appui sur la touche Z\n");
-                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'z');
+						if ( Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'z') ) {
+                            printf("Erreur : Echec Deplacement_PersoSprite() dans play()");
+                            return 1;
+                        }
 						break;
 					case SDLK_q:
-                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'q');
-						printf("Appui sur la touche Q\n");
+                        if ( Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'q') ) {
+                            printf("Erreur : Echec Deplacement_PersoSprite() dans play()");
+                            return 1;
+                        }
 						break;
 					case SDLK_s:
-						printf("Appui sur la touche S\n");
-                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'s');
+                        if ( Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'s') ) {
+                            printf("Erreur : Echec Deplacement_PersoSprite() dans play()");
+                            return 1;
+                        }
 						break;
 					case SDLK_d:
-                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'d');
-						printf("Appui sur la touche D\n");
+                        if ( Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'d') ) {
+                            printf("Erreur : Echec Deplacement_PersoSprite() dans play()");
+                            return 1;
+                        }
 						break;
 					default:
 						break;
@@ -136,7 +145,10 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 		}
 
         // remise à 0 du renderer ( fond noir )
-        SDL_RenderClear(renderer);
+        if ( SDL_RenderClear(renderer) < 0 ) {
+            printf("Erreur : Echec SDL_RenderClear() dans play()\n");
+            return 1;
+        }
         
         // Gestion Frame
         if ( (int)Timer_Get_Time( &frameTimer1 ) > 800 ) {
@@ -151,7 +163,10 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         }
 
         // Affichage Complet
-        Affichage_All(mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, renderer,&CameraJoueur);
+        if ( Affichage_All(mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, renderer,&CameraJoueur) ) {
+            printf("Erreur : Echec Affichage_All() dans play()\n");
+            return 1;
+        }
 
         // mise à jour du renderer ( update affichage)
         SDL_RenderPresent(renderer);

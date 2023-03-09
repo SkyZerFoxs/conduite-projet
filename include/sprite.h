@@ -5,7 +5,6 @@
 #include <map.h>
 
 #define MAX_SPRITE_FRAME 20
-#define LAYER_SPRITE_MAP 4
 
 /**
  * \file sprite.h

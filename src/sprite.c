@@ -8,7 +8,7 @@
  * \file sprite.c
  * \brief Gestion des sprites
  * \author Yamis MANFALOTI
- * \version 2.0
+ * \version 2.1
  * \date 09 mars 2023
  *
  * Gestion des sprites:
@@ -37,7 +37,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
     // Ouverture du fichier en mode lecture
     fichier = fopen(nom_fichier, "r");
     if (fichier == NULL) {
-        printf("Erreur : lors de l'ouverture du fichier\n");
+        printf("Erreur : Echec ouverture fichier dans Charger_Sprite_Type()\n");
         return 1;
     }
 
@@ -49,7 +49,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
     // Allocation de la liste des types de sprites
     liste->typeListe = (sprite_type_t**) malloc(nb_elements * sizeof(sprite_type_t*));
     if (liste->typeListe == NULL) {
-        printf("Erreur : d'allocation mémoire\n");
+        printf("Erreur : Echec malloc(liste->typeListe) dans Charger_Sprite_Type()\n");
         fclose(fichier);
         return 1;
     }
@@ -63,14 +63,14 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
     while (fgets(ligne, sizeof(ligne), fichier)) {
         sprite_type_t *sprite = malloc(sizeof(sprite_type_t));
         if (sprite == NULL) {
-            printf("Erreur : d'allocation mémoire\n");
+            printf("Erreur : Echec malloc(sprite) dans Charger_Sprite_Type() \n");
             fclose(fichier);
             return 1;
         }
 
         token = strtok(ligne, ",");
         if (token == NULL) {
-            printf("Erreur : de format dans le fichier\n");
+            printf("Erreur : Mauvais format dans le fichier dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite);
             return 1;
@@ -78,7 +78,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
         
         sprite->spriteName = malloc((strlen(token)+1) * sizeof(char));
         if (sprite->spriteName == NULL) {
-            printf("Erreur : d'allocation mémoire\n");
+            printf("Erreur : Echec malloc(sprite->spriteName) dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite);
             return 1;
@@ -87,7 +87,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
 
         token = strtok(NULL, ",");
         if (token == NULL) {
-            printf("Erreur : de format dans le fichier\n");
+            printf("Erreur : Mauvais format dans le fichier dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite->spriteName);
             free(sprite);
@@ -97,7 +97,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
 
         token = strtok(NULL, ",");
         if (token == NULL) {
-            printf("Erreur : de format dans le fichier\n");
+            printf("Erreur : Mauvais format dans le fichier dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite->spriteName);
             free(sprite);
@@ -106,7 +106,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
 
         sprite->spriteSheet = malloc((strlen(token)+1) * sizeof(char));
         if (sprite->spriteSheet == NULL) {
-            printf("Erreur : d'allocation mémoire\n");
+            printf("Erreur : Echec malloc(sprite->spriteSheet) dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite->spriteName);
             free(sprite->spriteSheet);
@@ -117,7 +117,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
 
         token = strtok(NULL, ",");
         if (token == NULL) {
-            printf("Erreur : de format dans le fichier\n");
+            printf("Erreur : Mauvais format dans le fichier dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite->spriteName);
             free(sprite->spriteSheet);
@@ -128,7 +128,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
 
         token = strtok(NULL, ",");
         if (token == NULL) {
-            printf("Erreur : de format dans le fichier\n");
+            printf("Erreur : Mauvais format dans le fichier dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite->spriteName);
             free(sprite->spriteSheet);
@@ -139,7 +139,7 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
 
         token = strtok(NULL, ",");
         if (token == NULL) {
-            printf("Erreur : de format dans le fichier\n");
+            printf("Erreur : Mauvais format dans le fichier dans Charger_Sprite_Type()\n");
             fclose(fichier);
             free(sprite->spriteName);
             free(sprite->spriteSheet);
@@ -203,12 +203,12 @@ extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) {
 extern sprite_type_liste_t * Load_Sprite_Type(const char * nom_fichier) {
     sprite_type_liste_t *liste = malloc(sizeof(sprite_type_liste_t));
     if (liste == NULL) {
-        printf("Erreur : d'allocation mémoire\n");
+        printf("Erreur : Echec malloc(liste) dans Load_Sprite_Type()\n");
         return(NULL);
     }
 
     if (Charger_Sprite_Type(nom_fichier, liste) != 0) {
-        printf("Erreur : lors du chargement des sprites\n");
+        printf("Erreur : Echec chargement sprites dans Load_Sprite_Type()\n");
         Detruire_Liste_Sprite_Type(&liste);
         return(NULL);
     }
@@ -236,7 +236,7 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
         sprite->x = x;
     }
     else {
-        printf("x Invalide\n");
+        printf("Erreur : x Invalide dans Load_Sprite()\n");
         free(sprite);
         return NULL;
     }
@@ -244,7 +244,7 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
         sprite->y = y;
     }
     else {
-        printf("y Invalide\n");
+        printf("Erreur : y Invalide dans Load_Sprite()\n");
         free(sprite);
         return NULL;
     }
@@ -254,7 +254,7 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
         sprite->frame = frame;
     }
     else {
-        printf("frame Invalide\n");
+        printf("Erreur : frame Invalide dans Load_Sprite()\n");
         free(sprite);
         return NULL;
     }
@@ -264,7 +264,7 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
         sprite->spriteTypeId = spriteTypeId;
     }
     else {
-        printf("spriteTypeId Invalide\n");
+        printf("Erreur : spriteTypeId Invalide dans Load_Sprite()\n");
         free(sprite);
         return NULL;
     }
@@ -318,12 +318,12 @@ extern void Detruire_SpriteMap(sprite_t **** spriteMap, map_t * map) {
             (*spriteMap) = NULL;
         }
         else {
-            printf("Erreur : La spriteMap n'existe pas\n");
+            printf("Erreur : La spriteMap n'existe pas dans Detruire_SpriteMap()\n");
             return;
         }
     }
     else {
-        printf("Erreur : Pointeur Passé En Paramètre Invalide\n");
+        printf("Erreur : Pointeur Passé En Paramètre Invalide dans Detruire_SpriteMap()\n");
         return;
     }
 }
@@ -344,26 +344,26 @@ extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) 
         for (int i = 0; i < map->height; i++) {
             spriteMap[i] = (sprite_t **) malloc(map->width * sizeof(sprite_t *));
             if ( spriteMap[i] == NULL ) {
-                printf("Erreur : Echec Malloc sprite_t ***spriteMap[%d]\n",i);
+                printf("Erreur : Echec Malloc sprite_t ***spriteMap[%d] dans Load_SpriteMap()\n",i);
                 Detruire_SpriteMap(&spriteMap,map);
                 return NULL;
             }
         }
     }
     else {
-        printf("Erreur : Echec Malloc sprite_t ***spriteMap\n");
+        printf("Erreur : Echec Malloc sprite_t ***spriteMap dans Load_SpriteMap()\n");
         return NULL;
     }
 
     // Chargement matrice spriteMap
     for (int y = 0; y < map->height; y++) {
         for (int x = 0; x < map->width; x++) {
-            if (map->matrice[LAYER_SPRITE_MAP][y][x] >= 0) {
-                sprite_t * sprite = Load_Sprite(x, y, 0, map->matrice[LAYER_SPRITE_MAP][y][x], listeType, map);
+            if (map->matrice[SPRITEMAP_LAYER][y][x] >= 0) {
+                sprite_t * sprite = Load_Sprite(x, y, 0, map->matrice[SPRITEMAP_LAYER][y][x], listeType, map);
                 if (sprite != NULL) {
                     spriteMap[y][x] = sprite;
                 } else {
-                    printf("Erreur : Echec Load_Sprite matrice[4][%d][%d]\n",y,x);
+                    printf("Erreur : Echec Load_Sprite matrice[4][%d][%d] dans Load_SpriteMap()\n",y,x);
                     Detruire_SpriteMap(&spriteMap,map);
                     return NULL;
                 }
@@ -377,19 +377,31 @@ extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) 
     return spriteMap;
 }
 
+/**
+ * \fn int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2)
+ * \brief Fonction externe qui echange l'emplacement de deux sprite dans la SpriteMap
+ * 
+ * \param spriteMap Pointeur de pointeur de pointeur de pointeur sur sprite_t, Le pointeur vers la matrice de sprites à libérer.
+ * \param map Pointeur sur map_t, la carte correspondante.
+ * \param y1 Coordonée y dans la spriteMap du sprite N°1
+ * \param x1 Coordonée x dans la spriteMap du sprite N°1
+ * \param y2 Coordonée y dans la spriteMap du sprite N°2
+ * \param x2 Coordonée x dans la spriteMap du sprite N°2
+ * \return 0 success || 1 Fail
+*/
 extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) {
     if ( spriteMap == NULL ) {
-        printf("Erreur: spriteMap Inexistante dans Swap_Sprite\n");
+        printf("Erreur : spriteMap Inexistante dans Swap_Sprite()\n");
         return 1;
     }
 
     if ( y1 < 0 || x1 < 0 || y1 >= map->height || x1 >= map->width ) {
-        printf("Erreur: Coordonnées N°1 Invalide dans Swap_Sprite\n");
+        printf("Erreur : Coordonnées N°1 Invalide dans Swap_Sprite()\n");
         return 1;
     }
 
     if ( y2 < 0 || x2 < 0 || y2 >= map->height || x2 >= map->width ) {
-        printf("Erreur: Coordonnées N°2 Invalide dans Swap_Sprite\n");
+        printf("Erreur : Coordonnées N°2 Invalide dans Swap_Sprite()\n");
         return 1;
     }
 
@@ -399,8 +411,6 @@ extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int 
     spriteMap[y2][x2] = temp;
     spriteMap[y2][x2]->x = x2;
     spriteMap[y2][x2]->y = y2;
-
-    //printf("%p - %p\n",spriteMap[y1][x1],spriteMap[y2][x2]);
 
     return 0;
 }

@@ -1,12 +1,16 @@
 #ifndef _MAP_H_
 #define _MAP_H_
 
+#define LAST_TILEMAP_LAYER 3
+#define COLISION_LAYER 4
+#define SPRITEMAP_LAYER 5
+
 /**
  * \file map.h
  * \brief Header Gestion map
  * \author Yamis MANFALOTI
- * \version 2.0
- * \date 14 février 2023
+ * \version 2.1
+ * \date 9 mars 2023
  *
  * Header Gestion des map:
  * \n Structure map : map_t 
@@ -36,5 +40,7 @@ typedef struct map_s{
 
 extern map_t * Initialiser_Map(char * fichier) ;
 extern void Detruire_Map(map_t ** map) ;
+
+extern int Colision(map_t * map, int y, int x) ;
 
 #endif

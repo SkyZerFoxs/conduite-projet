@@ -6,8 +6,8 @@
  * \file map.c
  * \brief Gestion map
  * \author Yamis MANFALOTI
- * \version 2.0
- * \date 14 février 2023
+ * \version 2.1
+ * \date 9 mars 2023
  *
  * Gestion des map:
  * \n Initialisation en mémoire
@@ -32,7 +32,7 @@ int Load_Map(char * fichier, map_t * map) {
 
     // vérifie si l'ouverture du fichier a échoué
     if (file == NULL) {
-        printf("Error opening file!");
+        printf("Erreur : Echec ouverture fichier dans Load_Map()\n");
         return 1;
     }
 
@@ -61,7 +61,6 @@ int Load_Map(char * fichier, map_t * map) {
         }
     }
 
-
     // fermeture du fichier
     fclose(file);
     return 0;
@@ -78,7 +77,10 @@ extern map_t * Initialiser_Map(char * fichier) {
     // initialisation et allocation mémoire de la structure map_t
     map_t * map = malloc( sizeof(map_t) );
     // génération de la matriceMap en appellant Load_Map
-    Load_Map(fichier, map);
+    if ( Load_Map(fichier, map) ) {
+        printf("Erreur : Echec Load_Map() dans Initialiser_Map()\n");
+        return NULL;
+    }
     // renvoie de la map final
     return map;
 }
@@ -90,6 +92,10 @@ extern map_t * Initialiser_Map(char * fichier) {
  * \return Aucun retour effectué en fin de fonction
  */
 extern void Detruire_Map(map_t ** map) {
+    if ( map == NULL ) {
+        printf("Erreur : map inexsitant dans Detruire_Map() ");
+        return;
+    }
     // destruction des lignes dans chaques layers de la matrice
     for (int n = 0; n < (*map)->layer; n++) {
         for ( int i = 0; i < (*map)->height; i++ ) {
@@ -110,6 +116,30 @@ extern void Detruire_Map(map_t ** map) {
     (*map) = NULL;
 }
 
+/**
+ * \fn int Colision(map_t * map, int y, int x)
+ * \brief Fonction externe qui verifie si il y a colision
+ * 
+ * \param map Structure map_t où sont stockées les informations de la map
+ * \param y Coordonée y dans la map
+ * \param x Coordonée x dans la map
+ * \return 1 collision || 0 pas de colision | -1 Faill 
+*/
+extern int Colision(map_t * map, int y, int x) {
+    if ( map == NULL ) {
+       printf("Erreur : La Map n'est pas chargé dans Colision()\n");
+       return -1;
+    }
 
+    if ( y < 0 || x < 0 || y >= map->height || x >= map->width ) {
+        printf("Erreur : Coordonnées Invalide dans Colision()\n");
+        return 1;
+    }
 
-    
+    if ( map->matrice[COLISION_LAYER][y][x] > 0) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}

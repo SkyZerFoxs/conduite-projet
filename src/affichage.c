@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 5.5
- * \date 09 février 2023
+ * \version 5.6
+ * \date 09 mars 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -35,22 +35,22 @@
 extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, int height) {
     // Initialisation library SDL
     if ( SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO) < 0 ) {
-        printf("Erreur: SDL_Init() à échoué dans Init_SDL : %s\n",SDL_GetError());
+        printf("Erreur : SDL_Init() à échoué dans Init_SDL : %s\n",SDL_GetError());
         return 1;
     }
     // Création d'une fenêtre
     if ( SDL_CreateWindowAndRenderer(width, height, 0, window, renderer) < 0 ) {
-        printf("Erreur: SDL_CreateWindowAndRenderer() à échoué dans Init_SDL : %s\n",SDL_GetError());
+        printf("Erreur : SDL_CreateWindowAndRenderer() à échoué dans Init_SDL : %s\n",SDL_GetError());
         return 1;
     }
 	// Initialisation de la library SDL_image
     if ( IMG_Init(IMG_INIT_PNG) == 0 ) {
-        printf("Erreur: IMG_Init() à échoué dans Init_SDL : %s\n",IMG_GetError());
+        printf("Erreur : IMG_Init() à échoué dans Init_SDL : %s\n",IMG_GetError());
         return 1;
     }
     // Initialisation de la library SDL_ttf
     if (TTF_Init() < 0 ) {
-        printf("Erreur: TTF_Init() à échoué dans Init_SDL : %s\n",TTF_GetError());
+        printf("Erreur : TTF_Init() à échoué dans Init_SDL : %s\n",TTF_GetError());
         return 1;
     }
     // return status
@@ -176,13 +176,13 @@ extern int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **textur
     if ( (*texture) == NULL ) {
         (*texture) = IMG_LoadTexture(renderer, IMG);
         if ( (*texture) == NULL ) {
-            printf("Erreur: IMG_LoadTexture() à échoué dans Afficher_IMG\n");
+            printf("Erreur : IMG_LoadTexture() à échoué dans Afficher_IMG\n");
             return 1;
         }
     }
     // Envoie de la texture vers le Moteur de Rendu Graphique
     if ( SDL_RenderCopy(renderer, (*texture), srcrect, dstrect) < 0) {
-        printf("Erreur: SDL_RenderCopy() à échoué dans Afficher_IMG\n");
+        printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_IMG\n");
         return 1;
     }
 
@@ -340,32 +340,32 @@ extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
  * \param yBorder Bordure en haut dans la fenêtre
  * \return 0 success || 1 fail
  */
-extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) {
+extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) {
 
 
     // Verification paramètres
     if ( texture == NULL ) {
-       printf("Erreur: La texture n'est pas chargé dans afficher_map()\n");
+       printf("Erreur : La texture n'est pas chargé dans afficher_map()\n");
        return 1;
     }
 
     if ( map == NULL ) {
-       printf("Erreur: La Map n'est pas chargé dans afficher_map()\n");
+       printf("Erreur : La Map n'est pas chargé dans afficher_map()\n");
        return 1;
     }
 
     if ( view == NULL ) {
-       printf("Erreur: La View n'est pas chargé dans afficher_map()\n");
+       printf("Erreur : La View n'est pas chargé dans afficher_map()\n");
        return 1;
     }
 
     if ( renderer == NULL ) {
-       printf("Erreur: Le Renderer n'est pas chargé dans afficher_map()\n");
+       printf("Erreur : Le Renderer n'est pas chargé dans afficher_map()\n");
        return 1;
     }
 
     if ( dstCoef == 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur: Le WinInfo Incorrecte dans afficher_map()\n");
+        printf("Erreur : Le WinInfo Incorrecte dans afficher_map()\n");
         return 1;
     }
 
@@ -400,15 +400,17 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view,
         xmax = view->x + view->w;
     }
 
-    // La Map doit avoir 3 layer de tuile ( meme si les layers sont vide )
-    if ( map->layer < 5) {
+    /*
+    // La Map doit avoir un certain nombre de layer de tuile ( meme si les layers sont vide )
+    if ( map->layer < LAST_TILEMAP_LAYER) {
         printf("Erreur : Le format de la Map est incorrecte .\n");
         return 1;
     }
-    int layer = 3;
+    int layer = LAST_TILEMAP_LAYER+1;
+    */
 
     // Affichage des tiles de la carte
-    for (int n = 0; n < layer; n++ ) {
+    for (int n = minLayer; n < maxLayer; n++ ) {
         for (int y = ymin; y < ymax; y++) {
             for (int x = xmin; x < xmax; x++) {
                 int tileNumber = map->matrice[n][y][x];
@@ -429,7 +431,7 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view,
 
                     // Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer
                     if ( SDL_RenderCopy(renderer, texture, &srcrect, &dstrect) < 0 ) {
-                        printf("Erreur: SDL_RenderCopy() à échoué dans afficher_map\n");
+                        printf("Erreur : SDL_RenderCopy() à échoué dans afficher_map\n");
                         return 1;
                     }
                 }
@@ -458,37 +460,37 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view,
 extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
     if ( SpriteTextureListe == NULL ) {
-       printf("Erreur: La SpriteTextureListe n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_SpriteMap()\n");
        return 1;
     }
 
     if ( spriteMap == NULL ) {
-       printf("Erreur: La spriteMap n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La spriteMap n'est pas chargé dans Afficher_SpriteMap()\n");
        return 1;
     }
 
     if ( map == NULL ) {
-       printf("Erreur: La Map n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La Map n'est pas chargé dans Afficher_SpriteMap()\n");
        return 1;
     }
 
     if ( listeType == NULL ) {
-       printf("Erreur: La listeType n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La listeType n'est pas chargé dans Afficher_SpriteMap()\n");
        return 1;
     }
     
     if ( view == NULL ) {
-       printf("Erreur: La View n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La View n'est pas chargé dans Afficher_SpriteMap()\n");
        return 1;
     }
 
     if ( renderer == NULL ) {
-       printf("Erreur: Le Renderer n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_SpriteMap()\n");
        return 1;
     }
 
     if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur: WinInfo Incorrecte dans Afficher_SpriteMap()\n");
+        printf("Erreur : WinInfo Incorrecte dans Afficher_SpriteMap()\n");
         return 1;
     }
     
@@ -553,7 +555,7 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
 
                 // Affichage de la frame courante du sprite
                 if ( SDL_RenderCopy(renderer, texture, &rectSrc, &rectDst) < 0 ) {
-                    printf("Erreur: SDL_RenderCopy() à échoué dans Afficher_SpriteMap()\n");
+                    printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_SpriteMap()\n");
                     return 1;
                 }
             }
@@ -585,7 +587,7 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
     getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
 
     // Affciher la Map
-    if ( Afficher_TileMap(texture, map, view, renderer,dstCoef, xBorder, yBorder ) ) {
+    if ( Afficher_TileMap(texture, map, 0, LAST_TILEMAP_LAYER, view, renderer,dstCoef, xBorder, yBorder ) ) {
         printf("Errur: Afficher_map() à echoué dans Affichage_All().\n");
         return 1;
     }
@@ -594,6 +596,12 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
     // Affciher la Map
     if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
         printf("Errur: Afficher_SpriteMap() à echoué dans Affichage_All().\n");
+        return 1;
+    }
+
+    // Affciher Les Zone Qui Sont Par Dessus le Joueur
+    if ( Afficher_TileMap(texture, map, LAST_TILEMAP_LAYER, LAST_TILEMAP_LAYER+1, view, renderer,dstCoef, xBorder, yBorder ) ) {
+        printf("Errur: Afficher_map() à echoué dans Affichage_All().\n");
         return 1;
     }
     
@@ -692,39 +700,80 @@ extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
     return ( timer->now - timer->start );
 }
 
-extern void Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) {
-    switch (Action)
-    {
-    case 'z':
-        if ( (view->y - 1) >= 0) {
-            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5-1,view->x+9);
-            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5,view->x+9);
-            view->y -= 1;
-        }
-        break;
-    case 'q':
-        if ( (view->x - 1) >= 0) {
-            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9-1);
-            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9-1);
-            view->x -= 1;
-        }
-        break;
-    case 's':
-        if ( (view->y + view->h + 1) < map->height) {
-            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+2,view->x+9);
-            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5+1,view->x+9);
-            view->y += 1;
-        }
-        break;
-    case 'd':
-        if ( (view->x + view->w + 1) < map->width ) {
-            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9+1);
-            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9+1);
-            view->x += 1;
-        }
-        break;
-    default:
-        break;
+/**
+ * \fn int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action )
+ * \brief Fonction externe qui gere le deplacement du sprite et de la camera du joueur
+ * 
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher.
+ * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param Action Char qui correspond a l'action de deplacement
+ * \return 0 Success || 1 Fail
+ */
+extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) {
+    int col;
+    switch (Action) {
+        case 'z':
+            if ( (view->y - 1) >= 0) {
+                col = Colision(map,view->y+5,view->x+9);
+                if ( col == -1 ) {
+                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    return 1;
+                }
+                if ( col == 0 ) {
+                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5-1,view->x+9);
+                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5,view->x+9);
+                    view->y -= 1;
+                }
+            }
+            break;
+        case 'q':
+            if ( (view->x - 1) >= 0) {
+                col = Colision(map,view->y+5+1,view->x+9-1);
+                if ( col == -1 ) {
+                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    return 1;
+                }
+                if ( col == 0 ) {
+                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9-1);
+                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9-1);
+                    view->x -= 1;
+                }
+            }
+            break;
+        case 's':
+            if ( (view->y + view->h + 1) < map->height) {
+                col = Colision(map,view->y+5+2,view->x+9);
+                if ( col == -1 ) {
+                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    return 1;
+                }
+                if (  col == 0 ) {
+                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+2,view->x+9);
+                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5+1,view->x+9);
+                    view->y += 1;
+                }
+            }
+            break;
+        case 'd':
+            if ( (view->x + view->w + 1) < map->width ) {
+                col = Colision(map,view->y+5+1,view->x+9+1);
+                if ( col == -1 ) {
+                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    return 1;
+                }
+                if ( col == 0 ) {
+                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9+1);
+                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9+1);
+                    view->x += 1;
+                }
+            }
+            break;
+        default:
+            printf("Erreur : Action Invalide\n");
+            return 1;
+            break;
     }
 
+    return 0;
 }
