@@ -14,8 +14,8 @@
  * \file affichage.h
  * \brief Header Gestion Affichage
  * \author Yamis MANFALOTI
- * \version 5.0
- * \date 08 mars 2023
+ * \version 5.5
+ * \date 09 mars 2023
  *
  * Header Gestion de l'affichage:
  * \n Signature des fonction externe de affichage.c
@@ -101,7 +101,7 @@ extern void Timer_Update( SDL_timer_t * timer ) ;
 extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) ;
 
 
-
+extern void Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) ;
 
 
 #endif 

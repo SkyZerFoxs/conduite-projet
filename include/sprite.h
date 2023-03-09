@@ -11,8 +11,8 @@
  * \file sprite.h
  * \brief Header Gestion Sprite
  * \author Yamis MANFALOTI
- * \version 1.5
- * \date 07 mars 2023
+ * \version 2.0
+ * \date 09 mars 2023
  *
  * Header Gestion Sprite:
  * \n structure sprite_type_t
@@ -102,5 +102,9 @@ extern void Detruire_Sprite( sprite_t ** sprite) ;
 
 extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) ;
 extern void Detruire_SpriteMap(sprite_t **** spriteMap, map_t * map) ;
+
+
+extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
+
 
 #endif

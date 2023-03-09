@@ -8,8 +8,8 @@
  * \file sprite.c
  * \brief Gestion des sprites
  * \author Yamis MANFALOTI
- * \version 1.5
- * \date 07 mars 2023
+ * \version 2.0
+ * \date 09 mars 2023
  *
  * Gestion des sprites:
  * \n Chargement des données des types de sprite depuis un fichier
@@ -375,4 +375,32 @@ extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) 
     }
 
     return spriteMap;
+}
+
+extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) {
+    if ( spriteMap == NULL ) {
+        printf("Erreur: spriteMap Inexistante dans Swap_Sprite\n");
+        return 1;
+    }
+
+    if ( y1 < 0 || x1 < 0 || y1 >= map->height || x1 >= map->width ) {
+        printf("Erreur: Coordonnées N°1 Invalide dans Swap_Sprite\n");
+        return 1;
+    }
+
+    if ( y2 < 0 || x2 < 0 || y2 >= map->height || x2 >= map->width ) {
+        printf("Erreur: Coordonnées N°2 Invalide dans Swap_Sprite\n");
+        return 1;
+    }
+
+    sprite_t * temp;
+    temp = spriteMap[y1][x1];
+    spriteMap[y1][x1] = spriteMap[y2][x2];
+    spriteMap[y2][x2] = temp;
+    spriteMap[y2][x2]->x = x2;
+    spriteMap[y2][x2]->y = y2;
+
+    //printf("%p - %p\n",spriteMap[y1][x1],spriteMap[y2][x2]);
+
+    return 0;
 }

@@ -5,8 +5,8 @@
  * \file play.c
  * \brief Fonction Principal Du Jeu
  * \author Yamis MANFALOTI
- * \version 1.5
- * \date 08 mars 2023
+ * \version 2.0
+ * \date 09 mars 2023
  *
  * Fonctionnalité implémentée :
  * \n Chargement / Initialisation Des Données Nécessaires ( map, ListeTypeSprite, spriteMap )
@@ -105,14 +105,35 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         Timer_Start( &fps );
 
         //Tant qu'il y a un événement
-        while( SDL_PollEvent( &event ) != 0 ) {
-            //Si l'utilisateur demande la fermeture de la fenètres
-            if( event.type == SDL_QUIT )
-            {
-                quit = SDL_TRUE;
-                //break;
-            }
-        }
+        SDL_PollEvent( &event );
+        switch(event.type) {
+			case SDL_QUIT:
+				quit = SDL_TRUE;
+                break;
+			// detection touche clavier
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym) {
+					case SDLK_z:
+						printf("Appui sur la touche Z\n");
+                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'z');
+						break;
+					case SDLK_q:
+                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'q');
+						printf("Appui sur la touche Q\n");
+						break;
+					case SDLK_s:
+						printf("Appui sur la touche S\n");
+                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'s');
+						break;
+					case SDLK_d:
+                        Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,'d');
+						printf("Appui sur la touche D\n");
+						break;
+					default:
+						break;
+				}
+				break;
+		}
 
         // remise à 0 du renderer ( fond noir )
         SDL_RenderClear(renderer);

@@ -31,7 +31,6 @@ typedef struct map_s{
     int tileSize;
     int layer;
     int ***matrice;
-
 }map_t;
 
 

@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 5.0
- * \date 08 février 2023
+ * \version 5.5
+ * \date 09 février 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -142,7 +142,6 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
         SDL_SetWindowSize(window, 1920, 1080);
         break;
     default:
-        SDL_SetWindowSize(window, 1600, 900);
         break;
     }
     switch (indiceFullscreen)
@@ -157,7 +156,6 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
         break;
     default:
-        SDL_SetWindowFullscreen(window, 0);
         break;
     }
 }
@@ -692,4 +690,41 @@ extern void Timer_Update( SDL_timer_t * timer ) {
 extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
     Timer_Update(timer);
     return ( timer->now - timer->start );
+}
+
+extern void Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) {
+    switch (Action)
+    {
+    case 'z':
+        if ( (view->y - 1) >= 0) {
+            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5-1,view->x+9);
+            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5,view->x+9);
+            view->y -= 1;
+        }
+        break;
+    case 'q':
+        if ( (view->x - 1) >= 0) {
+            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9-1);
+            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9-1);
+            view->x -= 1;
+        }
+        break;
+    case 's':
+        if ( (view->y + view->h + 1) < map->height) {
+            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+2,view->x+9);
+            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5+1,view->x+9);
+            view->y += 1;
+        }
+        break;
+    case 'd':
+        if ( (view->x + view->w + 1) < map->width ) {
+            Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9+1);
+            Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9+1);
+            view->x += 1;
+        }
+        break;
+    default:
+        break;
+    }
+
 }
