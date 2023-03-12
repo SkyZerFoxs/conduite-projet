@@ -10,8 +10,8 @@
  * \file sprite.h
  * \brief Header Gestion Sprite
  * \author Yamis MANFALOTI
- * \version 2.0
- * \date 09 mars 2023
+ * \version 2.1
+ * \date 12 mars 2023
  *
  * Header Gestion Sprite:
  * \n structure sprite_type_t
@@ -92,18 +92,38 @@ typedef struct sprite_s {
 
 }sprite_t;
 
+/**
+ * \typedef sprite_liste_s sprite_liste_t Structure Liste Sprite
+ * \struct sprite_liste_t
+ * \brief Structure qui correspond à une liste de sprite
+ * 
+ * Contient:
+ * \n spriteListe   : Liste de sprite
+ * \n nbElem;       : Nombre d'éléments dans la liste
+*/
+typedef struct sprite_liste_s {
+    sprite_t ** spriteListe;
+    int nbElem;
 
-extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) ;
+}sprite_liste_t;
+
+
 extern sprite_type_liste_t * Load_Sprite_Type(const char * nom_fichier) ;
+extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) ;
 
 extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_type_liste_t * liste, map_t * map) ;
 extern void Detruire_Sprite( sprite_t ** sprite) ;
 
+extern sprite_liste_t * Load_PersoSprite_List(sprite_type_liste_t * listeType, map_t * map, int debut, int fin) ;
+extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) ;
+
 extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) ;
 extern void Detruire_SpriteMap(sprite_t **** spriteMap, map_t * map) ;
 
+extern int Deplacement_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
+extern int Change_Sprite(sprite_t *** spriteMap, map_t * map, sprite_t * sprite, int y, int x) ;
+extern int Copy_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
 
-extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
-
+extern int Colision(map_t * map, sprite_t *** spriteMap, char direction, int y, int x) ;
 
 #endif

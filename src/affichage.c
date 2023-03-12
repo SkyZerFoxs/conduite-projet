@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 5.6
- * \date 09 mars 2023
+ * \version 5.7
+ * \date 12 mars 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -38,11 +38,20 @@ extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, in
         printf("Erreur : SDL_Init() à échoué dans Init_SDL : %s\n",SDL_GetError());
         return 1;
     }
+
     // Création d'une fenêtre
-    if ( SDL_CreateWindowAndRenderer(width, height, 0, window, renderer) < 0 ) {
-        printf("Erreur : SDL_CreateWindowAndRenderer() à échoué dans Init_SDL : %s\n",SDL_GetError());
+    *window = SDL_CreateWindow("Ma fenêtre", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
+    if (*window == NULL) {
+        printf("Erreur : SDL_CreateWindow() à échoué dans Init_SDL : %s\n",SDL_GetError());
         return 1;
     }
+    // Création d'un renderer | SDL_RENDERER_PRESENTVSYNC
+    *renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED );
+    if (*renderer == NULL) {
+        printf("Erreur : SDL_CreateRenderer() à échoué dans Init_SDL : %s\n",SDL_GetError());
+        return 1;
+    }
+
 	// Initialisation de la library SDL_image
     if ( IMG_Init(IMG_INIT_PNG) == 0 ) {
         printf("Erreur : IMG_Init() à échoué dans Init_SDL : %s\n",IMG_GetError());
@@ -65,18 +74,25 @@ extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, in
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer) {
-    // Fermeture de la library SDL_image
+void Quit_SDL(SDL_Window* window, SDL_Renderer* renderer) {
+    // On détruit le renderer
+    if (renderer != NULL) {
+        SDL_DestroyRenderer(renderer);
+    }
+
+    // On détruit la fenêtre
+    if (window != NULL) {
+        SDL_DestroyWindow(window);
+    }
+
+    // On quitte les libraries SDL_image et SDL_ttf
     IMG_Quit();
-    // Fermeture de la library SDL_ttf
     TTF_Quit();
-    // Destruction en mémoire du Renderer
-    SDL_DestroyRenderer(renderer);
-    // destruction en mémoire de la Fenètre
-    SDL_DestroyWindow(window);
-    // Fermeture la librairy SDL_image.
+
+    // On quitte la library SDL
     SDL_Quit();
 }
+
 
 /**
  * 
@@ -200,7 +216,7 @@ extern Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste() {
     // Malloc Sprite_Texture_Liste_t
     Sprite_Texture_Liste_t * sprite_texture_liste = malloc(sizeof(Sprite_Texture_Liste_t));
     if (sprite_texture_liste == NULL) {
-        fprintf(stderr, "Erreur : echec malloc( sprite_texture_liste ) dans Init_Sprite_Texture_Liste.\n");
+        printf("Erreur : echec malloc( sprite_texture_liste ) dans Init_Sprite_Texture_Liste.\n");
         return NULL;
     }
     // Element Tableau A NULL
@@ -252,14 +268,14 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
         // Allocation de mémoire pour la nouvelle texture
         Sprite_Texture_t *newTexture = (Sprite_Texture_t *) malloc(sizeof(Sprite_Texture_t));
         if (newTexture == NULL) {
-            fprintf(stderr, "Erreur : echec malloc( Sprite_Texture_t ) dans Ajouter_Texture.\n");
+           printf("Erreur : echec malloc( Sprite_Texture_t ) dans Ajouter_Texture.\n");
             return -1;
         }
 
         // Initialisation de la nouvelle texture
         newTexture->spriteSheet = strdup(spriteSheet);
         if (newTexture->spriteSheet == NULL) {
-            fprintf(stderr, "Erreur : echec strdup( spriteSheet ) dans Ajouter_Texture.\n");
+           printf("Erreur : echec strdup( spriteSheet ) dans Ajouter_Texture.\n");
             free(newTexture);
             return -1;
         }
@@ -271,7 +287,7 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
 
         return liste->nbElem - 1;
     } else {
-        fprintf(stderr, "Erreur : Max Sprite Texture Atteinte dans Ajouter_Texture.\n");
+       printf("Erreur : Max Sprite Texture Atteinte dans Ajouter_Texture.\n");
         return -1;
     }
 }
@@ -287,7 +303,7 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
 */
 extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, sprite_type_liste_t * listeType, SDL_Renderer *renderer ) {
     if ( SpriteTexteListe == NULL || listeType == NULL ) {
-        fprintf(stderr, "Erreur : SpriteTexteListe Ou listeType Inexistante Dans Load_Sprite_Texture_Liste().\n");
+       printf("Erreur : SpriteTexteListe Ou listeType Inexistante Dans Load_Sprite_Texture_Liste().\n");
         return 1;
     }
 
@@ -295,7 +311,7 @@ extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, s
     for (int i = 0; i < listeType->nbElem; i++) {
         id = Ajouter_Texture(SpriteTexteListe,listeType->typeListe[i]->spriteSheet,IMG_LoadTexture(renderer,listeType->typeListe[i]->spriteSheet));
         if (  id < 0 ) {
-            fprintf(stderr, "Erreur : Echec Ajouter_Texture() dans Load_Sprite_Texture_Liste().\n");
+           printf("Erreur : Echec Ajouter_Texture() dans Load_Sprite_Texture_Liste().\n");
             return 1;
         }
         listeType->typeListe[i]->textureId = id;
@@ -333,6 +349,8 @@ extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
  * 
  * \param texture Texture du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param minLayer Premier layer de la tileMap à afficher
+ * \param maxLayer Dernier layer de la tileMap à afficher
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
@@ -399,15 +417,6 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
         xmin = view->x;
         xmax = view->x + view->w;
     }
-
-    /*
-    // La Map doit avoir un certain nombre de layer de tuile ( meme si les layers sont vide )
-    if ( map->layer < LAST_TILEMAP_LAYER) {
-        printf("Erreur : Le format de la Map est incorrecte .\n");
-        return 1;
-    }
-    int layer = LAST_TILEMAP_LAYER+1;
-    */
 
     // Affichage des tiles de la carte
     for (int n = minLayer; n < maxLayer; n++ ) {
@@ -700,80 +709,154 @@ extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
     return ( timer->now - timer->start );
 }
 
+
 /**
  * \fn int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action )
- * \brief Fonction externe qui gere le deplacement du sprite et de la camera du joueur
+ * \brief Fonction externe qui gere le deplacement du sprite et de la camera du joueur ( Changement Affichage )
  * 
  * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher.
  * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param spritePerso Tableau de sprite_t, Liste des sprites pour le personnage.
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
  * \param Action Char qui correspond a l'action de deplacement
  * \return 0 Success || 1 Fail
  */
-extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action ) {
+extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+    // Initialisation variable de colision
     int col;
     switch (Action) {
+        // Action Mouvement
         case 'z':
+            // Si on ne sort pas de la carte
             if ( (view->y - 1) >= 0) {
-                col = Colision(map,view->y+5,view->x+9);
+                // Verification colision
+                col = Colision(map,spriteMap,'z',view->y+5,view->x+9);
                 if ( col == -1 ) {
-                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    printf("Erreur : Echec Colision('z') dans Deplacement_PersoSprite()\n");
                     return 1;
                 }
+                // Si deplacement autorisé
                 if ( col == 0 ) {
-                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5-1,view->x+9);
-                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5,view->x+9);
+                    // Changement vers le sprite qui correspond a la bonne animation
+                    if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[10],view->y + 5,view->x + 9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[11],view->y + 5 + 1,view->x + 9)  ) {
+                        printf("Erreur : Echec Copy_Sprite('z') dans Deplacement_PersoSprite()\n");
+                        return 1;    
+                    }
+                    // Deplacement du sprite sur la matrice
+                    if (Deplacement_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5-1,view->x+9) || Deplacement_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5,view->x+9) ) {
+                        printf("Erreur : Echec Deplacement_Sprite('z') dans Deplacement_PersoSprite()\n");
+                        return 1;    
+                    }
+                    // Modification / Deplacement de la camera du joeur
                     view->y -= 1;
                 }
             }
             break;
         case 'q':
             if ( (view->x - 1) >= 0) {
-                col = Colision(map,view->y+5+1,view->x+9-1);
+                col = Colision(map,spriteMap,'q',view->y+5+1,view->x+9-1);
                 if ( col == -1 ) {
-                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    printf("Erreur : Echec Colision('q') dans Deplacement_PersoSprite()\n");
                     return 1;
                 }
                 if ( col == 0 ) {
-                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9-1);
-                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9-1);
+                    if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[14],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[15],view->y+5+1,view->x+9) ) {
+                        printf("Erreur : Echec Copy_Sprite('q') dans Deplacement_PersoSprite()\n");
+                        return 1;    
+                    } 
+                    if (Deplacement_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9-1) || Deplacement_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9-1) ) {
+                        printf("Erreur : Echec Deplacement_Sprite('q') dans Deplacement_PersoSprite()\n");
+                        return 1;    
+                    }
                     view->x -= 1;
+
                 }
             }
             break;
         case 's':
             if ( (view->y + view->h + 1) < map->height) {
-                col = Colision(map,view->y+5+2,view->x+9);
+                col = Colision(map,spriteMap,'s',view->y+5+2,view->x+9);
                 if ( col == -1 ) {
-                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    printf("Erreur : Echec Colision('s') dans Deplacement_PersoSprite()\n");
                     return 1;
                 }
                 if (  col == 0 ) {
-                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+2,view->x+9);
-                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5+1,view->x+9);
+                    if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[8],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[9],view->y+5+1,view->x+9) ) {
+                        printf("Erreur : Echec Copy_Sprite('s') dans Deplacement_PersoSprite()\n");
+                        return 1;    
+                    }
+                    if (Deplacement_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+2,view->x+9) || Deplacement_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5+1,view->x+9) ) {
+                        printf("Erreur : Echec Deplacement_Sprite('s') dans Deplacement_PersoSprite()\n");
+                        return 1;   
+                    }
                     view->y += 1;
                 }
             }
             break;
         case 'd':
             if ( (view->x + view->w + 1) < map->width ) {
-                col = Colision(map,view->y+5+1,view->x+9+1);
+                col = Colision(map,spriteMap,'d',view->y+5+1,view->x+9+1);
                 if ( col == -1 ) {
-                    printf("Erreur : Echec Colision dans Deplacement_PersoSprite()\n");
+                    printf("Erreur : Echec Colision('d') dans Deplacement_PersoSprite()\n");
                     return 1;
                 }
                 if ( col == 0 ) {
-                    Swap_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9+1);
-                    Swap_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9+1);
+                    if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[12],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[13],view->y+5+1,view->x+9) ) {
+                        printf("Erreur : Echec Copy_Sprite('d') dans Deplacement_PersoSprite()\n");
+                        return 1;    
+                    } 
+                    if (Deplacement_Sprite(spriteMap,map,view->y+5,view->x+9,view->y+5,view->x+9+1) || Deplacement_Sprite(spriteMap,map,view->y+5+1,view->x+9,view->y+5+1,view->x+9+1) ) {
+                        printf("Erreur : Echec Deplacement_Sprite('d') dans Deplacement_PersoSprite()\n");
+                        return 1;   
+                    }
                     view->x += 1;
                 }
             }
             break;
+        // Action Idle ( Sur place )
+        case 'Z':
+            // Changement vers le sprite qui correspond a la bonne animation
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[2],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[3],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        case 'Q':
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[6],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[7],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('Q') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        case 'S':
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[0],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[1],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('S') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        case 'D':
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[4],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[5],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('D') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        // Action invalide
         default:
             printf("Erreur : Action Invalide\n");
             return 1;
             break;
     }
 
+    // Modification ancien x et y sprite partie Upper
+    spriteMap[view->y+5][view->x+9]->y = view->y+5;
+    spriteMap[view->y+5][view->x+9]->x = view->x+9;
+
+    // Modification ancien x et y sprite partie Lower
+    spriteMap[view->y+5+1][view->x+9]->y = view->y+5+1;
+    spriteMap[view->y+5+1][view->x+9]->x = view->x+9;
+
+    // Synchronise le nombre de frames des deux partie Upper et Lower
+    spriteMap[view->y+5+1][view->x+9]->frame = spriteMap[view->y+5][view->x+9]->frame;
+
     return 0;
 }
+

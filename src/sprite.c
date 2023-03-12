@@ -8,8 +8,8 @@
  * \file sprite.c
  * \brief Gestion des sprites
  * \author Yamis MANFALOTI
- * \version 2.1
- * \date 09 mars 2023
+ * \version 2.2
+ * \date 12 mars 2023
  *
  * Gestion des sprites:
  * \n Chargement des données des types de sprite depuis un fichier
@@ -378,10 +378,10 @@ extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) 
 }
 
 /**
- * \fn int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2)
+ * \fn int Deplacement_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2)
  * \brief Fonction externe qui echange l'emplacement de deux sprite dans la SpriteMap
  * 
- * \param spriteMap Pointeur de pointeur de pointeur de pointeur sur sprite_t, Le pointeur vers la matrice de sprites à libérer.
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap dans laquelle on echange deux element
  * \param map Pointeur sur map_t, la carte correspondante.
  * \param y1 Coordonée y dans la spriteMap du sprite N°1
  * \param x1 Coordonée x dans la spriteMap du sprite N°1
@@ -389,19 +389,24 @@ extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) 
  * \param x2 Coordonée x dans la spriteMap du sprite N°2
  * \return 0 success || 1 Fail
 */
-extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) {
+extern int Deplacement_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) {
     if ( spriteMap == NULL ) {
-        printf("Erreur : spriteMap Inexistante dans Swap_Sprite()\n");
+        printf("Erreur : spriteMap Inexistante dans Deplacement_Sprite()\n");
         return 1;
     }
 
     if ( y1 < 0 || x1 < 0 || y1 >= map->height || x1 >= map->width ) {
-        printf("Erreur : Coordonnées N°1 Invalide dans Swap_Sprite()\n");
+        printf("Erreur : Coordonnées N°1 ( Emplacement Source ) Invalide dans Deplacement_Sprite()\n");
         return 1;
     }
 
     if ( y2 < 0 || x2 < 0 || y2 >= map->height || x2 >= map->width ) {
-        printf("Erreur : Coordonnées N°2 Invalide dans Swap_Sprite()\n");
+        printf("Erreur : Coordonnées N°2 ( Emplacement Destination ) Invalide dans Deplacement_Sprite()\n");
+        return 1;
+    }
+
+    if ( spriteMap[y2][x2] != NULL) {
+        printf("Erreur : L'emplacement aux coordonnées N°2 ( Emplacement Destination ) n'est pas vide dans Deplacement_Sprite()\n");
         return 1;
     }
 
@@ -413,4 +418,229 @@ extern int Swap_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int 
     spriteMap[y2][x2]->y = y2;
 
     return 0;
+}
+
+
+/**
+ * \fn int Copy_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2)
+ * \brief Fonction externe qui permet de copier un sprite de la spriteMap vers un emplacement dans la spriteMap
+ * 
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap dans laquelle on echange deux element.
+ * \param map Pointeur sur map_t, la carte correspondante.
+ * \param sprite Pointeur sur le sprite qui remplacera dans la spriteMap.
+ * \param y1 Coordonée y1 dans la spriteMap du pointeur de sprite ( source ).
+ * \param x1 Coordonée x1 dans la spriteMap du pointeur de sprite ( source ).
+ * \param y2 Coordonée y2 dans la spriteMap du pointeur de sprite ( destination ).
+ * \param x2 Coordonée x2 dans la spriteMap du pointeur de sprite ( destination ).
+* \return 0 success || 1 Fail
+*/
+extern int Copy_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) {
+    if ( spriteMap == NULL ) {
+        printf("Erreur : spriteMap Inexistante dans Copy_Sprite()\n");
+        return 1;
+    }
+
+    if ( map == NULL ) {
+        printf("Erreur : Map Inexistante dans Copy_Sprite()\n");
+        return 1;
+    }
+
+    if ( y1 < 0 || x1 < 0 || y1 >= map->height || x1 >= map->width ) {
+        printf("Erreur : Coordonnées N°1 ( Emplacement Destination ) Invalide dans Copy_Sprite()\n");
+        return 1;
+    }
+
+    if ( y2 < 0 || x2 < 0 || y2 >= map->height || x2 >= map->width ) {
+        printf("Erreur : Coordonnées N°2 ( Emplacement Source ) Invalide dans Copy_Sprite()\n");
+        return 1;
+    }
+
+    if ( spriteMap[y1][x1] == NULL) {
+        printf("Erreur : L'emplacement aux coordonnées N°1 ( Emplacement Source ) est vide dans Copy_Sprite()\n");
+        return 1;
+    }
+
+    spriteMap[y2][x2] = spriteMap[y1][x1];
+
+    return 0;
+}
+
+
+/**
+ * \fn int Change_Sprite(sprite_t *** spriteMap, map_t * map, sprite_t * sprite, int y, int x)
+ * \brief Fonction externe qui permet de changer le sprite dans la spriteMap au coordonnées y et x
+ * 
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap dans laquelle on echange deux element.
+ * \param map Pointeur sur map_t, la carte correspondante.
+ * \param sprite Pointeur sur le sprite qui remplacera dans la spriteMap.
+ * \param y Coordonée y dans la spriteMap du pointeur de sprite.
+ * \param x Coordonée x dans la spriteMap du pointeur de sprite.
+ * \return 0 success || 1 Fail
+*/
+extern int Change_Sprite(sprite_t *** spriteMap, map_t * map, sprite_t * sprite, int y, int x) {
+    if ( spriteMap == NULL ) {
+        printf("Erreur : spriteMap Inexistante dans Change_Sprite()\n");
+        return 1;
+    }
+
+    if ( map == NULL ) {
+        printf("Erreur : Map Inexistante dans Change_Sprite()\n");
+        return 1;
+    }
+
+    if ( sprite == NULL) {
+        printf("Erreur : Le sprite source est vide dans Change_Sprite()\n");
+        return 1;
+    }
+
+    if ( y < 0 || x < 0 || y >= map->height || x >= map->width ) {
+        printf("Erreur : Coordonnées dans la spriteMap ( Emplacement Destination ) Invalide dans Change_Sprite()\n");
+        return 1;
+    }
+
+    sprite->x = x;
+    sprite->y = y;
+
+    spriteMap[y][x] = sprite;
+
+    return 0;
+}
+
+/**
+ * \fn int Colision(map_t * map, int y, int x)
+ * \brief Fonction externe qui verifie si il y a colision
+ * 
+ * \param map Structure map_t où sont stockées les informations de la map
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap dans laquelle on travaille
+ * \param direction Char qui correspond au sens du deplacement lors de l'appelle de Colision
+ * \param y Coordonée y dans la map
+ * \param x Coordonée x dans la map
+ * \return 1 collision || 0 pas de colision | -1 Fail 
+*/
+extern int Colision(map_t * map, sprite_t *** spriteMap, char direction, int y, int x) {
+    if ( map == NULL ) {
+       printf("Erreur : La Map n'est pas chargé dans Colision()\n");
+       return -1;
+    }
+
+    if ( y < 0 || x < 0 || y >= map->height || x >= map->width ) {
+        printf("Erreur : Coordonnées Invalide dans Colision()\n");
+        return -1;
+    }
+
+    if ( map->matrice[COLISION_LAYER][y][x] > 0) {
+        return 1;
+    }
+
+    switch ( direction) {
+        case 'z':
+            if ( spriteMap[y-1][x] != NULL ) {
+                return 1;
+            }
+            break;
+        case 'd':
+            if ( spriteMap[y-1][x] != NULL || spriteMap[y][x] != NULL ) {
+                return 1;
+            }
+            break;
+        case 'q':
+            if ( spriteMap[y-1][x] != NULL || spriteMap[y][x] != NULL ) {
+                return 1;
+            }
+            break;
+        case 's':
+            if ( spriteMap[y][x] != NULL ) {
+                return 1;
+            }
+            break;
+        default:
+            printf("Erreur : Direction Incorrecte dans Colision()\n");
+            return -1;
+            break;
+    }
+
+    return 0;
+}
+
+/**
+ * \param listeType Pointeur sur sprite_type_liste_t , la liste des types de sprites.
+ * \param map Pointeur sur map_t, la map à partir de laquelle charger la matrice de sprites.
+ * \param debut Indice du spriteTypeId du premier sprite de la liste
+ * \param fin Indice du spriteTypeId du dernier sprite de la liste
+ * 
+ * \return Un pointeur vers la liste de sprites du perso chargée || fail NULL .
+ */
+extern sprite_liste_t * Load_PersoSprite_List(sprite_type_liste_t * listeType, map_t * map, int debut, int fin) {
+    if (listeType == NULL) {
+        printf("Erreur : ListeType Inexistante Dans Load_PersoSprite_List().\n");
+        return NULL;
+    }
+
+    if (map == NULL) {
+        printf("Erreur : La Map est inexistante dans Load_PersoSprite_List().\n");
+        return NULL;
+    }
+
+    if ( debut < 0 || debut > fin || debut >= listeType->nbElem ) {
+        printf("Erreur : L'indice de debut est incorrecte dans Load_PersoSprite_List()\n");
+        return NULL;
+    }
+
+    if (  fin < 0 || fin >= listeType->nbElem || fin < debut  ) {
+        printf("Erreur : L'indice de fin est incorrecte dans Load_PersoSprite_List()\n");
+        return NULL;
+    }
+
+    sprite_liste_t * liste = malloc(sizeof(sprite_liste_t));
+    if (liste == NULL) {
+        printf("Erreur : Echec maloc(liste) dans Load_PersoSprite_List().\n");
+        return NULL;
+    }
+
+    int nbElem = fin - debut + 1;
+    liste->nbElem = nbElem;
+    liste->spriteListe = malloc(nbElem * sizeof(sprite_t *));
+    if (liste->spriteListe == NULL) {
+        printf("Erreur : Echec malloc(liste->spriteListe) dans Load_PersoSprite_List().\n");
+        free(liste);
+        return NULL;
+    }
+
+    for (int i = debut; i < fin; i++) {
+        sprite_t * sprite = Load_Sprite(0, 0, 0, i, listeType, map);
+        if (sprite == NULL) {
+            printf("Erreur : Echec Load_Sprite() dans Load_PersoSprite_List().\n");
+            for (int j = 0; j < i - debut; j++) {
+                free(liste->spriteListe[j]);
+            }
+            free(liste->spriteListe);
+            free(liste);
+            return NULL;
+        }
+        liste->spriteListe[i - debut] = sprite;
+    }
+
+    return liste;
+}
+
+/**
+ * \fn void Detruire_Sprite_Liste(sprite_liste_t **liste)
+ * \brief Fonction externe qui détruit en mémoire la structure sprite_liste_t passée en paramètre, ainsi que tous les sprites qu'elle contient
+ * 
+ * \param liste Pointeur de pointeur vers la structure sprite_liste_t à détruire
+ * \return Aucun retour effectué en fin de fonction
+ */
+extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) {
+    if ((*liste) != NULL) {
+        if ((*liste)->spriteListe != NULL) {
+            for (int i = 0; i < (*liste)->nbElem; i++) {
+                if ((*liste)->spriteListe[i] != NULL) {
+                    Detruire_Sprite(&(*liste)->spriteListe[i]);
+                }
+            }
+            free((*liste)->spriteListe);
+        }
+        free((*liste));
+        (*liste) = NULL;
+    }
 }

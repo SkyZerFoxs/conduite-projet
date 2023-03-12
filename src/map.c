@@ -115,31 +115,3 @@ extern void Detruire_Map(map_t ** map) {
     free((*map));
     (*map) = NULL;
 }
-
-/**
- * \fn int Colision(map_t * map, int y, int x)
- * \brief Fonction externe qui verifie si il y a colision
- * 
- * \param map Structure map_t où sont stockées les informations de la map
- * \param y Coordonée y dans la map
- * \param x Coordonée x dans la map
- * \return 1 collision || 0 pas de colision | -1 Faill 
-*/
-extern int Colision(map_t * map, int y, int x) {
-    if ( map == NULL ) {
-       printf("Erreur : La Map n'est pas chargé dans Colision()\n");
-       return -1;
-    }
-
-    if ( y < 0 || x < 0 || y >= map->height || x >= map->width ) {
-        printf("Erreur : Coordonnées Invalide dans Colision()\n");
-        return 1;
-    }
-
-    if ( map->matrice[COLISION_LAYER][y][x] > 0) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}

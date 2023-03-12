@@ -41,6 +41,4 @@ typedef struct map_s{
 extern map_t * Initialiser_Map(char * fichier) ;
 extern void Detruire_Map(map_t ** map) ;
 
-extern int Colision(map_t * map, int y, int x) ;
-
 #endif
