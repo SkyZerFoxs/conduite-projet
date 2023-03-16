@@ -5,8 +5,8 @@
  * \file play.c
  * \brief Fonction Principal Du Jeu
  * \author Yamis MANFALOTI
- * \version 2.2
- * \date 12 mars 2023
+ * \version 2.5
+ * \date 16 mars 2023
  *
  * Fonctionnalité implémentée :
  * \n Chargement / Initialisation Des Données Nécessaires ( map, ListeTypeSprite, spriteMap )
@@ -30,7 +30,7 @@
  * \return 0 Success || 1 Fail
 */
 int play(SDL_Window *window, SDL_Renderer *renderer) {
-    /* Initialisation variable */
+    /* ------------------ Initialisation variable ------------------ */
 
     // statut des erreurs
     int erreur = 0;
@@ -53,7 +53,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     int quit = SDL_FALSE;
 
     // Nombre De FPS A Afficher
-    int FRAME_PER_SECONDE = 60;
+    int FRAME_PER_SECONDE = 30;
 
     // Nombre De Ms Par Frame Produite
     int msPerFrame;
@@ -64,12 +64,16 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable qui detecte si un touche a deja été préssé
     int keyPressed = 0;
 
-    //int lastAttack = 0;
+    // Variable qui detecte si un clic gauche est déja en cour
+    int mouseClicked = 0;
+
+    // Variable qui correspond au frame d'animation de l'attaque
+    int frameAtck = 0;
 
     // Varaible de direction du personnage
     char direction = 'S';
 
-    /* Initialisation resource jeux */
+    /* ------------------ Initialisation resource jeux ------------------ */
 
     // initialisation des variables
     map_t * continent = NULL;
@@ -144,124 +148,129 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
     Timer_Start( &frameTimer2 );
+    Timer_Start( &lastKey );
+    lastKey.start -= 151;
     Timer_Start( &AtkCooldown );
-    AtkCooldown.start -= 1000;
+    AtkCooldown.start -= 1001;
 
-    /* Boucle Principal */
+    /* ------------------ Boucle Principal ------------------ */
 
     while( quit == SDL_FALSE ) {
+        /* --------- Variable Boucle --------- */
+
         // Lancement timer temps d'execution
         Timer_Start( &fps );
-
+        // Reset keyPressed
         keyPressed = 0;
 
-        //Detection evenement
+        /* ------- Detection Evenement -------*/
         while (SDL_PollEvent(&event)) {
+            // Switch Event
             switch (event.type) {
+                // Evenement QUIT
                 case SDL_QUIT:
                     quit = SDL_TRUE;
                     break;
+                // Evenement Touche Clavier
                 case SDL_KEYDOWN:
-                    if ( !keyPressed ) {
+                    if (  !mouseClicked && !keyPressed ) {
+                        // Gestion Touche Clavier
                         switch (event.key.keysym.sym) {
                             case SDLK_z:
-                                if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,'z') ) {
-                                    printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
-                                    erreur = 1;
-                                    goto detruire;
-                                }
                                 direction = 'Z';
-                                Timer_Start( &lastKey );
-                                keyPressed = 1;
                                 break;
-                            case SDLK_q:        
-                                if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,'q') ) {
-                                    printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
-                                    erreur = 1;
-                                    goto detruire;
-                                }
+                            case SDLK_q:
                                 direction = 'Q';
-                                Timer_Start( &lastKey );
-                                keyPressed = 1;
                                 break;
                             case SDLK_s:
-                                if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,'s') ) {
-                                    printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
-                                    erreur = 1;
-                                    goto detruire;
-                                }
                                 direction = 'S';
-                                Timer_Start( &lastKey );
-                                keyPressed = 1;
                                 break;
-                            case SDLK_d:
-                                if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,'d') ) {
-                                    printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
-                                    erreur = 1;
-                                    goto detruire;
-                                }
+                            case SDLK_d: 
                                 direction = 'D';
-                                Timer_Start( &lastKey );
-                                keyPressed = 1;
                                 break;
                             case SDLK_e:
-                                // Interaction avec les PNG / Objet / Batiment
-                                keyPressed = 1;
                                 break;
                             default:
                                 break;
                         }
+                        // Deplacement
+                        if ( event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_d ) {
+                            if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,tolower(direction)) ) {
+                                printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
+                                erreur = 1;
+                                goto detruire;
+                            }
+                        }
+                        // Gestion dernières touches
+                        Timer_Start( &lastKey );
+                        keyPressed = 1;
                     }
+                    break;
+                // Evenement Souris
                 case SDL_MOUSEBUTTONDOWN:
-                    // Vérifie si le bouton gauche de la souris a été cliqué
                     if (event.button.button == SDL_BUTTON_LEFT ) {
-                    // Appelle la fonction attack_spritePerso()
                         if ( (int)Timer_Get_Time(&AtkCooldown) > 1000 ) {
                             if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                 printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
                                 erreur = 1;
                                 goto detruire;
                             }
+                            mouseClicked = 1;
+                            // Gestion cooldown
                             Timer_Start( &AtkCooldown );
+                            break;  
                         }
-
                     }
                     break;
                 default:
                     break;
+                    
             }
-        }   
+        }
 
-        /*
+        /* --------- Gestion Animation --------- */
 
+        // Bloqué les actions pendants l'attaque
+        if ( mouseClicked == 1 ) {
+            frameAtck++;
+            SDL_Delay(200);
+            if ( frameAtck == 4 ) {
+                mouseClicked = 0;
+                frameAtck = 0;
+            }
+        }
+
+        
         // Changement vers animation Idle   Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
-        if ( (int)Timer_Get_Time( &lastKey ) > 150 ) {
+        if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 ) {
             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
                 printf("Erreur : Echec Change_Sprite //Deplacement_PersoSprite() dans play()\n");
                 erreur = 1;
                 goto detruire;
             }
         }
-        
-        */
+    
+       /* --------- Gestion Frame Sprite --------- */ 
+
+        // Gestion Frame Monstre
+        if ( (int)Timer_Get_Time( &frameTimer1 ) > 600 ) {
+            AddFrame(spriteMap,0,ListeTypeSprite,continent,&CameraJoueur);
+            Timer_Start( &frameTimer1 );
+        }
+
+        // Gestion Frame Perso
+        if ( (int)Timer_Get_Time( &frameTimer2 ) > 200 ) {
+            AddFrame(spriteMap,1,ListeTypeSprite,continent,&CameraJoueur);
+            Timer_Start( &frameTimer2 );
+        }
+
+        /* --------- Gestion Affichage --------- */
 
         // remise à 0 du renderer ( fond noir )
         if ( SDL_RenderClear(renderer) < 0 ) {
             printf("Erreur : Echec SDL_RenderClear() dans play()\n");
             erreur = 1;
             goto detruire;
-        }
-        
-        // Gestion Frame
-        if ( (int)Timer_Get_Time( &frameTimer1 ) > 800 ) {
-            AddFrame(spriteMap,0,ListeTypeSprite,continent,&CameraJoueur);
-            Timer_Start( &frameTimer1 );
-        }
-
-        // Gestion Frame
-        if ( (int)Timer_Get_Time( &frameTimer2 ) > 200 ) {
-            AddFrame(spriteMap,1,ListeTypeSprite,continent,&CameraJoueur);
-            Timer_Start( &frameTimer2 );
         }
 
         // Affichage Complet
@@ -273,12 +282,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
         // Gestion fps
         if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
-            //SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
         }
 
         // mise à jour du renderer ( update affichage)
         SDL_RenderPresent(renderer);
-
+        //SDL_Delay(200);
         
 
         // Affichage du temps d'execution en Ms

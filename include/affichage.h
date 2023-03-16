@@ -14,8 +14,8 @@
  * \file affichage.h
  * \brief Header Gestion Affichage
  * \author Yamis MANFALOTI
- * \version 5.7
- * \date 12 mars 2023
+ * \version 6.0
+ * \date 16 mars 2023
  *
  * Header Gestion de l'affichage:
  * \n Signature des fonction externe de affichage.c

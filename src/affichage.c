@@ -7,8 +7,8 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 5.7
- * \date 12 mars 2023
+ * \version 6.0
+ * \date 16 mars 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
@@ -944,27 +944,27 @@ extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
     // Modification ancien x et y sprite partie Upper
     spriteMap[1][view->y+5][view->x+8]->y = view->y+5;
     spriteMap[1][view->y+5][view->x+8]->x = view->x+8;
-    spriteMap[1][view->y+5][view->x+8]->frame = 0;
+    spriteMap[1][view->y+5][view->x+8]->frame = 3;
     spriteMap[1][view->y+5+1][view->x+8]->y = view->y+5+1;
     spriteMap[1][view->y+5+1][view->x+8]->x = view->x+8;
-    spriteMap[1][view->y+5+1][view->x+8]->frame = 0;
+    spriteMap[1][view->y+5+1][view->x+8]->frame = 3;
 
     // Modification ancien x et y sprite partie Upper
     spriteMap[1][view->y+5][view->x+9]->y = view->y+5;
     spriteMap[1][view->y+5][view->x+9]->x = view->x+9;
-    spriteMap[1][view->y+5][view->x+9]->frame = 0;
+    spriteMap[1][view->y+5][view->x+9]->frame = 3;
 
     // Modification ancien x et y sprite partie Lower
     spriteMap[1][view->y+5+1][view->x+9]->y = view->y+5+1;
     spriteMap[1][view->y+5+1][view->x+9]->x = view->x+9;
-    spriteMap[1][view->y+5+1][view->x+9]->frame = 0;
+    spriteMap[1][view->y+5+1][view->x+9]->frame = 3;
     
     spriteMap[1][view->y+5][view->x+10]->y = view->y+5; 
     spriteMap[1][view->y+5][view->x+10]->x = view->x+10;
-    spriteMap[1][view->y+5][view->x+10]->frame = 0;
+    spriteMap[1][view->y+5][view->x+10]->frame = 3;
     spriteMap[1][view->y+5+1][view->x+10]->y = view->y+5+1;
     spriteMap[1][view->y+5+1][view->x+10]->x = view->x+10;
-    spriteMap[1][view->y+5+1][view->x+10]->frame = 0;
+    spriteMap[1][view->y+5+1][view->x+10]->frame = 3;
 
     return 0;
 }
