@@ -452,11 +452,11 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
 }
 
 /**
- * \fn int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \fn int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
  * \brief Fonction externe qui affiche les sprites de la spriteMap qui correspondent à la view sur le renderer.
  * 
  * \param SpriteTextureListe
- * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher.
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
  * \param map Pointeur sur l'objet map_t, map à afficher.
  * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite.
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
@@ -466,40 +466,40 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
  * \param yBorder Bordure en haut dans la fenêtre.
  * \return 0 success || 1 fail
  */
-extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
     if ( SpriteTextureListe == NULL ) {
-       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_spriteMap[layer]()\n");
        return 1;
     }
 
-    if ( spriteMap == NULL ) {
-       printf("Erreur : La spriteMap n'est pas chargé dans Afficher_SpriteMap()\n");
+    if ( spriteMap[layer] == NULL ) {
+       printf("Erreur : La spriteMap[layer] n'est pas chargé dans Afficher_spriteMap[layer]()\n");
        return 1;
     }
 
     if ( map == NULL ) {
-       printf("Erreur : La Map n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La Map n'est pas chargé dans Afficher_spriteMap[layer]()\n");
        return 1;
     }
 
     if ( listeType == NULL ) {
-       printf("Erreur : La listeType n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La listeType n'est pas chargé dans Afficher_spriteMap[layer]()\n");
        return 1;
     }
     
     if ( view == NULL ) {
-       printf("Erreur : La View n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : La View n'est pas chargé dans Afficher_spriteMap[layer]()\n");
        return 1;
     }
 
     if ( renderer == NULL ) {
-       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_SpriteMap()\n");
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_spriteMap[layer]()\n");
        return 1;
     }
 
     if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur : WinInfo Incorrecte dans Afficher_SpriteMap()\n");
+        printf("Erreur : WinInfo Incorrecte dans Afficher_spriteMap[layer]()\n");
         return 1;
     }
     
@@ -534,12 +534,12 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
         xmax = view->x + view->w;
     }
 
-    // Affichage des sprites de la spriteMap qui correspond a la view
+    // Affichage des sprites de la spriteMap[layer] qui correspond a la view
     for (int y = ymin; y < ymax; y++) {
         for (int x = xmin; x < xmax; x++) {
-            if ( spriteMap[y][x] != NULL ) {
+            if ( spriteMap[layer][y][x] != NULL ) {
                 // Recupération des informations lié au sprite ( pour la lisibilité du code )
-                sprite_t * sprite = spriteMap[y][x];
+                sprite_t * sprite = spriteMap[layer][y][x];
                 sprite_type_t * spriteType = listeType->typeListe[sprite->spriteTypeId];
                 int spriteSize = spriteType->spriteSize;
                 int frameNumber = spriteType->frameNumber;
@@ -564,7 +564,7 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
 
                 // Affichage de la frame courante du sprite
                 if ( SDL_RenderCopy(renderer, texture, &rectSrc, &rectDst) < 0 ) {
-                    printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_SpriteMap()\n");
+                    printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_spriteMap[layer]()\n");
                     return 1;
                 }
             }
@@ -575,19 +575,19 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
 }
 
 /**
- * \fn void Affichage_All(char * tileSet, map_t * map, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view)
+ * \fn void Affichage_All(char * tileSet, map_t * map, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view)
  * \brief Fonction externe qui affiche tout les ellements graphiques
  * 
  * \param texture Texture du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
- * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher
  * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param window Pointeur sur l'objet SDL_Window
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return 0 success || 1 fail
  */
-extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) {
+extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) {
     // Initialisation des variables
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
@@ -603,7 +603,13 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
 
     
     // Affciher la Map
-    if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
+    if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 0 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
+        printf("Errur: Afficher_SpriteMap() à echoué dans Affichage_All().\n");
+        return 1;
+    }
+
+    // Affciher la Map
+    if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 1 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
         printf("Errur: Afficher_SpriteMap() à echoué dans Affichage_All().\n");
         return 1;
     }
@@ -619,17 +625,17 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
 }
 
 /**
- * \fn void AddFrame(sprite_t *** spriteMap, map_t * map, SDL_Rect * view)
+ * \fn void AddFrame(sprite_t **** spriteMap, map_t * map, SDL_Rect * view)
  * \brief Fonction externe qui incrémente la frame des sprites présents dans la spriteMap qui correspondent à la view.
  * 
- * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher
  * \param FrameCat (int) La catégorie des sprites dont la frame sera augmenté
  * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param map Pointeur sur l'objet map_t, map à afficher
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return Aucun retour effectué en fin de fonction
 */
-extern void AddFrame(sprite_t *** spriteMap, int FrameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) {
+extern void AddFrame(sprite_t **** spriteMap, int FrameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) {
     // initialisation variable
     int ymin, ymax;
     int xmin, xmax;
@@ -663,12 +669,14 @@ extern void AddFrame(sprite_t *** spriteMap, int FrameCat, sprite_type_liste_t *
     }
 
     // Parcourt la spriteMap qui correspond a la view, et augmente la frame des sprite présent qui correspondent à la categorie donnée
-    for (int y = ymin; y < ymax; y++) {
-        for (int x = xmin; x < xmax; x++) {
-            if ( spriteMap[y][x] != NULL ) {
-                frame_cat = listeType->typeListe[(spriteMap[y][x]->spriteTypeId)]->frameCat;
-                if ( frame_cat == FrameCat) {
-                    (spriteMap[y][x])->frame += 1;
+    for (int i = 0; i < 2; i++ ) {
+        for (int y = ymin; y < ymax; y++) {
+            for (int x = xmin; x < xmax; x++) {
+                if ( spriteMap[i][y][x] != NULL ) {
+                    frame_cat = listeType->typeListe[(spriteMap[i][y][x]->spriteTypeId)]->frameCat;
+                    if ( frame_cat == FrameCat) {
+                        (spriteMap[i][y][x])->frame += 1;
+                    }
                 }
             }
         }
@@ -711,17 +719,24 @@ extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
 
 
 /**
- * \fn int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, SDL_Rect * view, char Action )
+ * \fn int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, char Action )
  * \brief Fonction externe qui gere le deplacement du sprite et de la camera du joueur ( Changement Affichage )
  * 
- * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap à afficher.
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
  * \param map Pointeur sur l'objet map_t, map à afficher.
  * \param spritePerso Tableau de sprite_t, Liste des sprites pour le personnage.
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
  * \param Action Char qui correspond a l'action de deplacement
  * \return 0 Success || 1 Fail
  */
-extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+    spriteMap[1][view->y+5][view->x+8] = NULL;
+    spriteMap[1][view->y+5+1][view->x+8] = NULL;
+    
+    spriteMap[1][view->y+5][view->x+10] = NULL;
+    spriteMap[1][view->y+5+1][view->x+10] = NULL;
+
+
     // Initialisation variable de colision
     int col;
     switch (Action) {
@@ -846,17 +861,110 @@ extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, sprite_l
             break;
     }
 
+
     // Modification ancien x et y sprite partie Upper
-    spriteMap[view->y+5][view->x+9]->y = view->y+5;
-    spriteMap[view->y+5][view->x+9]->x = view->x+9;
+    spriteMap[1][view->y+5][view->x+9]->y = view->y+5;
+    spriteMap[1][view->y+5][view->x+9]->x = view->x+9;
 
     // Modification ancien x et y sprite partie Lower
-    spriteMap[view->y+5+1][view->x+9]->y = view->y+5+1;
-    spriteMap[view->y+5+1][view->x+9]->x = view->x+9;
-
+    spriteMap[1][view->y+5+1][view->x+9]->y = view->y+5+1;
+    spriteMap[1][view->y+5+1][view->x+9]->x = view->x+9;
+    
     // Synchronise le nombre de frames des deux partie Upper et Lower
-    spriteMap[view->y+5+1][view->x+9]->frame = spriteMap[view->y+5][view->x+9]->frame;
+    spriteMap[1][view->y+5+1][view->x+9]->frame = spriteMap[1][view->y+5][view->x+9]->frame;
 
     return 0;
 }
 
+extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+    switch (Action)
+    {
+    case 'Z':
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[18],view->y+5,view->x+8) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[19],view->y+5+1,view->x+8) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[26],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[27],view->y+5+1,view->x+9) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[34],view->y+5,view->x+10) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[35],view->y+5+1,view->x+10) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        break;
+    case 'Q':
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[22],view->y+5,view->x+8) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[23],view->y+5+1,view->x+8) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[30],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[31],view->y+5+1,view->x+9) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[38],view->y+5,view->x+10) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[39],view->y+5+1,view->x+10) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        break;
+    case 'S':
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[16],view->y+5,view->x+8) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[17],view->y+5+1,view->x+8) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[24],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[25],view->y+5+1,view->x+9) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[32],view->y+5,view->x+10) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[33],view->y+5+1,view->x+10) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        break;
+    case 'D':
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[20],view->y+5,view->x+8) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[21],view->y+5+1,view->x+8) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[28],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[29],view->y+5+1,view->x+9) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[36],view->y+5,view->x+10) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[37],view->y+5+1,view->x+10) ) {
+            printf("Erreur : Echec Copy_Sprite('Z') dans Deplacement_PersoSprite()\n");
+            return 1;    
+        } 
+        break;
+    default:
+        printf("Erreur : Action incorrect dans Attack_PersoSprite()\n");
+        return 1;
+        break;
+    }
+
+    // Modification ancien x et y sprite partie Upper
+    spriteMap[1][view->y+5][view->x+8]->y = view->y+5;
+    spriteMap[1][view->y+5][view->x+8]->x = view->x+8;
+    spriteMap[1][view->y+5][view->x+8]->frame = 0;
+    spriteMap[1][view->y+5+1][view->x+8]->y = view->y+5+1;
+    spriteMap[1][view->y+5+1][view->x+8]->x = view->x+8;
+    spriteMap[1][view->y+5+1][view->x+8]->frame = 0;
+
+    // Modification ancien x et y sprite partie Upper
+    spriteMap[1][view->y+5][view->x+9]->y = view->y+5;
+    spriteMap[1][view->y+5][view->x+9]->x = view->x+9;
+    spriteMap[1][view->y+5][view->x+9]->frame = 0;
+
+    // Modification ancien x et y sprite partie Lower
+    spriteMap[1][view->y+5+1][view->x+9]->y = view->y+5+1;
+    spriteMap[1][view->y+5+1][view->x+9]->x = view->x+9;
+    spriteMap[1][view->y+5+1][view->x+9]->frame = 0;
+    
+    spriteMap[1][view->y+5][view->x+10]->y = view->y+5; 
+    spriteMap[1][view->y+5][view->x+10]->x = view->x+10;
+    spriteMap[1][view->y+5][view->x+10]->frame = 0;
+    spriteMap[1][view->y+5+1][view->x+10]->y = view->y+5+1;
+    spriteMap[1][view->y+5+1][view->x+10]->x = view->x+10;
+    spriteMap[1][view->y+5+1][view->x+10]->frame = 0;
+
+    return 0;
+}

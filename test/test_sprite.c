@@ -56,15 +56,15 @@ int main() {
     /**/
     printf("---------------------------- Test Chargemment Sprite Map ---------------------------\n");
 
-    sprite_t ***spriteMap = Load_SpriteMap(listeType,continent);
+    sprite_t ****spriteMap = Load_SpriteMap(listeType,continent);
 
     
     
     // Affichage id sprite type depuis matrice spriteMap
     for (int y = 0; y < continent->height; y++) {
         for (int x = 0; x < continent->width; x++) {
-            if ( spriteMap[y][x] != NULL ) {
-                printf("%02d,",(spriteMap[y][x])->spriteTypeId);
+            if ( spriteMap[0][y][x] != NULL ) {
+                printf("%02d,",(spriteMap[0][y][x])->spriteTypeId);
             }
             else {
                 printf("-1,");

@@ -1,6 +1,6 @@
 CC=gcc
 
-CFLAGS=-W -Wall -Iinclude
+CFLAGS=-W -Wall -Iinclude -g
 
 SRCDIR=src
 INCLUDEDIR=include

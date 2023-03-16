@@ -47,6 +47,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_timer_t frameTimer2;
     SDL_timer_t fps;
     SDL_timer_t lastKey;
+    SDL_timer_t AtkCooldown;
 
     // Variable Pour Quitter La Boucle Principal
     int quit = SDL_FALSE;
@@ -63,6 +64,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable qui detecte si un touche a deja été préssé
     int keyPressed = 0;
 
+    //int lastAttack = 0;
+
     // Varaible de direction du personnage
     char direction = 'S';
 
@@ -71,7 +74,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // initialisation des variables
     map_t * continent = NULL;
     sprite_type_liste_t *ListeTypeSprite = NULL;
-    sprite_t *** spriteMap = NULL;
+    sprite_t **** spriteMap = NULL;
     SDL_Texture * mapTexture = NULL;
     Sprite_Texture_Liste_t * SpriteTextureListe = NULL;
     sprite_liste_t * listePersoSprite = NULL;
@@ -141,6 +144,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
     Timer_Start( &frameTimer2 );
+    Timer_Start( &AtkCooldown );
+    AtkCooldown.start -= 1000;
 
     /* Boucle Principal */
 
@@ -207,10 +212,27 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 break;
                         }
                     }
+                case SDL_MOUSEBUTTONDOWN:
+                    // Vérifie si le bouton gauche de la souris a été cliqué
+                    if (event.button.button == SDL_BUTTON_LEFT ) {
+                    // Appelle la fonction attack_spritePerso()
+                        if ( (int)Timer_Get_Time(&AtkCooldown) > 1000 ) {
+                            if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
+                                printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
+                                erreur = 1;
+                                goto detruire;
+                            }
+                            Timer_Start( &AtkCooldown );
+                        }
+
+                    }
+                    break;
                 default:
                     break;
             }
-        }
+        }   
+
+        /*
 
         // Changement vers animation Idle   Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
         if ( (int)Timer_Get_Time( &lastKey ) > 150 ) {
@@ -221,6 +243,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             }
         }
         
+        */
 
         // remise à 0 du renderer ( fond noir )
         if ( SDL_RenderClear(renderer) < 0 ) {
@@ -250,7 +273,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
         // Gestion fps
         if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
-            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+            //SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
         }
 
         // mise à jour du renderer ( update affichage)
@@ -265,9 +288,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     /* Destruction de la mémoire */
     detruire:
 
-    if ( spriteMap != NULL && spriteMap[CameraJoueur.y + 5][CameraJoueur.x + 9]->spriteTypeId < 40 && spriteMap[CameraJoueur.y + 5 + 1][CameraJoueur.x + 9]->spriteTypeId < 40 ) {
-        spriteMap[CameraJoueur.y + 5][CameraJoueur.x + 9] = NULL;
-        spriteMap[CameraJoueur.y + 5 + 1][CameraJoueur.x + 9] = NULL;
+    if ( spriteMap[1] != NULL && spriteMap[1][CameraJoueur.y + 5][CameraJoueur.x + 9]->spriteTypeId < 40 && spriteMap[1][CameraJoueur.y + 5 + 1][CameraJoueur.x + 9]->spriteTypeId < 40 ) {
+        spriteMap[1][CameraJoueur.y + 5][CameraJoueur.x + 9] = NULL;
+        spriteMap[1][CameraJoueur.y + 5 + 1][CameraJoueur.x + 9] = NULL;
     }
 
     // destruction en mémoire de la SpriteMap en paramètre

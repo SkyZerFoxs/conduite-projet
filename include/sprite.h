@@ -117,13 +117,13 @@ extern void Detruire_Sprite( sprite_t ** sprite) ;
 extern sprite_liste_t * Load_PersoSprite_List(sprite_type_liste_t * listeType, map_t * map, int debut, int fin) ;
 extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) ;
 
-extern sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) ;
-extern void Detruire_SpriteMap(sprite_t **** spriteMap, map_t * map) ;
+extern sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) ;
+extern void Detruire_SpriteMap(sprite_t ***** spriteMap, map_t * map) ;
 
-extern int Deplacement_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
-extern int Change_Sprite(sprite_t *** spriteMap, map_t * map, sprite_t * sprite, int y, int x) ;
-extern int Copy_Sprite(sprite_t *** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
+extern int Deplacement_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
+extern int Change_Sprite(sprite_t **** spriteMap, map_t * map, sprite_t * sprite, int y, int x) ;
+extern int Copy_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
 
-extern int Colision(map_t * map, sprite_t *** spriteMap, char direction, int y, int x) ;
+extern int Colision(map_t * map, sprite_t **** spriteMap, char direction, int y, int x) ;
 
 #endif

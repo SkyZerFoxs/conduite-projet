@@ -88,13 +88,13 @@ extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) ;
 // Afficher La TileMap Et La SpriteMap
 extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
 //extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
-extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
+extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
 
 // Affichage Complet
-extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t *** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) ;
+extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) ;
 
 // Gestion Des Frames Des Sprites
-extern void AddFrame(sprite_t *** spriteMap, int frameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) ;
+extern void AddFrame(sprite_t **** spriteMap, int frameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) ;
 
 // Gestion Des Timers
 extern void Timer_Start( SDL_timer_t * timer ) ;
@@ -102,8 +102,8 @@ extern void Timer_Update( SDL_timer_t * timer ) ;
 extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) ;
 
 // Gestion Deplacement Personnage
-extern int Deplacement_PersoSprite(sprite_t *** spriteMap, map_t * map, sprite_liste_t * spritePersoList, SDL_Rect * view, char Action ) ;
+extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList, SDL_Rect * view, char Action ) ;
 
-
+extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
 
 #endif 
