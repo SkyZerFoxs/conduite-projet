@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
-
-#define MUS_PATH "asset/son/grotte.wav"
 
 // initialisation des touches de clavier
 typedef struct touche_s{
@@ -17,6 +14,12 @@ typedef struct touche_s{
 	int echap;
 } touche_t;
 
+int option(SDL_Window *window, SDL_Renderer *renderer);
+int menu(SDL_Window *window, SDL_Renderer *renderer);
+int jeu(SDL_Window *window, SDL_Renderer *renderer);
+int commande(SDL_Window *window, SDL_Renderer *renderer);
+int credit(SDL_Window *window, SDL_Renderer *renderer);
+int quitter(SDL_Window *window, SDL_Renderer *renderer);
 
 //fonction qui permet de calculer la position du bouton en fonction de la taille de la fenetre
 float CalculBoutonHauteur(float x, float y){
@@ -84,7 +87,7 @@ void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *wi
 
 extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, int height) {
     // Initialisation library SDL
-    SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     // Création d'une fenêtre
     if ( SDL_CreateWindowAndRenderer(width, height, 0, window, renderer) == -1 ) {
         printf("Une erreur s'est produite lors de la création de la fenêtre : %s",SDL_GetError());
@@ -126,6 +129,7 @@ void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, con
     }
     // envoie de la texture vers le Moteur de Rendu Graphique
     SDL_RenderCopy(renderer, (*texture), srcrect, dstrect);
+
 }
 
 void Detruire_Texture(SDL_Texture *texture) {
@@ -145,9 +149,15 @@ SDL_Rect * Fonction_Button(char * image, int witdh, int height,SDL_Renderer *ren
 	return dstrect;
 }
 
-SDL_Rect * Affichage_texte_Commande(char * texte,TTF_Font *police, int witdh, int height,SDL_Renderer *renderer,SDL_Surface *text,SDL_Color Color,SDL_Texture *Texture, int y, int x){
+SDL_Rect * Affichage_texte_Commande(char * texte, int witdh, int height,SDL_Renderer *renderer, int y, int x,int taille){
+	TTF_Font *police;
+	SDL_Color blanche = {255, 255, 255, 255};
+	police = TTF_OpenFont("asset/font/Minecraft.ttf", taille);
+	SDL_Surface* text=NULL;
+	SDL_Texture* Texture=NULL;
+	
 	SDL_Rect * dest=malloc(sizeof(SDL_Rect));
-	text = TTF_RenderText_Solid(police, texte, Color);
+	text = TTF_RenderText_Solid(police, texte, blanche);
 	Texture = SDL_CreateTextureFromSurface( renderer, text );
 	dest->x = witdh/2-witdh/5+x;
 	dest->y = height-height+y;
@@ -157,15 +167,70 @@ SDL_Rect * Affichage_texte_Commande(char * texte,TTF_Font *police, int witdh, in
 	SDL_RenderCopy(renderer, Texture, NULL, dest);
 	return dest;
 }
+
+int echap(SDL_Window *window, SDL_Renderer *renderer){
+	SDL_Event event;
+	SDL_bool Isrunning=1;
+	SDL_Texture *texture = NULL;
+	int WINDOWS_WIDTH, WINDOWS_HEIGHT;
+	getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
+	while(Isrunning){
+		Affichage_fps
+		//affichage de l'image de fond
+		Afficher_IMG("asset/flou.png",renderer, &texture, NULL, NULL);
+		Affichage_texte_Commande("Game Paused",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,0,0,100);
+
+		//affichage du bouton quitter
+		SDL_Rect * Retour=Fonction_Button("asset/menu/Bouton/retour.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,150,-160);
+		//affichage du bouton retour
+		SDL_Rect * Options=Fonction_Button("asset/menu/Bouton/options.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,300,-160);
+		//affichage du bouton options
+		SDL_Rect * Quitter=Fonction_Button("asset/menu/Bouton/quitter.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,450,-160);
+		SDL_PollEvent(&event);
+		switch(event.type){
+			case SDL_QUIT:
+				Isrunning = 0;
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					if(event.button.x > Quitter->x && event.button.x < Quitter->x + Quitter->w && event.button.y > Quitter->y && event.button.y < Quitter->y + Quitter->h){
+						Isrunning= menu(window,renderer);
+						return Isrunning;
+						break;
+					}
+				
+					if(event.button.x > Retour->x && event.button.x < Retour->x + Retour->w && event.button.y > Retour->y && event.button.y < Retour->y + Retour->h){
+						Isrunning = 0;
+						break;
+					}
+					if(event.button.x > Options->x && event.button.x < Options->x + Options->w && event.button.y > Options->y && event.button.y < Options->y + Options->h){
+						Isrunning=option(window,renderer);
+						
+						break;
+					}
+				}
+				break;
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+					case SDLK_ESCAPE:
+						Isrunning = 0;
+						break;
+				}
+				break;
+		}
+		if (SDL_PollEvent(&event) && event.type == SDL_QUIT){
+			printf("Fermeture de la fenetre\n");
+            Isrunning = 0;
+			return(0);
+			break;
+		}
+		SDL_RenderPresent(renderer);
+		SDL_Delay(10);	
+	}
+	return (1);
+}
 //fonction des qu'on appuis sur le bouton commande
 int commande(SDL_Window *window,SDL_Renderer *renderer){
-	
-	//Texte 
-	TTF_Font *police;
-	SDL_Color blanche = {255, 255, 255, 255};
-	police = TTF_OpenFont("asset/font/Minecraft.ttf", 50);
-	SDL_Surface* text=NULL;
-	SDL_Texture* text_texture=NULL;
 
 
 	SDL_Event event;
@@ -177,17 +242,18 @@ int commande(SDL_Window *window,SDL_Renderer *renderer){
 		SDL_RenderClear(renderer);
 		//affichage de l'image de fond
 		Afficher_IMG("asset/menu/menu.png",renderer, &texture, NULL, NULL);
-		Affichage_texte_Commande("Avancer   =   Z",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,100,0);
-		Affichage_texte_Commande("Reculer   =   S",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,175,0);
-		Affichage_texte_Commande("Gauche   =   Q",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,250,0);
-		Affichage_texte_Commande("Droite   =   D",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,325,0);
-		Affichage_texte_Commande("Interagir   =   F",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,400,0);
-		Affichage_texte_Commande("Attaque de base   =   A",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,475,0);
-		Affichage_texte_Commande("Attaque Special   =   B",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,550,0);
-		Affichage_texte_Commande("Attque Ultime   =   C",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,625,0);
-		Affichage_texte_Commande("Inventaire   =   E",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,700,0);
-		Affichage_texte_Commande("Pause   =   Echap",police,WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,text,blanche,text_texture,775,0);
+		Affichage_texte_Commande("Avancer   =   Z",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,100,0,50);
+		Affichage_texte_Commande("Reculer   =   S",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,175,0,50);
+		Affichage_texte_Commande("Gauche   =   Q",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,250,0,50);
+		Affichage_texte_Commande("Droite   =   D",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,325,0,50);
+		Affichage_texte_Commande("Interagir   =   F",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,400,0,50);
+		Affichage_texte_Commande("Attaque de base   =   A",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,475,0,50);
+		Affichage_texte_Commande("Attaque Special   =   B",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,550,0,50);
+		Affichage_texte_Commande("Attque Ultime   =   C",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,625,0,50);
+		Affichage_texte_Commande("Inventaire   =   E",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,700,0,50);
+		Affichage_texte_Commande("Pause   =   Echap",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,775,0,50);
 		SDL_Rect * BtRetour=Fonction_Button("asset/menu/Bouton/quitter.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,-150,-800);
+		SDL_PollEvent(&event);
 		switch(event.type){
 			case SDL_QUIT:
 				Isrunning = 0;
@@ -214,8 +280,6 @@ int commande(SDL_Window *window,SDL_Renderer *renderer){
 			return(0);
 			break;
 		}
-		SDL_FreeSurface(text);
-		SDL_DestroyTexture(text_texture);
 		SDL_RenderPresent(renderer);
 		SDL_Delay(10);	
 	}
@@ -237,6 +301,7 @@ int jouer(SDL_Window *window,SDL_Renderer *renderer){
 		SDL_Rect * BtNew=Fonction_Button("asset/menu/Bouton/jouer.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,0,-160);
 		SDL_Rect * BtCon=Fonction_Button("asset/menu/Bouton/jouer.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,400,-160);
 		SDL_Rect * BtRetour=Fonction_Button("asset/menu/Bouton/retour.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,-150,-800);
+		SDL_PollEvent(&event);
 		switch(event.type){
 			case SDL_QUIT:
 				Isrunning = 0;
@@ -244,6 +309,8 @@ int jouer(SDL_Window *window,SDL_Renderer *renderer){
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT) {
 					if (event.button.x >= (*BtNew).x && event.button.x <= (*BtNew).x + (*BtNew).w && event.button.y >= (*BtNew).y && event.button.y <= (*BtNew).y + (*BtNew).h) {
+						Isrunning=echap(window,renderer);
+						return Isrunning;
 						break;
 					}
 					if (event.button.x >= (*BtCon).x && event.button.x <= (*BtCon).x + (*BtCon).w && event.button.y >= (*BtCon).y && event.button.y <= (*BtCon).y + (*BtCon).h) {
@@ -314,7 +381,7 @@ int option(SDL_Window * window,SDL_Renderer *renderer){
 						break;
 					}
 					if(event.button.x >= (*Commande).x && event.button.x <= (*Commande).x + (*Commande).w && event.button.y >= (*Commande).y && event.button.y <= (*Commande).y + (*Commande).h){
-						commande(window,renderer);
+						Isrunning=commande(window,renderer);
 						
 						break;
 					}
@@ -374,18 +441,8 @@ int option(SDL_Window * window,SDL_Renderer *renderer){
 }
 
 
-void menu(SDL_Window *window,SDL_Renderer *renderer){
+int menu(SDL_Window *window,SDL_Renderer *renderer){
 
-	Mix_Init(MIX_INIT_MP3); //Initialisation de l'API Mixer
-	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) //Initialisation de l'API Mixer
-	{
-  		printf("%s", Mix_GetError());
-	}
-		
-	Mix_Music *musique; //Création du pointeur de type Mix_Music
-   	musique = Mix_LoadMUS("son/pokemon.mp3"); //Chargement de la musique
-   	Mix_PlayMusic(musique, -1); //Jouer infiniment la musique
-	
 	SDL_Event event;
 	SDL_bool Isrunning=1;
 	int WINDOWS_WIDTH, WINDOWS_HEIGHT;
@@ -394,12 +451,14 @@ void menu(SDL_Window *window,SDL_Renderer *renderer){
 	while(Isrunning) {
 		 /* Affichage de l'image de fond */
         Afficher_IMG("asset/menu/menu.png",renderer, &texture, NULL, NULL);
+		//Affichage du nom du jeu
+		Affichage_texte_Commande("Minecraft", WINDOWS_WIDTH, WINDOWS_HEIGHT,renderer,50,0,150);
         // Affichage du bouton Jouer
-		SDL_Rect * Btjouer=Fonction_Button("asset/menu/Bouton/jouer.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,0,-160);
+		SDL_Rect * Btjouer=Fonction_Button("asset/menu/Bouton/jouer.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,50,-160);
 		// Affichage du bouton Options
-		SDL_Rect * BtOptions=Fonction_Button("asset/menu/Bouton/options.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,225,-160);
+		SDL_Rect * BtOptions=Fonction_Button("asset/menu/Bouton/options.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,275,-160);
 		// Affichage du bouton Quit
-		SDL_Rect * BtQuit=Fonction_Button("asset/menu/Bouton/quitter.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,450,-160);
+		SDL_Rect * BtQuit=Fonction_Button("asset/menu/Bouton/quitter.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,500,-160);
 		/* Boucle d'evenement */
 		SDL_PollEvent(&event);
 		switch(event.type) {
@@ -412,14 +471,14 @@ void menu(SDL_Window *window,SDL_Renderer *renderer){
 						//Permet la fermeture des qu'on appui sur le bouton en haut a gauche de la fenetre
 						Isrunning=jouer(window,renderer);
 						getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
-
+						
 						break;
 					}
 					if (event.button.x >= (*BtOptions).x && event.button.x <= (*BtOptions).x + (*BtOptions).w && event.button.y >= (*BtOptions).y && event.button.y <= (*BtOptions).y + (*BtOptions).h) {
 						//Permet la fermeture des qu'on appuis sur le bouton en haut a gauche de la fenetre
 						Isrunning=option(window,renderer);
 						getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
-
+						
 						break;
 						
 					}
@@ -455,9 +514,6 @@ void menu(SDL_Window *window,SDL_Renderer *renderer){
             break;
 			Isrunning=0;
 		}
-
-		Mix_FreeMusic(musique); //Libération de la musique
-   		Mix_CloseAudio(); //Fermeture de l'API
 		// Mise a jour de l'affichage
 		SDL_RenderPresent(renderer);
 		SDL_Delay(10);	
@@ -466,9 +522,8 @@ void menu(SDL_Window *window,SDL_Renderer *renderer){
 	// destruction en mémoire de la texture préciser
 	Detruire_Texture(texture);
 
-    // Fin de SDL + destruction allocation mémoire
-    Quit_SDL(window,renderer);
-
+    
+	return(0);
 }
 
 int main(void) {
@@ -477,5 +532,7 @@ int main(void) {
 	
 	Init_SDL(&window,&renderer,1600,900);
 	menu(window,renderer);
+	// Fin de SDL + destruction allocation mémoire
+    Quit_SDL(window,renderer);
 	return EXIT_SUCCESS;
 }

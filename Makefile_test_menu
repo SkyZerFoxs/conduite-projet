@@ -1,7 +1,7 @@
 CC=gcc
 
 CFLAGS=-W -Wall -Iinclude 
-LDFLAGS= $(shell ./bin/sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
+LDFLAGS= $(shell ./bin/sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_ttf
 SRCDIR=src
 INCLUDEDIR=include
 OBJDIR=obj
