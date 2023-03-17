@@ -25,17 +25,23 @@ objet_t * creer_objet(char * nom, int id,int pv, int atk,int def,int puissance,i
     objet->stats->def=def;
     objet->stats->puissance=puissance;
     objet->stats->mana=mana;
-    objet->stats->force=force;
     return objet;
 }
 
-
-
-int main(){
-    printf("fneuzifhez\n");
-    objet_t * plastron=creer_objet("plastron",1,50,0,100,0,0,0,50,25);
-    objet_t * epee=creer_objet("epee",2,0,20,0,0,0,50,10,5);
-    objet_t * sceptre=creer_objet("sceptre",3,0,0,0,50,20,0,20,10);
-    printf("%s\n",plastron->nom);
+extern
+void afficher_objet(objet_t * objet){ 
+    printf("Nom : %s\n",objet->nom);
+    printf("Id : %d\n", objet->id);
+    printf("Prix achat: %d\n", objet->prix_achat);
+    printf("Prix vente : %d\n", objet->prix_vente);
 }
 
+extern
+void supprimer_objet(objet_t ** objet){
+    free((*objet)->nom);
+    (*objet)->nom=NULL;
+    free((*objet)->stats);
+    (*objet)->stats=NULL;
+    free(*objet);
+    (*objet)=NULL;  
+}

@@ -1,5 +1,5 @@
-#ifndef CARACT_H
-#define CARACT_H
+#ifndef OBJETS_H
+#define OBJETS_H
 
 #include <caract.h>
 

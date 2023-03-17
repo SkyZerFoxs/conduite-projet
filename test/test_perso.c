@@ -19,6 +19,7 @@ int main(){
     char nom_perso[50];
     fgets(nom_perso, 50, stdin);
     printf("Choisissez la classe du personnage : \n");
+
     printf("1 : Guerrier\n");
     printf("2 : Mage\n");
     printf("3 : Ninja\n");
@@ -29,8 +30,20 @@ int main(){
     scanf("%d", &num_classe);
     personnage_t * p1=creer_personnage(nom_perso,num_classe);
     afficher_perso(p1);
+    int exp_required=100;
     p1->exp=101;
-    upgrade_perso(p1);
+    if(p1->exp>p1->niveau*exp_required){
+        p1->niveau++;
+        p1->pts_upgrade+=5;
+        exp_required=exp_required+(exp_required/2);
+        printf("Niveau amélioré !\n");
+        int choix;
+        printf("Améliorer tout de suite ?");
+        scanf("%d",&choix);
+        if(choix==1){
+            upgrade_perso(p1);
+        }
+    }
     supprimer_perso(&p1);
     return (0);
 }

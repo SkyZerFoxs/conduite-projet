@@ -19,20 +19,15 @@ void supprimer_monstre(monstre_t ** monstre){
 }
 
 extern
-void evolution_monstre(monstre_t * monstre, int niv){
-    monstre->pv=200*niv;
-    monstre->atk=100*niv;
-    monstre->def=10*niv;
-}
-
-extern
-monstre_t * creer_monstre(char * nom){
+monstre_t * creer_monstre(char * nom, int niv){
     monstre_t * monstre=NULL;
     monstre=malloc(sizeof(monstre_t)+1);
     monstre->nom=malloc(sizeof(strlen(nom))+1);
     strcpy(monstre->nom,nom);
-    monstre->pv=200;
-    monstre->atk=100;
-    monstre->def=10;
+    monstre->pos_x=11;
+    monstre->pos_y=10;
+    monstre->pv=niv*50;
+    monstre->atk=niv*5;
+    monstre->def=niv*5;
     return monstre;
 }
