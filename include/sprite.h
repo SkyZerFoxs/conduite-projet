@@ -3,8 +3,10 @@
 
 #include <string.h>
 #include <map.h>
+#include <monstre.h>
 
 #define MAX_SPRITE_FRAME 20
+#define BORNE_PERSO_SPRITE 40
 
 /**
  * \file sprite.h

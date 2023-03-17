@@ -369,7 +369,7 @@ extern sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map)
     // Chargement matrice spriteMap
     for (int y = 0; y < map->height; y++) {
         for (int x = 0; x < map->width; x++) {
-            if (map->matrice[SPRITEMAP_LAYER][y][x] >= 0) {
+            if (map->matrice[SPRITEMAP_LAYER][y][x] >= BORNE_PERSO_SPRITE) {
                 sprite_t * sprite = Load_Sprite(x, y, 0, map->matrice[SPRITEMAP_LAYER][y][x], listeType, map);
                 if (sprite != NULL) {
                     spriteMap[0][y][x] = sprite;
@@ -388,6 +388,22 @@ extern sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map)
 
     return spriteMap;
 }
+
+extern monstre_t *** Load_MapMonstre(sprite_t **** spriteMap, sprite_type_liste_t *listeType, map_t * map) {
+    monstre_t ***mat = (monstre_t ***) malloc(map->height * sizeof(monstre_t **));
+    for (int y = 0; y < map->height; y++) {
+        mat[y] = (monstre_t **) malloc(map->width * sizeof(monstre_t *));
+        for (int x = 0; x < map->width; x++) {
+            mat[y][x] = NULL;
+            if ( spriteMap[0][y][x] != NULL ) {
+                mat[y][x] = creer_monstre(listeType->typeListe[spriteMap[0][y][x]->spriteTypeId]->spriteName,0);
+            }
+        }
+    }
+    return mat;
+}
+
+
 
 /**
  * \fn int Deplacement_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int y2, int x2)

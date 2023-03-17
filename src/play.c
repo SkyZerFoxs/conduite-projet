@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <affichage.h>
+#include <personnage.h>
+#include <monstre.h>
 
 /**
  * \file play.c
@@ -48,6 +50,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_timer_t fps;
     SDL_timer_t lastKey;
     SDL_timer_t AtkCooldown;
+    SDL_timer_t DeplacementCooldown;
 
     // Variable Pour Quitter La Boucle Principal
     int quit = SDL_FALSE;
@@ -131,7 +134,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     }
 
     // chargment liste sprite animation personnage
-    listePersoSprite = Load_PersoSprite_List(ListeTypeSprite,continent,0,40);
+    listePersoSprite = Load_PersoSprite_List(ListeTypeSprite,continent,0,BORNE_PERSO_SPRITE);
     if ( listePersoSprite == NULL ) {
         printf("Erreur : Echec Load_PersoSprite_List() dans play()\n");
         erreur = 1;
@@ -145,6 +148,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         goto detruire;
     }
 
+    personnage_t * perso = creer_personnage("Cody");
+    afficher_perso(perso);
+
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
     Timer_Start( &frameTimer2 );
@@ -152,6 +158,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     lastKey.start -= 151;
     Timer_Start( &AtkCooldown );
     AtkCooldown.start -= 1001;
+    Timer_Start( &DeplacementCooldown );
+    DeplacementCooldown.start -= 167;
+    
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -194,12 +203,16 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 break;
                         }
                         // Deplacement
-                        if ( event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_q || event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_d ) {
+                        if (  ( event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_q ||
+                                event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_d    )
+                                && (int)Timer_Get_Time(&DeplacementCooldown) > 166 ) 
+                        {
                             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,tolower(direction)) ) {
                                 printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
                                 erreur = 1;
                                 goto detruire;
                             }
+                            Timer_Start( &DeplacementCooldown );
                         }
                         // Gestion dernières touches
                         Timer_Start( &lastKey );
