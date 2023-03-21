@@ -11,6 +11,12 @@
         "sdl_image.h": "c",
         "map.h": "c",
         "affichage.h": "c",
-        "map": "c"
+        "map": "c",
+        "monstre.h": "c",
+        "combat.h": "c",
+        "personnage.h": "c",
+        "caract.h": "c",
+        "string.h": "c",
+        "time.h": "c"
     }
 }

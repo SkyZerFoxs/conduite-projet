@@ -269,6 +269,8 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
         return NULL;
     }
 
+    sprite->monstre = NULL;
+
     return sprite;
 }
 
@@ -389,21 +391,36 @@ extern sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map)
     return spriteMap;
 }
 
+/*
 extern monstre_t *** Load_MapMonstre(sprite_t **** spriteMap, sprite_type_liste_t *listeType, map_t * map) {
+
     monstre_t ***mat = (monstre_t ***) malloc(map->height * sizeof(monstre_t **));
+    if (mat == NULL) {
+        printf("Erreur : Echec malloc(mat) dans Load_MapMonstre()\n");
+        return NULL;
+    }
+
     for (int y = 0; y < map->height; y++) {
         mat[y] = (monstre_t **) malloc(map->width * sizeof(monstre_t *));
+        if (mat[y] == NULL) {
+            printf("Erreur : Echec malloc(mat[%d]) dans Load_MapMonstre()\n",y);
+            return NULL;
+        }
+
         for (int x = 0; x < map->width; x++) {
             mat[y][x] = NULL;
             if ( spriteMap[0][y][x] != NULL ) {
-                mat[y][x] = creer_monstre(listeType->typeListe[spriteMap[0][y][x]->spriteTypeId]->spriteName,0);
+                mat[y][x] = creer_monstre(listeType->typeListe[spriteMap[0][y][x]->spriteTypeId]->spriteName,1,y,x);
+                if ( mat[y][x] == NULL ) {
+                    printf("Erreur : Echec creer_monstre() dans Load_MapMonstre()\n");
+                    return NULL;
+                }
             }
         }
     }
     return mat;
 }
-
-
+*/
 
 /**
  * \fn int Deplacement_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int y2, int x2)
@@ -562,22 +579,22 @@ extern int Colision(map_t * map, sprite_t **** spriteMap, char direction, int y,
 
     switch ( direction) {
         case 'z':
-            if ( spriteMap[0][y][x] != NULL ) {
+            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
                 return 1;
             }
             break;
         case 'd':
-            if ( spriteMap[0][y][x] != NULL ) {
+            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
                 return 1;
             }
             break;
         case 'q':
-            if ( spriteMap[0][y][x] != NULL ) {
+            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
                 return 1;
             }
             break;
         case 's':
-            if ( spriteMap[0][y][x] != NULL ) {
+            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
                 return 1;
             }
             break;
@@ -671,4 +688,146 @@ extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) {
         free((*liste));
         (*liste) = NULL;
     }
+}
+
+/**
+ * 
+ * \brief Fonction externe qui charge les monstre_t
+ * 
+ * \param map Structure map_t où sont stockées les informations de la map
+ * \param spriteMap Quadruple pointeur sur sprite_t, la spriteMap dans laquelle on travaille
+ * \return Un pointeur sur la structure monstre_liste_t || NULL si erreur
+ */
+extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
+    monstre_liste_t* liste = malloc(sizeof(monstre_liste_t));
+    if (liste == NULL) {
+        printf("Erreur : Echec malloc(liste) dans Load_Monster()\n");
+        return NULL;
+    }
+
+    // Tableau de pointeur sur monstres
+    liste->tabMonstres = malloc(map->height * map->width * sizeof(monstre_t*));
+    if (liste->tabMonstres == NULL) {
+        printf("Erreur : Echec malloc(liste->tabMonstres) dans Load_Monster()\n");
+        return NULL;
+    }
+    liste->nbElem = 0;
+
+    // Parcours de la matrice de sprites
+    for (int i = 0; i < map->height; i++) {
+        for (int j = 0; j < map->width; j++) {
+            sprite_t* sprite = spriteMap[0][i][j];
+            if (sprite != NULL && sprite->monstre == NULL) {
+                // Nouveau monstre détecté
+                char nom[20];
+                sprintf(nom, "Monstre N°%d", liste->nbElem + 1);
+                monstre_t* monstre = creer_monstre(nom, 1, i, j); // Création du monstre
+                monstre->pos_x = j; // Position en x du monstre
+                monstre->pos_y = i; // Position en y du monstre
+                sprite->monstre = monstre; // Liaison du monstre au sprite
+                liste->tabMonstres[liste->nbElem] = monstre; // Ajout du pointeur vers le monstre au tableau
+                liste->nbElem++;
+                // Si le sprite du bas existe, on lui donne le même ID que le monstre du sprite du haut
+                if (i < map->height - 1 && spriteMap[0][i+1][j] != NULL) {
+                    spriteMap[0][i+1][j]->monstre = monstre;
+                }
+            }
+        }
+    }
+
+    return liste;
+}
+
+/**
+ * \fn void detruire_liste_monstres(monstre_liste_t** liste)
+ * \brief Fonction externe qui permet de detuire la liste de monstres
+ * 
+ * \param liste Un double pointeur sur la structure monstre_liste_t à detruire
+ * \return Aucun retours
+*/
+extern void Detruire_Liste_Monstres(monstre_liste_t** liste) {
+    if (*liste == NULL) {
+        printf("Erreur : Liste de monstres vide dans Detruire_Liste_Monstres()\n");
+        return;
+    }
+    
+    // Suppression de chaque monstre dans le tableau
+    for (int i = 0; i < (*liste)->nbElem; i++) {
+        supprimer_monstre(&((*liste)->tabMonstres[i]));
+    }
+    free((*liste)->tabMonstres);
+    (*liste)->tabMonstres = NULL;
+    (*liste)->nbElem = 0;
+    
+    // Suppression de la structure liste de monstres
+    free(*liste);
+    *liste = NULL;
+}
+
+
+/** 
+ * \fn 
+ * \brief Fonction externe qui détecte si un ennemi est proche et renvoie un pointeur sur le monstre si trouvé
+ *
+ * \param spriteMap Pointeur sur la matrice de sprites.
+ * \param map Pointeur sur map_t, la map à partir de laquelle charger la matrice de sprites.
+ * \param y_joueur Coordonnée y du joueur sur la carte.
+ * \param x_joueur Coordonnée x du joueur sur la carte.
+ * \param direction Direction dans laquelle le joueur regarde.
+ * \param distance Distance maximale à laquelle chercher les ennemis.
+ * \param[out] monstre Pointeur sur le monstre trouvé, NULL si aucun monstre trouvé.
+ * \return 1 si un monstre a été trouvé, 0 si aucun monstre n'a été trouvé, -1 en cas d'erreur.
+ */
+extern int Detecter_Monstre(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **monstre) {
+    // Vérification des paramètres d'entrée
+    if (spriteMap == NULL) {
+        printf("Erreur : spriteMap Inexistante dans detecter_monstre()\n");
+        return -1;
+    }
+    if (map == NULL) {
+        printf("Erreur : Map Inexistante dans detecter_monstre()\n");
+        return -1;
+    }
+    if (y_joueur < 0 || x_joueur < 0 || y_joueur >= map->height || x_joueur >= map->width) {
+        printf("Erreur : Coordonnées dans la spriteMap ( Emplacement Destination ) Invalide dans detecter_monstre()\n");
+        return -1;
+    }
+
+    // Initialisation de la variable monstre à NULL
+    *monstre = NULL;
+    int dx = 0, dy = 0;
+    switch (direction) {
+        case 'Z':
+            dy = -1;
+            break;
+        case 'Q':
+            dx = -1;
+            break;
+        case 'S':
+            dy = 1;
+            break;
+        case 'D':
+            dx = 1;
+            break;
+        default:
+            printf("Erreur : Direction Invalide dans detecter_monstre()\n");
+            return -1;
+    }
+    for (int d = 1; d <= distance; d++) {
+        int x = x_joueur + dx * d;
+        int y = y_joueur + dy * d;
+        if (x < 0 || y < 0 || x >= map->width || y >= map->height) {
+            // On est en dehors de la carte
+            break;
+        }
+        if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
+            // On a trouvé un ennemi
+            *monstre = spriteMap[0][y][x];
+            return 1;
+        }
+    }
+
+    // Aucun ennemi trouvé
+    *monstre = NULL;
+    return 0;
 }

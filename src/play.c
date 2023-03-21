@@ -1,7 +1,8 @@
 #include <stdlib.h>
+
 #include <affichage.h>
-#include <personnage.h>
-#include <monstre.h>
+#include <data.h>
+
 
 /**
  * \file play.c
@@ -51,6 +52,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_timer_t lastKey;
     SDL_timer_t AtkCooldown;
     SDL_timer_t DeplacementCooldown;
+    SDL_timer_t SpeCooldown;
+
+    // Variable qui correspond au sprite detecté
+    sprite_t * detectedMonstre;
+
+    // Varriable qui correspond a la detection de mosntre
+    int detect;
 
     // Variable Pour Quitter La Boucle Principal
     int quit = SDL_FALSE;
@@ -64,11 +72,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable SDL_Event Pour Detecter Les Actions
     SDL_Event event;
 
-    // Variable qui detecte si un touche a deja été préssé
+    // Variable qui detecte si une touche est deja été préssé
     int keyPressed = 0;
 
     // Variable qui detecte si un clic gauche est déja en cour
     int mouseClicked = 0;
+
+    // Variable qui detecte si une touche 'a' est déja préssé
+    int aKeyClicked = 0;
 
     // Variable qui correspond au frame d'animation de l'attaque
     int frameAtck = 0;
@@ -143,13 +154,27 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
     // positionement du personnage
     if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
-        printf("Erreur : Echec Change_Sprite //Deplacement_PersoSprite() dans play()\n");
+        printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
         erreur = 1;
         goto detruire;
     }
 
+    // chargement structure monstre_t
+    monstre_liste_t * listeMonstre = Load_Monster(continent, spriteMap);
+    if ( listeMonstre == NULL ) {
+        printf("Erreur : Echec Load_Monster() dans play()\n");
+        erreur = 1;
+        goto detruire;
+    }
+
+    // chargement personnage
     personnage_t * perso = creer_personnage("Cody");
-    afficher_perso(perso);
+    if ( perso == NULL ) {
+        printf("Erreur : Echec creer_personnage() dans Play()\n");
+        erreur = 1;
+        goto detruire;
+
+    }
 
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
@@ -160,7 +185,18 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     AtkCooldown.start -= 1001;
     Timer_Start( &DeplacementCooldown );
     DeplacementCooldown.start -= 167;
+    Timer_Start( &SpeCooldown );
+    SpeCooldown.start -= 2001;
+
+
+    for ( int i = 0; i < listeMonstre->nbElem; i++ ) {
+        afficher_monstre(listeMonstre->tabMonstres[i]);
+        printf("\n");
+    }
+
+    afficher_perso(perso);
     
+    printf("\n");
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -182,7 +218,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     break;
                 // Evenement Touche Clavier
                 case SDL_KEYDOWN:
-                    if (  !mouseClicked && !keyPressed ) {
+                    if (  !mouseClicked && !keyPressed && !aKeyClicked) {
                         // Gestion Touche Clavier
                         switch (event.key.keysym.sym) {
                             case SDLK_z:
@@ -196,6 +232,23 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 break;
                             case SDLK_d: 
                                 direction = 'D';
+                                break;
+                            case SDLK_a:
+                                // temps dans le jeux final pour l'atk spéciale surement 15 seconde
+                                if ( (int)Timer_Get_Time(&SpeCooldown) > 2000 ) {
+                                    if ( Special_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
+                                        printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
+                                        erreur = 1;
+                                        goto detruire;
+                                    }
+                                    aKeyClicked = 1;
+                                    // Gestion cooldown
+                                    Timer_Start( &SpeCooldown );
+                                    break;  
+                                }
+                                break;
+                            case SDLK_r:
+                                // temps dans le jeux final pour l'atk ultime surement 60 seconde
                                 break;
                             case SDLK_e:
                                 break;
@@ -222,7 +275,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 // Evenement Souris
                 case SDL_MOUSEBUTTONDOWN:
                     if (event.button.button == SDL_BUTTON_LEFT ) {
-                        if ( (int)Timer_Get_Time(&AtkCooldown) > 1000 ) {
+                        // temps dans le jeux final pour l'atk normale surement 1 seconde
+                        if ( (int)Timer_Get_Time(&AtkCooldown) > 1000 && !aKeyClicked ) {
                             if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                 printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
                                 erreur = 1;
@@ -243,19 +297,57 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
         /* --------- Gestion Animation --------- */
 
-        // Bloqué les actions pendants l'attaque
+        // Bloqué les actions pendants l'attaque de base
         if ( mouseClicked == 1 ) {
             frameAtck++;
             SDL_Delay(200);
             if ( frameAtck == 4 ) {
                 mouseClicked = 0;
                 frameAtck = 0;
+                // Detection reussie attaque
+                detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedMonstre);
+                if ( detect == -1 ) {
+                    printf("Erreur : Echec Detecter_Monstre() dans play()\n");
+                    erreur = 1;
+                    goto detruire;
+                }
+                if ( detect == 1 ) {
+                    combat_joueur(perso, detectedMonstre->monstre, 0);
+                }
+                if ( detectedMonstre != NULL ) {
+                    afficher_monstre(detectedMonstre->monstre);
+                    printf("\n");
+                }
+            }
+        }
+
+        // Bloqué les actions pendants l'attaque spéciale
+        if ( aKeyClicked == 1 ) {
+            frameAtck++;
+            SDL_Delay(250);
+            if ( frameAtck == 6 ) {
+                aKeyClicked = 0;
+                frameAtck = 0;
+                // Detection reussie attaque
+                detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,2,&detectedMonstre);
+                if ( detect == -1 ) {
+                    printf("Erreur : Echec Detecter_Monstre() dans play()\n");
+                    erreur = 1;
+                    goto detruire;
+                }
+                if ( detect == 1 ) {
+                    combat_joueur(perso, detectedMonstre->monstre, 1);
+                }
+                if ( detectedMonstre != NULL ) {
+                    afficher_monstre(detectedMonstre->monstre);
+                    printf("\n");
+                }
             }
         }
 
         
         // Changement vers animation Idle   Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
-        if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 ) {
+        if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 && aKeyClicked == 0) {
             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
                 printf("Erreur : Echec Change_Sprite //Deplacement_PersoSprite() dans play()\n");
                 erreur = 1;
@@ -315,8 +407,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         spriteMap[1][CameraJoueur.y + 5 + 1][CameraJoueur.x + 9] = NULL;
     }
 
+
     // destruction en mémoire de la SpriteMap en paramètre
     Detruire_SpriteMap(&spriteMap,continent);
+
+    // destruction en mémoire de la liste de monstre en paramètre
+    Detruire_Liste_Monstres(&listeMonstre);
 
     // destruction liste sprite perso
     Detruire_Sprite_Liste(&listePersoSprite);
