@@ -108,4 +108,6 @@ extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
 
 extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
 
+extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
+
 #endif 

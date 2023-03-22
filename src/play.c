@@ -53,6 +53,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_timer_t AtkCooldown;
     SDL_timer_t DeplacementCooldown;
     SDL_timer_t SpeCooldown;
+    SDL_timer_t UltCooldown;
 
     // Variable qui correspond au sprite detecté
     sprite_t * detectedMonstre;
@@ -81,11 +82,20 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable qui detecte si une touche 'a' est déja préssé
     int aKeyClicked = 0;
 
+    // Variable qui detecte si une touche 'r' est déja préssé
+    int rKeyClicked = 0;
+    
     // Variable qui correspond au frame d'animation de l'attaque
     int frameAtck = 0;
 
     // Varaible de direction du personnage
     char direction = 'S';
+
+    // Variables des temps de cooldowns
+    int MsAtkCooldown = 1000;
+    int MsSpeCooldown = 1000;
+    int MsUltCooldown = 1000;
+    int MsDeplacementCooldown = 160;
 
     /* ------------------ Initialisation resource jeux ------------------ */
 
@@ -181,12 +191,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     Timer_Start( &frameTimer2 );
     Timer_Start( &lastKey );
     lastKey.start -= 151;
-    Timer_Start( &AtkCooldown );
-    AtkCooldown.start -= 1001;
     Timer_Start( &DeplacementCooldown );
-    DeplacementCooldown.start -= 167;
+    DeplacementCooldown.start -= (MsDeplacementCooldown + 1);
+    Timer_Start( &AtkCooldown );
+    AtkCooldown.start -= (MsAtkCooldown + 1);
     Timer_Start( &SpeCooldown );
-    SpeCooldown.start -= 2001;
+    SpeCooldown.start -= (MsSpeCooldown + 1);
+    Timer_Start( &UltCooldown );
+    UltCooldown.start -= (MsUltCooldown + 1);
 
 
     for ( int i = 0; i < listeMonstre->nbElem; i++ ) {
@@ -218,7 +230,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     break;
                 // Evenement Touche Clavier
                 case SDL_KEYDOWN:
-                    if (  !mouseClicked && !keyPressed && !aKeyClicked) {
+                    if (  !mouseClicked && !keyPressed && !aKeyClicked && !rKeyClicked) {
                         // Gestion Touche Clavier
                         switch (event.key.keysym.sym) {
                             case SDLK_z:
@@ -235,7 +247,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 break;
                             case SDLK_a:
                                 // temps dans le jeux final pour l'atk spéciale surement 15 seconde
-                                if ( (int)Timer_Get_Time(&SpeCooldown) > 2000 ) {
+                                if ( (int)Timer_Get_Time(&SpeCooldown) > MsSpeCooldown ) {
                                     if ( Special_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                         printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
                                         erreur = 1;
@@ -249,6 +261,17 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 break;
                             case SDLK_r:
                                 // temps dans le jeux final pour l'atk ultime surement 60 seconde
+                                if ( (int)Timer_Get_Time(&UltCooldown) > MsUltCooldown ) {
+                                    if ( Ultime_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
+                                        printf("Erreur : Echec Ultime_PersoSprite() dans play()\n");
+                                        erreur = 1;
+                                        goto detruire;
+                                    }
+                                    rKeyClicked = 1;
+                                    // Gestion cooldown
+                                    Timer_Start( &UltCooldown );
+                                    break;  
+                                }
                                 break;
                             case SDLK_e:
                                 break;
@@ -258,7 +281,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                         // Deplacement
                         if (  ( event.key.keysym.sym == SDLK_z || event.key.keysym.sym == SDLK_q ||
                                 event.key.keysym.sym == SDLK_s || event.key.keysym.sym == SDLK_d    )
-                                && (int)Timer_Get_Time(&DeplacementCooldown) > 166 ) 
+                                && (int)Timer_Get_Time(&DeplacementCooldown) > MsDeplacementCooldown ) 
                         {
                             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,tolower(direction)) ) {
                                 printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
@@ -276,7 +299,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 case SDL_MOUSEBUTTONDOWN:
                     if (event.button.button == SDL_BUTTON_LEFT ) {
                         // temps dans le jeux final pour l'atk normale surement 1 seconde
-                        if ( (int)Timer_Get_Time(&AtkCooldown) > 1000 && !aKeyClicked ) {
+                        if ( (int)Timer_Get_Time(&AtkCooldown) > MsAtkCooldown && !aKeyClicked && !rKeyClicked ) {
                             if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                 printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
                                 erreur = 1;
@@ -307,7 +330,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 // Detection reussie attaque
                 detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedMonstre);
                 if ( detect == -1 ) {
-                    printf("Erreur : Echec Detecter_Monstre() dans play()\n");
+                    printf("Erreur : Echec Detecter_Monstre('basique') dans play()\n");
                     erreur = 1;
                     goto detruire;
                 }
@@ -331,7 +354,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 // Detection reussie attaque
                 detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,2,&detectedMonstre);
                 if ( detect == -1 ) {
-                    printf("Erreur : Echec Detecter_Monstre() dans play()\n");
+                    printf("Erreur : Echec Detecter_Monstre('spe') dans play()\n");
                     erreur = 1;
                     goto detruire;
                 }
@@ -345,9 +368,33 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             }
         }
 
+        // Bloqué les actions pendants l'attaque spéciale
+        if ( rKeyClicked == 1 ) {
+            frameAtck++;
+            SDL_Delay(250);
+            if ( frameAtck == 6 ) {
+                rKeyClicked = 0;
+                frameAtck = 0;
+                // Detection reussie attaque
+                detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,3,&detectedMonstre);
+                if ( detect == -1 ) {
+                    printf("Erreur : Echec Detecter_Monstre('ult') dans play()\n");
+                    erreur = 1;
+                    goto detruire;
+                }
+                if ( detect == 1 ) {
+                    combat_joueur(perso, detectedMonstre->monstre, 2);
+                }
+                if ( detectedMonstre != NULL ) {
+                    afficher_monstre(detectedMonstre->monstre);
+                    printf("\n");
+                }
+            }
+        }
+
         
         // Changement vers animation Idle   Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
-        if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 && aKeyClicked == 0) {
+        if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 ) {
             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
                 printf("Erreur : Echec Change_Sprite //Deplacement_PersoSprite() dans play()\n");
                 erreur = 1;

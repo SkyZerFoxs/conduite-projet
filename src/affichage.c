@@ -738,8 +738,8 @@ extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_
     
 
     // clean old sprite
-    for (int j = -3; j < 4; j++) {
-        for (int i = -3; i < 4; i++ ) {
+    for (int j = -4; j < 5; j++) {
+        for (int i = -4; i < 5; i++ ) {
             int y = view->y + 5 + i;
             int x = view->x + 9 + j;
             if (y >= map->height || x >= map->width) {
@@ -1037,6 +1037,79 @@ extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_list
     case 'D':
         index = 61;
         for (int j = 0; j < 4; j++ ) {
+            for (int i = 0; i < 2; i++ ) {
+                if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[index],view->y+5+i,view->x+8+j) ) {
+                    printf("Erreur : Echec Change_Sprite('%c') dans Special_PersoSprite()\n",Action);
+                    return 1;   
+                }
+                spriteMap[1][view->y+5+i][view->x+8+j]->y = view->y+5+i;
+                spriteMap[1][view->y+5+i][view->x+8+j]->x = view->x+8+j;
+                spriteMap[1][view->y+5+i][view->x+8+j]->frame = 5;
+                index++;
+            }
+        }
+        break;
+    default:
+        printf("Erreur : Action incorrect dans Special_PersoSprite()\n");
+        return 1;
+        break;
+    }
+
+    return 0;
+}
+
+
+extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+    int index;
+    switch (Action) {
+    case 'Z':
+        index = 92;
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 4; i++) {
+                if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[index],view->y+3+i,view->x+8+j) ) {
+                    printf("Erreur : Echec Change_Sprite('D') dans Ultime_PersoSprite()\n");
+                    return 1;
+                }
+                spriteMap[1][view->y+3+i][view->x+8+j]->y = view->y+3+i;
+                spriteMap[1][view->y+3+i][view->x+8+j]->x = view->x+8+j;
+                spriteMap[1][view->y+3+i][view->x+8+j]->frame = 5;
+                index++;
+            }
+        }
+        break;
+    case 'Q':
+        index = 114;
+        for (int j = 0; j < 5; j++ ) {
+            for (int i = 0; i < 2; i++ ) {
+                if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[index],view->y+5+i,view->x+6+j) ) {
+                    printf("Erreur : Echec Change_Sprite('%c') dans Special_PersoSprite()\n",Action);
+                    return 1;   
+                }
+                spriteMap[1][view->y+5+i][view->x+6+j]->y = view->y+5+i;
+                spriteMap[1][view->y+5+i][view->x+6+j]->x = view->x+6+j;
+                spriteMap[1][view->y+5+i][view->x+6+j]->frame = 5;
+                index++;
+            }
+        }
+        break;
+    case 'S':
+        index = 77;
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 5; i++) {
+                if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[index],view->y+5+i,view->x+8+j) ) {
+                    printf("Erreur : Echec Change_Sprite('%c') dans Special_PersoSprite()\n",Action);
+                    return 1;   
+                }
+                spriteMap[1][view->y+5+i][view->x+8+j]->y = view->y+5+i;
+                spriteMap[1][view->y+5+i][view->x+8+j]->x = view->x+8+j;
+                spriteMap[1][view->y+5+i][view->x+8+j]->frame = 5;
+                index++;
+            }
+        }
+        break;
+    case 'D':
+        index = 104;
+        for (int j = 0; j < 5; j++ ) {
             for (int i = 0; i < 2; i++ ) {
                 if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[index],view->y+5+i,view->x+8+j) ) {
                     printf("Erreur : Echec Change_Sprite('%c') dans Special_PersoSprite()\n",Action);

@@ -6,7 +6,7 @@
 #include <monstre.h>
 
 #define MAX_SPRITE_FRAME 20
-#define BORNE_PERSO_SPRITE 77
+#define BORNE_PERSO_SPRITE 124
 
 /**
  * \file sprite.h
