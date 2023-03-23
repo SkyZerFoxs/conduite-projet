@@ -17,11 +17,6 @@ typedef struct monstre_s{
     int niveau;
     int pos_y;
     int pos_x;
-    /*
-    int pv;
-    int atk;
-    int def;
-    */
     caract_t * caract;
 }monstre_t;
 

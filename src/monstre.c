@@ -21,18 +21,9 @@ void afficher_monstre(monstre_t * monstre){
     printf("nom: %s\n", monstre->nom);
     printf("lvl: %d\n", monstre->niveau);
     printf("x: %d   y: %d\n",monstre->pos_x,monstre->pos_y);
-    /*
-    printf("PV: %d\n", monstre->pv);
-    printf("Attaque : %d\n", monstre->atk);
-    printf("Defense : %d\n", monstre->def);
-    */
     printf("Points de vie : %d\n", monstre->caract->pv);
     printf("Attaque : %d\n", monstre->caract->atk);
     printf("Defense : %d\n", monstre->caract->def);
-    /*
-    printf("Mana : %d\n", monstre->caract->mana);
-    printf("Puissance : %d\n", monstre->caract->puissance);
-    */
 
 }
 
@@ -75,7 +66,6 @@ monstre_t * creer_monstre(char * nom, int niv, int y, int x) {
     monstre->caract->pv = 50 + ( niv - 1 ) * 10;
     monstre->caract->atk = 5 + ( niv - 1 ) * 5;
     monstre->caract->def = 2 + ( niv - 1 ) * 2;
-    monstre->caract->mana = 0;
 
     return monstre;
 }

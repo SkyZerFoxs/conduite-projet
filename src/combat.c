@@ -44,15 +44,6 @@ void combat_joueur(personnage_t * perso, monstre_t * monstre, int atk) {
         monstre->caract->pv -= degats;
     }
 
-    /*
-    monstre->pv=monstre->pv-(perso->caract->atk/(0.3*monstre->def));
-    if(atk=='s'){
-        perso->caract->mana-=50;
-    }
-    else if(atk=='u'){
-        perso->caract->mana-=100;
-    }
-    */
 }
 
 extern 
@@ -72,7 +63,19 @@ void combat_monstre(monstre_t * monstre, personnage_t * perso) {
         perso->caract->pv -= degats;
     }
 
-    /*
-    perso->caract->pv-=(monstre->atk/(0.2*perso->caract->def));
-    */
+}
+
+extern int level_up(personnage_t * perso, monstre_t * monstre) {
+    if ( monstre->caract->pv <= 0 ) {
+        perso->niveau++;
+        int stats = 0;
+        /*
+        printf("Stats a upgrade: ");
+        scanf("%d",&stats);
+        */
+
+        upgrade_perso(perso,stats);
+    }
+
+    return 0;
 }

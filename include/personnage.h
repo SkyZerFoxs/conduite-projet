@@ -42,6 +42,6 @@ typedef struct personnage_s{
 extern personnage_t * creer_personnage(char * nom);
 extern void afficher_perso(personnage_t * perso);
 extern void supprimer_perso(personnage_t ** perso);
-extern void upgrade_perso(personnage_t * perso);
+extern int upgrade_perso(personnage_t * perso, int stats) ;
 
 #endif

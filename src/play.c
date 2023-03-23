@@ -91,6 +91,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Varaible de direction du personnage
     char direction = 'S';
 
+    // 
+    int mortMonstre = 0;
+    int frameMortMonstre = 0;
+    int degatMonstre = 0;
+    int frameDegatMonstre = 0;
+
+
     // Variables des temps de cooldowns
     int MsAtkCooldown = 1000;
     int MsSpeCooldown = 1000;
@@ -334,8 +341,17 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     erreur = 1;
                     goto detruire;
                 }
-                if ( detect == 1 ) {
+                if ( detect == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     combat_joueur(perso, detectedMonstre->monstre, 0);
+                    printf("\n");
+                    if ( detectedMonstre->monstre->caract->pv <= 0 ) {
+                        mortMonstre = 1;
+                        level_up(perso, detectedMonstre->monstre); 
+                        afficher_perso(perso);
+                    }
+                    else {
+                        degatMonstre = 1;
+                    }
                 }
                 if ( detectedMonstre != NULL ) {
                     afficher_monstre(detectedMonstre->monstre);
@@ -358,8 +374,17 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     erreur = 1;
                     goto detruire;
                 }
-                if ( detect == 1 ) {
+                if ( detect == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     combat_joueur(perso, detectedMonstre->monstre, 1);
+                    printf("\n");
+                    if ( detectedMonstre->monstre->caract->pv <= 0 ) {
+                        mortMonstre = 1;
+                        level_up(perso, detectedMonstre->monstre); 
+                        afficher_perso(perso);
+                    }
+                    else {
+                        degatMonstre = 1;
+                    }
                 }
                 if ( detectedMonstre != NULL ) {
                     afficher_monstre(detectedMonstre->monstre);
@@ -382,8 +407,17 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     erreur = 1;
                     goto detruire;
                 }
-                if ( detect == 1 ) {
+                if ( detect == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     combat_joueur(perso, detectedMonstre->monstre, 2);
+                    printf("\n");
+                    if ( detectedMonstre->monstre->caract->pv <= 0 ) {
+                        mortMonstre = 1;
+                        level_up(perso, detectedMonstre->monstre); 
+                        afficher_perso(perso);
+                    }
+                    else {
+                        degatMonstre = 1;
+                    }
                 }
                 if ( detectedMonstre != NULL ) {
                     afficher_monstre(detectedMonstre->monstre);
@@ -392,6 +426,37 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             }
         }
 
+        if ( degatMonstre ) {
+            if ( frameDegatMonstre == 0 ) {
+                detectedMonstre->spriteTypeId++;
+                detectedMonstre->frame = 0;
+            }
+            SDL_Delay(200);
+            frameDegatMonstre++;
+            if ( frameDegatMonstre == 2 ) {
+                degatMonstre = 0;
+                detectedMonstre->spriteTypeId--;
+                frameDegatMonstre = 0;
+            }
+        }
+
+
+        if ( mortMonstre ) {
+            if ( frameMortMonstre == 0 ) {
+                detectedMonstre->spriteTypeId++;
+                detectedMonstre->frame = 0;
+                detectedMonstre->monstre->caract->pv = 1; 
+
+            }
+            SDL_Delay(200);
+            frameMortMonstre++;
+            if ( frameMortMonstre == 2 ) {
+                mortMonstre = 0;
+                detectedMonstre->monstre->caract->pv = -1;
+                detectedMonstre->spriteTypeId--;
+                frameMortMonstre = 0;
+            }
+        }
         
         // Changement vers animation Idle   Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
         if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 ) {
@@ -425,6 +490,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             goto detruire;
         }
 
+       
+
         // Affichage Complet
         if ( Affichage_All(mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, renderer,&CameraJoueur) ) {
             printf("Erreur : Echec Affichage_All() dans play()\n");
@@ -449,20 +516,31 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     /* Destruction de la mémoire */
     detruire:
 
-    if ( spriteMap[1] != NULL && spriteMap[1][CameraJoueur.y + 5][CameraJoueur.x + 9]->spriteTypeId < 40 && spriteMap[1][CameraJoueur.y + 5 + 1][CameraJoueur.x + 9]->spriteTypeId < 40 ) {
-        spriteMap[1][CameraJoueur.y + 5][CameraJoueur.x + 9] = NULL;
-        spriteMap[1][CameraJoueur.y + 5 + 1][CameraJoueur.x + 9] = NULL;
+    // clean old sprite
+    for (int j = -4; j < 5; j++) {
+        for (int i = -4; i < 5; i++ ) {
+            int y = CameraJoueur.y + 5 + i;
+            int x = CameraJoueur.x + 9 + j;
+            if (y >= continent->height || x >= continent->width) {
+                printf("Erreur : En Dehors de la map dans Deplacement_PersoSprite()\n");
+                return 1;
+            } else if (spriteMap[1][y][x] != NULL) {
+                spriteMap[1][y][x] = NULL;
+            }
+        }
     }
-
 
     // destruction en mémoire de la SpriteMap en paramètre
     Detruire_SpriteMap(&spriteMap,continent);
 
-    // destruction en mémoire de la liste de monstre en paramètre
-    Detruire_Liste_Monstres(&listeMonstre);
-
     // destruction liste sprite perso
     Detruire_Sprite_Liste(&listePersoSprite);
+    
+    // destruction personnage
+    supprimer_perso(&perso);
+
+    // destruction en mémoire de la liste de monstre en paramètre
+    Detruire_Liste_Monstres(&listeMonstre);
 
     // destruction en mémoire de la Liste de texture des sprites
     Detruire_Sprite_Texture_Liste(&SpriteTextureListe); 
@@ -475,6 +553,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
     // destruction en mémoire de la map en paramètre
     Detruire_Map(&continent); 
+    
 
     return erreur;
 

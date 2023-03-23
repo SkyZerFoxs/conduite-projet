@@ -15,4 +15,6 @@
 extern void combat_joueur(personnage_t * perso, monstre_t * monstre, int atk);
 extern void combat_monstre(monstre_t * monstre, personnage_t * perso);
 
+extern int level_up(personnage_t * perso, monstre_t * monstre)  ;
+
 #endif
