@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "\"*.pl\"": "\"prolog\"",
+        "\"*.pl\"; \"prolog\"": "\"*.pl\"; \"prolog\"",
+        "*.pl": "prolog",
+        "data.h": "c",
+        "stdlib.h": "c",
+        "inventaire.h": "c"
+    }
+}

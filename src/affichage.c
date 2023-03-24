@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <affichage.h>
+#include <inventaire.h>
 
 /**
  * \file affichage.c
@@ -1126,6 +1127,59 @@ extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
         printf("Erreur : Action incorrect dans Special_PersoSprite()\n");
         return 1;
         break;
+    }
+
+    return 0;
+}
+
+extern int Afficher_Inventaire(SDL_Texture * texture, SDL_Rect * view, SDL_Renderer *renderer, SDL_Window * window ) {
+
+    // Verification paramètres
+    if ( texture == NULL ) {
+       printf("Erreur : La texture n'est pas chargé dans afficher_map()\n");
+       return 1;
+    }
+
+    if ( renderer == NULL ) {
+       printf("Erreur : Le Renderer n'est pas chargé dans afficher_map()\n");
+       return 1;
+    }
+
+    int win_width,win_height;
+    int dstCoef, xBorder, yBorder;
+    
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
+
+    if ( dstCoef == 0 || xBorder < 0 || yBorder < 0) {
+        printf("Erreur : Le WinInfo Incorrecte dans afficher_map()\n");
+        return 1;
+    }
+
+    // Affichage des tiles de la carte
+    int tileNumber = 0;
+    for (int y = 0; y < 11; y++) {
+        for (int x = 0; x < 20; x++) {
+            SDL_Rect srcrect;
+            srcrect.y = 16 * ( (tileNumber) / 20);
+            srcrect.x = 16 * ( (tileNumber) % 20);
+            srcrect.h = 16;
+            srcrect.w = 16;
+
+            // Rectangle Destination ( Renderer )
+            SDL_Rect dstrect;
+            dstrect.x = ( dstCoef * (16 * x ) ) + xBorder;
+            dstrect.y = ( dstCoef * (16 * y ) ) + yBorder; 
+            dstrect.h = dstCoef * 16;
+            dstrect.w = dstCoef * 16;
+
+            // Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer
+            if ( SDL_RenderCopy(renderer, texture, &srcrect, &dstrect) < 0 ) {
+                printf("Erreur : SDL_RenderCopy() à échoué dans afficher_map\n");
+                return 1;
+            }
+            tileNumber++;
+        }
     }
 
     return 0;

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include <affichage.h>
+#include <inventaire.h>
 #include <data.h>
 
 
@@ -96,6 +97,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     int frameMortMonstre = 0;
     int degatMonstre = 0;
     int frameDegatMonstre = 0;
+
+    // 
+    int sortieInv = 0;
 
 
     // Variables des temps de cooldowns
@@ -193,6 +197,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
     }
 
+    // chargement texture inventaire
+    SDL_Texture * textInventaire = IMG_LoadTexture(renderer,"asset/hud/inventaire.png");
+
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
     Timer_Start( &frameTimer2 );
@@ -212,6 +219,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         afficher_monstre(listeMonstre->tabMonstres[i]);
         printf("\n");
     }
+
+    
 
     afficher_perso(perso);
     
@@ -281,6 +290,17 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 }
                                 break;
                             case SDLK_e:
+                                break;
+                            case SDLK_TAB:
+                                sortieInv = inventaire(textInventaire, &CameraJoueur, window, renderer);
+                                if ( sortieInv == -1 ) {
+                                    quit = SDL_TRUE;
+                                }
+                                else if ( sortieInv == 1 ) {
+                                    printf("Erreur : Echec inventaire() dans play()\n");
+                                    erreur = 1;
+                                    goto detruire;
+                                }
                                 break;
                             default:
                                 break;
@@ -363,7 +383,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         // Bloqué les actions pendants l'attaque spéciale
         if ( aKeyClicked == 1 ) {
             frameAtck++;
-            SDL_Delay(250);
+            SDL_Delay(200);
             if ( frameAtck == 6 ) {
                 aKeyClicked = 0;
                 frameAtck = 0;
@@ -396,7 +416,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         // Bloqué les actions pendants l'attaque spéciale
         if ( rKeyClicked == 1 ) {
             frameAtck++;
-            SDL_Delay(250);
+            SDL_Delay(200);
             if ( frameAtck == 6 ) {
                 rKeyClicked = 0;
                 frameAtck = 0;

@@ -110,5 +110,6 @@ extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_list
 
 extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
 
+extern int Afficher_Inventaire(SDL_Texture * texture, SDL_Rect * view, SDL_Renderer *renderer, SDL_Window * window ) ;
 
 #endif 

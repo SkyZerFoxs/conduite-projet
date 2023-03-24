@@ -10,8 +10,8 @@ TESTDIR=test
 
 all: play
 
-play: $(SRCDIR)/play.c $(SRCDIR)/map.c  $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c
-	${CC} $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/sprite.c $(SRCDIR)/affichage.c $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c -o play $(CFLAGS) $(LDFLAGS)
+play: $(SRCDIR)/play.c $(SRCDIR)/map.c  $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c $(SRCDIR)/inventaire.c
+	${CC} $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/sprite.c $(SRCDIR)/affichage.c $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c $(SRCDIR)/inventaire.c -o play $(CFLAGS) $(LDFLAGS)
 	
 mrproper:
 	rm -f play
