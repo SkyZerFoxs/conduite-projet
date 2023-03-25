@@ -10,38 +10,60 @@
 #include <stdlib.h>
 #include <string.h>
 #include <objets.h>
+extern 
+void ecrire_objet_tab(char * nom_fich, objet_t ** tab){
+    FILE * filename = fopen(nom_fich, "r");
+    if (!filename) {
+        printf("Erreur d'ouverture du fichier %s\n", nom_fich);
+        return;
+    }
+    for (int i = 0; i < NB_ITEMS; i++) {
+        tab[i] = malloc(sizeof(objet_t));
+        tab[i]->nom = malloc(sizeof(char) * 25);
+        tab[i]->stats = malloc(sizeof(caract_t));
+         fscanf(filename, "%d:%[^:]:%d:%d:%d:%d:%d:%d:%d:\n",&tab[i]->id, tab[i]->nom, &tab[i]->niv, &tab[i]->stats->pv,&tab[i]->stats->def, &tab[i]->stats->atk, &tab[i]->prix_achat, &tab[i]->prix_vente, &tab[i]->nb);
+    }
+    fclose(filename);
+}
 
-objet_t * creer_objet(char * nom, int id,int pv, int atk,int def,int puissance,int mana,int force, int prix_achat,int prix_vente){
-    objet_t * objet=NULL;
-    objet=malloc(sizeof(objet_t)+1);
-    objet->nom=malloc(sizeof(char)*strlen(nom)+1);
-    strcpy(objet->nom,nom);
-    objet->stats=malloc(sizeof(caract_t)+1);
-    objet->prix_achat=prix_achat;
-    objet->prix_vente=prix_vente;
-    objet->id=id;
-    objet->stats->pv=pv;
-    objet->stats->atk=atk;
-    objet->stats->def=def;
-    objet->stats->puissance=puissance;
-    objet->stats->mana=mana;
-    return objet;
+
+extern
+void afficher_objet(objet_t ** tab){ 
+    for (int i=0; i<NB_ITEMS;i++){
+        printf("Id : %d\n", tab[i]->id);
+        printf("Nom : %s\n",tab[i]->nom);
+        printf("Niveau : %d\n", tab[i]->niv);
+        printf("PV : %d\n", tab[i]->stats->pv);
+        printf("Defense : %d\n", tab[i]->stats->def);
+        printf("Attaque : %d\n", tab[i]->stats->atk);
+        printf("Prix achat: %d\n", tab[i]->prix_achat);
+        printf("Prix vente : %d\n", tab[i]->prix_vente);
+        printf("Nombre : %d\n", tab[i]->nb);
+    }
 }
 
 extern
-void afficher_objet(objet_t * objet){ 
-    printf("Nom : %s\n",objet->nom);
-    printf("Id : %d\n", objet->id);
-    printf("Prix achat: %d\n", objet->prix_achat);
-    printf("Prix vente : %d\n", objet->prix_vente);
+void detruire_objet(objet_t ** objet){
+    if(*objet){
+        free((*objet)->nom);
+        (*objet)->nom=NULL;
+        free((*objet)->stats);
+        (*objet)->stats=NULL;
+
+    }
 }
 
-extern
-void supprimer_objet(objet_t ** objet){
-    free((*objet)->nom);
-    (*objet)->nom=NULL;
-    free((*objet)->stats);
-    (*objet)->stats=NULL;
-    free(*objet);
-    (*objet)=NULL;  
+void detruire_tab_objet(objet_t **tab) {
+    for (int i = 0; i < NB_ITEMS; i++) {
+        if (tab[i]) {
+            free(tab[i]->nom);
+            tab[i]->nom = NULL;
+            free(tab[i]->stats);
+            tab[i]->stats = NULL;
+            free(tab[i]);
+            tab[i] = NULL;
+        }
+    }
+    free(tab);
+    tab = NULL;
 }
