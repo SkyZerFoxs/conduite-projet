@@ -11,7 +11,8 @@
 #include <string.h>
 #include <objets.h>
 extern 
-void ecrire_objet_tab(char * nom_fich, objet_t ** tab){
+objet_t ** load_objets(char * nom_fich){
+    objet_t ** tab=malloc(sizeof(objet_t)*NB_ITEMS); 
     FILE * filename = fopen(nom_fich, "r");
     if (!filename) {
         printf("Erreur d'ouverture du fichier %s\n", nom_fich);
@@ -21,7 +22,8 @@ void ecrire_objet_tab(char * nom_fich, objet_t ** tab){
         tab[i] = malloc(sizeof(objet_t));
         tab[i]->nom = malloc(sizeof(char) * 25);
         tab[i]->stats = malloc(sizeof(caract_t));
-         fscanf(filename, "%d:%[^:]:%d:%d:%d:%d:%d:%d:%d:\n",&tab[i]->id, tab[i]->nom, &tab[i]->niv, &tab[i]->stats->pv,&tab[i]->stats->def, &tab[i]->stats->atk, &tab[i]->prix_achat, &tab[i]->prix_vente, &tab[i]->nb);
+        fscanf(filename, "%d:%[^:]:%d:%d:%d:%d:%d:%d:\n",&tab[i]->id, tab[i]->nom, &tab[i]->niv, &tab[i]->stats->pv,&tab[i]->stats->def, &tab[i]->stats->atk, &tab[i]->prix_achat, &tab[i]->prix_vente);
+        tab[i]->nb=0;
     }
     fclose(filename);
 }

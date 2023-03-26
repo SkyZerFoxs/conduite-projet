@@ -17,7 +17,7 @@ typedef struct objet_s{
 }objet_t;
 
 
-extern void ecrire_objet_tab(char * nom_fich, objet_t ** tab);
+extern objet_t ** load_objets(char * nom_fich);
 extern void afficher_objet(objet_t ** tab);
 extern void detruire_tab_objet(objet_t ** tab);
 extern void detruire_objet(objet_t ** objet);
