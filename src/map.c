@@ -92,25 +92,37 @@ extern map_t * Initialiser_Map(char * fichier) {
  * \return Aucun retour effectué en fin de fonction
  */
 extern void Detruire_Map(map_t ** map) {
-    if ( map == NULL ) {
+    if ( map == NULL || (*map) == NULL ) {
         printf("Erreur : map inexsitant dans Detruire_Map() ");
         return;
     }
+
+    if ( (*map)->layer <= 0 || (*map)->height <= 0 ) {
+        printf("Erreur : layer ou height <= 0 dans Detruire_Map()\n" );
+        return;
+    }
+
     // destruction des lignes dans chaques layers de la matrice
     for (int n = 0; n < (*map)->layer; n++) {
         for ( int i = 0; i < (*map)->height; i++ ) {
-            free((*map)->matrice[n][i]);
-            (*map)->matrice[n][i] = NULL;
+            if ( (*map)->matrice[n][i] != NULL ) {
+                free((*map)->matrice[n][i]);
+                (*map)->matrice[n][i] = NULL;
+            }
+            
+        }
+        if ( (*map)->matrice[n] != NULL ) {
+            free((*map)->matrice[n]);
+            (*map)->matrice[n] = NULL;
         }
     }
-    // destruction de chaque layers dans la matrice
-    for (int n = 0; n < (*map)->layer; n++) {
-        free((*map)->matrice[n]);
-        (*map)->matrice[n] = NULL;
-    }
+
     // destruction de la matrice
-    free((*map)->matrice);
-    (*map)->matrice = NULL;
+    if ( (*map)->matrice != NULL ) {
+        free((*map)->matrice);
+        (*map)->matrice = NULL;
+    }
+    
     // destruction de la structure map_t
     free((*map));
     (*map) = NULL;

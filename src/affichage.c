@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include <affichage.h>
-#include <inventaire.h>
 
 /**
  * \file affichage.c
@@ -103,8 +102,14 @@ void Quit_SDL(SDL_Window* window, SDL_Renderer* renderer) {
  * \param texture Pointeur sur l'objet SDL_Texture
  * \return Aucun retour effectué en fin de fonction
  */
-extern void Detruire_Texture(SDL_Texture *texture) {
-    SDL_DestroyTexture(texture);
+extern void Detruire_Texture(SDL_Texture ** texture) {
+    if ( texture == NULL || *texture == NULL ) {
+        printf("Erreur : Texture vide dans Detruire_Texture()\n");
+        return;
+    }
+
+    SDL_DestroyTexture((*texture));
+    (*texture) = NULL;
 }
 
 /**
@@ -161,6 +166,7 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
     default:
         break;
     }
+    
     switch (indiceFullscreen)
     {
     case 0:
@@ -329,18 +335,43 @@ extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, s
  * \return Aucun retour effectué en fin de fonction
 */
 extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
-    if ((*liste) != NULL) {
-        // Parcours de la liste
-        for (int i = 0; i < (*liste)->nbElem; i++) {
-            // Libération de la mémoire allouée pour chaque texture
-            free((*liste)->tab[i]->spriteSheet);
-            SDL_DestroyTexture((*liste)->tab[i]->spriteSheetTexture);
-            free((*liste)->tab[i]);
-        }
-        // Libération de la mémoire allouée pour la liste
-        free((*liste));
-        (*liste) = NULL;
+    if ( liste == NULL || (*liste) == NULL ) {
+        printf("Erreur : Liste des textures vide dans Detruire_Sprite_Texture_Liste()\n");
+        return;
     }
+
+    if ((*liste)->tab == NULL) {
+        printf("Erreur : Liste vide dans Detruire_Sprite_Texture_Liste()\n");
+        return;
+    }
+
+    if ( (*liste)->nbElem <= 0 ) {
+        printf("Erreur : Nombre element <= 0 dans Detruire_Sprite_Texture_Liste()\n");
+        return;
+    }
+ 
+    // Parcours de la liste
+    for (int i = 0; i < (*liste)->nbElem; i++) {
+        if ( (*liste)->tab[i] != NULL ) {
+            // Libération de la mémoire allouée pour chaque texture
+            if ( (*liste)->tab[i]->spriteSheet != NULL ) {
+                free((*liste)->tab[i]->spriteSheet);
+                (*liste)->tab[i]->spriteSheet = NULL;
+            }
+            if ( (*liste)->tab[i]->spriteSheetTexture != NULL ) {
+                Detruire_Texture(&((*liste)->tab[i]->spriteSheetTexture));
+                (*liste)->tab[i]->spriteSheetTexture = NULL;
+            }
+            free((*liste)->tab[i]);
+            (*liste)->tab[i] = NULL;
+        }
+        
+    }
+
+    // Libération de la mémoire allouée pour la liste
+    free((*liste));
+    (*liste) = NULL;
+    
 }
 
 
@@ -470,37 +501,37 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
 extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
     if ( SpriteTextureListe == NULL ) {
-       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_spriteMap[layer]()\n");
+       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
        return 1;
     }
 
     if ( spriteMap[layer] == NULL ) {
-       printf("Erreur : La spriteMap[layer] n'est pas chargé dans Afficher_spriteMap[layer]()\n");
+       printf("Erreur : La spriteMap[layer] n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
        return 1;
     }
 
     if ( map == NULL ) {
-       printf("Erreur : La Map n'est pas chargé dans Afficher_spriteMap[layer]()\n");
+       printf("Erreur : La Map n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
        return 1;
     }
 
     if ( listeType == NULL ) {
-       printf("Erreur : La listeType n'est pas chargé dans Afficher_spriteMap[layer]()\n");
+       printf("Erreur : La listeType n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
        return 1;
     }
     
     if ( view == NULL ) {
-       printf("Erreur : La View n'est pas chargé dans Afficher_spriteMap[layer]()\n");
+       printf("Erreur : La View n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
        return 1;
     }
 
     if ( renderer == NULL ) {
-       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_spriteMap[layer]()\n");
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
        return 1;
     }
 
     if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur : WinInfo Incorrecte dans Afficher_spriteMap[layer]()\n");
+        printf("Erreur : WinInfo Incorrecte dans Afficher_spriteMap[layer = %d]()\n",layer);
         return 1;
     }
     
@@ -569,7 +600,7 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
 
                     // Affichage de la frame courante du sprite
                     if ( SDL_RenderCopy(renderer, texture, &rectSrc, &rectDst) < 0 ) {
-                        printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_spriteMap[layer]()\n");
+                        printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_spriteMap[layer = %d]()\n",layer);
                         return 1;
                     }
                 }
@@ -606,7 +637,6 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
         printf("Errur: Afficher_map() à echoué dans Affichage_All().\n");
         return 1;
     }
-
     
     // Affciher la Map
     if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 0 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
@@ -626,7 +656,6 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
         return 1;
     }
     
-
     return 0;
 }
 
@@ -1127,59 +1156,6 @@ extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
         printf("Erreur : Action incorrect dans Special_PersoSprite()\n");
         return 1;
         break;
-    }
-
-    return 0;
-}
-
-extern int Afficher_Inventaire(SDL_Texture * texture, SDL_Rect * view, SDL_Renderer *renderer, SDL_Window * window ) {
-
-    // Verification paramètres
-    if ( texture == NULL ) {
-       printf("Erreur : La texture n'est pas chargé dans afficher_map()\n");
-       return 1;
-    }
-
-    if ( renderer == NULL ) {
-       printf("Erreur : Le Renderer n'est pas chargé dans afficher_map()\n");
-       return 1;
-    }
-
-    int win_width,win_height;
-    int dstCoef, xBorder, yBorder;
-    
-    // Récupération des informations de la fenêtre utile à l'affichage
-    getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
-
-    if ( dstCoef == 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur : Le WinInfo Incorrecte dans afficher_map()\n");
-        return 1;
-    }
-
-    // Affichage des tiles de la carte
-    int tileNumber = 0;
-    for (int y = 0; y < 11; y++) {
-        for (int x = 0; x < 20; x++) {
-            SDL_Rect srcrect;
-            srcrect.y = 16 * ( (tileNumber) / 20);
-            srcrect.x = 16 * ( (tileNumber) % 20);
-            srcrect.h = 16;
-            srcrect.w = 16;
-
-            // Rectangle Destination ( Renderer )
-            SDL_Rect dstrect;
-            dstrect.x = ( dstCoef * (16 * x ) ) + xBorder;
-            dstrect.y = ( dstCoef * (16 * y ) ) + yBorder; 
-            dstrect.h = dstCoef * 16;
-            dstrect.w = dstCoef * 16;
-
-            // Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer
-            if ( SDL_RenderCopy(renderer, texture, &srcrect, &dstrect) < 0 ) {
-                printf("Erreur : SDL_RenderCopy() à échoué dans afficher_map\n");
-                return 1;
-            }
-            tileNumber++;
-        }
     }
 
     return 0;

@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <time.h>
 
 #define MAX_TEXTURE_NUMBER 100
 
@@ -69,7 +70,7 @@ extern int Init_SDL(SDL_Window **window, SDL_Renderer **renderer, int width, int
 extern void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer);
 
 // Destruction Texture
-extern void Detruire_Texture(SDL_Texture *texture);
+extern void Detruire_Texture(SDL_Texture ** texture) ;
 
 // Gestion de l'affichage et de la fenetre
 extern void getWinInfo(SDL_Window *window, int * width, int * height, int tileSize, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder);
@@ -104,12 +105,9 @@ extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) ;
 // Gestion Deplacement Personnage
 extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList, SDL_Rect * view, char Action ) ;
 
+//Gestion Attacque Personnage
 extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
-
 extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
-
 extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
-
-extern int Afficher_Inventaire(SDL_Texture * texture, SDL_Rect * view, SDL_Renderer *renderer, SDL_Window * window ) ;
 
 #endif 

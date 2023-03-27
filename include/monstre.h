@@ -21,7 +21,7 @@ typedef struct monstre_s{
 }monstre_t;
 
 extern monstre_t * creer_monstre(char * nom, int niv, int y, int x) ;
-extern void afficher_monstre(monstre_t * monstre);
+extern int afficher_monstre(monstre_t * monstre);
 extern void supprimer_monstre(monstre_t ** monstre);
 
 #endif

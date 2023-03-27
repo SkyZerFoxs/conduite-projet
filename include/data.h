@@ -12,6 +12,7 @@
 #include <personnage.h>
 #include <monstre.h>
 #include <combat.h>
+#include <objets.h>
 
 #endif
 

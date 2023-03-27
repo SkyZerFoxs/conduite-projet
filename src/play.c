@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 #include <affichage.h>
-#include <inventaire.h>
+#include <hud.h>
 #include <data.h>
 
 
@@ -117,6 +117,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Texture * mapTexture = NULL;
     Sprite_Texture_Liste_t * SpriteTextureListe = NULL;
     sprite_liste_t * listePersoSprite = NULL;
+    monstre_liste_t * listeMonstre = NULL;
+    personnage_t * perso = NULL;
+    liste_texture_pnj_dialogue_t * listeTextPnjDialogue = NULL;
+    liste_objet_t * listeObjets = NULL;
+    SDL_Surface* surface;
+    SDL_Texture* background_texture;
 
     // initialisation de la map continent
     continent = Initialiser_Map( "asset/map/map.txt");
@@ -181,7 +187,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     }
 
     // chargement structure monstre_t
-    monstre_liste_t * listeMonstre = Load_Monster(continent, spriteMap);
+    listeMonstre = Load_Monster(continent, spriteMap);
     if ( listeMonstre == NULL ) {
         printf("Erreur : Echec Load_Monster() dans play()\n");
         erreur = 1;
@@ -189,7 +195,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     }
 
     // chargement personnage
-    personnage_t * perso = creer_personnage("Cody");
+    perso = creer_personnage("Cody");
     if ( perso == NULL ) {
         printf("Erreur : Echec creer_personnage() dans Play()\n");
         erreur = 1;
@@ -197,8 +203,38 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
     }
 
-    // chargement texture inventaire
-    SDL_Texture * textInventaire = IMG_LoadTexture(renderer,"asset/hud/inventaire.png");
+    // chargement inventaire
+    inventaire_t * inventaire = Load_Inventaire("asset/hud/inventaire/inventaire.png","asset/objet/objets.png","asset/hud/inventaire/selecteur.png","asset/hud/inventaire/item_info.png",6, 9, 3, 2, renderer) ;
+    if ( inventaire == NULL ) {
+        printf("Erreur : Echec Load_Inventaire() dans Play()\n");
+        erreur = 1;
+        goto detruire;
+    }
+
+    // chargement liste objet
+    listeObjets = load_liste_objets("asset/objet/objet.txt");
+    if ( listeObjets == NULL ) {
+        printf("Erreur : Echec load_liste_objets() dans play()\n");
+        erreur = 1;
+        goto detruire;
+    }
+
+    // chargement texture boite de dialogue
+    SDL_Texture * textDialogue = IMG_LoadTexture(renderer, "asset/hud/dialogue/boite_dialogue.png");
+    if ( textDialogue == NULL ) {
+        printf("Erreur : Echec IMG_LoadTexture(textDialogue) dans play()\n");
+        erreur = 1;
+        goto detruire;
+    }
+
+    // chargement texture pnj dialogue
+    listeTextPnjDialogue = Load_Liste_Texture_Pnj_Dialogue("asset/hud/dialogue/pnj_dialogue",renderer);
+    if ( listeTextPnjDialogue == NULL ) {
+        printf("Erreur : Echec Load_Liste_Texture_Pnj_Dialogue() dans play()\n");
+        erreur = 1;
+        goto detruire;
+    }
+
 
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
@@ -215,16 +251,28 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     UltCooldown.start -= (MsUltCooldown + 1);
 
 
+    /* ------------------ Zone teste ( A supprimer ) ------------------ */
+
     for ( int i = 0; i < listeMonstre->nbElem; i++ ) {
         afficher_monstre(listeMonstre->tabMonstres[i]);
         printf("\n");
     }
 
-    
-
     afficher_perso(perso);
-    
     printf("\n");
+
+    afficher_liste_objet(listeObjets);
+    printf("\n");
+
+    // Teste inventaire
+    inventaire->inventaire[2][2] = 20;
+    listeObjets->tab[20]->nb = 2;
+    inventaire->inventaire[3][3] = 5;
+    listeObjets->tab[5]->nb = 3;
+    inventaire->inventaire[1][1] = 12;
+    listeObjets->tab[12]->nb++;
+    inventaire->inventaire[0][0] = 24;
+    listeObjets->tab[24]->nb++;
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -292,12 +340,34 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                             case SDLK_e:
                                 break;
                             case SDLK_TAB:
-                                sortieInv = inventaire(textInventaire, &CameraJoueur, window, renderer);
+                                int win_width,win_height;
+                                // Récupération des informations de la fenêtre utile à l'affichage
+                                getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
+                                // Recuperation background_texture
+                                surface = SDL_CreateRGBSurface(0, win_width, win_height, 32, 0, 0, 0, 0);
+                                SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch);
+                                background_texture = SDL_CreateTextureFromSurface(renderer, surface);
+                                SDL_FreeSurface(surface);
+                                // Appelle fonction inventaire
+                                sortieInv = Inventaire(inventaire, listeObjets, perso, SpriteTextureListe, ListeTypeSprite, listePersoSprite, &CameraJoueur, window, background_texture, renderer);
                                 if ( sortieInv == -1 ) {
                                     quit = SDL_TRUE;
                                 }
                                 else if ( sortieInv == 1 ) {
                                     printf("Erreur : Echec inventaire() dans play()\n");
+                                    erreur = 1;
+                                    goto detruire;
+                                }
+                                // Destruction background_texture
+                                SDL_DestroyTexture(background_texture);
+                                break;
+                            case SDLK_p:
+                                sortieInv = Dialogue(textDialogue, listeTextPnjDialogue, &CameraJoueur, window, renderer);
+                                if ( sortieInv == -1 ) {
+                                    quit = SDL_TRUE;
+                                }
+                                else if ( sortieInv == 1 ) {
+                                    printf("Erreur : Echec Dialogue() dans play()\n");
                                     erreur = 1;
                                     goto detruire;
                                 }
@@ -510,8 +580,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             goto detruire;
         }
 
-       
-
         // Affichage Complet
         if ( Affichage_All(mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, renderer,&CameraJoueur) ) {
             printf("Erreur : Echec Affichage_All() dans play()\n");
@@ -521,7 +589,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
         // Gestion fps
         if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
-            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+            //SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
         }
 
         // mise à jour du renderer ( update affichage)
@@ -533,7 +601,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         //printf("%dms\n", (int)Timer_Get_Time( &fps ) );
     }
     
-    /* Destruction de la mémoire */
+    /* -------  Destruction de la mémoire -------*/
     detruire:
 
     // clean old sprite
@@ -550,6 +618,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         }
     }
 
+    // Detruire liste objets
+    detruire_liste_objet(&listeObjets);
+
     // destruction en mémoire de la SpriteMap en paramètre
     Detruire_SpriteMap(&spriteMap,continent);
 
@@ -562,15 +633,18 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // destruction en mémoire de la liste de monstre en paramètre
     Detruire_Liste_Monstres(&listeMonstre);
 
-    // destruction en mémoire de la Liste de texture des sprites
-    Detruire_Sprite_Texture_Liste(&SpriteTextureListe); 
-
     // destruction en mémoire de la liste des types de sprite en paramètre
     Detruire_Liste_Sprite_Type(&ListeTypeSprite);
 
-    // destruction en mémoire de la texture en paramètre
-    Detruire_Texture(mapTexture);
+    // destruction en mémoire de la Liste de texture des sprites
+    Detruire_Sprite_Texture_Liste(&SpriteTextureListe); 
 
+    // destruction en mémoire de la texture en paramètre
+    Detruire_Texture(&mapTexture);
+
+    // destruction en mémoire de l'inventaire
+    Detruire_Inventaire(&inventaire);
+    
     // destruction en mémoire de la map en paramètre
     Detruire_Map(&continent); 
     
@@ -594,7 +668,6 @@ int main() {
     // initalisation de SDL
     if ( Init_SDL(&window,&renderer, 1600, 900) ) {
         printf("Erreur : Init_SDL() à échoué\n");
-        Quit_SDL(window,renderer);
         erreur = 1;
         goto quit;
     }

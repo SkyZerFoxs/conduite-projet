@@ -167,30 +167,46 @@ static int Charger_Sprite_Type(const char * nom_fichier, sprite_type_liste_t * l
  * \return Aucun retours
  */
 extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) {
-    // si la structure liste existe
-    if ((*liste) != NULL) {
-        // si la liste des types existe
-        if ((*liste)->typeListe != NULL) {
-            // parcourt de la liste des types
-            for (int i = 0; i < (*liste)->nbElem; i++) {
-                sprite_type_t *sprite = (*liste)->typeListe[i];
-                // si l'element de la liste des types existe
-                if (sprite != NULL) {
-                    free(sprite->spriteName);
-                    free(sprite->spriteSheet);
-                    free(sprite);
-                }
-            }
-            // free de la liste des types
-            free((*liste)->typeListe);
-            (*liste)->typeListe = NULL;
-        }
-        // reset de nbElem
-        (*liste)->nbElem = 0;
-        // free de la liste
-        free((*liste));
-        (*liste) = NULL;
+    if (liste == NULL || *liste == NULL) {
+        printf("Erreur : Liste de types de sprites vide dans Detruire_Liste_Sprite_Type()\n");
+        return;
     }
+
+    if ((*liste)->typeListe == NULL) {
+        printf("Erreur : Liste vide dans Detruire_Liste_Sprite_Type()\n");
+        return;
+    }
+
+    if ( (*liste)->nbElem <= 0 ) {
+        printf("Erreur : Nombre element <= 0 dans Detruire_Liste_Sprite_Type()\n");
+        return;
+    }
+
+    // parcourt de la liste des types
+    for (int i = 0; i < (*liste)->nbElem; i++) {
+        sprite_type_t * sprite = (*liste)->typeListe[i];
+        // si l'element de la liste des types existe
+        if (sprite != NULL) {
+            if ( sprite->spriteName != NULL ) {
+                free(sprite->spriteName);
+            }
+            if ( sprite->spriteSheet != NULL ) {
+                free(sprite->spriteSheet);
+            }
+            free(sprite);
+        }
+    }
+    // free de la liste des types
+    free((*liste)->typeListe);
+    (*liste)->typeListe = NULL;
+        
+    // reset de nbElem
+    (*liste)->nbElem = 0;
+
+    // free de la liste
+    free((*liste));
+    (*liste) = NULL;
+    
 }
 
 
@@ -282,6 +298,11 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
  * \return Aucun retour effectué en fin de fonction
  */
 extern void Detruire_Sprite( sprite_t ** sprite) {
+    if ( sprite == NULL ) {
+        printf("Erreur : aucun sprite passé en paramètre dans Detruire_Sprite()\n");
+        return;
+    }
+
     if ( (*sprite) != NULL ) {
         free((*sprite));
         (*sprite) = NULL;
@@ -298,7 +319,7 @@ extern void Detruire_Sprite( sprite_t ** sprite) {
  * \return Aucun retour effectué en fin de fonction.
  */
 void Detruire_SpriteMap(sprite_t *****spriteMap, map_t *map) {
-    if (spriteMap != NULL) {
+    if (spriteMap != NULL || *spriteMap == NULL ) {
         for (int i = 0; i < 2; i++) {
             if ((*spriteMap)[i] != NULL) {
                 for (int y = 0; y < map->height; y++) {
@@ -309,9 +330,11 @@ void Detruire_SpriteMap(sprite_t *****spriteMap, map_t *map) {
                             }
                         }
                         free((*spriteMap)[i][y]);
+                        (*spriteMap)[i][y] = NULL;
                     }
                 }
                 free((*spriteMap)[i]);
+                (*spriteMap)[i] = NULL;
             }
             else {
                 printf("Erreur : La spriteMap n'existe pas dans Detruire_SpriteMap()\n");
@@ -676,18 +699,33 @@ extern sprite_liste_t * Load_PersoSprite_List(sprite_type_liste_t * listeType, m
  * \return Aucun retour effectué en fin de fonction
  */
 extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) {
-    if ((*liste) != NULL) {
-        if ((*liste)->spriteListe != NULL) {
-            for (int i = 0; i < (*liste)->nbElem; i++) {
-                if ((*liste)->spriteListe[i] != NULL) {
-                    Detruire_Sprite(&(*liste)->spriteListe[i]);
-                }
-            }
-            free((*liste)->spriteListe);
-        }
-        free((*liste));
-        (*liste) = NULL;
+    if ( liste == NULL ) {
+        printf("Erreur : aucune liste de sprite passé en paramètre dans Detruire_Sprite_Liste()\n");
+        return;
     }
+
+    if ((*liste)->spriteListe == NULL) {
+        printf("Erreur : la liste est vide dans Detruire_Sprite_Liste()\n");
+        return;
+    }
+
+    if ((*liste)->nbElem <= 0) {
+        printf("Erreur : le nombre d'élément est <= 0 dans Detruire_Sprite_Liste()\n");
+        return;
+    }
+
+
+    for (int i = 0; i < (*liste)->nbElem; i++) {
+        if ((*liste)->spriteListe[i] != NULL) {
+            Detruire_Sprite(&(*liste)->spriteListe[i]);
+        }
+    }
+    free((*liste)->spriteListe);
+    
+    (*liste)->nbElem = 0;
+
+    free((*liste));
+    (*liste) = NULL;
 }
 
 /**
@@ -746,23 +784,40 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
  * \return Aucun retours
 */
 extern void Detruire_Liste_Monstres(monstre_liste_t** liste) {
-    if (*liste == NULL) {
+    if (liste == NULL || *liste == NULL) {
         printf("Erreur : Liste de monstres vide dans Detruire_Liste_Monstres()\n");
         return;
     }
-    
+
+    if ((*liste)->tabMonstres == NULL) {
+        printf("Erreur : Tableau de monstres vide dans Detruire_Liste_Monstres()\n");
+        return;
+    }
+
     // Suppression de chaque monstre dans le tableau
     for (int i = 0; i < (*liste)->nbElem; i++) {
-        supprimer_monstre(&((*liste)->tabMonstres[i]));
+        if ((*liste)->tabMonstres[i] != NULL) {
+            supprimer_monstre(&((*liste)->tabMonstres[i]));
+            if ((*liste)->tabMonstres[i] != NULL) {
+                printf("Erreur : Impossible de supprimer le monstre n°%d dans Detruire_Liste_Monstres()\n", i);
+            }
+        }
     }
-    free((*liste)->tabMonstres);
-    (*liste)->tabMonstres = NULL;
+
+    // free tab Monstres
+    if ( (*liste)->tabMonstres != NULL ) {
+        free((*liste)->tabMonstres);
+        (*liste)->tabMonstres = NULL;
+    }
+
+    // clear nb elem
     (*liste)->nbElem = 0;
-    
+
     // Suppression de la structure liste de monstres
     free(*liste);
     *liste = NULL;
 }
+
 
 
 /** 

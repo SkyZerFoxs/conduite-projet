@@ -12,11 +12,13 @@
 **/
 
 extern
-void afficher_monstre(monstre_t * monstre){ 
+int afficher_monstre(monstre_t * monstre){ 
     if ( monstre == NULL ) {
         printf("Erreur : monstre inexistant dans afficher_monstre()");
-        return;
+        return 1;
     }
+
+    printf("-------------------------------------------------------\n");
 
     printf("nom: %s\n", monstre->nom);
     printf("lvl: %d\n", monstre->niveau);
@@ -25,6 +27,9 @@ void afficher_monstre(monstre_t * monstre){
     printf("Attaque : %d\n", monstre->caract->atk);
     printf("Defense : %d\n", monstre->caract->def);
 
+    printf("-------------------------------------------------------\n");
+
+    return 0;
 }
 
 extern
@@ -76,12 +81,17 @@ void supprimer_monstre(monstre_t ** monstre) {
         return;
     }
 
-    free((*monstre)->nom);
-    (*monstre)->nom=NULL;
+    if ( (*monstre)->nom != NULL ) {
+        free((*monstre)->nom);
+        (*monstre)->nom=NULL;
+    }
 
-    free((*monstre)->caract);
-    (*monstre)->caract=NULL;
-
+    if ( (*monstre)->caract != NULL ) {
+        free((*monstre)->caract);
+        (*monstre)->caract=NULL;
+    }
+    
     free(*monstre);
     (*monstre)=NULL;
+    
 }

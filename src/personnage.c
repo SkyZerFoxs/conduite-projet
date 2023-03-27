@@ -19,20 +19,20 @@
 **/
 extern
 personnage_t * creer_personnage(char * nom){
-    personnage_t * perso=malloc(sizeof(personnage_t)+1);
+    personnage_t * perso=malloc(sizeof(personnage_t));
     if ( perso == NULL ) {
         printf("Erreur : Echec malloc(perso) dans creer_personnage()");
         return NULL;
     }
 
-    perso->nom=malloc(sizeof(char)*strlen(nom)+1);
+    perso->nom=malloc(sizeof(char)*strlen(nom));
     if ( perso->nom == NULL ) {
         printf("Erreur : Echec malloc(perso->nom) dans creer_personnage()");
         return NULL;
     }
     strcpy(perso->nom,nom);
 
-    perso->caract=malloc(sizeof(caract_t)+1);
+    perso->caract=malloc(sizeof(caract_t));
     if ( perso->caract == NULL ) {
         printf("Erreur : Echec malloc(perso->caract) dans creer_personnage()");
         return NULL;
@@ -41,9 +41,25 @@ personnage_t * creer_personnage(char * nom){
     perso->niveau=1;
     perso->pts_upgrade=0;
 
+    perso->exp = 0;
+    perso->palierExp = 0;
+
     perso->caract->pv = 100 + ( perso->niveau - 1 ) * 10;
+    perso->caract->maxPv = perso->caract->pv;
     perso->caract->atk = 15 + ( perso->niveau - 1 ) * 5;
     perso->caract->def = 5 + ( perso->niveau - 1 ) * 2;
+
+    for (int i = 0; i < 6; i++) {
+        perso->equipement[i] = malloc( sizeof(caract_t) );
+        if ( perso->equipement[i] == NULL ) {
+            printf("Erreur : Echec malloc(perso->equipement[%d]) dans creer_personnage()",i);
+            return NULL;
+        }
+        perso->equipement[i]->pv = 0;
+        perso->equipement[i]->maxPv = 0;
+        perso->equipement[i]->atk = 0;
+        perso->equipement[i]->def = 0;
+    }
 
     return perso;
 }
@@ -59,12 +75,70 @@ void afficher_perso(personnage_t * perso){
         return;
     }
 
+    printf("-------------------------------------------------------\n");
+
     printf("Nom : %s\n",perso->nom);
-    printf("lvl: %d\n", perso->niveau);
-    printf("Points de vie : %d\n", perso->caract->pv);
+    printf("lvl : %d\n", perso->niveau);
+    printf("Experience : %04d/%04d\n",perso->exp, perso->palierExp);
+    printf("Points de vie : %04d/%04d\n", perso->caract->pv, perso->caract->maxPv);
     printf("Attaque : %d\n", perso->caract->atk);
     printf("Defense : %d\n", perso->caract->def);
+
+    char * label[6] = {
+        "Casque",
+        "Pantalon",
+        "Plastron",
+        "Bottes",
+        "Arme",
+        "Accessoire"
+    };
+
+    for (int i = 0; i < 6; i++) {
+        printf("-------- Stats %s --------\n",label[i]);
+        printf("pv: %d, maxPv: %d, atk: %d, def: %d\n",
+        perso->equipement[i]->pv,
+        perso->equipement[i]->maxPv,
+        perso->equipement[i]->atk,
+        perso->equipement[i]->def );
+    }
+
+    printf("-------------------------------------------------------\n");
 }
+
+extern int calculer_stats_perso(personnage_t * perso, caract_t * caractSortie ) {
+    if ( perso == NULL ) {
+        printf("Erreur : perso inexistant dans calculer_stats_perso()");
+        return 1;
+    }
+
+    if ( caractSortie == NULL ) {
+        printf("Erreur : caractSortie inexistant dans calculer_stats_perso()");
+        return 1;
+    }
+
+    if ( caractSortie->pv != 0 && caractSortie->maxPv != 0 && caractSortie->atk != 0 && caractSortie->def != 0 ) {
+        printf("Erreur : les stats de caractSortie ne sont pas a 0 dans calculer_stats_perso()\n");
+        return 1;
+    }
+
+    caractSortie->maxPv = perso->caract->maxPv;
+    caractSortie->atk = perso->caract->atk;
+    caractSortie->def = perso->caract->def;
+
+    for (int i = 0; i < 6; i++) {
+        caractSortie->maxPv += perso->equipement[i]->maxPv;
+        caractSortie->atk += perso->equipement[i]->atk;
+        caractSortie->def += perso->equipement[i]->def;
+    }
+
+    if ( perso->caract->pv > caractSortie->maxPv ) {
+        perso->caract->pv = caractSortie->maxPv;
+    }
+
+    return 0;
+
+}
+
 /**
  * \fn void supprimer_perso(personnage_t ** perso)
  * \brief suppression d'un personnage de la base de donnée
@@ -77,16 +151,28 @@ void supprimer_perso(personnage_t ** perso){
         return;
     }
 
-    free((*perso)->nom);
-    (*perso)->nom=NULL;
+    if ((*perso)->nom != NULL) {
+        free((*perso)->nom);
+        (*perso)->nom = NULL;
+    }
 
-    free((*perso)->caract);
-    (*perso)->caract=NULL;
+    if ((*perso)->caract != NULL) {
+        free((*perso)->caract);
+        (*perso)->caract = NULL;
+    }
+
+    for (int i = 0; i < 6; i++) {
+        if ( (*perso)->equipement[i] != NULL ) {
+            free( (*perso)->equipement[i] );
+            (*perso)->equipement[i] = NULL;
+        }   
+    }
 
     free(*perso);
-    (*perso)=NULL;  
+    (*perso) = NULL;  
     
 }
+
 
 /**
  * \fn void upgrade_perso(personnage_t * perso)
@@ -96,15 +182,16 @@ void supprimer_perso(personnage_t ** perso){
 **/
 extern
 int upgrade_perso(personnage_t * perso, int stats) { 
+    
     switch ( stats ) {
         case 0:
-            perso->caract->pv += 15;
+            perso->caract->maxPv += 5;
             break;
         case 1:
-            perso->caract->atk += 5;
+            perso->caract->atk += 2;
             break;
         case 2:
-            perso->caract->def += 2;
+            perso->caract->def += 1;
             break;
         default:
             printf("Erreur : Mauvaise stats augmenté dans upgrade_perso()\n");
