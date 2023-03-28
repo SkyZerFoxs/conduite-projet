@@ -2,45 +2,6 @@
 
 #include <hud.h>
 
-extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor)
-{
-    // Rectangle Destination ( Renderer )
-    SDL_Rect rect;
-    rect.x = x;
-    rect.y = y;
-    rect.h = 0;
-    rect.w = w;
-    
-    // Surface pour le text
-    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text, (*textColor), rect.w);
-    if ( textSurface == NULL ) {
-        printf("Erreur : Echec TTF_RenderText_Blended_Wrapped() dans Afficher_Texte_Zone()\n");
-        return 1;
-    }
-
-    // Texture depuis la surface
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    if ( textTexture == NULL ) {
-        printf("Erreur : Echec TTF_RenderText_Blended_Wrapped() dans Afficher_Texte_Zone()\n");
-        return 1;
-    }
-
-    // Rectangle de destination
-    SDL_Rect destRect = { rect.x, rect.y, textSurface->w, textSurface->h };
-
-    // Ajoute de la texture au renderer
-    if (  SDL_RenderCopy(renderer, textTexture, NULL, &destRect) < 0 ) {
-        printf("Erreur : Echec SDL_RenderCopy() dans Afficher_Texte_Zone()\n");
-        return 1;
-    }
-
-    // Netoyage
-    SDL_DestroyTexture(textTexture);
-    SDL_FreeSurface(textSurface);
-
-    return 0;
-}
-
 extern inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem, char * cheminSelecteur, char * cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer * renderer) {
     if (invHeight <= 0 || invWidth <= 0) {
         printf("Erreur : Mauvaise dimension d'inventaire dans Load_Inventaire()\n");
@@ -561,7 +522,7 @@ static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_
             sprintf(string, "%-15s",statLabel[0]);
         }
         if ( i == 1 ) {
-            sprintf(string, "%-3s %-1d   %-3s:%-1d",statLabel[1],*statValue[1],statLabel[2],*statValue[2]);
+            sprintf(string, "%-3s %-1d   %-2s:%-3d",statLabel[1],*statValue[1],statLabel[2],*statValue[2]);
         }
         if ( i == 2 ) {
             sprintf(string, "%-5s %-5s %-5s", statLabel[3], statLabel[4], statLabel[5]);
@@ -581,8 +542,9 @@ static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_
     return 0;
 }
 
-extern int Afficher_Inventaire(inventaire_t * inventaire, personnage_t * perso, sprite_t ** matPreviewPerso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
+static int Afficher_Inventaire(inventaire_t * inventaire, personnage_t * perso, sprite_t ** matPreviewPerso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
 
+    // Initialisation variable getWinInfo
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
@@ -662,6 +624,7 @@ extern int Afficher_Inventaire(inventaire_t * inventaire, personnage_t * perso, 
             return 1;
         }
     }
+
     
     return 0;
 }
@@ -950,6 +913,69 @@ extern int Use_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeO
 }
 
 extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, sprite_liste_t * spritePersoList, SDL_Rect * view, SDL_Window *window, SDL_Texture * background_texture, SDL_Renderer *renderer) {
+    
+    /* ------------------ Detection Erreur Parametre ------------------ */
+
+    // Vérification de la variable inventaire
+    if ( inventaire == NULL ) {
+        printf("Erreur : inventaire non Initialisé dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable listeObjets
+    if (listeObjets == NULL) {
+        printf("Erreur : listeObjets non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable perso
+    if (perso == NULL) {
+        printf("Erreur : perso non initialisé dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable SpriteTextureListe
+    if (SpriteTextureListe == NULL) {
+        printf("Erreur : SpriteTextureListe non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable listeType
+    if (listeType == NULL) {
+        printf("Erreur : listeType non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable spritePersoList
+    if (spritePersoList == NULL) {
+        printf("Erreur : spritePersoList non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable view
+    if (view == NULL) {
+        printf("Erreur : view non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable window
+    if (window == NULL) {
+        printf("Erreur : window non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable background_texture
+    if (background_texture == NULL) {
+        printf("Erreur : background_texture non initialisée dans Inventaire()");
+        return 1;
+    }
+
+    // Vérification de la variable renderer
+    if (renderer == NULL) {
+        printf("Erreur : renderer non initialisé dans Inventaire()");
+        return 1;
+    }
+
     /* ------------------ Initialisation variable ------------------ */
 
     // statut des erreurs
@@ -989,11 +1015,10 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
     char direction;
 
     // Sprite Animation Preview Personnage
-    sprite_t * mat[2];
-    mat[0] = spritePersoList->spriteListe[0];
-    mat[1] = spritePersoList->spriteListe[1];
-
-    (void)listeObjets;
+    sprite_t * mat[2] = {
+        spritePersoList->spriteListe[0],
+        spritePersoList->spriteListe[1],
+    };
 
     /* ------------------ Initialisation resource jeux ------------------ */
 
@@ -1003,43 +1028,38 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
 
     getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
 
+    // Gestion font 1280 x 720
     if ( win_width > 1000 && win_width < 1400 ) {
         // Initalisation Font
         font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 20);
-        if (font1 == NULL) 
-        {
-            printf("Erreur : Echec TTF_OpenFont(font24) dans Inventaire()");
+        if (font1 == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font20) dans Inventaire()");
             return 1;
         }
 
         font2 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 16);
-        if (font2 == NULL) 
-        {
-            printf("Erreur : Echec TTF_OpenFont(font20) dans Inventaire()");
+        if (font2 == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font16) dans Inventaire()");
             return 1;
         }
     }
+    // Gestion font 1600 x 900 || 1920 x 1080
     else {
         // Initalisation Font
         font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 24);
-        if (font1 == NULL) 
-        {
+        if (font1 == NULL) {
             printf("Erreur : Echec TTF_OpenFont(font24) dans Inventaire()");
             return 1;
         }
 
         font2 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 20);
-        if (font2 == NULL) 
-        {
+        if (font2 == NULL) {
             printf("Erreur : Echec TTF_OpenFont(font20) dans Inventaire()");
             return 1;
         }
     }
 
-    if ( inventaire == NULL ) {
-        printf("Erreur : inventaire non Initialisé dans Inventaire()");
-        return 1;
-    }
+   
 
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
@@ -1194,7 +1214,7 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
                 afficherInfoItem = 0;
             }
             if ( resultAfficherInfoItem == 1 ) {
-                printf("Erreur : Echec Afficher_Selecteur_Inventaire() dans Afficher_Inventaire()\n");
+                printf("Erreur : Echec Afficher_Item_Info_Inventaire() dans Afficher_Inventaire()\n");
                 return 1;
             }
         }
@@ -1207,83 +1227,125 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
             SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
         }
 
-        // mise à jour du renderer ( update affichage)
+        // mise à jour du renderer ( update affichage )
         SDL_RenderPresent(renderer);
         
     }         
         
-    TTF_CloseFont(font2);
-    TTF_CloseFont(font1);
+    // Reset matrice preview perso
+    if ( mat[0] != NULL ) {
+        mat[0] = NULL;
+    }
+    if ( mat[1] != NULL ) {
+        mat[1] = NULL;
+    }
+
+    // Fermeture Font
+    if ( font2 != NULL ) {
+        TTF_CloseFont(font2);
+    }
+    if ( font1 != NULL ) {
+        TTF_CloseFont(font1);
+    }
+    
+    // Reset background_texture
+    if ( background_texture != NULL ) {
+        Detruire_Texture(&background_texture);
+    }
 
     return erreur;
 }
 
-extern liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(const char * path, SDL_Renderer * renderer) {
-    DIR *dir;
-    struct dirent *entry;
-    int nbFiles = 0;
-
-    // Ouverture dossier
-    dir = opendir(path);
-    if (dir == NULL) {
-        printf("Erreur : Echec ouverture dossier(%s) dans liste_texture_pnj_dialogue_t()\n",path);
+extern liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type_pnj_t * liste_type, SDL_Renderer * renderer) {
+    if ( liste_type == NULL ) {
+        printf("Erreur : liste_type_pnj en parametre invalide dans Load_Liste_Texture_Pnj_Dialogue()\n");
         return NULL;
     }
 
-    // Comptage nombre fichier .png
-    while ((entry = readdir(dir)) != NULL) {
-        if (strstr(entry->d_name, ".png") != NULL) {
-            nbFiles++;
-        }
+    if ( renderer == NULL ) {
+        printf("Erreur : renderer en parametre invalide dans Load_Liste_Texture_Pnj_Dialogue()\n");
+        return NULL;
+    }
+
+    if ( liste_type->nbElem <= 0 ) {
+        printf("Erreur : liste_type->nbElem invalide dans Load_Liste_Texture_Pnj_Dialogue()\n");
+        return NULL;
     }
 
     // Allocation memoire liste_texture_pnj_dialogue_t
     liste_texture_pnj_dialogue_t * liste = (liste_texture_pnj_dialogue_t*) malloc(sizeof(liste_texture_pnj_dialogue_t));
     if ( liste == NULL ) {
-        printf("Erreur : Echec malloc(liste) dans liste_texture_pnj_dialogue_t()\n");
-        closedir(dir);
+        printf("Erreur : Echec malloc(liste) dans Load_Liste_Texture_Pnj_Dialogue()\n");
         return NULL;
     }
 
-    liste->nbElem = nbFiles;
+    liste->nbElem = liste_type->nbElem;
 
     // Allocation memoire tabTexture
-    liste->tabTexture = (SDL_Texture**) malloc(sizeof(SDL_Texture*) * nbFiles);
+    liste->tabTexture = (SDL_Texture**) malloc(sizeof(SDL_Texture*) * liste->nbElem);
     if ( liste->tabTexture == NULL ) {
-        printf("Erreur : Echec malloc(tabTexture) dans liste_texture_pnj_dialogue_t()\n");
+        printf("Erreur : Echec malloc(tabTexture) dans Load_Liste_Texture_Pnj_Dialogue()\n");
         free(liste);
-        closedir(dir);
         return NULL;
     }
 
-    // Chargement texture fichier .png
-    rewinddir(dir);
-    int i = 0;
-    while ((entry = readdir(dir)) != NULL && i < nbFiles) {
-        if (strstr(entry->d_name, ".png") != NULL) {
-            char filePath[1024];
-            snprintf(filePath, sizeof(filePath), "%s/%s", path, entry->d_name);
-            SDL_Texture *texture = IMG_LoadTexture(renderer, filePath);
-            if ( texture == NULL ) {
-                printf("Erreur : Echec IMG_LoadTexture() dans liste_texture_pnj_dialogue_t()\n");
-                for (int j = 0; j < i; j++) {
-                    if ( liste->tabTexture[j] != NULL ) {
-                        Detruire_Texture( &(liste->tabTexture[j]) );
-                    }
+    for (int i = 0; i < liste_type->nbElem; i++) {
+        SDL_Texture *texture = IMG_LoadTexture(renderer, liste_type->liste[i]->imageDialogue);
+        if ( texture == NULL ) {
+            printf("Erreur : Echec IMG_LoadTexture(%s) dans Load_Liste_Texture_Pnj_Dialogue()\n",liste_type->liste[i]->imageDialogue);
+            for (int j = 0; j < i; j++) {
+                if ( liste->tabTexture[j] != NULL ) {
+                    Detruire_Texture( &(liste->tabTexture[j]) );
                 }
-                free(liste->tabTexture);
-                free(liste);
-                closedir(dir);
-                return NULL;
             }
-            liste->tabTexture[i] = texture;
-            i++;
+            free(liste->tabTexture);
+            free(liste);
+            return NULL;
+        }
+        liste->tabTexture[i] = texture;
+    }
+
+    return liste;
+}
+
+extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** liste_texture_pnj) {
+    if (liste_texture_pnj == NULL || (*liste_texture_pnj) == NULL) {
+        printf("Erreur : liste_texture_pnj en parametre invalide dans Detruire_Liste_Texture_Pnj_Dialogue()\n");
+        return;
+    }
+
+    if ((*liste_texture_pnj)->tabTexture == NULL) {
+        printf("Erreur : Liste de type de pnj vide dans Detruire_Liste_Texture_Pnj_Dialogue()\n");
+        return;
+    }
+
+    if ( (*liste_texture_pnj)->nbElem <= 0 ) {
+        printf("Erreur : Nombre d'element invalide dans Detruire_Liste_Texture_Pnj_Dialogue()\n");
+        return;
+    }
+
+    // Suppression des type de pnj dans le tableau
+    for (int i = 0; i < (*liste_texture_pnj)->nbElem; i++) {
+        if ((*liste_texture_pnj)->tabTexture[i] != NULL) {
+            Detruire_Texture( &((*liste_texture_pnj)->tabTexture[i]) );
+            if ( (*liste_texture_pnj)->tabTexture[i] != NULL) {
+                printf("Erreur : Impossible de detruire la texture de tabTexture[%d] dans Detruire_Liste_Texture_Pnj_Dialogue()\n", i);
+            }
         }
     }
 
-    closedir(dir);
+    // free tab texture pnj
+    if ( (*liste_texture_pnj)->tabTexture != NULL ) {
+        free((*liste_texture_pnj)->tabTexture);
+        (*liste_texture_pnj)->tabTexture = NULL;
+    }
 
-    return liste;
+    // clear nb elem
+    (*liste_texture_pnj)->nbElem = 0;
+
+    // Suppression de la structure liste_texture_pnj
+    free( (*liste_texture_pnj) );
+    (*liste_texture_pnj) = NULL;
 }
 
 
@@ -1384,7 +1446,7 @@ static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, in
     return 0;
 }
 
-extern int Afficher_Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
+extern int Afficher_Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, int pnjID, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
@@ -1396,7 +1458,7 @@ extern int Afficher_Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialo
         return 1;
     }
 
-    if ( Afficher_Pnj_Dialogue(listeTextPnjDialogue,0,dstCoef,xBorder,yBorder,renderer) ) {
+    if ( Afficher_Pnj_Dialogue(listeTextPnjDialogue,pnjID,dstCoef,xBorder,yBorder,renderer) ) {
         printf("Erreur : Echec Afficher_Fond_Boite_Dialogue() dans Afficher_Dialogue()\n");
         return 1;
     }
@@ -1407,7 +1469,45 @@ extern int Afficher_Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialo
 
 }
 
-extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, int pnjID, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+    /* ------------------ Detection Erreur Parametre ------------------ */
+
+    // Vérification de la variable textDialogue
+    if ( textDialogue == NULL ) {
+        printf("Erreur : textDialogue non Initialisé dans Dialogue()");
+        return 1;
+    }
+
+    // Vérification de la variable listeTextPnjDialogue
+    if (listeTextPnjDialogue == NULL) {
+        printf("Erreur : listeTextPnjDialogue non initialisée dans Dialogue()");
+        return 1;
+    }
+
+    // Vérification de la variable pnjID
+    if (pnjID < 0 ) {
+        printf("Erreur : pnjID invalide dans Dialogue()");
+        return 1;
+    }
+
+    // Vérification de la variable view
+    if (view == NULL) {
+        printf("Erreur : view non initialisée dans Dialogue()");
+        return 1;
+    }
+
+    // Vérification de la variable window
+    if (window == NULL) {
+        printf("Erreur : window non initialisée dans Dialogue()");
+        return 1;
+    }
+
+    // Vérification de la variable renderer
+    if (renderer == NULL) {
+        printf("Erreur : renderer non initialisé dans Dialogue()");
+        return 1;
+    }
+    
     /* ------------------ Initialisation variable ------------------ */
 
     // statut des erreurs
@@ -1430,6 +1530,13 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
 
     // initialisation des timers
     SDL_timer_t fps;
+
+    // Variable getWinInfo
+    int win_width;
+    int win_height;
+    int dstCoef;
+    int xBorder;
+    int yBorder;
 
     /* ------------------ Initialisation resource jeux ------------------ */
 
@@ -1483,18 +1590,13 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
             }
         }
         
-        /* --------- Gestion Frame Sprite --------- */ 
-
 
         /* --------- Gestion Affichage --------- */
-
-        int win_width,win_height;
-        int dstCoef, xBorder, yBorder;
     
         // Récupération des informations de la fenêtre utile à l'affichage
         getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
 
-        if ( Afficher_Dialogue(textDialogue,listeTextPnjDialogue,view,NULL,window,renderer) ) {
+        if ( Afficher_Dialogue(textDialogue,listeTextPnjDialogue,pnjID,view,NULL,window,renderer) ) {
             printf("Erreur : Echec Afficher_Dialogue() dans Dialogue()\n");
             return 1;
         }

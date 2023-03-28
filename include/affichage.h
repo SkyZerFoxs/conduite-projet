@@ -1,12 +1,14 @@
 #ifndef _AFFICHAGE_H_
 #define _AFFICHAGE_H_
 
-#include <map.h>
-#include <sprite.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+
+#include <map.h>
+#include <sprite.h>
 #include <time.h>
+#include <string.h>
 
 #define MAX_TEXTURE_NUMBER 100
 
@@ -21,6 +23,10 @@
  * Header Gestion de l'affichage:
  * \n Signature des fonction externe de affichage.c
  */
+
+/* ------------------------------------------------ */
+/* ------------------ Structure  ------------------ */
+/* ------------------------------------------------ */
 
 /**
  * \typedef SDL_timer_s SDL_timer_t Structure Timer
@@ -65,49 +71,60 @@ typedef struct Sprite_Texture_Liste_s {
     int nbElem;
 } Sprite_Texture_Liste_t;
 
-// Gestion SDL
+
+/* ------------------------------------------------------ */
+/* ------------------ Fonction Externe ------------------ */
+/* ------------------------------------------------------ */
+
+/* ------------------ Gestion SDL------------------ */
 extern int Init_SDL(SDL_Window **window, SDL_Renderer **renderer, int width, int height);
 extern void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer);
 
-// Destruction Texture
+/* ------------------ Destruction Texture ------------------ */
 extern void Detruire_Texture(SDL_Texture ** texture) ;
 
-// Gestion de l'affichage et de la fenetre
+/* ------------------ Gestion Fenetre & Affichage  ------------------ */
 extern void getWinInfo(SDL_Window *window, int * width, int * height, int tileSize, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder);
 extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window);
 
-// Afficher Une Image ( avec ou sans texture )
+/* ------------------ Afficher Image ( avec ou sans texture ) ------------------ */
 extern int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) ;
 
-// Gestion Texture Sprite
+/* ------------------ Gestion Texture Sprite ------------------ */
 extern Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste() ;
 extern int Chercher_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet) ;
 extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL_Texture *texture) ;
 extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, sprite_type_liste_t * listeType, SDL_Renderer *renderer ) ;
 extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) ;
 
-// Afficher La TileMap Et La SpriteMap
+/* ------------------ Afficher TileMap & SpriteMap ------------------ */
 extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
-//extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
+
 extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
 
-// Affichage Complet
-extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) ;
+/* ------------------ Affichage Complet ------------------ */
+extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
 
-// Gestion Des Frames Des Sprites
+extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) ;
+
+/* ------------------ Gestion Des Frames Des Sprites ------------------ */
 extern void AddFrame(sprite_t **** spriteMap, int frameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) ;
 
-// Gestion Des Timers
+/* ------------------ Gestion Des Timers ------------------ */
 extern void Timer_Start( SDL_timer_t * timer ) ;
 extern void Timer_Update( SDL_timer_t * timer ) ; 
 extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) ;
 
-// Gestion Deplacement Personnage
+/* ------------------ Gestion Deplacement Attaque ------------------ */
 extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList, SDL_Rect * view, char Action ) ;
 
-//Gestion Attacque Personnage
+/* ------------------ Gestion Animation Attaque ------------------ */
 extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
 extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
 extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) ;
+
+/* ------------------ Affichage Texte ------------------ */
+extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor) ;
+
 
 #endif 

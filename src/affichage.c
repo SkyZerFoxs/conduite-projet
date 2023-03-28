@@ -62,6 +62,7 @@ extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, in
         printf("Erreur : TTF_Init() à échoué dans Init_SDL : %s\n",TTF_GetError());
         return 1;
     }
+    
     // return status
     return 0;
 }
@@ -75,6 +76,10 @@ extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, in
  * \return Aucun retour effectué en fin de fonction
  */
 void Quit_SDL(SDL_Window* window, SDL_Renderer* renderer) {
+    // On quitte les libraries SDL_image et SDL_ttf
+    IMG_Quit();
+    TTF_Quit();
+
     // On détruit le renderer
     if (renderer != NULL) {
         SDL_DestroyRenderer(renderer);
@@ -84,10 +89,6 @@ void Quit_SDL(SDL_Window* window, SDL_Renderer* renderer) {
     if (window != NULL) {
         SDL_DestroyWindow(window);
     }
-
-    // On quitte les libraries SDL_image et SDL_ttf
-    IMG_Quit();
-    TTF_Quit();
 
     // On quitte la library SDL
     SDL_Quit();
@@ -117,10 +118,10 @@ extern void Detruire_Texture(SDL_Texture ** texture) {
  * \brief Fonction externe qui permet d'obtenir les informations de la fenêtre
  * 
  * \param window Pointeur sur l'objet SDL_Window
- * \param tileSize Taille en pixel des tiles
- * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \param width  Pointeur sur un int, largeur de la fenêtre
  * \param height  Pointeur sur un int, hauteur de la fenêtre
+ * \param tileSize Taille en pixel des tiles
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
  * \param xBorder Bordure à gauche dans la fenêtre
  * \param yBorder Bordure en haut dans la fenêtre
@@ -275,17 +276,19 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
         // Allocation de mémoire pour la nouvelle texture
         Sprite_Texture_t *newTexture = (Sprite_Texture_t *) malloc(sizeof(Sprite_Texture_t));
         if (newTexture == NULL) {
-           printf("Erreur : echec malloc( Sprite_Texture_t ) dans Ajouter_Texture.\n");
+           printf("Erreur : echec malloc( Sprite_Texture_t ) dans Ajouter_Texture()\n");
             return -1;
         }
 
         // Initialisation de la nouvelle texture
-        newTexture->spriteSheet = strdup(spriteSheet);
+        newTexture->spriteSheet = (char*) malloc(strlen(spriteSheet) + 1); // +1 pour le caractère null
         if (newTexture->spriteSheet == NULL) {
-           printf("Erreur : echec strdup( spriteSheet ) dans Ajouter_Texture.\n");
+            printf("Erreur : echec malloc( newTexture->spriteSheet ) dans Ajouter_Texture()\n");
             free(newTexture);
             return -1;
         }
+        strcpy(newTexture->spriteSheet, spriteSheet);
+
         newTexture->spriteSheetTexture = texture;
 
         // Ajout de la nouvelle texture dans la liste
@@ -294,7 +297,7 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
 
         return liste->nbElem - 1;
     } else {
-       printf("Erreur : Max Sprite Texture Atteinte dans Ajouter_Texture.\n");
+        printf("Erreur : Max Sprite Texture Atteinte dans Ajouter_Texture()\n");
         return -1;
     }
 }
@@ -310,13 +313,24 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
 */
 extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, sprite_type_liste_t * listeType, SDL_Renderer *renderer ) {
     if ( SpriteTexteListe == NULL || listeType == NULL ) {
-       printf("Erreur : SpriteTexteListe Ou listeType Inexistante Dans Load_Sprite_Texture_Liste().\n");
+        printf("Erreur : SpriteTexteListe Ou listeType Inexistante Dans Load_Sprite_Texture_Liste().\n");
+        return 1;
+    }
+
+    if ( renderer == NULL ) {
+        printf("Erreur : renderer Invalide Dans Load_Sprite_Texture_Liste().\n");
         return 1;
     }
 
     int id;
+    SDL_Texture * newText = NULL;
     for (int i = 0; i < listeType->nbElem; i++) {
-        id = Ajouter_Texture(SpriteTexteListe,listeType->typeListe[i]->spriteSheet,IMG_LoadTexture(renderer,listeType->typeListe[i]->spriteSheet));
+        newText = IMG_LoadTexture(renderer,listeType->typeListe[i]->spriteSheet);
+        if (  newText == NULL ) {
+            printf("Erreur : Echec IMG_LoadTexture(newText) dans Load_Sprite_Texture_Liste().\n");
+            return 1;
+        }
+        id = Ajouter_Texture(SpriteTexteListe,listeType->typeListe[i]->spriteSheet,newText);
         if (  id < 0 ) {
            printf("Erreur : Echec Ajouter_Texture() dans Load_Sprite_Texture_Liste().\n");
             return 1;
@@ -603,6 +617,121 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
                         printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_spriteMap[layer = %d]()\n",layer);
                         return 1;
                     }
+
+                    if ( layer == 0 && sprite->monstre != NULL && y == sprite->monstre->pos_y && x == sprite->monstre->pos_x && y < map->height - 1 && spriteMap[layer][y+1][x] != NULL ) {
+                        spriteMap[layer][y+1][x]->frame = spriteMap[layer][y][x]->frame;
+                    }
+                    else if ( layer == 0 && sprite->pnj != NULL && y == sprite->pnj->pos_y && x == sprite->pnj->pos_x && y < map->height - 1 
+                            && x < map->width - 1 && spriteMap[0][y][x+1] != NULL && spriteMap[0][y+1][x] != NULL && spriteMap[0][y+1][x+1] != NULL ) 
+                    {
+                        spriteMap[layer][y+1][x]->frame = spriteMap[layer][y][x]->frame;
+                        spriteMap[layer][y][x+1]->frame = spriteMap[layer][y+1][x]->frame;
+                        spriteMap[layer][y+1][x+1]->frame = spriteMap[layer][y][x+1]->frame;
+                    }
+
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+    if ( spriteMap[0] == NULL ) {
+       printf("Erreur : La spriteMap[layer] n'est pas chargé dans Afficher_Stats_Monstre()\n");
+       return 1;
+    }
+
+    if ( map == NULL ) {
+       printf("Erreur : La Map n'est pas chargé dans Afficher_Stats_Monstre()\n");
+       return 1;
+    }
+    
+    if ( view == NULL ) {
+       printf("Erreur : La View n'est pas chargé dans Afficher_Stats_Monstre()\n");
+       return 1;
+    }
+
+    if ( font == NULL ) {
+       printf("Erreur : La font n'est pas chargé dans Afficher_Stats_Monstre()\n");
+       return 1;
+    }
+
+    if ( renderer == NULL ) {
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_Stats_Monstre()\n");
+       return 1;
+    }
+
+    if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
+        printf("Erreur : WinInfo Incorrecte dans Afficher_Stats_Monstre()\n");
+        return 1;
+    }
+
+    // initialisation variable
+    int ymin, ymax;
+    int xmin, xmax;
+
+    // calcule de xmin et ymax tout en verifiant/corrigeant les sorties de map
+    if ( view->y < 0 ) {
+        ymin = view->y = 0;
+        ymax = view->y + view->h;
+    }
+    else if (view->y + view->h >= map->height ) {
+        view->y = ymin = map->height - view->h ;
+        ymax = view->y + view->h;
+    }
+    else {
+        ymin = view->y;
+        ymax = view->y + view->h;
+    }
+
+    if ( view->x < 0 ) {
+        xmin = view->x = 0;
+        xmax = view->x + view->w;
+    }
+    else if ( view->x + view->w >= map->width ) {
+        view->x = xmin = map->width - view->w;
+        xmax = view->x + view->w;
+    }
+    else {
+        xmin = view->x;
+        xmax = view->x + view->w;
+    }
+
+    SDL_Color blanc = { 255, 255, 255, 255 };
+    int palierY = ( dstCoef * 16 * 0.7 ) / 2;
+    char string[256];
+
+    // Lecture des sprites de la spriteMap[0] qui correspond a la view
+    for (int y = ymin; y < ymax; y++) {
+        for (int x = xmin; x < xmax; x++) {
+            if ( spriteMap[0][y][x] != NULL ) {
+                if (spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv <= 0) {
+                    continue;
+                }
+                else {
+                    // Recupération des informations lié au sprite ( pour la lisibilité du code )
+                    sprite_t * sprite = spriteMap[0][y][x];
+
+                    if ( sprite->monstre != NULL && y == sprite->monstre->pos_y && x == sprite->monstre->pos_x ) {
+                        // Affichage des stats du monstre
+                            for (int n = 0; n < 2; n++) {
+                                if ( n == 0 ) {
+                                    sprintf(string,"%-3s:%-3d","lvl",sprite->monstre->niveau);
+                                }
+                                if ( n == 1 ) {
+                                    sprintf(string,"%-2s:%-4d","pv",sprite->monstre->caract->pv);
+                                }
+                                if ( Afficher_Texte_Zone(renderer, font, string, 
+                                ( dstCoef * (16 * (sprite->y - view->y - 0.8)) ) + yBorder + ( palierY * n ), 
+                                ( dstCoef * (16 * (sprite->x - view->x )) ) + xBorder, 
+                                dstCoef * (16 * 1.5), &blanc) ) {
+                                    printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Stats_Monstre()\n");
+                                    return 1;
+                                }
+                            }
+                    }
                 }
             }
         }
@@ -624,8 +753,7 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return 0 success || 1 fail
  */
-extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view) {
-    // Initialisation des variables
+extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) {   // Initialisation des variables
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
@@ -653,6 +781,11 @@ extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_List
     // Affciher Les Zone Qui Sont Par Dessus le Joueur
     if ( Afficher_TileMap(texture, map, LAST_TILEMAP_LAYER, LAST_TILEMAP_LAYER+1, view, renderer,dstCoef, xBorder, yBorder ) ) {
         printf("Errur: Afficher_map() à echoué dans Affichage_All().\n");
+        return 1;
+    }
+
+    if ( Afficher_Stats_Monstre(spriteMap ,map, view, font, renderer, dstCoef, xBorder, yBorder) ) {
+        printf("Errur: Afficher_Stats_Monstre() à echoué dans Affichage_All().\n");
         return 1;
     }
     
@@ -1157,6 +1290,45 @@ extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
         return 1;
         break;
     }
+
+    return 0;
+}
+
+extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor)
+{
+    // Rectangle Destination ( Renderer )
+    SDL_Rect rect;
+    rect.x = x;
+    rect.y = y;
+    rect.h = 0;
+    rect.w = w;
+    
+    // Surface pour le text
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text, (*textColor), rect.w);
+    if ( textSurface == NULL ) {
+        printf("Erreur : Echec TTF_RenderText_Blended_Wrapped() dans Afficher_Texte_Zone()\n");
+        return 1;
+    }
+
+    // Texture depuis la surface
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    if ( textTexture == NULL ) {
+        printf("Erreur : Echec TTF_RenderText_Blended_Wrapped() dans Afficher_Texte_Zone()\n");
+        return 1;
+    }
+
+    // Rectangle de destination
+    SDL_Rect destRect = { rect.x, rect.y, textSurface->w, textSurface->h };
+
+    // Ajoute de la texture au renderer
+    if (  SDL_RenderCopy(renderer, textTexture, NULL, &destRect) < 0 ) {
+        printf("Erreur : Echec SDL_RenderCopy() dans Afficher_Texte_Zone()\n");
+        return 1;
+    }
+
+    // Netoyage
+    SDL_DestroyTexture(textTexture);
+    SDL_FreeSurface(textSurface);
 
     return 0;
 }

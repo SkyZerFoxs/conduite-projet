@@ -12,16 +12,6 @@
  *  \date 9/02/2023
 **/
 
-
-/*
-typedef struct capacity_s{
-    int apprise;
-    int portee_x;
-    int portee_y;
-    int degats;
-}capacity_t;
-*/
-
 typedef struct personnage_s{
     char * nom;
 

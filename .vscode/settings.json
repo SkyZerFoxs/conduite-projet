@@ -14,6 +14,13 @@
         "personnage.h": "c",
         "string.h": "c",
         "caract.h": "c",
-        "map.h": "c"
+        "map.h": "c",
+        "monstre.h": "c",
+        "pnj.h": "c",
+        "compare": "c",
+        "type_traits": "c",
+        "typeinfo": "c",
+        "sdl_ttf.h": "c",
+        "sprite.h": "c"
     }
 }

@@ -9,10 +9,12 @@
  *  \date 20 mars 2023
 **/
 
+#include <map.h>
 #include <personnage.h>
 #include <monstre.h>
 #include <combat.h>
 #include <objets.h>
+#include <pnj.h>
 
 #endif
 

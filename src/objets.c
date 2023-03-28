@@ -46,7 +46,7 @@ liste_objet_t * load_liste_objets(char * nom_fich) {
     // Allouer dynamiquement la structure liste_objet_t et le tableau
     liste_objet_t* liste = malloc(sizeof(liste_objet_t));
     if (liste == NULL) {
-        printf("Erreur : Echec malloc(liste->tab) dans load_objets()\n");
+        printf("Erreur : Echec malloc(liste) dans load_objets()\n");
         return NULL;
     }
 
@@ -80,7 +80,7 @@ liste_objet_t * load_liste_objets(char * nom_fich) {
             liste->tab[i]->nom, &(liste->tab[i]->niv), &(liste->tab[i]->typeID), &(liste->tab[i]->stats->pv),
             &(liste->tab[i]->stats->def), &(liste->tab[i]->stats->atk), &(liste->tab[i]->prix_achat), &(liste->tab[i]->prix_vente));
         if (result != 8) {
-            printf("Erreur : Format invalide dans la ligne %d du fichier %s\n", i+1, nom_fich);
+            printf("Erreur : Format invalide dans la ligne %d du fichier %s dans load_objets()\n", i+1, nom_fich);
             return NULL;
         }
         liste->tab[i]->id = i;

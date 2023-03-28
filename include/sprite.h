@@ -3,10 +3,11 @@
 
 #include <string.h>
 #include <map.h>
-#include <monstre.h>
+#include <data.h>
 
 #define MAX_SPRITE_FRAME 20
 #define BORNE_PERSO_SPRITE 124
+#define BORNE_PNJ_SPRITE 201
 
 /**
  * \file sprite.h
@@ -95,8 +96,8 @@ typedef struct sprite_s {
     // Le monstre au quelle il est rataché ( NULL si ce n'est pas un sprite de monstre)
     monstre_t * monstre;
 
-    // Le monstre au quelle il est rataché ( NULL si ce n'est pas un sprite de monstre)
-    //png_t * png;
+    // Le pnj au quelle il est rataché ( NULL si ce n'est pas un sprite de pnj )
+    pnj_t * pnj;
 
 }sprite_t;
 
@@ -130,6 +131,13 @@ typedef struct {
 } monstre_liste_t;
 
 
+typedef struct {
+    pnj_t ** tabPnj;
+    int nbElem;
+} pnj_liste_t;
+
+
+
 extern sprite_type_liste_t * Load_Sprite_Type(const char * nom_fichier) ;
 extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) ;
 
@@ -148,9 +156,13 @@ extern int Copy_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int
 
 extern int Colision(map_t * map, sprite_t **** spriteMap, char direction, int y, int x) ;
 
-extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) ;
+extern monstre_liste_t * Load_Monster(map_t* map, sprite_t**** spriteMap) ;
 extern void Detruire_Liste_Monstres(monstre_liste_t** liste)  ;
 
+extern pnj_liste_t * Load_Pnj(map_t* map, sprite_t**** spriteMap, liste_type_pnj_t * liste_type) ;
+extern void Detruire_Liste_Pnj(pnj_liste_t ** liste)  ;
+
 extern int Detecter_Monstre(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **monstre) ;
+extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **pnj) ;
 
 #endif
