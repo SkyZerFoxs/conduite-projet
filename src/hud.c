@@ -1395,15 +1395,15 @@ static int Afficher_Fond_Boite_Dialogue(SDL_Texture * textDialogue, int  dstCoef
     return 0;
 }
 
-static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, int pnjID, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
+static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, pnj_t * pnj, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
     // Verification paramètres
     if (listeTextPnj == NULL) {
        printf("Erreur : La liste en paramètre est incorrecte dans Afficher_Pnj_Dialogue()\n");
        return 1;
     }
 
-    if ( pnjID >= listeTextPnj->nbElem  || listeTextPnj->tabTexture[pnjID] == NULL ) {
-       printf("Erreur : La texture du pnj est incorrecte dans Afficher_Pnj_Dialogue()\n");
+    if ( pnj == NULL) {
+       printf("Erreur : Le pnj en paramètre est incorrecte dans Afficher_Pnj_Dialogue()\n");
        return 1;
     }
 
@@ -1415,6 +1415,14 @@ static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, in
     if ( dstCoef == 0 || xBorder < 0 || yBorder < 0) {
         printf("Erreur : Le WinInfo Incorrecte dans Afficher_Pnj_Dialogue()\n");
         return 1;
+    }
+
+    // Recuperation id type pnj
+    int pnjID = pnj->pnjTypeID;
+
+    if ( pnjID >= listeTextPnj->nbElem  || listeTextPnj->tabTexture[pnjID] == NULL ) {
+       printf("Erreur : La texture du pnj (pnjID) est incorrecte dans Afficher_Pnj_Dialogue()\n");
+       return 1;
     }
 
     // Affichage des tiles de la carte
@@ -1446,7 +1454,105 @@ static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, in
     return 0;
 }
 
-extern int Afficher_Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, int pnjID, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
+static int Afficher_Bouton_Dialogue(SDL_Texture ** mat, int frameButton, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+    // Verification paramètres
+
+    if ( mat == NULL ) {
+       printf("Erreur : La matrice des texture de boutton en paramètre est invalide dans Afficher_Bouton_Dialogue()\n");
+       return 1;
+    }
+
+    if ( mat[0] == NULL || mat[1] == NULL ) {
+        printf("Erreur : La matrice des texture de boutton est invalide dans Afficher_Bouton_Dialogue()\n");
+        return 1;
+    }
+
+    if ( frameButton < 0 || frameButton > 1 ) {
+        printf("Erreur : frameButton invalide dans Afficher_Bouton_Dialogue()\n");
+        return 1;
+    }
+
+    if ( renderer == NULL ) {
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_Bouton_Dialogue()\n");
+       return 1;
+    }
+
+    if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
+        printf("Erreur : WinInfo Incorrecte dans Afficher_Bouton_Dialogue()\n");
+        return 1;
+    }
+    
+    SDL_Texture * text = mat[frameButton];
+
+    // Rectangle Destination ( Renderer )
+    SDL_Rect rectDst;
+    rectDst.x = ( dstCoef * 16 * 15 ) + xBorder;
+    rectDst.y = ( dstCoef * 16 * 10 ) + yBorder; 
+    rectDst.h = dstCoef * 16;
+    rectDst.w = dstCoef * 16 * 3;
+
+    // Affichage de la frame courante du sprite
+    if ( SDL_RenderCopy(renderer, text, NULL, &rectDst) < 0 ) {
+        printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Bouton_Dialogue()\n");
+        return 1;
+    }
+
+    return 0;
+}
+
+static int Afficher_Dialogue(SDL_Texture * textDialogue, SDL_Texture ** matTextButton, int frameButton, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
+    // Verification paramètre
+    if ( textDialogue == NULL ) {
+        printf("Erreur : textDialogue en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( listeTextPnjDialogue == NULL ) {
+        printf("Erreur : listeTextPnjDialogue en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( pnj == NULL ) {
+        printf("Erreur : pnj en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( listeTypePnj == NULL ) {
+        printf("Erreur : listeTypePnj en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( listeTypePnj->liste == NULL || listeTypePnj->nbElem <= 0 ) {
+        printf("Erreur : la liste les listes des types de pnj est mal initialisé dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( view == NULL ) {
+        printf("Erreur : view en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( font == NULL ) {
+        printf("Erreur : font en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( window == NULL ) {
+        printf("Erreur : window en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( renderer == NULL ) {
+        printf("Erreur : renderer en parametre invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    if ( frameButton < 0 || frameButton > 1 ) {
+        printf("Erreur : frameButton invalide dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    // initialisatio variable
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
@@ -1458,18 +1564,35 @@ extern int Afficher_Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialo
         return 1;
     }
 
-    if ( Afficher_Pnj_Dialogue(listeTextPnjDialogue,pnjID,dstCoef,xBorder,yBorder,renderer) ) {
+    if ( Afficher_Pnj_Dialogue(listeTextPnjDialogue,pnj,dstCoef,xBorder,yBorder,renderer) ) {
         printf("Erreur : Echec Afficher_Fond_Boite_Dialogue() dans Afficher_Dialogue()\n");
         return 1;
     }
 
-    (void)font;
     
+
+    if ( Afficher_Bouton_Dialogue(matTextButton,frameButton,renderer,dstCoef,xBorder,yBorder) ) {
+        printf("Erreur : Echec Afficher_Bouton_Dialogue() dans Afficher_Dialogue()\n");
+        return 1;
+    }
+
+    // Affichage des stats du personnage
+    SDL_Color marronCLaireInventaire = { 51, 32, 24, 255 };
+
+    int x = ( dstCoef * 16 * 6 ) + xBorder;
+    int w = dstCoef * 16 * 11;
+    int y = ( dstCoef * 16 * 8.5 ) + yBorder;
+
+    if ( Afficher_Texte_Zone(renderer, font, listeTypePnj->liste[pnj->pnjTypeID]->dialogue, y, x, w, &marronCLaireInventaire) ) {
+        printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Inventaire()\n");
+        return 1;
+    }
+
     return 0;
 
 }
 
-extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, int pnjID, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
     /* ------------------ Detection Erreur Parametre ------------------ */
 
     // Vérification de la variable textDialogue
@@ -1479,31 +1602,42 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
     }
 
     // Vérification de la variable listeTextPnjDialogue
-    if (listeTextPnjDialogue == NULL) {
+    if ( listeTextPnjDialogue == NULL) {
         printf("Erreur : listeTextPnjDialogue non initialisée dans Dialogue()");
         return 1;
     }
 
-    // Vérification de la variable pnjID
-    if (pnjID < 0 ) {
-        printf("Erreur : pnjID invalide dans Dialogue()");
+    // Vérification de la variable pnj
+    if ( pnj == NULL ) {
+        printf("Erreur : pnj non initialisée dans Dialogue()");
+        return 1;
+    }
+
+    // Vérification de la variable listeTypePnj
+    if ( listeTypePnj == NULL ) {
+        printf("Erreur : view non initialisée dans Dialogue()");
+        return 1;
+    }
+    // Verification de la liste de type de pnj
+    if ( listeTypePnj->liste == NULL || listeTypePnj->nbElem <= 0 ) {
+        printf("Erreur : la liste les listes des types de pnj est mal initialisé dans Dialogue()\n");
         return 1;
     }
 
     // Vérification de la variable view
-    if (view == NULL) {
+    if ( view == NULL) {
         printf("Erreur : view non initialisée dans Dialogue()");
         return 1;
     }
 
     // Vérification de la variable window
-    if (window == NULL) {
+    if ( window == NULL) {
         printf("Erreur : window non initialisée dans Dialogue()");
         return 1;
     }
 
     // Vérification de la variable renderer
-    if (renderer == NULL) {
+    if ( renderer == NULL) {
         printf("Erreur : renderer non initialisé dans Dialogue()");
         return 1;
     }
@@ -1530,6 +1664,10 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
 
     // initialisation des timers
     SDL_timer_t fps;
+    SDL_timer_t timerFrameButton;
+
+    // Variable frame button
+    int frameButton = 0;
 
     // Variable getWinInfo
     int win_width;
@@ -1541,19 +1679,45 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
     /* ------------------ Initialisation resource jeux ------------------ */
 
     // initialisation des variables
-    /*
-    TTF_Font* font = NULL;
+    TTF_Font* font1 = NULL;
+    SDL_Texture * matTextButton[2] = { NULL, NULL};
+    char * cheminTextButton[2] = { "asset/hud/dialogue/button.png","asset/hud/dialogue/buttonPressed.png"};
 
-    // Initalisation Font
-    font = TTF_OpenFont("asset/arial.ttf", 28);
-    if (font == NULL) 
-    {
-        printf("Erreur : Echec TTF_OpenFont dans Inventaire()");
-        return 1;
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
+
+    // Gestion font 1280 x 720
+    if ( win_width > 1000 && win_width < 1400 ) {
+        // Initalisation Font
+        font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 30);
+        if (font1 == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font20) dans Dialogue()");
+            return 1;
+        }
     }
-    */
+    // Gestion font 1600 x 900 || 1920 x 1080
+    else {
+        // Initalisation Font
+        font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 36);
+        if (font1 == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font24) dans Dialogue()");
+            return 1;
+        }
+    }
 
-    // Debut Des Timers De Frame Pour Les Sprites
+    // Chargement texture bouton
+    for (int i = 0; i < 2; i++) {
+        matTextButton[i] = IMG_LoadTexture(renderer,cheminTextButton[i]);
+        if ( matTextButton[i] == NULL ) {
+            printf("Erreur : Echec IMG_Load(matTextButton[%d]) dans Dialogue()",i);
+            return 1;
+        }
+    }
+
+
+    // Debut Des Timers De Frame
+    Timer_Start(&timerFrameButton);
+    timerFrameButton.start -= 700;
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -1579,10 +1743,8 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
                     if (  !keyPressed ) {
                             // Gestion Touche Clavier
                             switch (event.key.keysym.sym) {
-                                case SDLK_ESCAPE:
-                                    quit = SDL_TRUE;
-                                    break;
                                 case SDLK_RETURN:
+                                    quit = SDL_TRUE;
                                     break;
                             }
                     }
@@ -1596,9 +1758,15 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
         // Récupération des informations de la fenêtre utile à l'affichage
         getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
 
-        if ( Afficher_Dialogue(textDialogue,listeTextPnjDialogue,pnjID,view,NULL,window,renderer) ) {
+        if ( Afficher_Dialogue(textDialogue,matTextButton,frameButton,listeTextPnjDialogue,pnj,listeTypePnj,view,font1,window,renderer) ) {
             printf("Erreur : Echec Afficher_Dialogue() dans Dialogue()\n");
             return 1;
+        }
+
+        // Augmentation frame boutton
+        if ( (int)Timer_Get_Time( &timerFrameButton ) > 700 ) {
+            frameButton = ( frameButton + 1 ) % 2;
+            Timer_Start( &timerFrameButton );
         }
         
         // Gestion fps
@@ -1609,9 +1777,20 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
         // mise à jour du renderer ( update affichage)
         SDL_RenderPresent(renderer);
         
-    }         
+    }        
+
+    // Destruction texture button
+    for (int i = 0; i < 2; i++) {
+        Detruire_Texture( &(matTextButton[i]) );
+        if ( matTextButton[i] != NULL ) {
+            printf("Erreur : Echec Detruire_Texture(matTextButton[%d]) dans Dialogue()",i);
+            return 1;
+        }
+    }
         
-    //TTF_CloseFont(font);
+    if ( font1 != NULL ) {
+        TTF_CloseFont(font1);
+    }
 
     return erreur;
 }

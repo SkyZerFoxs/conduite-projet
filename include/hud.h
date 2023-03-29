@@ -71,7 +71,7 @@ extern liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type
 extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** liste_texture_pnj) ;
 
 // Fonction Boucle Dialogue
-extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * ListeTextPnjDialogue,  int pnjID, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
+extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * ListeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
 
 #endif
 

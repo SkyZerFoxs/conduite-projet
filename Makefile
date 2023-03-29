@@ -76,7 +76,7 @@ $(BINDIR)/test_sprite: $(TEST_SPRITE_OBJS) | $(BINDIR)
 
 # Nettoyage des fichiers objets et de l'exécutable
 clean:
-	rm -f $(OBJDIR)/*.o
+	rm -rf $(OBJDIR)
 
 mrproper: clean
 	rm -rf $(BINDIR)

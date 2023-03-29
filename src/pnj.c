@@ -82,7 +82,7 @@ liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich) {
             return NULL;
         }
     }
-
+    
     fclose(filename);
 
     return liste;

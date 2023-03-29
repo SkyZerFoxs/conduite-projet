@@ -399,7 +399,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                     goto detruire;
                                 }
                                 if ( detect == 1 ) {
-                                    sortieDiag = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj->pnjTypeID, &CameraJoueur, window, renderer);
+                                    sortieDiag = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj, listeTypePnj, &CameraJoueur, window, renderer);
                                     if ( sortieDiag == -1 ) {
                                         quit = SDL_TRUE;
                                     }
@@ -788,7 +788,6 @@ int main() {
     }
     printf("Fin Play ................ OK\n");
 
-    
     // Fin de SDL + destruction allocation mémoire
     quit:
     
