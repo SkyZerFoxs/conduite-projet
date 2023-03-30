@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL_image.h>
 
-#define WINDOWS_WIDTH 1660
-#define WINDOWS_HEIGHT 900
+
 
 
 
@@ -146,16 +145,6 @@ int main(void) {
             break;
 			Isrunning=0;
 		}
-
-		// Mise a jour de l'affichage
-		SDL_RenderPresent(renderer);
-		SDL_Delay(10);	
-    }
-	// destruction en mémoire de la texture préciser
-	Detruire_Texture(texture);
-
-    // Fin de SDL + destruction allocation mémoire
-    Quit_SDL(window,renderer);
 
     return EXIT_SUCCESS;
 }
