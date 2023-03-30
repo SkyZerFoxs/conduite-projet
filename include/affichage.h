@@ -126,5 +126,4 @@ extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
 /* ------------------ Affichage Texte ------------------ */
 extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor) ;
 
-
 #endif 

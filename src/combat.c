@@ -65,17 +65,3 @@ void combat_monstre(monstre_t * monstre, personnage_t * perso) {
 
 }
 
-extern int level_up(personnage_t * perso, monstre_t * monstre) {
-    if ( monstre->caract->pv <= 0 ) {
-        perso->niveau++;
-        int stats = 0;
-        /*
-        printf("Stats a upgrade: ");
-        scanf("%d",&stats);
-        */
-
-        upgrade_perso(perso,stats);
-    }
-
-    return 0;
-}

@@ -4,6 +4,10 @@
 #include <caract.h>
 #include <string.h>
 
+#define UPGRADE_MAX_PV 5
+#define UPGRADE_ATK 2
+#define UPGRADE_DEF 1
+
 /**
  *	\file personnage.h
  *  \brief Header pour gérer les personnage

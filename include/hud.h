@@ -52,7 +52,7 @@ typedef struct liste_texture_pnj_dialogue_s {
 /* ------------------ Fonction Externe ------------------ */
 /* ------------------------------------------------------ */
 
-/* ------------------ Gestion Inventaire ------------------ */
+/* ------------------ Gestion HUD Inventaire ------------------ */
 // Gestion Item
 extern inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem, char * cheminSelecteur, char * cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer * renderer) ;
 extern void Detruire_Inventaire(inventaire_t ** inventaire) ;
@@ -64,7 +64,7 @@ extern int Use_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeO
 //Fonction Boucle Inventaire
 extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, sprite_liste_t * spritePersoList, SDL_Rect * view, SDL_Window *window, SDL_Texture * background_texture, SDL_Renderer *renderer) ;
 
-/* ------------------ Gestion Dialogue ------------------ */
+/* ------------------ Gestion HUD Dialogue ------------------ */
 
 // Gestopn texture Pnj Dialogue
 extern liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type_pnj_t * liste_type, SDL_Renderer * renderer) ;
@@ -72,6 +72,11 @@ extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** 
 
 // Fonction Boucle Dialogue
 extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * ListeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
+
+/* ------------------ Gestion HUD Level UP ------------------ */
+
+// Fonction Boucle Dialogue
+extern int Level_UP(SDL_Texture * textFondLevelUP, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
 
 #endif
 

@@ -185,13 +185,13 @@ int upgrade_perso(personnage_t * perso, int stats) {
     
     switch ( stats ) {
         case 0:
-            perso->caract->maxPv += 5;
+            perso->caract->maxPv += UPGRADE_MAX_PV;
             break;
         case 1:
-            perso->caract->atk += 2;
+            perso->caract->atk += UPGRADE_ATK;
             break;
         case 2:
-            perso->caract->def += 1;
+            perso->caract->def += UPGRADE_DEF;
             break;
         default:
             printf("Erreur : Mauvaise stats augmenté dans upgrade_perso()\n");

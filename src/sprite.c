@@ -605,42 +605,18 @@ extern int Colision(map_t * map, sprite_t **** spriteMap, char direction, int y,
         return -1;
     }
 
-    if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
-        return 1;
+    if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv <= 0 ) {
+        return 0;
     }
 
     if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->pnj != NULL ) {
         return 1;
     }
 
-    /*
-    switch ( direction) {
-        case 'z':
-            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
-                return 1;
-            }
-            break;
-        case 'd':
-            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
-                return 1;
-            }
-            break;
-        case 'q':
-            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
-                return 1;
-            }
-            break;
-        case 's':
-            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
-                return 1;
-            }
-            break;
-        default:
-            printf("Erreur : Direction Incorrecte dans Colision()\n");
-            return -1;
-            break;
+    if ( spriteMap[0][y][x] != NULL ) {
+        return 1;
     }
-    */
+
 
     return 0;
 }
@@ -788,38 +764,47 @@ extern pnj_liste_t * Load_Pnj(map_t* map, sprite_t**** spriteMap, liste_type_pnj
 
     // Parcours de la matrice de sprites
     int id;
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            sprite_t* sprite = spriteMap[0][i][j];
-            // Si le sprite n'est pas déja associé a une structure de data
-            if (sprite != NULL && sprite->monstre == NULL && sprite->pnj == NULL ) {
-                // Si le sprite est sous la forme d'un pnj ( 2 x 2)
-                if ( i < map->height - 1 && j < map->width - 1 && spriteMap[0][i][j+1] != NULL && spriteMap[0][i+1][j] != NULL && spriteMap[0][i+1][j+1] != NULL ) 
-                {   
-                    // Si le id du type de sprite correspond bien a un sprite de PNJ
-                    if ( sprite->spriteTypeId >= BORNE_PERSO_SPRITE &&  sprite->spriteTypeId < BORNE_PNJ_SPRITE) {
-                        // calcule id pnj ( commence a BORNE_PERSO_SPRITE et 4 sprite par pnj )
-                        id = (sprite->spriteTypeId-BORNE_PERSO_SPRITE) / 4;
-                        // Création du nouveau pnj détecté
-                        pnj_t * newPnj = creer_pnj(id,i,j,liste_type_pnj);
-                        if ( newPnj == NULL ) {
-                            printf("Erreur : Echec creer_pnj(%d,%d,%d,liste_type_pnj) dans Load_Pnj()\n",id,i,j);
-                            return NULL;
+    for (int y = 0; y < map->height; y++) 
+    {
+        for (int x = 0; x < map->width; x++) 
+        { 
+            if ( y < map->height - 1 && x < map->width - 1 ) 
+            {
+                sprite_t* sprite = spriteMap[0][y][x];
+                // Si le sprite n'est pas déja associé a une structure de data
+                if ( sprite != NULL && sprite->pnj == NULL && sprite->monstre == NULL) 
+                {
+                    sprite_t * sprite2 = spriteMap[0][y][x+1];
+                    sprite_t * sprite3 = spriteMap[0][y+1][x+1];
+                    sprite_t * sprite4 = spriteMap[0][y+1][x];
+                    if (sprite2 != NULL && sprite2->pnj == NULL && sprite2->monstre == NULL &&
+                        sprite3 != NULL && sprite3->pnj == NULL && sprite3->monstre == NULL &&
+                        sprite4 != NULL && sprite4->pnj == NULL && sprite4->monstre == NULL    )
+                    {   
+                        // Si le id du type de sprite correspond bien a un sprite de PNJ
+                        if ( sprite->spriteTypeId >= BORNE_PERSO_SPRITE &&  sprite->spriteTypeId < BORNE_PNJ_SPRITE) {
+                            // calcule id pnj ( commence a BORNE_PERSO_SPRITE et 4 sprite par pnj )
+                            id = (sprite->spriteTypeId-BORNE_PERSO_SPRITE) / 4;
+                            // Création du nouveau pnj détecté
+                            pnj_t * newPnj = creer_pnj(id,y,x,liste_type_pnj);
+                            if ( newPnj == NULL ) {
+                                printf("Erreur : Echec creer_pnj(%d,%d,%d,liste_type_pnj) dans Load_Pnj()\n",id,y,x);
+                                return NULL;
+                            }
+                            // Ajout du pnj au sprite
+                            sprite->pnj = newPnj; // Liaison du pnj au sprite
+                            // Ajout du pnj vers le tableau de pnj_t
+                            liste->tabPnj[liste->nbElem] = newPnj;  
+                            liste->nbElem++;
+                            // pnj en 2 x 2 donc on relie les autres sprite du pnj au pnj crée
+                            sprite4->pnj = sprite3->pnj = sprite2->pnj = sprite->pnj;
                         }
-                        // Chargement informations pnj
-                        newPnj->pos_y = i; // Position en y du pnj
-                        newPnj->pos_x = j; // Position en x du pnj
-                        sprite->pnj = newPnj; // Liaison du pnj au sprite
-                        // Ajout du pnj vers le tableau de pnj_t
-                        liste->tabPnj[liste->nbElem] = newPnj;  
-                        liste->nbElem++;
-                        // pnj en 2 x 2 donc on relie les autres sprite du pnj au pnj crée
-                        spriteMap[0][i][j+1]->pnj = newPnj;
-                        spriteMap[0][i+1][j]->pnj = newPnj;
-                        spriteMap[0][i+1][j+1]->pnj = newPnj;
+                        else {
+                            printf("Warning : ID sprite differents d'un ID de pnj dans Load_Pnj()\n");
+                        }
                     }
-                } 
-            }
+                }                    
+            } 
         }
     }
 
@@ -896,29 +881,33 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
     liste->nbElem = 0;
 
     // Parcours de la matrice de sprites
-    for (int i = 0; i < map->height; i++) {
-        for (int j = 0; j < map->width; j++) {
-            sprite_t* sprite = spriteMap[0][i][j];
-            // Si le sprite est sous la forme d'un monstre ( 2 x 1 )
-            if (sprite != NULL && sprite->monstre == NULL && sprite->pnj == NULL ) {
-                // Nouveau monstre détecté
-                char nom[20];
-                sprintf(nom, "Monstre N°%d", liste->nbElem + 1);
-                monstre_t* monstre = creer_monstre(nom, 1, i, j); // Création du monstre
-                if ( monstre == NULL ) {
-                    printf("Erreur : Echec creer_monstre(%s,%d,%d,%d) dans Load_Monster()\n",nom, 1, i, j);
-                    return NULL;
-                }
-                // Chargement informations monstre
-                monstre->pos_x = j; // Position en x du monstre
-                monstre->pos_y = i; // Position en y du monstre
-                sprite->monstre = monstre; // Liaison du monstre au sprite
-                // Ajout du monstre vers le tableau de monstre
-                liste->tabMonstres[liste->nbElem] = monstre;
-                liste->nbElem++;
-                // monstre en 2 x 1 donc on relie les autres sprite du monstre au monstre crée
-                if (i < map->height - 1 && spriteMap[0][i+1][j] != NULL) {
-                    spriteMap[0][i+1][j]->monstre = monstre;
+    for (int y = 0; y < map->height; y++) {
+        for (int x = 0; x < map->width; x++) {
+            if ( y < map->height - 1 && x < map->width - 1 ) 
+            {
+                sprite_t* sprite = spriteMap[0][y][x];
+                // Si le sprite n'est pas déja associé a une structure de data
+                if ( sprite != NULL && sprite->monstre == NULL && sprite->pnj == NULL ) 
+                {
+                    // Nouveau monstre détecté
+                    char nom[20];
+                    sprintf(nom, "Monstre N°%d", liste->nbElem + 1);
+                    monstre_t* monstre = creer_monstre(nom, 1, y, x); // Création du monstre
+                    if ( monstre == NULL ) {
+                        printf("Erreur : Echec creer_monstre(%s,%d,%d,%d) dans Load_Monster()\n",nom, 1, y, x);
+                        return NULL;
+                    }
+                    // Ajout du pnj au sprite
+                    sprite->monstre = monstre; // Liaison du monstre au sprite
+                    // Ajout du monstre vers le tableau de monstre
+                    liste->tabMonstres[liste->nbElem] = monstre;
+                    liste->nbElem++;
+                    // si monstre en 2 x 1 on relie les autres sprite du monstre au monstre crée
+                    sprite_t * sprite2 = spriteMap[0][y+1][x];
+                    if (sprite2 != NULL && sprite2->pnj == NULL && sprite2->monstre == NULL  )
+                    { 
+                        sprite2->monstre = sprite->monstre; 
+                    }   
                 }
             }
         }

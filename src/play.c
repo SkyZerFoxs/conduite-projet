@@ -3,6 +3,7 @@
 #include <affichage.h>
 #include <hud.h>
 #include <data.h>
+#include <save.h>
 
 
 /**
@@ -111,6 +112,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable Gestion Sortie Inventaire
     int sortieDiag = 0;
     
+    // Variable Gestion Sorite Level UP
+    int sortieLevlUP = 0;
+
     // Variables des temps de cooldowns
     int MsAtkCooldown = 1000;
     int MsSpeCooldown = 1000;
@@ -135,8 +139,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 	SDL_Texture * textHudDialogue = NULL;
     liste_texture_pnj_dialogue_t * listeTextPnjDialogue = NULL;
     TTF_Font * font1 = NULL;
-    SDL_Surface* surface = NULL;
-    SDL_Texture* background_texture = NULL;
+    SDL_Surface * surface = NULL;
+    SDL_Texture * background_texture = NULL;
+    SDL_Texture * textFondLevelUP = NULL;
     
 
     // initialisation de la map continent
@@ -270,6 +275,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         printf("Erreur : Echec TTF_OpenFont(font26) dans play()\n");
         erreur = 1;
         goto detruire;
+    }
+    
+    // chargement texture boite Level UP
+    textFondLevelUP = IMG_LoadTexture(renderer, "asset/hud/lvl_up/lvl_up.png");
+    if ( textFondLevelUP == NULL ) {
+        printf("Erreur : Echec IMG_LoadTexture(textFondLevelUP) dans play()\n");
+        erreur = 1;
     }
 
 
@@ -519,8 +531,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     printf("\n");
                     if ( detectedMonstre->monstre->caract->pv <= 0 ) {
                         mortMonstre = 1;
-                        level_up(perso, detectedMonstre->monstre); 
-                        afficher_perso(perso);
                     }
                     else {
                         degatMonstre = 1;
@@ -552,8 +562,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     printf("\n");
                     if ( detectedMonstre->monstre->caract->pv <= 0 ) {
                         mortMonstre = 1;
-                        level_up(perso, detectedMonstre->monstre); 
-                        afficher_perso(perso);
                     }
                     else {
                         degatMonstre = 1;
@@ -585,8 +593,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     printf("\n");
                     if ( detectedMonstre->monstre->caract->pv <= 0 ) {
                         mortMonstre = 1;
-                        level_up(perso, detectedMonstre->monstre); 
-                        afficher_perso(perso);
                     }
                     else {
                         degatMonstre = 1;
@@ -628,6 +634,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 detectedMonstre->monstre->caract->pv = -1;
                 detectedMonstre->spriteTypeId--;
                 frameMortMonstre = 0;
+                perso->exp += 250;
             }
         }
         
@@ -662,12 +669,27 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             erreur = 1;
             goto detruire;
         }
+        
 
         // Affichage Complet
         if ( Affichage_All(mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, font1, renderer,&CameraJoueur) ) {
             printf("Erreur : Echec Affichage_All() dans play()\n");
             erreur = 1;
             goto detruire;
+        }
+
+        // Affichage Level UP
+        if ( perso->exp > ( perso->niveau * 249 ) ) {
+            perso->pts_upgrade += 2;
+            sortieLevlUP = Level_UP(textFondLevelUP,perso,&CameraJoueur,window,renderer);
+            if ( sortieLevlUP == -1 ) {
+                quit = SDL_TRUE;
+            }
+            else if ( sortieLevlUP == 1 ) {
+                printf("Erreur : Echec sortieLevlUP() dans play()\n");
+                erreur = 1;
+                goto detruire;
+            }
         }
 
         // Gestion fps
@@ -682,6 +704,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         // Affichage du temps d'execution en Ms
         //printf("%dms\n", (int)Timer_Get_Time( &fps ) );
     }
+
+    // Sauvegarde du jeu
+    save_game(CameraJoueur.x+9,CameraJoueur.y+5+1,perso,inventaire,listeObjets,0);
     
     /* -------  Destruction de la mémoire -------*/
     detruire:
@@ -700,6 +725,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         }
     }
 	
+    // Destruction texture Boite Level UP
+    Detruire_Texture(&textFondLevelUP);
+
     // Destruction background_texture
     if ( background_texture != NULL ) {
         SDL_DestroyTexture(background_texture);

@@ -618,15 +618,24 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
                         return 1;
                     }
 
-                    if ( layer == 0 && sprite->monstre != NULL && y == sprite->monstre->pos_y && x == sprite->monstre->pos_x && y < map->height - 1 && spriteMap[layer][y+1][x] != NULL ) {
-                        spriteMap[layer][y+1][x]->frame = spriteMap[layer][y][x]->frame;
+                    if ( sprite != NULL && sprite->monstre != NULL ) {
+                        sprite_t * sprite2 = spriteMap[0][y+1][x];
+                        if ( sprite2 != NULL && sprite2->monstre == sprite->monstre ) 
+                        {
+                            sprite2->frame = sprite->frame;
+                        }
+                        
                     }
-                    else if ( layer == 0 && sprite->pnj != NULL && y == sprite->pnj->pos_y && x == sprite->pnj->pos_x && y < map->height - 1 
-                            && x < map->width - 1 && spriteMap[0][y][x+1] != NULL && spriteMap[0][y+1][x] != NULL && spriteMap[0][y+1][x+1] != NULL ) 
-                    {
-                        spriteMap[layer][y+1][x]->frame = spriteMap[layer][y][x]->frame;
-                        spriteMap[layer][y][x+1]->frame = spriteMap[layer][y+1][x]->frame;
-                        spriteMap[layer][y+1][x+1]->frame = spriteMap[layer][y][x+1]->frame;
+                    if ( sprite != NULL && sprite->pnj != NULL ) {
+                        sprite_t * sprite2 = spriteMap[0][y][x+1];
+                        sprite_t * sprite3 = spriteMap[0][y+1][x+1];
+                        sprite_t * sprite4 = spriteMap[0][y+1][x];
+                        if (sprite2 != NULL && sprite2->pnj != NULL && sprite2->pnj == sprite->pnj &&
+                            sprite3 != NULL && sprite3->pnj != NULL && sprite3->pnj == sprite->pnj &&
+                            sprite4 != NULL && sprite4->pnj != NULL && sprite4->pnj == sprite->pnj    )
+                        {
+                            sprite4->frame = sprite3->frame = sprite2->frame = sprite->frame;
+                        }
                     }
 
                 }
@@ -718,15 +727,15 @@ extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
                         // Affichage des stats du monstre
                             for (int n = 0; n < 2; n++) {
                                 if ( n == 0 ) {
-                                    sprintf(string,"%-3s:%-3d","lvl",sprite->monstre->niveau);
+                                    sprintf(string,"%-6s %-3d","niveau",sprite->monstre->niveau);
                                 }
                                 if ( n == 1 ) {
-                                    sprintf(string,"%-2s:%-4d","pv",sprite->monstre->caract->pv);
+                                    sprintf(string," %-3s:%-4d","vie",sprite->monstre->caract->pv);
                                 }
                                 if ( Afficher_Texte_Zone(renderer, font, string, 
                                 ( dstCoef * (16 * (sprite->y - view->y - 0.8)) ) + yBorder + ( palierY * n ), 
                                 ( dstCoef * (16 * (sprite->x - view->x )) ) + xBorder, 
-                                dstCoef * (16 * 1.5), &blanc) ) {
+                                dstCoef * (16 * 2), &blanc) ) {
                                     printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Stats_Monstre()\n");
                                     return 1;
                                 }

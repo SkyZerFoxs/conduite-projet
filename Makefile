@@ -13,7 +13,7 @@ TESTDIR = test
 # Fichiers sources et objets
 PLAY_SRCS = $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c \
             $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c $(SRCDIR)/hud.c \
-            $(SRCDIR)/objets.c $(SRCDIR)/pnj.c
+            $(SRCDIR)/objets.c $(SRCDIR)/pnj.c $(SRCDIR)/save.c
 PLAY_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(PLAY_SRCS))
 
 #Liste des fichiers de test et de leurs dépendances

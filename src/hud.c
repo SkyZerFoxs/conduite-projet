@@ -494,9 +494,9 @@ static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_
 
     char * statLabel[6] = {
         listeObjets->tab[itemID]->nom,
-        "lvl",
+        "niv",
         "nb",
-        "pv",
+        "vie",
         "atk",
         "def",
     };
@@ -1691,7 +1691,7 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
         // Initalisation Font
         font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 30);
         if (font1 == NULL) {
-            printf("Erreur : Echec TTF_OpenFont(font20) dans Dialogue()");
+            printf("Erreur : Echec TTF_OpenFont(font1) dans Dialogue()");
             return 1;
         }
     }
@@ -1700,7 +1700,7 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
         // Initalisation Font
         font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 36);
         if (font1 == NULL) {
-            printf("Erreur : Echec TTF_OpenFont(font24) dans Dialogue()");
+            printf("Erreur : Echec TTF_OpenFont(font1) dans Dialogue()");
             return 1;
         }
     }
@@ -1721,7 +1721,7 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
 
     /* ------------------ Boucle Principal ------------------ */
 
-    while( quit == SDL_FALSE ) {
+    while( quit == SDL_FALSE && erreur == 0 ) {
         /* --------- Variable Boucle --------- */
         // Lancement timer temps d'execution
         Timer_Start( &fps );
@@ -1791,6 +1791,476 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
     if ( font1 != NULL ) {
         TTF_CloseFont(font1);
     }
+
+    return erreur;
+}
+
+static int Afficher_Fond_Level_UP(SDL_Texture * textFondLvlUP, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
+    // Verification paramètres
+    if (textFondLvlUP == NULL ) {
+       printf("Erreur : La texture n'est pas chargé dans Afficher_Fond_Level_UP()\n");
+       return 1;
+    }
+
+    if ( renderer == NULL ) {
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_Fond_Level_UP()\n");
+       return 1;
+    }
+
+    if ( dstCoef == 0 || xBorder < 0 || yBorder < 0) {
+        printf("Erreur : Le WinInfo Incorrecte dans Afficher_Fond_Level_UP()\n");
+        return 1;
+    }
+
+    // Affichage des tiles de la carte
+    int tileNumber = 0;
+    for (int y = 0; y < 11; y++) {
+        for (int x = 0; x < 20; x++) {
+            SDL_Rect srcrect;
+            srcrect.y = 16 * ( (tileNumber) / 20);
+            srcrect.x = 16 * ( (tileNumber) % 20);
+            srcrect.h = 16;
+            srcrect.w = 16;
+
+            // Rectangle Destination ( Renderer )
+            SDL_Rect dstrect;
+            dstrect.x = ( dstCoef * (16 * x ) ) + xBorder;
+            dstrect.y = ( dstCoef * (16 * y ) ) + yBorder; 
+            dstrect.h = dstCoef * 16;
+            dstrect.w = dstCoef * 16;
+
+            // Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer
+            if ( SDL_RenderCopy(renderer, textFondLvlUP, &srcrect, &dstrect) < 0 ) {
+                printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Fond_Level_UP\n");
+                return 1;
+            }
+            tileNumber++;
+        }
+    }
+
+    return 0;
+}
+
+static int Afficher_Bouton_Level_UP(SDL_Texture ** mat, int selectButton, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+    // Verification paramètres
+    if ( mat == NULL ) {
+       printf("Erreur : La matrice des texture de boutton en paramètre est invalide dans Afficher_Bouton_Level_UP()\n");
+       return 1;
+    }
+
+    if ( mat[0] == NULL || mat[1] == NULL ) {
+        printf("Erreur : La matrice des texture de boutton est invalide dans Afficher_Bouton_Level_UP()\n");
+        return 1;
+    }
+
+    if ( selectButton < 0 || selectButton > 2 ) {
+        printf("Erreur : selectButton invalide dans Afficher_Bouton_Level_UP()\n");
+        return 1;
+    }
+
+    if ( renderer == NULL ) {
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_Bouton_Level_UP()\n");
+       return 1;
+    }
+
+    if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
+        printf("Erreur : WinInfo Incorrecte dans Afficher_Bouton_Level_UP()\n");
+        return 1;
+    }
+
+    int tabTextButtonID[3] = { 0, 0, 0};
+
+    tabTextButtonID[selectButton]++;
+
+    for (int n = 0; n < 3; n++) {
+        SDL_Texture * text = mat[ tabTextButtonID[n] ];
+
+        // Rectangle Destination ( Renderer )
+        SDL_Rect rectDst;
+        rectDst.x = ( dstCoef * 16 * 12 ) + xBorder;
+        rectDst.y = ( dstCoef * 16 * (5 + n) ) + yBorder; 
+        rectDst.h = dstCoef * 16;
+        rectDst.w = dstCoef * 16 * 1;
+
+        // Affichage des bouton
+        if ( SDL_RenderCopy(renderer, text, NULL, &rectDst) < 0 ) {
+            printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Bouton_Level_UP()\n");
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static int Afficher_Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture ** matTextButton, int selectButton, personnage_t * perso, SDL_Rect * view, TTF_Font ** tabFont, SDL_Window *window, SDL_Renderer *renderer) {
+    // Verification paramètre
+    if ( textFondLevelUP == NULL ) {
+        printf("Erreur : textFondLevelUP en parametre invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( perso == NULL ) {
+        printf("Erreur : perso en parametre invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( view == NULL ) {
+        printf("Erreur : view en parametre invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( tabFont == NULL ) {
+        printf("Erreur : tabFont en parametre invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( tabFont[0] == NULL || tabFont[1] == NULL || tabFont[2] == NULL ) {
+        printf("Erreur : Tableau de police d'ecriture invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( window == NULL ) {
+        printf("Erreur : window en parametre invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( renderer == NULL ) {
+        printf("Erreur : renderer en parametre invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( selectButton < 0 || selectButton > 2 ) {
+        printf("Erreur : selectButton invalide dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    // initialisatio variable
+    int win_width,win_height;
+    int dstCoef, xBorder, yBorder;
+    
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
+
+    if ( Afficher_Fond_Level_UP(textFondLevelUP,dstCoef,xBorder,yBorder,renderer) ) {
+        printf("Erreur : Echec Afficher_Fond_Level_UP() dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    if ( Afficher_Bouton_Level_UP(matTextButton,selectButton,renderer,dstCoef,xBorder,yBorder) ) {
+        printf("Erreur : Echec Afficher_Bouton_Level_UP() dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    // Affichage du texte LEVEL UP
+    int x,y,w;
+    
+    SDL_Color orange = { 255, 114, 42, 255 };
+
+    w = dstCoef * 16 * 3;
+    for (int n = 0; n < 2; n++) {
+        char string[150];
+        if ( n == 0 ) {
+            x = ( dstCoef * 16 * 8.8 ) + xBorder;
+            y = ( dstCoef * 16 * 2.2 ) + yBorder;
+            strcpy(string,"Level");
+        }
+        if ( n == 1 ) {
+            x = ( dstCoef * 16 * 9.3 ) + xBorder;
+            y = ( dstCoef * 16 * ( 3.3) ) + yBorder;
+            strcpy(string,"UP");
+        }
+        
+        if ( Afficher_Texte_Zone(renderer, tabFont[n], string, y, x, w, &orange) ) {
+            printf("Erreur : Echec Afficher_Texte_Zone('level up logo') dans Afficher_Lvl_UP()\n");
+            return 1;
+        }
+    }
+
+    // Affichage nombre pts_upgrade
+    
+    SDL_Color marronCLaire = { 51, 32, 24, 255 };
+
+    char string[150];
+    w = dstCoef * 16 * 5;
+    x = ( dstCoef * 16 * 7.5 ) + xBorder;
+    y = ( dstCoef * 16 * ( 4.2) ) + yBorder;
+    sprintf(string,"Points Upgrade : %-3d",perso->pts_upgrade);
+    if ( Afficher_Texte_Zone(renderer, tabFont[2], string, y, x, w, &marronCLaire) ) {
+        printf("Erreur : Echec Afficher_Texte_Zone('pts_upgrade') dans Afficher_Lvl_UP()\n");
+        return 1;
+    }
+
+    // Affichage des stats du personnage
+
+    char * statLabel[3] = {
+        "Points de vie",
+        "Attaque",
+        "Defense"
+    };
+
+    int * statValue[5] = {
+        &(perso->caract->maxPv),
+        &(perso->caract->atk),
+        &(perso->caract->def)
+    }; 
+
+    int upgradeValue[3] = {
+        UPGRADE_MAX_PV,
+        UPGRADE_ATK,
+        UPGRADE_DEF
+    };
+
+    x = ( dstCoef * 16 * 6.1 ) + xBorder;
+    w = dstCoef * 16 * 6;
+    for (int n = 0; n < 3; n++) {
+        y = ( dstCoef * 16 * ( 5.2 + n) ) + yBorder;
+
+        char string[150];
+        sprintf(string,"%-13s: %-4d + %-2d",statLabel[n],*statValue[n],upgradeValue[n]);
+
+        if ( Afficher_Texte_Zone(renderer, tabFont[2], string, y, x, w, &marronCLaire) ) {
+            printf("Erreur : Echec Afficher_Texte_Zone('perso stats & upgrade') dans Afficher_Lvl_UP()\n");
+            return 1;
+        }
+    }
+
+    return 0;
+
+}
+
+extern int Level_UP(SDL_Texture * textFondLevelUP, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+    /* ------------------ Detection Erreur Parametre ------------------ */
+
+    // Vérification de la variable textFondLvlUP
+    if ( textFondLevelUP == NULL ) {
+        printf("Erreur : textFondLvlUP non Initialisé dans Level_UP()\n");
+        return 1;
+    }
+
+    // Vérification de la variable perso
+    if ( perso == NULL ) {
+        printf("Erreur : perso non initialisée dans Level_UP()\n");
+        return 1;
+    }
+
+
+    // Vérification de la variable view
+    if ( view == NULL) {
+        printf("Erreur : view non initialisée dans Level_UP()\n");
+        return 1;
+    }
+
+    // Vérification de la variable window
+    if ( window == NULL) {
+        printf("Erreur : window non initialisée dans Level_UP()\n");
+        return 1;
+    }
+
+    // Vérification de la variable renderer
+    if ( renderer == NULL) {
+        printf("Erreur : renderer non initialisé dans Level_UP()\n");
+        return 1;
+    }
+    
+    /* ------------------ Initialisation variable ------------------ */
+
+    // statut des erreurs
+    int erreur = 0;
+
+     // Nombre De FPS A Afficher
+    int FRAME_PER_SECONDE = 30;
+
+    // Nombre De Ms Par Frame Produite
+    int msPerFrame;
+
+    // Variable Pour Quitter La Boucle Principal
+    int quit = SDL_FALSE;
+
+    // Variable qui detecte si une touche est deja été préssé
+    int keyPressed = 0;
+
+    // Variable SDL_Event Pour Detecter Les Actions
+    SDL_Event event;
+
+    // initialisation des timers
+    SDL_timer_t fps;
+
+    // Select button
+    int selectButton = 0;
+
+    // Variable getWinInfo
+    int win_width;
+    int win_height;
+    int dstCoef;
+    int xBorder;
+    int yBorder;
+
+    /* ------------------ Initialisation resource jeux ------------------ */
+
+    // initialisation des variables
+    TTF_Font * tabFont[3] = { NULL, NULL, NULL };
+    TTF_Font * font1 = NULL;
+    TTF_Font * font2 = NULL;
+    TTF_Font * font3 = NULL;
+    SDL_Texture * matTextButton[2] = { NULL, NULL};
+    char * cheminTextButton[2] = { "asset/hud/lvl_up/boutonOFF.png", "asset/hud/lvl_up/boutonON.png"};
+
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
+
+    // Gestion font 1280 x 720
+    if ( win_width > 1000 && win_width < 1400 ) {
+        // Initalisation Font Logo Big Texte
+        font1  = TTF_OpenFont("asset/font/Minecraft.ttf", 46);
+        if (font1  == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font1) dans Level_UP()\n");
+            return 1;
+        }
+        // Initalisation Font Logo Small Texte
+        font2 = TTF_OpenFont("asset/font/Minecraft.ttf", 50);
+        if (font2  == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font2) dans Level_UP()\n");
+            return 1;
+        }
+        // Initalisation Font Stats Texte
+        font3 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 26);
+        if (font3  == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font3) dans Level_UP()\n");
+            return 1;
+        }
+    }
+    // Gestion font 1600 x 900 || 1920 x 1080
+    else {
+        // Initalisation Font Logo Big Texte
+        font1  = TTF_OpenFont("asset/font/Minecraft.ttf", 64);
+        if (font1  == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font1) dans Level_UP()\n");
+            return 1;
+        }
+        // Initalisation Font Logo Small Texte
+        font2 = TTF_OpenFont("asset/font/Minecraft.ttf", 68);
+        if (font2  == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font2) dans Level_UP()\n");
+            return 1;
+        }
+        // Initalisation Font Stats Texte
+        font3 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 32);
+        if (font3  == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font3) dans Level_UP()\n");
+            return 1;
+        }
+    }
+
+    tabFont[0] = font1;
+    tabFont[1] = font2;
+    tabFont[2] = font3;
+
+    // Chargement texture bouton
+    for (int i = 0; i < 2; i++) {
+        matTextButton[i] = IMG_LoadTexture(renderer,cheminTextButton[i]);
+        if ( matTextButton[i] == NULL ) {
+            printf("Erreur : Echec IMG_Load(matTextButton[%d]) dans Level_UP()",i);
+            return 1;
+        }
+    }
+
+
+    // Debut Des Timers
+
+    /* ------------------ Boucle Principal ------------------ */
+
+    while( quit == SDL_FALSE && erreur == 0) {
+        /* --------- Variable Boucle --------- */
+        // Lancement timer temps d'execution
+        Timer_Start( &fps );
+
+        // Reset keyPressed
+        keyPressed = 0;
+
+        /* ------- Detection Evenement -------*/
+        while (SDL_PollEvent(&event)) {
+            // Switch Event
+            switch (event.type) {
+                // Evenement QUIT
+                case SDL_QUIT:
+                    quit = SDL_TRUE;
+                    erreur = -1;
+                    break;
+                // Evenement Touche Clavier
+                case SDL_KEYDOWN:
+                    if (  !keyPressed ) {
+                        // Gestion Touche Clavier
+                        switch (event.key.keysym.sym) {
+                            case SDLK_UP:
+                                selectButton--;
+                                break;
+                            case SDLK_DOWN:
+                                selectButton++;
+                                break;
+                            case SDLK_RETURN:
+                                if ( perso->pts_upgrade > 0 ) {
+                                    upgrade_perso(perso,selectButton);
+                                    perso->pts_upgrade--;
+                                }
+                                break;
+                            case SDLK_ESCAPE:
+                                quit = SDL_TRUE;
+                                break;
+                            default:
+                                break;
+                        }
+                        if ( selectButton < 0 ) {
+                            selectButton = 0;
+                        }
+                        if ( selectButton > 2 ) {
+                            selectButton = 2;
+                        }
+                    }
+                    break;
+            }
+        }
+        
+
+        /* --------- Gestion Affichage --------- */
+    
+        // Récupération des informations de la fenêtre utile à l'affichage
+        getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
+
+        if ( Afficher_Level_UP(textFondLevelUP,matTextButton,selectButton,perso,view,tabFont,window,renderer) ) {
+            printf("Erreur : Echec Afficher_Level_UP() dans Level_UP()\n");
+            return 1;
+        }
+        
+        // Gestion fps
+        if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
+            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+        }
+
+        // mise à jour du renderer ( update affichage)
+        SDL_RenderPresent(renderer);
+        
+    }        
+
+    // Destruction texture button
+    for (int i = 0; i < 2; i++) {
+        Detruire_Texture( &(matTextButton[i]) );
+        if ( matTextButton[i] != NULL ) {
+            printf("Erreur : Echec Detruire_Texture(matTextButton[%d]) dans Level_UP()\n",i);
+            return 1;
+        }
+    }
+
+    if ( font1 != NULL ) {
+        TTF_CloseFont( font1 );
+    }
+
+    if ( font2 != NULL ) {
+        TTF_CloseFont( font2 );
+    }
+
+    if ( font2 != NULL ) {
+        TTF_CloseFont( font2 );
+    }
+    
 
     return erreur;
 }
