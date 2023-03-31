@@ -3,7 +3,14 @@
 #include <string.h>
 #include <objets.h>
 
-int main(){ 
+/**
+ * \fn main()
+ * \brief Test de toutes les fonctions des objets
+ * \param sans paramètre
+ * \return 0
+*/
+
+void main(){ 
     objet_t ** tab=load_objets("objet.txt");
     afficher_objet(tab);
     detruire_tab_objet(tab);

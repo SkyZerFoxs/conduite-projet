@@ -3,7 +3,14 @@
 #include <string.h>
 #include <monstre.h>
 
-int main(){
+/**
+ * \fn main()
+ * \brief Test de toutes les fonctions des monstres
+ * \param sans paramètre
+ * \return 0
+*/
+
+void main(){
     monstre_t * slime=creer_monstre("slime",1);
     printf("Stats de base\n");
     afficher_monstre(slime);

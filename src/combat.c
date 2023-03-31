@@ -1,9 +1,9 @@
 /**
- *	\file personnage.c
+ *	\file combat.c
  *  \brief fonction pour gérer les combats
  *  \author Raccouard Nathan
  *  \version 1.0
- *  \date 9/02/2023
+ *  \date 10/03/2023
 **/
 
 #include <stdio.h>
@@ -19,12 +19,6 @@
 extern
 void combat_joueur(personnage_t * perso, monstre_t * monstre, char atk){
     monstre->pv=monstre->pv-(perso->caract->atk/(0.3*monstre->def));
-    if(atk=='s'){
-        perso->caract->mana-=50;
-    }
-    else if(atk=='u'){
-        perso->caract->mana-=100;
-    }
 }
 
 extern 

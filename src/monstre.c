@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <monstre.h>
+/**
+ *	\file monstre.c
+ *  \brief fonction pour gérer les monstres
+ *  \author Raccouard Nathan
+ *  \version 1.0
+ *  \date 25/02/2023
+**/
 
 extern
 void afficher_monstre(monstre_t * monstre){ 

@@ -13,8 +13,8 @@
 #include <combat.h>
 #include <monstre.h>
 
-int main(){
-    personnage_t * perso=creer_personnage("jean",1);
+void main(){
+    personnage_t * perso=creer_personnage("jean");
     monstre_t * monstre=creer_monstre("slime",1);
     char atk;
     printf("Combat niveau 1");

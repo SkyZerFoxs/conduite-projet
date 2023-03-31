@@ -3,7 +3,7 @@
  *  \brief fonction pour gérer les objets
  *  \author Raccouard Nathan
  *  \version 1.0
- *  \date 10/02/2023
+ *  \date 25/03/2023
 **/
 
 #include <stdio.h>
@@ -16,16 +16,16 @@ objet_t ** load_objets(char * nom_fich){
     FILE * filename = fopen(nom_fich, "r");
     if (!filename) {
         printf("Erreur d'ouverture du fichier %s\n", nom_fich);
-        return;
     }
     for (int i = 0; i < NB_ITEMS; i++) {
         tab[i] = malloc(sizeof(objet_t));
-        tab[i]->nom = malloc(sizeof(char) * 25);
+        tab[i]->nom = malloc(sizeof(char) *NB_ITEMS);
         tab[i]->stats = malloc(sizeof(caract_t));
         fscanf(filename, "%d:%[^:]:%d:%d:%d:%d:%d:%d:\n",&tab[i]->id, tab[i]->nom, &tab[i]->niv, &tab[i]->stats->pv,&tab[i]->stats->def, &tab[i]->stats->atk, &tab[i]->prix_achat, &tab[i]->prix_vente);
         tab[i]->nb=0;
     }
     fclose(filename);
+    return tab;
 }
 
 

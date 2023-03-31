@@ -7,7 +7,7 @@ INCLUDE=include
 OBJ=obj
 TEST=test
 
-all : test_perso test_objet test_monstre test_combat
+all : test_perso test_objet test_monstre test_combat test_sauvegarde
 
 test_perso : test_perso.o objets.o personnage.o 
 	$(CC) -o $@ $^ $(CFLAGS)
@@ -16,6 +16,9 @@ test_objet : test_objet.o objets.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 test_monstre : test_monstre.o monstre.o
+	$(CC) -o $@ $^ $(CFLAGS)
+
+test_sauvegarde : test_sauvegarde.o personnage.o sauvegarde.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 test_combat : test_combat.o combat.o personnage.o monstre.o 
@@ -33,6 +36,9 @@ test_monstre.o : $(TEST)/test_monstre.c $(INCLUDE)/monstre.h
 test_combat.o : $(TEST)/test_combat.c $(INCLUDE)/combat.h $(INCLUDE)/personnage.h $(INCLUDE)/monstre.h 
 	$(CC) -c $^ $(CFLAGS)
 
+test_sauvegarde.o : $(TEST)/test_sauvegarde.c $(INCLUDE)/personnage.h 
+	$(CC) -c $^ $(CFLAGS)
+
 monstre.o : $(SRC)/monstre.c $(INCLUDE)/monstre.h 
 	$(CC) -c $^ $(CFLAGS)
 
@@ -43,6 +49,9 @@ personnage.o : $(SRC)/personnage.c $(INCLUDE)/personnage.h
 	$(CC) -c $^ $(CFLAGS)
 
 combat.o : $(SRC)/combat.c $(INCLUDE)/combat.h $(INCLUDE)/personnage.h $(INCLUDE)/monstre.h 
+	$(CC) -c $^ $(CFLAGS)
+
+sauvegarde.o : $(SRC)/sauvegarde.c $(INCLUDE)/personnage.h 
 	$(CC) -c $^ $(CFLAGS)
 
 clean:

@@ -12,7 +12,7 @@
 #include <objets.h>
 
 
-int main(){
+void main(){
     printf("Bienvenue dans le jeu\n");
     printf("Création de personnage\n");
     printf("Saisir le nom : ");
@@ -28,7 +28,7 @@ int main(){
     int num_classe;
     printf("Choix : ");
     scanf("%d", &num_classe);
-    personnage_t * p1=creer_personnage(nom_perso,num_classe);
+    personnage_t * p1=creer_personnage(nom_perso);
     afficher_perso(p1);
     int exp_required=100;
     p1->exp=101;
@@ -45,5 +45,4 @@ int main(){
         }
     }
     supprimer_perso(&p1);
-    return (0);
 }
