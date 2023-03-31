@@ -196,7 +196,7 @@ void Detruire_Button(SDL_Rect *dstrect){
 }
 
 /*--------------------------------------Fonction qui permet d'afficher du texte--------------------------------------*/
-SDL_Rect * Affichage_texte_Commande(char * texte, int width, int height, SDL_Renderer *renderer, int y, int x, int taille){
+SDL_Rect * Affichage_texte_Commande(char * texte, int width, int height, SDL_Renderer *renderer, int y, int x, float taille){
 	// Déclaration et initialisation des variables
 	TTF_Font* police = NULL;
 	SDL_Color blanche = {255, 255, 255, 255};
@@ -276,17 +276,18 @@ int echap(SDL_Window *window, SDL_Renderer *renderer){
 	SDL_Texture *texture = NULL;
 	int WINDOWS_WIDTH, WINDOWS_HEIGHT;
 	getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
+	int BPretour=0,BPoptions=0,BPquitter=0;
 	while(Isrunning){
 		//affichage de l'image de fond
 		Afficher_IMG("asset/flou.png",renderer, &texture, NULL, NULL);
 		Affichage_texte_Commande("Game Paused",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,0,0,100);
-
+		SDL_Rect * Retour,* Options,* Quitter;
 		//affichage du bouton quitter
-		SDL_Rect * Retour=Fonction_Button("asset/menu/Bouton/retour.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,150,-160);
+		Retour=Fonction_Button("asset/menu/Bouton/retour.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,150,-160);
 		//affichage du bouton retour
-		SDL_Rect * Options=Fonction_Button("asset/menu/Bouton/options.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,300,-160);
+		Options=Fonction_Button("asset/menu/Bouton/options.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,300,-160);
 		//affichage du bouton options
-		SDL_Rect * Quitter=Fonction_Button("asset/menu/Bouton/quitter.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,450,-160);
+		Quitter=Fonction_Button("asset/menu/Bouton/quitter.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,450,-160);
 		SDL_PollEvent(&event);
 		switch(event.type){
 			case SDL_QUIT:
@@ -294,18 +295,40 @@ int echap(SDL_Window *window, SDL_Renderer *renderer){
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT) {
-					if(event.button.x > Quitter->x && event.button.x < Quitter->x + Quitter->w && event.button.y > Quitter->y && event.button.y < Quitter->y + Quitter->h){
+					if(event.button.x > Quitter->x && event.button.x < Quitter->x + Quitter->w && event.button.y > Quitter->y && event.button.y < Quitter->y + Quitter->h && BPquitter==0){
+						BPquitter=1;
 						return Isrunning;
 						break;
 					}
 				
+					if(event.button.x > Retour->x && event.button.x < Retour->x + Retour->w && event.button.y > Retour->y && event.button.y < Retour->y + Retour->h && BPretour==0){
+						BPretour=1;
+						break;
+					}
+					if(event.button.x > Options->x && event.button.x < Options->x + Options->w && event.button.y > Options->y && event.button.y < Options->y + Options->h && BPoptions==0){
+						BPoptions=1;
+						break;
+					}
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				if(event.button.button == SDL_BUTTON_LEFT){
+					if(event.button.x > Quitter->x && event.button.x < Quitter->x + Quitter->w && event.button.y > Quitter->y && event.button.y < Quitter->y + Quitter->h && BPquitter==1){
+						BPquitter=0;
+						Detruire_Button(Quitter);
+						Detruire_Button(Retour);
+						Detruire_Button(Options);
+						//Detruire_Texture(texture);
+						return Isrunning;
+						break;
+					}
 					if(event.button.x > Retour->x && event.button.x < Retour->x + Retour->w && event.button.y > Retour->y && event.button.y < Retour->y + Retour->h){
+						BPretour=0;
 						Isrunning=0;
 						break;
 					}
 					if(event.button.x > Options->x && event.button.x < Options->x + Options->w && event.button.y > Options->y && event.button.y < Options->y + Options->h){
 						Isrunning=option(window,renderer);
-						
 						break;
 					}
 				}
@@ -323,7 +346,7 @@ int echap(SDL_Window *window, SDL_Renderer *renderer){
 			Detruire_Button(Retour);
 			Detruire_Button(Options);
 			printf("Fermeture de la fenetre\n");
-			Detruire_Texture(texture);
+			//Detruire_Texture(texture);
             Isrunning = 0;
 			return(Isrunning);
 			break;
@@ -332,10 +355,10 @@ int echap(SDL_Window *window, SDL_Renderer *renderer){
 		Detruire_Button(Quitter);
 		Detruire_Button(Retour);
 		Detruire_Button(Options);
+		//Detruire_Texture(texture);
 		SDL_RenderPresent(renderer);
 		
 	}
-	Detruire_Texture(texture);
 	return (1);
 }
 /*--------------------------------------Fonction quand on appuis sur le bouton commande--------------------------------------*/
@@ -353,16 +376,16 @@ int commande(SDL_Window *window,SDL_Renderer *renderer){
 		/*--------------------------------------Affichage du texte/commande--------------------------------------*/
 		Afficher_IMG("asset/menu/menu.png",renderer, &texture, NULL, NULL);
 		SDL_Rect * Avancer, * Reculer, * Gauche, * Droite, * Interagir, * AttaqueB, * AttaqueS, * AttaqueU, * Inventaire, * Pause, * BtRetour;
-		Avancer=Affichage_texte_Commande("Avancer   =   Z",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(100/1600),0,WINDOWS_WIDTH/32);
-		Reculer=Affichage_texte_Commande("Reculer   =   S",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(175/1600),0,WINDOWS_WIDTH/32);
-		Gauche=Affichage_texte_Commande("Gauche   =   Q",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(250/1600),0,WINDOWS_WIDTH/32);
-		Droite=Affichage_texte_Commande("Droite   =   D",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(325/1600),0,WINDOWS_WIDTH/32);
-		Interagir=Affichage_texte_Commande("Interagir   =   F",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(400/1600),0,WINDOWS_WIDTH/32);
-		AttaqueB=Affichage_texte_Commande("Attaque de base   =   A",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(475/1600),0,WINDOWS_WIDTH/32);
-		AttaqueS=Affichage_texte_Commande("Attaque Special   =   B",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(550/1600),0,WINDOWS_WIDTH/32);
-		AttaqueU=Affichage_texte_Commande("Attaque Ultime   =   C",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(625/1600),0,WINDOWS_WIDTH/32);
-		Inventaire=Affichage_texte_Commande("Inventaire   =   E",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*(700/1600),0,WINDOWS_WIDTH/32);
-		Pause=Affichage_texte_Commande("Pause   =   Echap",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,775,0,WINDOWS_WIDTH/32);
+		Avancer=Affichage_texte_Commande("Avancer   =   Z",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*100/1600,0,WINDOWS_WIDTH/32);
+		Reculer=Affichage_texte_Commande("Reculer   =   S",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*175/1600,0,WINDOWS_WIDTH/32);
+		Gauche=Affichage_texte_Commande("Gauche   =   Q",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*250/1600,0,WINDOWS_WIDTH/32);
+		Droite=Affichage_texte_Commande("Droite   =   D",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*325/1600,0,WINDOWS_WIDTH/32);
+		Interagir=Affichage_texte_Commande("Interagir   =   F",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*400/1600,0,WINDOWS_WIDTH/32);
+		AttaqueB=Affichage_texte_Commande("Attaque de base   =   A",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*475/1600,0,WINDOWS_WIDTH/32);
+		AttaqueS=Affichage_texte_Commande("Attaque Special   =   B",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*550/1600,0,WINDOWS_WIDTH/32);
+		AttaqueU=Affichage_texte_Commande("Attaque Ultime   =   C",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*625/1600,0,WINDOWS_WIDTH/32);
+		Inventaire=Affichage_texte_Commande("Inventaire   =   E",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*700/1600,0,WINDOWS_WIDTH/32);
+		Pause=Affichage_texte_Commande("Pause   =   Echap",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*775/1600,0,WINDOWS_WIDTH/32);
 		
 		if(BPretour==0){
 			BtRetour=Fonction_Button("asset/menu/Bouton/retour.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,-150,-800);
@@ -412,7 +435,7 @@ int commande(SDL_Window *window,SDL_Renderer *renderer){
 			Detruire_texte(AttaqueU);
 			Detruire_texte(Inventaire);
 			Detruire_texte(Pause);
-			Detruire_Texture(texture);
+			//Detruire_Texture(texture);
             Isrunning = 0;
 			return(Isrunning);
 			break;
@@ -428,11 +451,10 @@ int commande(SDL_Window *window,SDL_Renderer *renderer){
 		Detruire_texte(AttaqueU);
 		Detruire_texte(Inventaire);
 		Detruire_texte(Pause);
-
+		//Detruire_Texture(texture);
 		SDL_RenderPresent(renderer);
 		
 	}
-	Detruire_Texture(texture);
 	return (1);
 }
 
@@ -446,9 +468,7 @@ int jouer(SDL_Window *window,SDL_Renderer *renderer){
 	int BNpress=0,BCpress=0,BRpress=0;
 	getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
 	while(Isrunning){
-		SDL_Rect * BtNew=NULL;
-		SDL_Rect * BtCon=NULL;
-		SDL_Rect * BtRetour=NULL;
+		SDL_Rect * BtNew,*BtCon,*BtRetour;
 		SDL_RenderClear(renderer);
 		//affichage de l'image de fond
 		Afficher_IMG("asset/menu/menu.png",renderer, &texture, NULL, NULL);
@@ -525,7 +545,7 @@ int jouer(SDL_Window *window,SDL_Renderer *renderer){
 			Detruire_Button(BtNew);
 			Detruire_Button(BtCon);
 			Detruire_Button(BtRetour);
-			Detruire_Texture(texture);
+			//Detruire_Texture(texture);
 			printf("Fermeture de la fenetre\n");
             Isrunning = 0;
 			return(Isrunning);
@@ -534,10 +554,11 @@ int jouer(SDL_Window *window,SDL_Renderer *renderer){
 		
 		Detruire_Button(BtCon);
 		Detruire_Button(BtRetour);
+		Detruire_Button(BtNew);
+		//Detruire_Texture(texture);
 		SDL_RenderPresent(renderer);
 		
 	}
-	Detruire_Texture(texture);
 	return (1);
 }
 
@@ -552,12 +573,7 @@ int option(SDL_Window * window,SDL_Renderer *renderer){
 	getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
 	while(Isrunning){
 		SDL_RenderClear(renderer);
-		SDL_Rect *BtRetour=NULL;
-		SDL_Rect *Bt1600=NULL;
-		SDL_Rect *Bt1920=NULL;
-		SDL_Rect *Bt1280=NULL;
-		SDL_Rect *btFullScreen=NULL;
-		SDL_Rect *Commande=NULL;
+		SDL_Rect *BtRetour, *Bt1600, *Bt1920, *Bt1280, *btFullScreen, *Commande;
 		/*--------------gestion des boutons----------------*/
 		Afficher_IMG("asset/menu/menu.png",renderer, &texture, NULL, NULL);
 		if(BPretour==0){
@@ -684,7 +700,9 @@ int option(SDL_Window * window,SDL_Renderer *renderer){
 						Detruire_Button(Bt1600);
 						Detruire_Button(Bt1920);
 						Detruire_Button(Bt1280);
+						Detruire_Button(Commande);
 						Detruire_Button(btFullScreen);
+						//Detruire_Texture(texture);
 						Isrunning = 0;
 						return(1);
 						break;
@@ -699,8 +717,9 @@ int option(SDL_Window * window,SDL_Renderer *renderer){
 			Detruire_Button(Bt1600);
 			Detruire_Button(Bt1920);
 			Detruire_Button(Bt1280);
+			Detruire_Button(Commande);
 			Detruire_Button(btFullScreen);
-			Detruire_Texture(texture);
+			//Detruire_Texture(texture);
 			printf("Fermeture de la fenetre\n");
 			Isrunning=0;
 			return(Isrunning);
@@ -710,12 +729,13 @@ int option(SDL_Window * window,SDL_Renderer *renderer){
 		Detruire_Button(Bt1600);
 		Detruire_Button(Bt1920);
 		Detruire_Button(Bt1280);
+		Detruire_Button(Commande);
 		Detruire_Button(btFullScreen);
+		//Detruire_Texture(texture);
 
 		SDL_RenderPresent(renderer);
 			
 	}
-	Detruire_Texture(texture);
 	return(1);
 }
 
@@ -727,12 +747,13 @@ int menu(SDL_Window *window,SDL_Renderer *renderer){
 	int WINDOWS_WIDTH, WINDOWS_HEIGHT;
 	getWinInfo(window,&WINDOWS_WIDTH,&WINDOWS_HEIGHT,0,NULL,NULL,NULL,NULL);
 	int BPjouer=0,BPoptions=0,BPquit=0;
+	float taille=1600/150;
 	SDL_Texture *texture = NULL;
 	while(Isrunning) {
 		 /* Affichage de l'image de fond */
         Afficher_IMG("asset/menu/menu.png",renderer, &texture, NULL, NULL);
 		//Affichage du nom du jeu
-		SDL_Rect * Titre=Affichage_texte_Commande("Slime Hunter", WINDOWS_WIDTH, WINDOWS_HEIGHT,renderer,50,-100,150);
+		Affichage_texte_Commande("Slime Hunter", WINDOWS_WIDTH, WINDOWS_HEIGHT,renderer,WINDOWS_WIDTH*50/1600,-100,WINDOWS_WIDTH/taille) ;
         SDL_Rect * Btjouer,*BtOptions,*BtQuit;
 		if(BPjouer==0){
 			Btjouer=Fonction_Button("asset/menu/Bouton/jouer.png",WINDOWS_WIDTH,WINDOWS_HEIGHT,renderer,50,-160);
@@ -820,8 +841,7 @@ int menu(SDL_Window *window,SDL_Renderer *renderer){
 			Detruire_Button(Btjouer);
 			Detruire_Button(BtOptions);
 			Detruire_Button(BtQuit);
-			Detruire_texte(Titre);
-			Detruire_Texture(texture);
+			//Detruire_Texture(texture);
 			printf("Fermeture de la fenetre\n");
             break;
 			Isrunning=0;
@@ -832,14 +852,12 @@ int menu(SDL_Window *window,SDL_Renderer *renderer){
 		SDL_RenderPresent(renderer);
 		// destruction en mémoire des boutons
 		Detruire_Button(Btjouer);
+		//Detruire_Texture(texture);
 		Detruire_Button(BtOptions);
 		Detruire_Button(BtQuit);
-		Detruire_texte(Titre);
+		
     }
-
-	// destruction en mémoire de la texture préciser
-	Detruire_Texture(texture);
-    
+    //Detruire_Texture(texture);
 	return(0);
 }
 
