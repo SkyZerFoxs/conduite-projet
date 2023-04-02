@@ -905,8 +905,9 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
                     // si monstre en 2 x 1 on relie les autres sprite du monstre au monstre crée
                     sprite_t * sprite2 = spriteMap[0][y+1][x];
                     if (sprite2 != NULL && sprite2->pnj == NULL && sprite2->monstre == NULL  )
-                    { 
-                        sprite2->monstre = sprite->monstre; 
+                    {   
+                        sprite->monstre->monstreSize = 2;
+                        sprite2->monstre = sprite->monstre;
                     }   
                 }
             }
@@ -1091,5 +1092,52 @@ extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_
 
     // Aucun ennemi trouvé
     *pnj = NULL;
+    return 0;
+}
+
+extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX ) {
+    if ( liste == NULL ) {
+        printf("Erreur : liste en parametre invalide dans Respawn_Monstre()\n");
+        return 1;
+    }
+
+    if ( map == NULL ) {
+        printf("Erreur : map en parametre invalide dans Respawn_Monstre()\n");
+        return 1;
+    }
+
+    if ( posJoueurY < 0 || posJoueurY >= map->height || posJoueurX < 0 || posJoueurX >= map->width ) {
+        printf("Erreur : position joueur en parametre invalide dans Respawn_Monstre()\n");
+        return 1;
+    }
+
+    if ( liste->nbElem <= 0 ) {
+        printf("Erreur : nbElem liste invalide dans Respawn_Monstre()\n");
+        return 1;
+    }
+
+    if ( liste->tabMonstres == NULL ) {
+        printf("Erreur : tabMonstres invalide dans Respawn_Monstre()\n");
+        return 1;
+    }
+
+    for (int i = 0; i < liste->nbElem; i++) {
+        if ( liste->tabMonstres[i] != NULL ) {
+            monstre_t * monstre = liste->tabMonstres[i];
+            if ( monstre->caract->maxPv > monstre->caract->pv ) {
+                if ( monstre->pos_x == posJoueurX && ( monstre->pos_y == posJoueurY || monstre->pos_y == posJoueurY-1 ) ) {
+                    // Ne rien faire
+                }
+                else {
+                    monstre->caract->pv = monstre->caract->maxPv;
+                }
+            }
+        }
+        else {
+            printf("Erreur : tabMonstres[%d] invalide dans Respawn_Monstre()\n",i);
+            return 1;
+        }
+    }
+
     return 0;
 }

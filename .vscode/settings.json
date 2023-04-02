@@ -22,6 +22,7 @@
         "typeinfo": "c",
         "sdl_ttf.h": "c",
         "sprite.h": "c",
-        "save.h": "c"
+        "save.h": "c",
+        "quete.h": "c"
     }
 }

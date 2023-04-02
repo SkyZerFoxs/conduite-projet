@@ -97,16 +97,7 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
 extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, sprite_type_liste_t * listeType, SDL_Renderer *renderer ) ;
 extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) ;
 
-/* ------------------ Afficher TileMap & SpriteMap ------------------ */
-extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) ;
-
-extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
-
-/* ------------------ Affichage Complet ------------------ */
-extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) ;
-
-extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) ;
-
+extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) ;
 /* ------------------ Gestion Des Frames Des Sprites ------------------ */
 extern void AddFrame(sprite_t **** spriteMap, int frameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) ;
 
@@ -125,5 +116,7 @@ extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
 
 /* ------------------ Affichage Texte ------------------ */
 extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor) ;
+
+extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color) ;
 
 #endif 

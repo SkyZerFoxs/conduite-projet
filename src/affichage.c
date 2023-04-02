@@ -404,7 +404,7 @@ extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
  * \param yBorder Bordure en haut dans la fenêtre
  * \return 0 success || 1 fail
  */
-extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) {
+static int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) {
 
 
     // Verification paramètres
@@ -512,7 +512,7 @@ extern int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
  * \param yBorder Bordure en haut dans la fenêtre.
  * \return 0 success || 1 fail
  */
-extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+static int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
     if ( SpriteTextureListe == NULL ) {
        printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_spriteMap[layer = %d]()\n",layer);
@@ -646,7 +646,7 @@ extern int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
     return 0;
 }
 
-extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+static int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     if ( spriteMap[0] == NULL ) {
        printf("Erreur : La spriteMap[layer] n'est pas chargé dans Afficher_Stats_Monstre()\n");
        return 1;
@@ -749,6 +749,62 @@ extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
     return 0;
 }
 
+static int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+    // Rect Destination ( renderer )
+    SDL_Rect dest;
+    dest.h = dstCoef * 16 * 11;
+    dest.w = dstCoef * 16 * 20;
+    dest.x = xBorder;
+    dest.y = yBorder;
+
+    // Affichage HUD Skill Bar
+    SDL_RenderCopy(renderer, textSkillBar[0], NULL, &dest);
+
+    // AFfichage Locked Skill
+    for (int i = 0; i < 3; i++) {
+        if ( tabSkill[i] == 1 ) {
+            SDL_RenderCopy(renderer, textSkillBar[i+1], NULL, &dest);
+        }
+    }
+
+    // Afichage pv & maxPV
+    char string[256];
+    SDL_Color blanc = {253, 56, 56, 255};
+
+    caract_t caractSortie = { 0, 0, 0, 0 };
+    calculer_stats_perso(perso,&caractSortie);
+    int pv = perso->caract->pv , maxPv = caractSortie.maxPv;
+    
+    if ( pv / 1000 > 0 || maxPv / 1000 > 0 ) {
+        sprintf(string,"%-4d",pv);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.17, dstCoef * 16 * 7.24, dstCoef * 16 * 2, &blanc);
+
+        int yLine = dstCoef * 16 * 10.6;
+        int xLine = dstCoef * 16 * 7.20;
+        int hLine = 0;
+        int wLine = dstCoef * 16 * 0.88;
+        drawLine(renderer,yLine,xLine,yLine+hLine,xLine+wLine, 3, blanc);
+
+        sprintf(string,"%-4d",maxPv);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.55, dstCoef * 16 * 7.24, dstCoef * 16 * 2, &blanc);
+    }
+    else {
+        sprintf(string," %03d",pv);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.17, dstCoef * 16 * 7.16, dstCoef * 16 * 2, &blanc);
+
+        int yLine = dstCoef * 16 * 10.6;
+        int xLine = dstCoef * 16 * 7.25;
+        int hLine = 0;
+        int wLine = dstCoef * 16 * 0.78;
+        drawLine(renderer,yLine,xLine,yLine+hLine,xLine+wLine, 3, blanc);
+
+        sprintf(string," %03d",maxPv);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.55, dstCoef * 16 * 7.16, dstCoef * 16 * 2, &blanc);
+    }
+
+    return 0;
+}
+
 /**
  * \fn void Affichage_All(char * tileSet, map_t * map, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view)
  * \brief Fonction externe qui affiche tout les ellements graphiques
@@ -762,42 +818,54 @@ extern int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
  * \return 0 success || 1 fail
  */
-extern int Affichage_All(SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) {   // Initialisation des variables
+extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) {   // Initialisation des variables
+    if ( perso == NULL ) {
+        printf("Erreur : perso en parametre invalide dans Affichage_All().\n");
+        return 1;
+    }
+
     int win_width,win_height;
     int dstCoef, xBorder, yBorder;
     
     // Récupération des informations de la fenêtre utile à l'affichage
     getWinInfo(window, &win_width, &win_height, map->tileSize, view, &dstCoef, &xBorder, &yBorder);
 
-    // Affciher la Map
+    // Afficher la Map
     if ( Afficher_TileMap(texture, map, 0, LAST_TILEMAP_LAYER, view, renderer,dstCoef, xBorder, yBorder ) ) {
-        printf("Errur: Afficher_map() à echoué dans Affichage_All().\n");
+        printf("Erreur: Afficher_map() à echoué dans Affichage_All().\n");
         return 1;
     }
     
-    // Affciher la Map
+    // Afficher la Map
     if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 0 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
-        printf("Errur: Afficher_SpriteMap() à echoué dans Affichage_All().\n");
+        printf("Erreur : Afficher_SpriteMap() à echoué dans Affichage_All().\n");
         return 1;
     }
 
-    // Affciher la Map
+    // Afficher la Map
     if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 1 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
-        printf("Errur: Afficher_SpriteMap() à echoué dans Affichage_All().\n");
+        printf("Erreur : Afficher_SpriteMap() à echoué dans Affichage_All().\n");
         return 1;
     }
 
-    // Affciher Les Zone Qui Sont Par Dessus le Joueur
+    // Afficher Les Zone Qui Sont Par Dessus le Joueur
     if ( Afficher_TileMap(texture, map, LAST_TILEMAP_LAYER, LAST_TILEMAP_LAYER+1, view, renderer,dstCoef, xBorder, yBorder ) ) {
-        printf("Errur: Afficher_map() à echoué dans Affichage_All().\n");
+        printf("Erreur : Afficher_map() à echoué dans Affichage_All().\n");
         return 1;
     }
 
+    // Afficher les stats des monstres
     if ( Afficher_Stats_Monstre(spriteMap ,map, view, font, renderer, dstCoef, xBorder, yBorder) ) {
-        printf("Errur: Afficher_Stats_Monstre() à echoué dans Affichage_All().\n");
+        printf("Erreur : Afficher_Stats_Monstre() à echoué dans Affichage_All().\n");
         return 1;
     }
-    
+
+    // Afficher la skill bar
+    if ( Afficher_Skill_Bar(perso, tabSkill, textSkillBar, font, renderer, dstCoef, xBorder, yBorder) ) {
+        printf("Erreur : Afficher_Skill_Bar() à echoué dans Affichage_All().\n");
+        return 1;
+    }
+
     return 0;
 }
 
@@ -1340,4 +1408,37 @@ extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const cha
     SDL_FreeSurface(textSurface);
 
     return 0;
+}
+
+extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color) {
+    // Calculate the slope and direction of the line
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = x1 < x2 ? 1 : -1;
+    int sy = y1 < y2 ? 1 : -1;
+    int err = dx - dy;
+
+    // Create a texture with the desired color and thickness
+    SDL_Surface *lineSurface = SDL_CreateRGBSurface(0, thickness, thickness, 32, 0, 0, 0, 0);
+    SDL_FillRect(lineSurface, NULL, SDL_MapRGB(lineSurface->format, color.r, color.g, color.b));
+    SDL_Texture *lineTexture = SDL_CreateTextureFromSurface(renderer, lineSurface);
+
+    // Draw the line by rendering small squares along its path
+    while (x1 != x2 || y1 != y2) {
+        SDL_Rect rect = {x1 - thickness/2, y1 - thickness/2, thickness, thickness};
+        SDL_RenderCopy(renderer, lineTexture, NULL, &rect);
+        int e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
+        }
+    }
+
+    // Free the texture and surface
+    SDL_DestroyTexture(lineTexture);
+    SDL_FreeSurface(lineSurface);
 }

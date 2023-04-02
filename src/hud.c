@@ -2027,12 +2027,18 @@ static int Afficher_Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture ** matTe
 
 }
 
-extern int Level_UP(SDL_Texture * textFondLevelUP, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_texture, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
     /* ------------------ Detection Erreur Parametre ------------------ */
 
     // Vérification de la variable textFondLvlUP
     if ( textFondLevelUP == NULL ) {
         printf("Erreur : textFondLvlUP non Initialisé dans Level_UP()\n");
+        return 1;
+    }
+
+    // Vérification de la variable background_texture
+    if ( background_texture == NULL ) {
+        printf("Erreur : background_texture non Initialisé dans Level_UP()\n");
         return 1;
     }
 
@@ -2225,6 +2231,9 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, personnage_t * perso, SDL_Rec
         // Récupération des informations de la fenêtre utile à l'affichage
         getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
 
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer,background_texture,NULL,NULL);
+
         if ( Afficher_Level_UP(textFondLevelUP,matTextButton,selectButton,perso,view,tabFont,window,renderer) ) {
             printf("Erreur : Echec Afficher_Level_UP() dans Level_UP()\n");
             return 1;
@@ -2257,8 +2266,8 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, personnage_t * perso, SDL_Rec
         TTF_CloseFont( font2 );
     }
 
-    if ( font2 != NULL ) {
-        TTF_CloseFont( font2 );
+    if ( font3 != NULL ) {
+        TTF_CloseFont( font3 );
     }
     
 

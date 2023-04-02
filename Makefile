@@ -1,7 +1,7 @@
 # Compilateur et options de compilation
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -std=c99 -I$(INCLUDEDIR) -g
-LDFLAGS = $(shell ./tools/sdl2-config --libs) -lSDL2 -lSDL2_image -lSDL2_ttf
+CFLAGS = -Wall -Wextra -pedantic -I$(INCLUDEDIR) -g
+LDFLAGS = $(shell ./tools/sdl2-config --cflags --libs) -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # Dossiers du projet
 SRCDIR = src
@@ -13,7 +13,7 @@ TESTDIR = test
 # Fichiers sources et objets
 PLAY_SRCS = $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c \
             $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c $(SRCDIR)/hud.c \
-            $(SRCDIR)/objets.c $(SRCDIR)/pnj.c $(SRCDIR)/save.c
+            $(SRCDIR)/objets.c $(SRCDIR)/pnj.c $(SRCDIR)/save.c $(SRCDIR)/quete.c
 PLAY_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(PLAY_SRCS))
 
 #Liste des fichiers de test et de leurs dépendances

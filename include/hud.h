@@ -76,7 +76,7 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * L
 /* ------------------ Gestion HUD Level UP ------------------ */
 
 // Fonction Boucle Dialogue
-extern int Level_UP(SDL_Texture * textFondLevelUP, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
+extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_texture, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
 
 #endif
 

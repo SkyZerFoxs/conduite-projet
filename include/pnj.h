@@ -11,6 +11,7 @@
  */
 
 #include <string.h>
+#include <quete.h>
 
 typedef struct type_pnj_s {
     char * nom;
@@ -29,7 +30,7 @@ typedef struct pnj_s{
     int pnjTypeID;
 
     // Quete ( si quete ratachee a ce pnj )
-    //quete_t
+    quete_t * quete;
 
     // position haut gauche du pnj dans la matrice
     int pos_y;

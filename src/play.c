@@ -42,8 +42,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
     // initialisation CameraJoueur du joueur
     SDL_Rect CameraJoueur;
-    CameraJoueur.x = 21;
-    CameraJoueur.y = 34;
+    CameraJoueur.x = 24;
+    CameraJoueur.y = 115;
     CameraJoueur.w = 20;
     CameraJoueur.h = 11;
 
@@ -56,6 +56,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_timer_t DeplacementCooldown;
     SDL_timer_t SpeCooldown;
     SDL_timer_t UltCooldown;
+    SDL_timer_t timerRespawnMonstre;
 
     // Variable qui correspond au sprite detecté
     sprite_t * detectedMonstre;
@@ -102,6 +103,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     int degatMonstre = 0;
     int frameDegatMonstre = 0;
 
+    // Variable coordonées detected monstre 
+    int yMonstre, xMonstre;
+
     // Variable getWinInfo
     int win_width;
     int win_height;
@@ -116,10 +120,20 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     int sortieLevlUP = 0;
 
     // Variables des temps de cooldowns
+    int MsCooldownFrame1 = 600;
+    int MsCooldownFrame2 = 200;
+    int MsCooldownIdleAnimation = 150;
     int MsAtkCooldown = 1000;
     int MsSpeCooldown = 1000;
     int MsUltCooldown = 1000;
     int MsDeplacementCooldown = 160;
+    int MsRespawnMonsterCooldown = 60000;
+
+    // Tableau Skill Unblocked
+    int tabUnlockedSkill[3] = { 1, 1, 1};
+
+    // Tableau Locked Skill
+    int tabSkill[3] = { 1, 1, 1 };
 
     /* ------------------ Initialisation resource jeux ------------------ */
 
@@ -142,10 +156,17 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_Surface * surface = NULL;
     SDL_Texture * background_texture = NULL;
     SDL_Texture * textFondLevelUP = NULL;
+    char * cheminSkillBar[4] = {
+        "asset/hud/skillBar/skillBar.png",
+        "asset/hud/skillBar/lockedNormale.png",
+        "asset/hud/skillBar/lockedSpeciale.png",
+        "asset/hud/skillBar/lockedUltime.png"
+    };
+    SDL_Texture * textSkillBar[4] = { NULL, NULL, NULL, NULL };
     
 
     // initialisation de la map continent
-    continent = Initialiser_Map( "asset/map/map.txt");
+    continent = Initialiser_Map( "asset/map/map_finale.txt");
     if ( continent == NULL ) {
         printf("Erreur : Echec Initialiser_Map() dans play()\n");
         erreur = 1;
@@ -284,6 +305,15 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         erreur = 1;
     }
 
+    // chargement texture skill bar
+    for (int i = 0; i < 4; i++ ) {
+        textSkillBar[i] =  IMG_LoadTexture(renderer,cheminSkillBar[i]);
+        if ( textSkillBar[i] == NULL ) {
+            printf("Erreur : Echec IMG_LoadTexture(textSkillBar[%d]) dans play()\n",i);
+            erreur = 1;
+        }
+    }
+
 
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
@@ -298,7 +328,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SpeCooldown.start -= (MsSpeCooldown + 1);
     Timer_Start( &UltCooldown );
     UltCooldown.start -= (MsUltCooldown + 1);
-
+    Timer_Start( &timerRespawnMonstre );
+    timerRespawnMonstre.start -= 5001;
+    
 
     /* ------------------ Zone teste ( A supprimer ) ------------------ */
 
@@ -377,7 +409,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 break;
                             case SDLK_a:
                                 // temps dans le jeux final pour l'atk spéciale surement 15 seconde
-                                if ( (int)Timer_Get_Time(&SpeCooldown) > MsSpeCooldown ) {
+                                if ( tabSkill[1] == 0 ) {
                                     if ( Special_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                         printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
                                         erreur = 1;
@@ -386,12 +418,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                     aKeyClicked = 1;
                                     // Gestion cooldown
                                     Timer_Start( &SpeCooldown );
+                                    tabSkill[1] = 1;
                                     break;  
                                 }
                                 break;
                             case SDLK_r:
                                 // temps dans le jeux final pour l'atk ultime surement 60 seconde
-                                if ( (int)Timer_Get_Time(&UltCooldown) > MsUltCooldown ) {
+                                if ( tabSkill[2] == 0 ) {
                                     if ( Ultime_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                         printf("Erreur : Echec Ultime_PersoSprite() dans play()\n");
                                         erreur = 1;
@@ -400,6 +433,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                     rKeyClicked = 1;
                                     // Gestion cooldown
                                     Timer_Start( &UltCooldown );
+                                    tabSkill[2] = 1;
                                     break;  
                                 }
                                 break;
@@ -414,6 +448,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                     sortieDiag = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj, listeTypePnj, &CameraJoueur, window, renderer);
                                     if ( sortieDiag == -1 ) {
                                         quit = SDL_TRUE;
+                                        goto detruire;
                                     }
                                     else if ( sortieDiag == 1 ) {
                                         printf("Erreur : Echec Dialogue() dans play()\n");
@@ -429,18 +464,18 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 // Recuperation background_texture
                                 surface = SDL_CreateRGBSurface(0, win_width, win_height, 32, 0, 0, 0, 0);
                                 if ( surface == NULL ) {
-                                    printf("Erreur : Echec SDL_CreateRGBSurface() dans Play()\n");
+                                    printf("Erreur : Echec SDL_CreateRGBSurface(Inventaire) dans Play()\n");
                                     erreur = 1;
                                     goto detruire;
                                 }
                                 if ( SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch) < 0) {
-                                    printf("Erreur : Echec SDL_RenderReadPixels() dans Play()\n");
+                                    printf("Erreur : Echec SDL_RenderReadPixels(Inventaire) dans Play()\n");
                                     erreur = 1;
                                     goto detruire;
                                 }
                                 background_texture = SDL_CreateTextureFromSurface(renderer, surface);
                                 if ( background_texture == NULL ) {
-                                    printf("Erreur : Echec SDL_CreateTextureFromSurface() dans Play()\n");
+                                    printf("Erreur : Echec SDL_CreateTextureFromSurface(Inventaire) dans Play()\n");
                                     erreur = 1;
                                     goto detruire;
                                 }
@@ -454,6 +489,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 sortieInv = Inventaire(inventaire, listeObjets, perso, SpriteTextureListe, ListeTypeSprite, listePersoSprite, &CameraJoueur, window, background_texture, renderer);
                                 if ( sortieInv == -1 ) {
                                     quit = SDL_TRUE;
+                                    goto detruire;
                                 }
                                 else if ( sortieInv == 1 ) {
                                     printf("Erreur : Echec inventaire() dans play()\n");
@@ -491,7 +527,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 case SDL_MOUSEBUTTONDOWN:
                     if (event.button.button == SDL_BUTTON_LEFT ) {
                         // temps dans le jeux final pour l'atk normale surement 1 seconde
-                        if ( (int)Timer_Get_Time(&AtkCooldown) > MsAtkCooldown && !aKeyClicked && !rKeyClicked ) {
+                        if ( tabSkill[0] == 0 && !aKeyClicked && !rKeyClicked ) {
                             if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                 printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
                                 erreur = 1;
@@ -500,6 +536,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                             mouseClicked = 1;
                             // Gestion cooldown
                             Timer_Start( &AtkCooldown );
+                            tabSkill[0] = 1;
                             break;  
                         }
                     }
@@ -508,6 +545,25 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                     break;
                     
             }
+        }
+
+        /* --------- Gestion Fonctionnalité Jeu  --------- */
+
+        if ( (int)Timer_Get_Time( &timerRespawnMonstre ) > MsRespawnMonsterCooldown ) {
+            Respawn_Monstre( listeMonstre, continent, CameraJoueur.y+5+1, CameraJoueur.x+9);
+            Timer_Start( &timerRespawnMonstre );
+        }
+
+        if ( tabUnlockedSkill[0] && (int)Timer_Get_Time(&AtkCooldown) > MsAtkCooldown ) {
+            tabSkill[0] = 0;
+        }
+
+        if ( tabUnlockedSkill[1] && (int)Timer_Get_Time(&SpeCooldown) > MsSpeCooldown ) {
+            tabSkill[1] = 0;
+        }
+
+        if ( tabUnlockedSkill[2] &&  (int)Timer_Get_Time(&UltCooldown) > MsUltCooldown ) {
+            tabSkill[2] = 0;
         }
 
         /* --------- Gestion Animation --------- */
@@ -607,14 +663,39 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
 
         if ( degatMonstre ) {
             if ( frameDegatMonstre == 0 ) {
-                detectedMonstre->spriteTypeId++;
-                detectedMonstre->frame = 0;
+                if ( detectedMonstre->monstre->monstreSize > 1 ) {
+                    yMonstre = detectedMonstre->monstre->pos_y;
+                    xMonstre = detectedMonstre->monstre->pos_x;
+                    
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+                }
+                else {
+                    detectedMonstre->spriteTypeId++;
+                    detectedMonstre->frame = 0;
+                }
             }
             SDL_Delay(200);
             frameDegatMonstre++;
             if ( frameDegatMonstre == 2 ) {
                 degatMonstre = 0;
-                detectedMonstre->spriteTypeId--;
+                if ( detectedMonstre->monstre->monstreSize > 1 ) {
+                    yMonstre = detectedMonstre->monstre->pos_y;
+                    xMonstre = detectedMonstre->monstre->pos_x;
+
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+                }
+                else {
+                    detectedMonstre->spriteTypeId--;
+                    detectedMonstre->frame = 0;
+                }
                 frameDegatMonstre = 0;
             }
         }
@@ -638,8 +719,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             }
         }
         
-        // Changement vers animation Idle   Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
-        if ( (int)Timer_Get_Time( &lastKey ) > 150  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 ) {
+        // Changement vers animation Idle  Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
+        if ( (int)Timer_Get_Time( &lastKey ) > MsCooldownIdleAnimation  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 ) {
             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
                 printf("Erreur : Echec Change_Sprite //Deplacement_PersoSprite() dans play()\n");
                 erreur = 1;
@@ -650,13 +731,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
        /* --------- Gestion Frame Sprite --------- */ 
 
         // Gestion Frame Monstre
-        if ( (int)Timer_Get_Time( &frameTimer1 ) > 600 ) {
+        if ( (int)Timer_Get_Time( &frameTimer1 ) > MsCooldownFrame1 ) {
             AddFrame(spriteMap,0,ListeTypeSprite,continent,&CameraJoueur);
             Timer_Start( &frameTimer1 );
         }
 
         // Gestion Frame Perso
-        if ( (int)Timer_Get_Time( &frameTimer2 ) > 200 ) {
+        if ( (int)Timer_Get_Time( &frameTimer2 ) > MsCooldownFrame2 ) {
             AddFrame(spriteMap,1,ListeTypeSprite,continent,&CameraJoueur);
             Timer_Start( &frameTimer2 );
         }
@@ -672,16 +753,44 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         
 
         // Affichage Complet
-        if ( Affichage_All(mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, font1, renderer,&CameraJoueur) ) {
+        if ( Affichage_All(perso, tabSkill, textSkillBar, mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, font1, renderer,&CameraJoueur) ) {
             printf("Erreur : Echec Affichage_All() dans play()\n");
             erreur = 1;
             goto detruire;
         }
 
         // Affichage Level UP
-        if ( perso->exp > ( perso->niveau * 249 ) ) {
+        if ( perso->exp > ( perso->palierExp = perso->niveau * 249 ) ) {
+             // Récupération des informations de la fenêtre utile à l'affichage
+            getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
+
+            // Recuperation background_texture
+            surface = SDL_CreateRGBSurface(0, win_width, win_height, 32, 0, 0, 0, 0);
+            if ( surface == NULL ) {
+                printf("Erreur : Echec SDL_CreateRGBSurface(Level_UP) dans Play()\n");
+                erreur = 1;
+                goto detruire;
+            }
+            if ( SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch) < 0) {
+                printf("Erreur : Echec SDL_RenderReadPixels(Level_UP) dans Play()\n");
+                erreur = 1;
+                goto detruire;
+            }
+            background_texture = SDL_CreateTextureFromSurface(renderer, surface);
+            if ( background_texture == NULL ) {
+                printf("Erreur : Echec SDL_CreateTextureFromSurface(Level_UP) dans Play()\n");
+                erreur = 1;
+                goto detruire;
+            }
+
+            // Destruction SDL_Surface surface (background_text)
+            if ( surface != NULL ) {
+                SDL_FreeSurface(surface);
+            }
+            
+            perso->niveau++;
             perso->pts_upgrade += 2;
-            sortieLevlUP = Level_UP(textFondLevelUP,perso,&CameraJoueur,window,renderer);
+            sortieLevlUP = Level_UP(textFondLevelUP,background_texture,perso,&CameraJoueur,window,renderer);
             if ( sortieLevlUP == -1 ) {
                 quit = SDL_TRUE;
             }
@@ -690,6 +799,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 erreur = 1;
                 goto detruire;
             }
+
+            // Destruction texture background_texture
+            if ( background_texture != NULL ) {
+                SDL_DestroyTexture(background_texture);
+            }
+            
         }
 
         // Gestion fps
@@ -710,6 +825,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     
     /* -------  Destruction de la mémoire -------*/
     detruire:
+
+    for (int i = 0; i < 4; i++ ) {
+        if ( textSkillBar[i] != NULL ) {
+            Detruire_Texture( &(textSkillBar[i]) );
+        }
+    }
 
     // clean old sprite
     for (int j = -4; j < 5; j++) {

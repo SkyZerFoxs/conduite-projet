@@ -13,11 +13,20 @@
 **/
 
 typedef struct monstre_s{
+    // Nom monstre
     char * nom;
+
+    // Data monstre
     int niveau;
+    caract_t * caract;
+
+    // Position Monstre
     int pos_y;
     int pos_x;
-    caract_t * caract;
+
+    // Taile monstre ( 1 x 1 || 2 x 1)
+    int monstreSize;
+    
 }monstre_t;
 
 extern monstre_t * creer_monstre(char * nom, int niv, int y, int x) ;
