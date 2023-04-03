@@ -856,12 +856,19 @@ extern void Detruire_Liste_Pnj(pnj_liste_t** liste) {
  */
 extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
     if (map == NULL) {
-        printf("Erreur : La Map est inexistante dans Load_Monster().\n");
+        printf("Erreur : La Map en parametre est inexistante dans Load_Monster().\n");
         return NULL;
     }
 
     if (spriteMap == NULL) {
-        printf("Erreur : spriteMap Inexistante dans Load_Monster()\n");
+        printf("Erreur : spriteMap en parametre Inexistante dans Load_Monster()\n");
+        return NULL;
+    }
+
+
+    int ** matZoneLevel = map->matrice[6];
+    if (matZoneLevel == NULL) {
+        printf("Erreur : matZoneLevel Inexistante dans Load_Monster()\n");
         return NULL;
     }
 
@@ -880,6 +887,7 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
     }
     liste->nbElem = 0;
 
+    int zoneLevel, randomLevel;
     // Parcours de la matrice de sprites
     for (int y = 0; y < map->height; y++) {
         for (int x = 0; x < map->width; x++) {
@@ -888,13 +896,20 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
                 sprite_t* sprite = spriteMap[0][y][x];
                 // Si le sprite n'est pas déja associé a une structure de data
                 if ( sprite != NULL && sprite->monstre == NULL && sprite->pnj == NULL ) 
-                {
+                {   
+                    // Calcule lvl monstre
+                    zoneLevel = matZoneLevel[y][x];
+                    if ( zoneLevel < 5 || zoneLevel % 5 != 0 ) {
+                        printf("Erreur : matZoneLevel[%d][%d] incorrecte dans Load_Monster()\n", y, x);
+                        return NULL;
+                    }
+                    randomLevel = zoneLevel - ( rand() % 5 ) ;
                     // Nouveau monstre détecté
                     char nom[20];
                     sprintf(nom, "Monstre N°%d", liste->nbElem + 1);
-                    monstre_t* monstre = creer_monstre(nom, 1, y, x); // Création du monstre
+                    monstre_t* monstre = creer_monstre(nom, randomLevel, y, x); // Création du monstre
                     if ( monstre == NULL ) {
-                        printf("Erreur : Echec creer_monstre(%s,%d,%d,%d) dans Load_Monster()\n",nom, 1, y, x);
+                        printf("Erreur : Echec creer_monstre(%s,%d,%d,%d) dans Load_Monster()\n",nom, randomLevel, y, x);
                         return NULL;
                     }
                     // Ajout du pnj au sprite

@@ -708,7 +708,7 @@ static int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
         xmax = view->x + view->w;
     }
 
-    SDL_Color blanc = { 255, 255, 255, 255 };
+    SDL_Color gris = { 128, 128, 128, 255 };
     int palierY = ( dstCoef * 16 * 0.7 ) / 2;
     char string[256];
 
@@ -735,7 +735,7 @@ static int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
                                 if ( Afficher_Texte_Zone(renderer, font, string, 
                                 ( dstCoef * (16 * (sprite->y - view->y - 0.8)) ) + yBorder + ( palierY * n ), 
                                 ( dstCoef * (16 * (sprite->x - view->x )) ) + xBorder, 
-                                dstCoef * (16 * 2), &blanc) ) {
+                                dstCoef * (16 * 2), &gris) ) {
                                     printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Stats_Monstre()\n");
                                     return 1;
                                 }

@@ -1066,7 +1066,7 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
 
     /* ------------------ Test ( a supprimer ) ------------------ */
 
-    srand(time(NULL));
+    
 
     /* ------------------ Boucle Principal ------------------ */
 

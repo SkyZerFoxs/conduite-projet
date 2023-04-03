@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <time.h>
 
 #include <affichage.h>
 #include <hud.h>
@@ -164,9 +165,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     };
     SDL_Texture * textSkillBar[4] = { NULL, NULL, NULL, NULL };
     
+    // initialisation générateur de nombres aléatoires
+    srand(time(NULL));
 
     // initialisation de la map continent
-    continent = Initialiser_Map( "asset/map/map_finale.txt");
+    continent = Initialiser_Map( "asset/map/map.txt");
     if ( continent == NULL ) {
         printf("Erreur : Echec Initialiser_Map() dans play()\n");
         erreur = 1;
