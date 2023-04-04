@@ -96,15 +96,17 @@ extern void Detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type  ) {
         return; 
     }
 
+    if ( (*liste_type)->liste == NULL ) {
+        printf("Erreur : La liste est vide dans Detruire_Liste_Type_Pnj()\n");
+        return;
+    }
+
     if ( (*liste_type)->nbElem <= 0 ) {
         printf("Erreur : Le nombre d'element de la liste est <= 0 dans Detruire_Liste_Type_Pnj()\n");
         return;
     }
 
-    if ( (*liste_type)->liste == NULL ) {
-        printf("Erreur : La liste est vide dans Detruire_Liste_Type_Pnj()\n");
-        return;
-    }
+    
 
     for (int i = 0; i < (*liste_type)->nbElem; i++) {
         if ( (*liste_type)->liste[i] != NULL ) {

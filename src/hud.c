@@ -1319,7 +1319,7 @@ extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** 
         return;
     }
 
-    if ( (*liste_texture_pnj)->nbElem <= 0 ) {
+    if ( (*liste_texture_pnj)->nbElem < 0 ) {
         printf("Erreur : Nombre d'element invalide dans Detruire_Liste_Texture_Pnj_Dialogue()\n");
         return;
     }
@@ -1341,7 +1341,7 @@ extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** 
     }
 
     // clear nb elem
-    (*liste_texture_pnj)->nbElem = 0;
+    (*liste_texture_pnj)->nbElem = -1;
 
     // Suppression de la structure liste_texture_pnj
     free( (*liste_texture_pnj) );

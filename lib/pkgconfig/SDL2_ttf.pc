@@ -1,4 +1,4 @@
-prefix=/info/etu/l2info/s2101400/SDL2
+prefix=/info/etu/l2info/s2101681/Projet/conduite-projet
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

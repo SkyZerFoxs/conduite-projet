@@ -156,7 +156,7 @@ void detruire_liste_objet( liste_objet_t ** liste) {
         return;
     }
 
-    if ( (*liste)->tab == NULL || (*liste)->nbElem <= 0 ) {
+    if ( (*liste)->tab == NULL || (*liste)->nbElem < 0 ) {
         printf("Erreur : La liste d'objet est inexistante dans detruire_liste_objet()\n");
         return;
     }
@@ -167,12 +167,10 @@ void detruire_liste_objet( liste_objet_t ** liste) {
         }
     }
 
-    if ( (*liste)->tab != NULL ) {
-        free((*liste)->tab);
-        (   *liste)->tab = NULL;
-    }
+    free((*liste)->tab);
+    (*liste)->tab = NULL;
 
-    (*liste)->nbElem = 0;
+    (*liste)->nbElem = -1;
 
     free((*liste));
     (*liste) = NULL;

@@ -332,7 +332,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     Timer_Start( &UltCooldown );
     UltCooldown.start -= (MsUltCooldown + 1);
     Timer_Start( &timerRespawnMonstre );
-    timerRespawnMonstre.start -= 5001;
+    timerRespawnMonstre.start -= (MsRespawnMonsterCooldown+1);
     
 
     /* ------------------ Zone teste ( A supprimer ) ------------------ */
@@ -372,8 +372,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     listeObjets->tab[5]->nb = 3;
     inventaire->inventaire[1][1] = 12;
     listeObjets->tab[12]->nb++;
-    inventaire->inventaire[0][0] = 24;
-    listeObjets->tab[24]->nb = 100;
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -858,13 +856,15 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     }
 
     // Destruction SDL_Surface surface (background_text)
-    if ( background_texture != NULL ) {
+    if ( surface != NULL ) {
         SDL_FreeSurface(surface);
     }
 
 	// Detruire Font
-	TTF_CloseFont(font1);
-
+    if ( font1 != NULL ) {
+        TTF_CloseFont(font1);
+    }
+	
     // Detruire liste objets
     detruire_liste_objet(&listeObjets);
 	
@@ -924,7 +924,7 @@ int main() {
     int erreur = 0;
 
     // initalisation de SDL
-    if ( Init_SDL(&window,&renderer, 1600, 900) ) {
+    if ( Init_SDL(&window,&renderer, 1280, 720) ) {
         printf("Erreur : Init_SDL() à échoué\n");
         erreur = 1;
         goto quit;
