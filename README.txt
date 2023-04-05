@@ -19,13 +19,13 @@ Les PNJ (Personnages Non Joueur):
 Le personnage pourra interagir avec les différents PNJ disponibles sur la carte. Chaque PNJ auront des caractéristiques : un id, un nom, un rôle (standard qui ne déclenchera que du dialogue, marchand, quête) et un dialogue
 
 Les monstres ennemis :
-Les monstres ennemis sont disponibles sur la carte. Ils ont 4 caractéristiques : Un nom, un niveau, des statistiques (points de vie, attaque, defense), un position sur la map (coordonnés x et y) et une taille.
+Les monstres ennemis sont disponibles sur la carte. Ils ont quatre caractéristiques : Un nom, un niveau, des statistiques (points de vie, attaque, defense), un position sur la map (coordonnés x et y) et une taille.
 
 L'inventaire :
-Le joueur a un inventaire dans lequel il peut gérer ses objets. Il y a 60 places dans l'inventaire plus 6 places d'équipement. L'équipement sont les objets équipés sur le personnage qui lui donne des statistiques en plus
+Le joueur a un inventaire dans lequel il peut gérer ses objets. Il y a soixante places dans l'inventaire plus six places d'équipement. L'équipement sont les objets équipés sur le personnage qui lui donne des statistiques en plus
 
 Les objets :
-Il y a 8 type d'objets : Casque, plastron, jambières, bottes, épée, bouclier, amulette, potion. Ils ont 3 niveaux chacun, plus le niveau et haut, plus il donne de stats. Chaque objet donne au personnage des stats précises et prédéfinies.
+Il y a huit type d'objets : Casque, plastron, jambières, bottes, épée, bouclier, amulette, potion. Ils ont trois niveaux chacun, plus le niveau et haut, plus il donne de stats. Chaque objet donne au personnage des stats précises et prédéfinies.
 
 Les loots :
 Les loots sont les objets donnés après avoir battu un monstre. Le type d'objet donné et le niveau est aléatoire.
