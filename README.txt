@@ -7,8 +7,7 @@ Présentation projet :
 Nous sommes des étudiants en 2ème année de licence informatique à l'université du Mans. Dans ce projet, nous devons par groupe créer un jeu vidéo en une durée de 4 mois, du 16 janvier au 14 avril. Pour cela, nous devons utiliser le langage C ainsi que la librairie SDL. Nous avons réflechis entre la réalisation d'un jeu puissance 4 ou rogue-like (comme présenté durant le cours d'introduction) et la création de notre propre jeu avec ses règles et ses graphismes. Après réflexion, nous avons décidé de créer notre propre RPG/jeu d'aventure.
 
 Présentation jeux :
-Notre jeu est un RPG/jeu d'aventure nommé Hero's Quest.
-Le but du jeu est de combattre des ennemis et réaliser des quêtes afin d'évoluer son niveau, d'augmenter ses statistiques et son équipement, afin de combattre des ennemis de plus en plus puissants pour au final combattre le boss des monstres.
+Notre jeu est un RPG/jeu d'aventure nommé Hero's Quest : "Explorez un monde sombre et terrifiant, envahi par des démons assoiffés de sang. En tant que héros invoqué par la famille royale, vous avez la lourde tâche de sauver le royaume humain de l'extinction. Parcourez des terres dangereuses, affrontez des monstres terrifiants et complétez des quêtes pour gagner en expérience et améliorer vos compétences. Débloquez de nouvelles attaques dévastatrices, utilisez des potions pour restaurer votre santé et équipez-vous d'armures et d'armes légendaires pour vous protéger contre les ennemis les plus redoutables. Parviendrez-vous à relever le défi et vaincre le roi démon pour sauver le monde ?"
 
 Le personnage :
 Il y a un personnage principal qui peut être contrôler. Ce personnage à différentes caractéristiques : Un nom, un niveau, des points d'expérience, des statistiques (points de vie, attaque, defense), des équipements et des attaques
