@@ -46,7 +46,7 @@ extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, in
         return 1;
     }
     // Création d'un renderer | SDL_RENDERER_PRESENTVSYNC
-    *renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED );
+    *renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (*renderer == NULL) {
         printf("Erreur : SDL_CreateRenderer() à échoué dans Init_SDL : %s\n",SDL_GetError());
         return 1;
@@ -184,6 +184,7 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
     }
 }
 
+
 /**
  * \fn void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect )
  * \brief Fonction externe qui charge et affiche une image
@@ -195,7 +196,8 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
  * \param dstrect Pointeur sur l'objet SDL_Rect ( Rectangle Destination )
  * \return 0 success || 1 fail
  */
-extern int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) {
+/*
+static int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) {
     // Chargement d'une texture avec le Moteur de Rendu Graphique et le fichier de l'image
     if ( (*texture) == NULL ) {
         (*texture) = IMG_LoadTexture(renderer, IMG);
@@ -212,6 +214,7 @@ extern int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **textur
 
     return 0;
 }
+*/
 
 /**
  * \fn Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste()

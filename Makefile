@@ -11,22 +11,26 @@ BINDIR = bin
 TESTDIR = test
 
 # Fichiers sources et objets
-PLAY_SRCS = $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c \
+MAIN_SRCS = $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c \
             $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c $(SRCDIR)/hud.c \
-            $(SRCDIR)/objets.c $(SRCDIR)/pnj.c $(SRCDIR)/save.c $(SRCDIR)/quete.c
-PLAY_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(PLAY_SRCS))
+            $(SRCDIR)/objets.c $(SRCDIR)/pnj.c $(SRCDIR)/save.c $(SRCDIR)/quete.c  $(SRCDIR)/menu.c  $(SRCDIR)/main.c 
+MAIN_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(MAIN_SRCS))
 
 #Liste des fichiers de test et de leurs dépendances
 TEST_MAP_SRCS = $(TESTDIR)/test_map.c $(SRCDIR)/map.c
 TEST_OBJET_SRCS = $(TESTDIR)/test_objet.c $(SRCDIR)/objets.c
 TEST_PERSO_SRCS = $(TESTDIR)/test_perso.c $(SRCDIR)/personnage.c
 TEST_SPRITE_SRCS = $(TESTDIR)/test_sprite.c $(SRCDIR)/sprite.c $(SRCDIR)/map.c $(SRCDIR)/pnj.c $(SRCDIR)/monstre.c
+TEST_PLAY_SRCS = $(TESTDIR)/test_play.c $(SRCDIR)/play.c $(SRCDIR)/map.c $(SRCDIR)/affichage.c $(SRCDIR)/sprite.c \
+            	 $(SRCDIR)/monstre.c $(SRCDIR)/personnage.c $(SRCDIR)/combat.c $(SRCDIR)/hud.c \
+            	 $(SRCDIR)/objets.c $(SRCDIR)/pnj.c $(SRCDIR)/save.c $(SRCDIR)/quete.c
 
 #Liste des fichiers objets correspondant aux fichiers de test
 TEST_MAP_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(TEST_MAP_SRCS))
 TEST_OBJET_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(TEST_OBJET_SRCS))
 TEST_PERSO_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(TEST_PERSO_SRCS))
 TEST_SPRITE_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(TEST_SPRITE_SRCS))
+TEST_SPRITE_OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(TEST_PLAY_SRCS))
 
 
 # Règles de construction des fichiers objets
@@ -37,16 +41,16 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
 # Règles de construction de l'exécutable
-$(BINDIR)/play: $(PLAY_OBJS) | $(BINDIR)
-	$(CC) $(CFLAGS) $(PLAY_OBJS) -o $@ $(LDFLAGS)
+$(BINDIR)/main: $(MAIN_OBJS) | $(BINDIR)
+	$(CC) $(CFLAGS) $(MAIN_OBJS) -o $@ $(LDFLAGS)
 
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
 # Règles de construction de l'exécutable principal et de ses dépendances
-all: $(BINDIR)/play
+all: $(BINDIR)/main
 
-$(BINDIR)/play: $(PLAY_OBJS)
+$(BINDIR)/main: $(MAIN_OBJS)
 
 #Règles de construction des fichiers objets de test
 $(OBJDIR)/test_map.o: $(TESTDIR)/test_map.c $(INCLUDEDIR)/map.h $(SRCDIR)/map.c | $(OBJDIR)

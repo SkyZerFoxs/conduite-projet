@@ -87,9 +87,6 @@ extern void Detruire_Texture(SDL_Texture ** texture) ;
 extern void getWinInfo(SDL_Window *window, int * width, int * height, int tileSize, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder);
 extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window);
 
-/* ------------------ Afficher Image ( avec ou sans texture ) ------------------ */
-extern int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) ;
-
 /* ------------------ Gestion Texture Sprite ------------------ */
 extern Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste() ;
 extern int Chercher_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet) ;

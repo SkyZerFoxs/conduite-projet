@@ -2416,15 +2416,16 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
             }
         }
 
-        if ( frame > 4 ) {
+        if ( frame > 3 ) {
             quit = SDL_TRUE;
+            break;
         }
         
 
         /* --------- Gestion Affichage --------- */
     
         // Récupération des informations de la fenêtre utile à l'affichage
-        getWinInfo(window, &win_width, &win_height, 16, view, view, &xBorder, &yBorder );
+        getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder );
 
         // Rect Destination ( renderer )
         SDL_Rect dest;

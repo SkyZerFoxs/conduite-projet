@@ -1,10 +1,7 @@
 #include <stdlib.h>
-#include <time.h>
 
-#include <affichage.h>
-#include <hud.h>
-#include <data.h>
-#include <save.h>
+#include <play.h>
+#include <menu.h>
 
 
 /**
@@ -35,7 +32,7 @@
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \return 0 Success || 1 Fail
 */
-int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
+int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]) {
     /* ------------------ Initialisation variable ------------------ */
 
     // statut des erreurs
@@ -393,14 +390,16 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
 
     /* ------------------ Zone teste ( A supprimer ) ------------------ */
 
-    /*
+    (void)charger;
+
+    
     if ( charger ) {
         load_game(&CameraJoueur.x,&CameraJoueur.y,perso,inventaire,listeObjets,"asset/save/auto-save");
     }
     else {
         Introduction(window,renderer,&CameraJoueur);
     }
-    */
+    
 
 
     /* ------------------ Boucle Principal ------------------ */
@@ -536,8 +535,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
                                 }
                                 
                                 break;
-                            case SDLK_p:
-                                perso->caract->pv = 0;
+                            case SDLK_ESCAPE:
+                                if ( echap(window, renderer, tabTextGif) == 0 ) {
+                                    quit = SDL_TRUE;
+                                    goto detruire;
+                                }
                             default:
                                 break;
                         }
@@ -937,17 +939,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
     /* -------  Destruction de la mémoire -------*/
     detruire:
 
-    for (int i = 0; i < 4; i++ ) {
-        if ( textSkillBar[i] != NULL ) {
-            Detruire_Texture( &(textSkillBar[i]) );
-        }
-    }
+    // Clean variable detected monstre
+    detectedMonstre = NULL;
+    detectedMonstreAtkZone = NULL;
 
     // clean old sprite
-    for (int j = -4; j < 5; j++) {
-        for (int i = -4; i < 5; i++ ) {
-            int y = CameraJoueur.y + 5 + i;
-            int x = CameraJoueur.x + 9 + j;
+    for (int y = CameraJoueur.y ; y < CameraJoueur.y+CameraJoueur.h; y++) {
+        for (int x = CameraJoueur.x ; x < CameraJoueur.x + CameraJoueur.w; x++ ) {
             if (y < 0 || x < 0 || y >= continent->height || x >= continent->width) {
                 printf("Erreur : Hors map , netoyage sprites personnage (detruire) dans Play()\n");
                 return 1;
@@ -956,30 +954,48 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
             }
         }
     }
+
+    // Destruction texture DamageHUD
+    Detruire_Texture(&textDamageHUD);
+
+    // Destruction texture SkillBar
+    for (int i = 0; i < 4; i++ ) {
+        cheminSkillBar[i] = NULL;
+        if ( textSkillBar[i] != NULL ) {
+            Detruire_Texture( &(textSkillBar[i]) );
+        }
+    }
 	
     // Destruction texture Boite Level UP
     Detruire_Texture(&textFondLevelUP);
 
     // Destruction background_texture
     if ( background_texture != NULL ) {
-        SDL_DestroyTexture(background_texture);
+        Detruire_Texture( &background_texture );
     }
 
     // Destruction SDL_Surface surface (background_text)
     if ( surface != NULL ) {
         SDL_FreeSurface(surface);
+        surface = NULL;
     }
 
 	// Detruire Font
     if ( font1 != NULL ) {
         TTF_CloseFont(font1);
+        font1 = NULL;
     }
-	
-    // Detruire liste objets
-    detruire_liste_objet(&listeObjets);
 	
 	// Detruite liste texture pnj dialogue
 	Detruire_Liste_Texture_Pnj_Dialogue(&listeTextPnjDialogue);
+
+    // Detruire texture Hud Dialogue
+
+    // Detruire liste objets
+    detruire_liste_objet(&listeObjets);
+
+    // destruction en mémoire de l'inventaire
+    Detruire_Inventaire(&inventaire);
 
 	// destruction personnage
     supprimer_perso(&perso);
@@ -1011,50 +1027,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
 	// destruction en mémoire de la map en paramètre
     Detruire_Map(&continent); 
     
-    // destruction en mémoire de l'inventaire
-    Detruire_Inventaire(&inventaire);
-    
 
     /* -------  Fin fonction Play() + sortie status d'erreur -------*/
 
     return erreur;
 
-}
-
-/**
- * \brief Fonction principale qui init SDL et appelle la fonction Play
- * 
- * \param void Aucun paramètre en entrée 
- * \return Int qui caractérise la réussite de la fonction
- */
-int main() {
-    SDL_Window *window = NULL;
-    SDL_Renderer *renderer = NULL;
-
-    int erreur = 0;
-
-    // initalisation de SDL
-    if ( Init_SDL(&window,&renderer, 1280, 720) ) {
-        printf("Erreur : Init_SDL() à échoué\n");
-        erreur = 1;
-        goto quit;
-    }
-    printf("Init SDL ................ OK\n");
-
-    // fonction principal du jeu (play) 
-    printf("Debut Play .............. OK\n");
-    if ( play(window,renderer,0) ) {
-        printf("Erreur : play() à échoué\n");
-        erreur = 1;
-        goto quit;
-    }
-    printf("Fin Play ................ OK\n");
-
-    // Fin de SDL + destruction allocation mémoire
-    quit:
-    
-    Quit_SDL(window,renderer);
-    printf("Quit SDL ................ OK\n");
-
-    return erreur;
 }

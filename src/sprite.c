@@ -298,9 +298,17 @@ extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_
  * \return Aucun retour effectué en fin de fonction
  */
 extern void Detruire_Sprite( sprite_t ** sprite) {
-    if ( sprite == NULL ) {
-        printf("Erreur : aucun sprite passé en paramètre dans Detruire_Sprite()\n");
+    if ( sprite == NULL || (*sprite) == NULL ) {
+        printf("Erreur : sprite en paramètre invalide dans Detruire_Sprite()\n");
         return;
+    }
+
+    if ( (*sprite)->monstre != NULL ) {
+        (*sprite)->monstre = NULL;
+    }
+
+    if ( (*sprite)->pnj != NULL ) {
+        (*sprite)->pnj = NULL;
     }
 
     if ( (*sprite) != NULL ) {
@@ -318,37 +326,36 @@ extern void Detruire_Sprite( sprite_t ** sprite) {
  * 
  * \return Aucun retour effectué en fin de fonction.
  */
-void Detruire_SpriteMap(sprite_t *****spriteMap, map_t *map) {
-    if (spriteMap != NULL || *spriteMap == NULL ) {
-        for (int i = 0; i < 2; i++) {
-            if ((*spriteMap)[i] != NULL) {
-                for (int y = 0; y < map->height; y++) {
-                    if ((*spriteMap)[i][y] != NULL) {
-                        for (int x = 0; x < map->width; x++) {
-                            if ((*spriteMap)[i][y][x] != NULL) {
-                                Detruire_Sprite(&((*spriteMap)[i][y][x]));
-                            }
+void Detruire_SpriteMap(sprite_t ***** spriteMap, map_t *map) {
+    if (spriteMap == NULL || *spriteMap == NULL) {
+        printf("Erreur : spriteMap en parametre invalide dans Detruire_SpriteMap()\n");
+        return;
+    }
+
+    for (int i = 0; i < 2; i++) {
+        if ((*spriteMap)[i] != NULL) {
+            for (int y = 0; y < map->height; y++) {
+                if ((*spriteMap)[i][y] != NULL) {
+                    for (int x = 0; x < map->width; x++) {
+                        if ((*spriteMap)[i][y][x] != NULL) {
+                            Detruire_Sprite(&((*spriteMap)[i][y][x]));
                         }
+                    }
+                    if ( (*spriteMap)[i][y] != NULL ) {
                         free((*spriteMap)[i][y]);
                         (*spriteMap)[i][y] = NULL;
                     }
                 }
-                free((*spriteMap)[i]);
-                (*spriteMap)[i] = NULL;
             }
-            else {
-                printf("Erreur : La spriteMap n'existe pas dans Detruire_SpriteMap()\n");
-                return;
-            }
+            free((*spriteMap)[i]);
+            (*spriteMap)[i] = NULL;
         }
-        free(*spriteMap);
-        *spriteMap = NULL;
     }
-    else {
-        printf("Erreur : Pointeur Passé En Paramètre Invalide dans Detruire_SpriteMap()\n");
-        return;
-    }
+
+    free(*spriteMap);
+    *spriteMap = NULL;
 }
+
 
 /**
  * \fn sprite_t *** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map)
@@ -706,7 +713,7 @@ extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) {
     }
 
 
-    for (int i = 0; i < (*liste)->nbElem; i++) {
+    for (int i = 0; i < (*liste)->nbElem - 1; i++) {
         if ((*liste)->spriteListe[i] != NULL) {
             Detruire_Sprite(&(*liste)->spriteListe[i]);
         }
