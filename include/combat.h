@@ -12,8 +12,8 @@
  *  \date 9/02/2023
 **/
 
-extern void combat_joueur(personnage_t * perso, monstre_t * monstre, int atk);
-extern void combat_monstre(monstre_t * monstre, personnage_t * perso);
+extern int combat_joueur(personnage_t* personnage, monstre_t* monstre, int typeAttaque) ;
+extern int combat_monstre(monstre_t* monstre, personnage_t* personnage, int distance) ;
 
 extern int level_up(personnage_t * perso, monstre_t * monstre)  ;
 

@@ -34,11 +34,17 @@ typedef struct liste_objet_s {
 	int nbElem;
 } liste_objet_t;
 
+// Gestion Liste Objet
 liste_objet_t * load_liste_objets(char * nom_fich) ;
 
+// Gestion Objet
 extern void detruire_objet(objet_t ** objet);
 extern void detruire_liste_objet(liste_objet_t ** liste);
 
 extern int afficher_liste_objet(liste_objet_t * liste);
+
+// Gestion Loot
+extern int loot_monstre(int niv_monstre) ;
+extern int loot_coffre(int niv_coffre) ;
 
 #endif

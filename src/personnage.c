@@ -44,10 +44,10 @@ personnage_t * creer_personnage(char * nom){
     perso->exp = 0;
     perso->palierExp = 0;
 
-    perso->caract->pv = 100 + ( perso->niveau - 1 ) * 10;
+    perso->caract->pv = 100 ;
     perso->caract->maxPv = perso->caract->pv;
-    perso->caract->atk = 15 + ( perso->niveau - 1 ) * 5;
-    perso->caract->def = 5 + ( perso->niveau - 1 ) * 2;
+    perso->caract->atk = 10 ;
+    perso->caract->def =  5 ;
 
     for (int i = 0; i < 6; i++) {
         perso->equipement[i] = malloc( sizeof(caract_t) );

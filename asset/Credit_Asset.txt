@@ -18,6 +18,6 @@ https://elv-games.itch.io/free-inventory-for-rpg-or-farming-games
 Credits to melthie. ( https://melthie.itch.io/ )
 https://melthie.itch.io/mini-dungeon
 
-=> Sprite Mushroom & Goblin & Skull
+=> Sprite Mushroom & Goblin & Skull ( Modified )
 Credtis to Stephen "Redshrike" Challener. ( https://opengameart.org/users/redshrike )
 https://opengameart.org/content/16x16-16x24-32x32-rpg-enemies-updated

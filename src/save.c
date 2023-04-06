@@ -4,7 +4,7 @@
 #include <save.h>
 
 
-extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet,int lastQuest) {
+extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet) {
     // Verification parametre
     if ( pos_x < 0  || pos_y < 0  ) {
         printf("Erreur : Position joueur en paramètre non valide dans save_game()\n");
@@ -25,29 +25,11 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
         printf("Erreur : liste_objet en paramètre non valide dans save_game()\n");
         return 1;
     }
-    
-    if ( lastQuest < 0 ) {
-        printf("Erreur : lastQuest en paramètre non valide dans save_game()\n");
-        return 1;
-    }
-
-    time_t now = time(NULL);
-    struct tm *tm_struct = localtime(&now);
-    char* time_str = malloc(sizeof(char)*20); // allocate memory for string
-    strftime(time_str, 20, "%d-%m-%Y %Hh%M", tm_struct);
-
-    char nomFichier[50];
-    sprintf(nomFichier, "asset/save/auto-save-%s", time_str);
-
-    if ( strlen(nomFichier) == 0 ) {
-        printf("Erreur : nomFichier non valide dans save_game()\n");
-        return 1;
-    }
 
 
-    FILE * filename = fopen(nomFichier, "w");
+    FILE * filename = fopen("asset/save/auto-save", "w");
     if ( filename == NULL ) {
-        printf("Erreur : Echec fopen(%s) dans save_game()\n",nomFichier);
+        printf("Erreur : Echec fopen(asset/save/auto-save) dans save_game()\n");
         return 1;
     }
 
@@ -73,14 +55,13 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
         fprintf(filename,"%d:",liste_objet->tab[i]->nb);
     }
     fprintf(filename,"\n");
-    fprintf(filename,"%d:",lastQuest);
 
     fclose(filename);
 
     return 0;
 }
 
-extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet,int * lastQuest, char * nomFichier) {
+extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, char * nomFichier) {
     // Verification parametre
     if ( pos_x == NULL || pos_y == NULL ) {
         printf("Erreur : Position joueur en paramètre non valide dans load_game()\n");
@@ -99,11 +80,6 @@ extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_
 
     if ( liste_objet == NULL ) {
         printf("Erreur : liste_objet en paramètre non valide dans load_game()\n");
-        return 1;
-    }
-    
-    if ( lastQuest == NULL ) {
-        printf("Erreur : lastQuest en paramètre non valide dans load_game()\n");
         return 1;
     }
 
@@ -140,7 +116,6 @@ extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_
         fscanf(filename,"%d:",&(liste_objet->tab[i]->nb));
     }
     fscanf(filename,"\n");
-    fscanf(filename,"%d:",lastQuest);
 
     fclose(filename);
 

@@ -1581,7 +1581,7 @@ static int Afficher_Dialogue(SDL_Texture * textDialogue, SDL_Texture ** matTextB
 
     int x = ( dstCoef * 16 * 6 ) + xBorder;
     int w = dstCoef * 16 * 11;
-    int y = ( dstCoef * 16 * 8.5 ) + yBorder;
+    int y = ( dstCoef * 16 * 8.45 ) + yBorder;
 
     if ( Afficher_Texte_Zone(renderer, font, listeTypePnj->liste[pnj->pnjTypeID]->dialogue, y, x, w, &marronCLaireInventaire) ) {
         printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Inventaire()\n");
@@ -1689,7 +1689,7 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
     // Gestion font 1280 x 720
     if ( win_width > 1000 && win_width < 1400 ) {
         // Initalisation Font
-        font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 30);
+        font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 28);
         if (font1 == NULL) {
             printf("Erreur : Echec TTF_OpenFont(font1) dans Dialogue()");
             return 1;
@@ -2270,6 +2270,188 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_text
         TTF_CloseFont( font3 );
     }
     
+
+    return erreur;
+}
+
+extern int Mort_Joueur( personnage_t * perso, inventaire_t * inventaire, liste_objet_t *listeObjets ) { 
+
+    if ( perso == NULL ) {
+        printf("Erreur : perso en parametre invalide dans Mort_Joueur()\n");
+        return 1;
+    }
+
+    if ( inventaire == NULL ) {
+        printf("Erreur : inventaire en parametre invalide dans Mort_Joueur()\n");
+        return 1;
+    }
+
+    if ( listeObjets == NULL ) {
+        printf("Erreur : listeObjets en parametre invalide dans Mort_Joueur()\n");
+        return 1;
+    }
+
+    // Drop Aléatoire D'un Equipement
+    int rdmDroppedEquipement = rand() % 6;
+    int y = rdmDroppedEquipement / 2;
+    int x = rdmDroppedEquipement % 2;
+    int itemId = inventaire->equipement[y][x];
+    if ( itemId != -1 ) {
+        listeObjets->tab[itemId]->nb = 0;
+        inventaire->equipement[y][x] = -1;
+    }
+    
+    // Reset PV
+    perso->caract->pv = perso->caract->maxPv;
+    if ( perso->niveau == 1 ) {
+        perso->exp = 0;
+    }
+    else {
+        perso->exp = 100 + ( (perso->niveau - 1 ) * 50);
+    }
+
+
+    return 0;
+}
+
+extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view ) {
+    /* ------------------ Detection Erreur Parametre ------------------ */
+    
+    // Vérification de la variable window
+    if ( window == NULL) {
+        printf("Erreur : window non initialisé dans Introduction()");
+        return 1;
+    }
+
+    // Vérification de la variable renderer
+    if ( renderer == NULL) {
+        printf("Erreur : renderer non initialisé dans Introduction()");
+        return 1;
+    }
+    
+    /* ------------------ Initialisation variable ------------------ */
+
+    // statut des erreurs
+    int erreur = 0;
+
+     // Nombre De FPS A Afficher
+    int FRAME_PER_SECONDE = 30;
+
+    // Nombre De Ms Par Frame Produite
+    int msPerFrame;
+
+    // Variable Pour Quitter La Boucle Principal
+    int quit = SDL_FALSE;
+
+    // Variable qui detecte si une touche est deja été préssé
+    int keyPressed = 0;
+
+    // Variable SDL_Event Pour Detecter Les Actions
+    SDL_Event event;
+
+    // initialisation des timers
+    SDL_timer_t fps;
+
+    // Variable frame img
+    int frame = 0;
+
+    // Variable getWinInfo
+    int win_width;
+    int win_height;
+    int dstCoef;
+    int xBorder;
+    int yBorder;
+
+    /* ------------------ Initialisation resource jeux ------------------ */
+
+    char * cheminTextImgIntro[4] = { 
+        "asset/hud/introduction/Frame1.png",
+        "asset/hud/introduction/Frame2.png",
+        "asset/hud/introduction/Frame3.png",
+        "asset/hud/introduction/Frame4.png"
+    };
+
+    SDL_Texture * matTextImgIntro[4];
+
+    // Chargement texture bouton
+    for (int i = 0; i < 4; i++) {
+        matTextImgIntro[i] = IMG_LoadTexture(renderer,cheminTextImgIntro[i]);
+        if ( matTextImgIntro[i] == NULL ) {
+            printf("Erreur : Echec IMG_Load(matTextImgIntro[%d]) dans Introduction()",i);
+            return 1;
+        }
+    }
+
+
+    /* ------------------ Boucle Principal ------------------ */
+
+    while( quit == SDL_FALSE && erreur == 0 ) {
+        /* --------- Variable Boucle --------- */
+        // Lancement timer temps d'execution
+        Timer_Start( &fps );
+
+        // Reset keyPressed
+        keyPressed = 0;
+
+        /* ------- Detection Evenement -------*/
+        while (SDL_PollEvent(&event)) {
+            // Switch Event
+            switch (event.type) {
+                // Evenement QUIT
+                case SDL_QUIT:
+                    quit = SDL_TRUE;
+                    erreur = -1;
+                    break;
+                // Evenement Touche Clavier
+                case SDL_KEYDOWN:
+                    if (  !keyPressed ) {
+                            // Gestion Touche Clavier
+                            switch (event.key.keysym.sym) {
+                                case SDLK_RETURN:
+                                    frame++;
+                                    break;
+                            }
+                    }
+                    break;
+            }
+        }
+
+        if ( frame > 4 ) {
+            quit = SDL_TRUE;
+        }
+        
+
+        /* --------- Gestion Affichage --------- */
+    
+        // Récupération des informations de la fenêtre utile à l'affichage
+        getWinInfo(window, &win_width, &win_height, 16, view, view, &xBorder, &yBorder );
+
+        // Rect Destination ( renderer )
+        SDL_Rect dest;
+        dest.h = dstCoef * 16 * 11;
+        dest.w = dstCoef * 16 * 20;
+        dest.x = xBorder;
+        dest.y = yBorder;
+
+        // Affichage HUD Skill Bar
+        SDL_RenderCopy(renderer, matTextImgIntro[frame], NULL, &dest);
+        
+        // Gestion fps
+        if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
+            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+        }
+
+        // mise à jour du renderer ( update affichage)
+        SDL_RenderPresent(renderer);
+        
+    }        
+
+    // Destruction texture button
+    for (int i = 0; i < 4; i++) {
+        if ( matTextImgIntro[i] != NULL ) {
+            Detruire_Texture( &matTextImgIntro[i] );
+        }
+    }
 
     return erreur;
 }

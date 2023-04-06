@@ -119,4 +119,7 @@ extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const cha
 
 extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color) ;
 
+/* ------------------ Gestion Joueur ------------------ */
+extern int Respawn_Joueur( map_t * map, personnage_t * perso, SDL_Rect * view, int tabRespawnJoueur[6][2] ) ;
+
 #endif 

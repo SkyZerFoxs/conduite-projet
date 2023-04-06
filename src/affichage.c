@@ -978,8 +978,8 @@ extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_
     
 
     // clean old sprite
-    for (int j = -4; j < 5; j++) {
-        for (int i = -4; i < 5; i++ ) {
+    for (int j = -6; j < 6; j++) {
+        for (int i = -6; i < 6; i++ ) {
             int y = view->y + 5 + i;
             int x = view->x + 9 + j;
             if (y >= map->height || x >= map->width) {
@@ -988,10 +988,12 @@ extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_
             } else if ((y == view->y + 5 && x == view->x + 9) || (y == view->y + 6 && x == view->x + 9)) {
                 // Ne rien faire
             } else if (spriteMap[1][y][x] != NULL) {
+                spriteMap[1][y][x]->frame = 0;
                 spriteMap[1][y][x] = NULL;
             }
         }
     }
+    
     
 
     // Initialisation variable de colision
@@ -1108,6 +1110,32 @@ extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_
         case 'D':
             if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[4],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[5],view->y+5+1,view->x+9) ) {
                 printf("Erreur : Echec Copy_Sprite('D') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        // Animation Degat ( Sur place )
+        case '1':
+            // Changement vers le sprite qui correspond a la bonne animation
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[126],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[127],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('deg Z (1)') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        case '2':
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[130],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[131],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('deg Q (2)') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        case '3':
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[124],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[125],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('deg S (3)') dans Deplacement_PersoSprite()\n");
+                return 1;    
+            } 
+            break;
+        case '4':
+            if ( Change_Sprite(spriteMap,map,spritePersoList->spriteListe[128],view->y+5,view->x+9) || Change_Sprite(spriteMap,map,spritePersoList->spriteListe[129],view->y+5+1,view->x+9) ) {
+                printf("Erreur : Echec Copy_Sprite('deg D (4)') dans Deplacement_PersoSprite()\n");
                 return 1;    
             } 
             break;
@@ -1441,4 +1469,50 @@ extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int
     // Free the texture and surface
     SDL_DestroyTexture(lineTexture);
     SDL_FreeSurface(lineSurface);
+}
+
+extern int Respawn_Joueur( map_t * map, personnage_t * perso, SDL_Rect * view, int tabRespawnJoueur[6][2] ) {
+
+    if ( map == NULL ) {
+        printf("Erreur : map en parametre invalide dans Respawn_Joueur()\n");
+        return 1;
+    }
+
+    int ** matZoneLevel = map->matrice[6];
+    if (matZoneLevel == NULL) {
+        printf("Erreur : matZoneLevel Inexistante dans Respawn_Joueur()\n");
+        return 1;
+    }
+    
+    if ( perso == NULL ) {
+        printf("Erreur : perso en parametre invalide dans Respawn_Joueur()\n");
+        return 1;
+    }
+
+    if ( view == NULL ) {
+        printf("Erreur : view en parametre invalide dans Respawn_Joueur()\n");
+        return 1;
+    }
+
+    int zoneID;
+
+    int y = view->y+5+1;
+    int x = view->x+9;
+
+    if ( perso->caract->pv <= 0 ) {
+        perso->caract->pv = 0;
+        if ( matZoneLevel[y][x] % 5 != 0 ) {
+            printf("Erreur : level de zone invalide dans Respawn_Joueur()\n");
+            return 1;
+        }
+        zoneID = ( matZoneLevel[y][x] / 5 ) - 1;
+        if ( zoneID < 0 || zoneID > 5 ) {
+            printf("Erreur : zoneID calculee invalide dans Respawn_Joueur()\n");
+            return 1;
+        }
+        view->y = tabRespawnJoueur[zoneID][0];
+        view->x = tabRespawnJoueur[zoneID][1];
+    }
+    
+    return 0;
 }

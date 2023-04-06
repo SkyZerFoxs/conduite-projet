@@ -35,7 +35,7 @@
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \return 0 Success || 1 Fail
 */
-int play(SDL_Window *window, SDL_Renderer *renderer) {
+int play(SDL_Window *window, SDL_Renderer *renderer, int charger) {
     /* ------------------ Initialisation variable ------------------ */
 
     // statut des erreurs
@@ -58,12 +58,20 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     SDL_timer_t SpeCooldown;
     SDL_timer_t UltCooldown;
     SDL_timer_t timerRespawnMonstre;
+    SDL_timer_t CooldownAtkMonstre;
+    SDL_timer_t timerRegenVie;
+    SDL_timer_t timerDegatHUD;
 
     // Variable qui correspond au sprite detecté
     sprite_t * detectedMonstre;
+    sprite_t * detectedMonstreAtkZone;
 
     // Varriable qui correspond a la detection de mosntre
-    int detect;
+    int detectMonstre;
+    int detecZoneAtkMonstre;
+
+    // Variable resultat comabt monstre
+    int resultAtkMonstre = 0;
 
     // Variable Pour Quitter La Boucle Principal
     int quit = SDL_FALSE;
@@ -98,11 +106,18 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable detection Pnj
     sprite_t * detectedPnj = NULL;
 
+    // Variable detection attaque joueur
+    int attaqueJoueur = 0;
+
     // Variable Gestion Animation Degat & Mort Monstre
     int mortMonstre = 0;
     int frameMortMonstre = 0;
     int degatMonstre = 0;
     int frameDegatMonstre = 0;
+    int degatJoueur = 0;
+
+    // Variable Id Item Loot Aléatoire
+    int RandomItemLootID;
 
     // Variable coordonées detected monstre 
     int yMonstre, xMonstre;
@@ -110,6 +125,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variable getWinInfo
     int win_width;
     int win_height;
+    int dstCoef, xBorder, yBorder;
 
     // Variable Gestion Sortie Inventaire
     int sortieInv = 0;
@@ -123,18 +139,31 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     // Variables des temps de cooldowns
     int MsCooldownFrame1 = 600;
     int MsCooldownFrame2 = 200;
-    int MsCooldownIdleAnimation = 150;
+    int MsCooldownIdleAnimation = 180;
     int MsAtkCooldown = 1000;
-    int MsSpeCooldown = 1000;
-    int MsUltCooldown = 1000;
+    int MsSpeCooldown = 5000;
+    int MsUltCooldown = 15000;
     int MsDeplacementCooldown = 160;
-    int MsRespawnMonsterCooldown = 60000;
+    int MsRespawnMonsterCooldown = 300000;
+    int MsCooldownAtkMonstre = MsAtkCooldown + 500;
+    int MsRegenVie = 15000;
+    int msTimerDegatHUD = 800;
 
     // Tableau Skill Unblocked
-    int tabUnlockedSkill[3] = { 1, 1, 1};
+    int tabUnlockedSkill[3] = { 1, 0, 0};
 
     // Tableau Locked Skill
     int tabSkill[3] = { 1, 1, 1 };
+
+    // Tableau Respawn Par Zone ( tab[Zone] = {y , x} )
+    int tabRespawnJoueur[6][2] = {
+        {132, 25},
+        {199, 103},
+        {131, 113},
+        {81 , 53 },
+        {38 , 93 },
+        {16 , 94 }
+    };
 
     /* ------------------ Initialisation resource jeux ------------------ */
 
@@ -164,6 +193,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         "asset/hud/skillBar/lockedUltime.png"
     };
     SDL_Texture * textSkillBar[4] = { NULL, NULL, NULL, NULL };
+    SDL_Texture * textDamageHUD;
     
     // initialisation générateur de nombres aléatoires
     srand(time(NULL));
@@ -294,11 +324,25 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         goto detruire;
     }
 
-    font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 26);
-    if (font1 == NULL) {
-        printf("Erreur : Echec TTF_OpenFont(font26) dans play()\n");
-        erreur = 1;
-        goto detruire;
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window,&win_width,&win_height,0,NULL,NULL,NULL,NULL);
+
+    // Gestion font 1280 x 720
+    if ( win_width > 1000 && win_width < 1400 ) {
+        font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 22);
+        if (font1 == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font1) dans play()\n");
+            erreur = 1;
+            goto detruire;
+        }
+    }
+    else {
+        font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 26);
+        if (font1 == NULL) {
+            printf("Erreur : Echec TTF_OpenFont(font1) dans play()\n");
+            erreur = 1;
+            goto detruire;
+        }
     }
     
     // chargement texture boite Level UP
@@ -317,6 +361,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         }
     }
 
+    // chargement texture hud degat
+    textDamageHUD = IMG_LoadTexture(renderer, "asset/hud/degat.png");
+    if ( textDamageHUD == NULL ) {
+        printf("Erreur : Echec IMG_LoadTexture(textDamageHUD) dans play()\n");
+        erreur = 1;
+    }
+
 
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
@@ -332,46 +383,25 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     Timer_Start( &UltCooldown );
     UltCooldown.start -= (MsUltCooldown + 1);
     Timer_Start( &timerRespawnMonstre );
-    timerRespawnMonstre.start -= (MsRespawnMonsterCooldown+1);
+    timerRespawnMonstre.start -= (MsRespawnMonsterCooldown + 1 );
+    Timer_Start( &CooldownAtkMonstre );
+    CooldownAtkMonstre.start -= (MsCooldownAtkMonstre + 1);
+    Timer_Start( &timerRegenVie );
+    timerRegenVie.start -= (MsRegenVie + 1);
+    
     
 
     /* ------------------ Zone teste ( A supprimer ) ------------------ */
 
     /*
-    afficher_pnj(spriteMap[0][39][19]->pnj);
-
-    if ( Afficher_Liste_Type_Pnj(listeTypePnj) ) {
-        printf("Erreur : Echec Afficher_Liste_Type_Pnj dans play()\n");
-        erreur = 1;
-        goto detruire;
+    if ( charger ) {
+        load_game(&CameraJoueur.x,&CameraJoueur.y,perso,inventaire,listeObjets,"asset/save/auto-save");
     }
-
-    for ( int i = 0; i < listePnj->nbElem; i++ ) {
-        afficher_pnj(listePnj->tabPnj[i]);
-        printf("\n");
+    else {
+        Introduction(window,renderer,&CameraJoueur);
     }
-
-    
-    for ( int i = 0; i < listeMonstre->nbElem; i++ ) {
-        afficher_monstre(listeMonstre->tabMonstres[i]);
-        printf("\n");
-    }
-
-    afficher_perso(perso);
-    printf("\n");
-
-    afficher_liste_objet(listeObjets);
-    printf("\n");
-    
     */
 
-    // Teste inventaire
-    inventaire->inventaire[2][2] = 20;
-    listeObjets->tab[20]->nb = 2;
-    inventaire->inventaire[3][3] = 5;
-    listeObjets->tab[5]->nb = 3;
-    inventaire->inventaire[1][1] = 12;
-    listeObjets->tab[12]->nb++;
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -382,6 +412,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
         Timer_Start( &fps );
         // Reset keyPressed
         keyPressed = 0;
+
+        
 
         /* ------- Detection Evenement -------*/
         while (SDL_PollEvent(&event)) {
@@ -439,13 +471,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 }
                                 break;
                             case SDLK_e:
-                                detect = Detecter_Pnj(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedPnj);
-                                if ( detect == -1 ) {
+                               detectMonstre = Detecter_Pnj(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedPnj);
+                                if ( detectMonstre == -1 ) {
                                     printf("Erreur : Echec Detecter_Monstre('basique') dans play()\n");
                                     erreur = 1;
                                     goto detruire;
                                 }
-                                if ( detect == 1 ) {
+                                if ( detectMonstre == 1 ) {
                                     sortieDiag = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj, listeTypePnj, &CameraJoueur, window, renderer);
                                     if ( sortieDiag == -1 ) {
                                         quit = SDL_TRUE;
@@ -504,6 +536,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                                 }
                                 
                                 break;
+                            case SDLK_p:
+                                perso->caract->pv = 0;
                             default:
                                 break;
                         }
@@ -555,6 +589,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             Timer_Start( &timerRespawnMonstre );
         }
 
+        if ( perso->niveau >= 5 ) {
+            tabUnlockedSkill[1] = 1;
+        }
+
+        if ( perso->niveau >= 15 ) {
+            tabUnlockedSkill[2] = 1;
+        }
+
         if ( tabUnlockedSkill[0] && (int)Timer_Get_Time(&AtkCooldown) > MsAtkCooldown ) {
             tabSkill[0] = 0;
         }
@@ -567,6 +609,31 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             tabSkill[2] = 0;
         }
 
+        if ( (int)Timer_Get_Time( &timerRegenVie ) > MsRegenVie ) {
+            if ( perso->caract->pv < perso->caract->maxPv ) {
+                perso->caract->pv += perso->caract->maxPv * 0.1;
+                if ( perso->caract->pv > perso->caract->maxPv ) {
+                    perso->caract->pv = perso->caract->maxPv;
+                }
+            }
+            Timer_Start( &timerRegenVie );
+        }
+
+        if ( perso->caract->pv <= 0 ) {
+            perso->caract->pv = 0;
+            if ( Respawn_Joueur(continent,perso,&CameraJoueur,tabRespawnJoueur ) ) {
+                printf("Erreur : Echec Respawn_Joueur() dans play()\n");
+                erreur = 1;
+                goto detruire;
+            }
+            if ( Mort_Joueur(perso,inventaire,listeObjets) ) {
+                printf("Erreur : Echec Mort_Joueur() dans play()\n");
+                erreur = 1;
+                goto detruire;
+            }
+
+        }
+
         /* --------- Gestion Animation --------- */
 
         // Bloqué les actions pendants l'attaque de base
@@ -577,21 +644,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 mouseClicked = 0;
                 frameAtck = 0;
                 // Detection reussie attaque
-                detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedMonstre);
-                if ( detect == -1 ) {
+               detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedMonstre);
+                if ( detectMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Monstre('basique') dans play()\n");
                     erreur = 1;
                     goto detruire;
                 }
-                if ( detect == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
-                    combat_joueur(perso, detectedMonstre->monstre, 0);
-                    printf("\n");
-                    if ( detectedMonstre->monstre->caract->pv <= 0 ) {
-                        mortMonstre = 1;
-                    }
-                    else {
-                        degatMonstre = 1;
-                    }
+                if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
+                    attaqueJoueur = 1;
                 }
                 if ( detectedMonstre != NULL ) {
                     afficher_monstre(detectedMonstre->monstre);
@@ -608,21 +668,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 aKeyClicked = 0;
                 frameAtck = 0;
                 // Detection reussie attaque
-                detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,2,&detectedMonstre);
-                if ( detect == -1 ) {
+               detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,2,&detectedMonstre);
+                if ( detectMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Monstre('spe') dans play()\n");
                     erreur = 1;
                     goto detruire;
                 }
-                if ( detect == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
-                    combat_joueur(perso, detectedMonstre->monstre, 1);
-                    printf("\n");
-                    if ( detectedMonstre->monstre->caract->pv <= 0 ) {
-                        mortMonstre = 1;
-                    }
-                    else {
-                        degatMonstre = 1;
-                    }
+                if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
+                    attaqueJoueur = 2;
                 }
                 if ( detectedMonstre != NULL ) {
                     afficher_monstre(detectedMonstre->monstre);
@@ -631,7 +684,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             }
         }
 
-        // Bloqué les actions pendants l'attaque spéciale
+        // Bloqué les actions pendants l'attaque ultime
         if ( rKeyClicked == 1 ) {
             frameAtck++;
             SDL_Delay(200);
@@ -639,27 +692,32 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 rKeyClicked = 0;
                 frameAtck = 0;
                 // Detection reussie attaque
-                detect = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,3,&detectedMonstre);
-                if ( detect == -1 ) {
+               detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,3,&detectedMonstre);
+                if ( detectMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Monstre('ult') dans play()\n");
                     erreur = 1;
                     goto detruire;
                 }
-                if ( detect == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
-                    combat_joueur(perso, detectedMonstre->monstre, 2);
-                    printf("\n");
-                    if ( detectedMonstre->monstre->caract->pv <= 0 ) {
-                        mortMonstre = 1;
-                    }
-                    else {
-                        degatMonstre = 1;
-                    }
+                if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
+                    attaqueJoueur = 3;
                 }
                 if ( detectedMonstre != NULL ) {
                     afficher_monstre(detectedMonstre->monstre);
                     printf("\n");
                 }
             }
+        }
+
+        if ( attaqueJoueur > 0 ) {
+            combat_joueur(perso, detectedMonstre->monstre, attaqueJoueur);
+            printf("\n");
+            if ( detectedMonstre->monstre->caract->pv <= 0 ) {
+                mortMonstre = 1;
+            }
+            else {
+                degatMonstre = 1;
+            }
+            attaqueJoueur = 0;
         }
 
         if ( degatMonstre ) {
@@ -707,7 +765,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 detectedMonstre->spriteTypeId++;
                 detectedMonstre->frame = 0;
                 detectedMonstre->monstre->caract->pv = 1; 
-
             }
             SDL_Delay(200);
             frameMortMonstre++;
@@ -716,7 +773,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 detectedMonstre->monstre->caract->pv = -1;
                 detectedMonstre->spriteTypeId--;
                 frameMortMonstre = 0;
-                perso->exp += 250;
+                perso->exp += detectedMonstre->monstre->niveau * 10;
+                RandomItemLootID = loot_monstre(detectedMonstre->monstre->niveau);
+                if ( RandomItemLootID != -1 ) {
+                    Add_Item_Inventaire(inventaire, listeObjets, RandomItemLootID);
+                }
+                
             }
         }
         
@@ -728,6 +790,34 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
                 goto detruire;
             }
         }
+
+        // Detection attaque monstre
+        if ( (int)Timer_Get_Time( &CooldownAtkMonstre ) > MsCooldownAtkMonstre ) {
+            for (int i = 1; i < 4; i++ ) {
+                detecZoneAtkMonstre = Detecter_Zone_Atk_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,i,&detectedMonstreAtkZone);
+                if ( detecZoneAtkMonstre == -1 ) {
+                    printf("Erreur : Echec Detecter_Zone_Atk_Monstre() dans play()\n");
+                    erreur = 1;
+                    goto detruire;
+                }
+                if ( detecZoneAtkMonstre == 1 && detectedMonstreAtkZone->monstre->caract->pv > 0 ) {
+                    resultAtkMonstre = combat_monstre(detectedMonstreAtkZone->monstre,perso,i);
+                    if ( resultAtkMonstre == -1 ) {
+                        printf("Erreur : Echec combat_monstre() dans play()\n");
+                        erreur = 1;
+                        goto detruire;
+                    }
+                    else if ( resultAtkMonstre == 1 ) {
+                        degatJoueur = 1;
+                        Timer_Start( &timerDegatHUD );
+                    }
+                    
+                    break; // Sortir de la boucle
+                }
+            }
+            Timer_Start( &CooldownAtkMonstre );
+        }
+                   
     
        /* --------- Gestion Frame Sprite --------- */ 
 
@@ -752,7 +842,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             goto detruire;
         }
         
-
+        
         // Affichage Complet
         if ( Affichage_All(perso, tabSkill, textSkillBar, mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, font1, renderer,&CameraJoueur) ) {
             printf("Erreur : Echec Affichage_All() dans play()\n");
@@ -760,8 +850,28 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             goto detruire;
         }
 
+        // Affichage HUD Degat
+        if ( degatJoueur == 1 && (int)Timer_Get_Time( &timerDegatHUD ) < msTimerDegatHUD ) {
+            // Récupération des informations de la fenêtre utile à l'affichage
+            getWinInfo(window, &win_width, &win_height, 16, &CameraJoueur, &dstCoef, &xBorder, &yBorder );
+
+            // Rect Destination ( renderer )
+            SDL_Rect dest;
+            dest.h = dstCoef * 16 * 11;
+            dest.w = dstCoef * 16 * 20;
+            dest.x = xBorder;
+            dest.y = yBorder;
+
+            // Affichage HUD Skill Bar
+            SDL_RenderCopy(renderer, textDamageHUD, NULL, &dest);
+        }
+
+        if ( degatJoueur == 1 && (int)Timer_Get_Time( &timerDegatHUD ) > msTimerDegatHUD ) {
+            degatJoueur = 0;
+        }
+
         // Affichage Level UP
-        if ( perso->exp > ( perso->palierExp = perso->niveau * 249 ) ) {
+        if ( perso->exp >= ( perso->palierExp = 100 + (perso->niveau * 50) ) ) {
              // Récupération des informations de la fenêtre utile à l'affichage
             getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
 
@@ -790,7 +900,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
             }
             
             perso->niveau++;
-            perso->pts_upgrade += 2;
+            perso->pts_upgrade += 3;
             sortieLevlUP = Level_UP(textFondLevelUP,background_texture,perso,&CameraJoueur,window,renderer);
             if ( sortieLevlUP == -1 ) {
                 quit = SDL_TRUE;
@@ -822,7 +932,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer) {
     }
 
     // Sauvegarde du jeu
-    save_game(CameraJoueur.x+9,CameraJoueur.y+5+1,perso,inventaire,listeObjets,0);
+    save_game(CameraJoueur.x,CameraJoueur.y,perso,inventaire,listeObjets);
     
     /* -------  Destruction de la mémoire -------*/
     detruire:
@@ -933,7 +1043,7 @@ int main() {
 
     // fonction principal du jeu (play) 
     printf("Debut Play .............. OK\n");
-    if ( play(window,renderer) ) {
+    if ( play(window,renderer,0) ) {
         printf("Erreur : play() à échoué\n");
         erreur = 1;
         goto quit;

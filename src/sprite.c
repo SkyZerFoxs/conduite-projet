@@ -1156,3 +1156,34 @@ extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY
 
     return 0;
 }
+
+extern int Detecter_Zone_Atk_Monstre(sprite_t **** spriteMap, map_t * map, int yJoueur, int xJoueur, int rayon, sprite_t ** detectedMonster ) {
+    
+    if ( spriteMap == NULL ) {
+        printf("Erreur : spriteMap en parametre invalide dans Detecter_Zone_Atk_Monstre()\n");
+        return -1;
+    }
+
+    if ( map == NULL ) {
+        printf("Erreur : spriteMap en parametre invalide dans Detecter_Zone_Atk_Monstre()\n");
+        return -1;
+    }
+    
+    // Vérification des limites de la matrice et du rayon
+    if (yJoueur < 0 || yJoueur >= map->height || xJoueur < 0 || xJoueur >= map->width || rayon < 1) {
+        return -1;
+    }
+
+    // Parcourir la matrice dans le rayon spécifié
+    for (int y = yJoueur - rayon; y <= yJoueur + rayon; y++ ) {
+        for (int x = xJoueur - rayon; x <= xJoueur + rayon; x++ ) {
+            if ( spriteMap[0][y][x] != NULL && spriteMap[0][y][x]->monstre != NULL && spriteMap[0][y][x]->monstre->caract->pv > 0 ) {
+                // On a trouvé un ennemi
+                *detectedMonster = spriteMap[0][y][x];
+                return 1;
+            }
+        }
+    }
+    
+    return 0;
+}

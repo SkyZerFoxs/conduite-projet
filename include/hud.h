@@ -78,5 +78,11 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * L
 // Fonction Boucle Dialogue
 extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_texture, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;
 
+/* ------------------ Gestion Mort Joueur  ------------------ */
+extern int Mort_Joueur( personnage_t * perso, inventaire_t * inventaire, liste_objet_t *listeObjets ) ;
+
+/* ------------------ Gestion Introduction  ------------------ */
+extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view ) ;
+
 #endif
 

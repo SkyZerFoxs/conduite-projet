@@ -78,7 +78,7 @@ liste_objet_t * load_liste_objets(char * nom_fich) {
         // Récupération données
         result = fscanf(filename, "%[^:]:%d:%d:%d:%d:%d:%d:%d:\n", 
             liste->tab[i]->nom, &(liste->tab[i]->niv), &(liste->tab[i]->typeID), &(liste->tab[i]->stats->pv),
-            &(liste->tab[i]->stats->def), &(liste->tab[i]->stats->atk), &(liste->tab[i]->prix_achat), &(liste->tab[i]->prix_vente));
+            &(liste->tab[i]->stats->atk), &(liste->tab[i]->stats->def), &(liste->tab[i]->prix_achat), &(liste->tab[i]->prix_vente));
         if (result != 8) {
             printf("Erreur : Format invalide dans la ligne %d du fichier %s dans load_objets()\n", i+1, nom_fich);
             return NULL;
@@ -174,4 +174,53 @@ void detruire_liste_objet( liste_objet_t ** liste) {
 
     free((*liste));
     (*liste) = NULL;
+}
+
+extern int loot_monstre(int niv_monstre) {
+    int drop = rand() % 3; 
+    if( drop==1 ) {
+        int item_drop = rand() % 8;
+        int niv_obj= rand() % 100;
+        if(niv_monstre>=1 && niv_monstre<=10){
+            if(niv_obj>=0 && niv_obj<=4){
+                return item_drop*3+2;
+            }
+            else if(item_drop>=5 && item_drop<=15){
+                return item_drop*3+1;
+            }
+            else{
+                return item_drop*3;
+            }
+        }
+        else if(niv_monstre>=11 && niv_monstre<=20){
+            if(niv_obj>=0 && niv_obj<=9){
+                return item_drop*3+2;
+            }
+            else if(item_drop>=10 && item_drop<=70){
+                return item_drop*3+1;
+            }
+            else{
+                return item_drop*3;
+            }
+        }
+        else if(niv_monstre>=21 && niv_monstre<=25){
+            if(niv_obj>=0 && niv_obj<=49){
+                return item_drop*3+2;
+            }
+            else if(item_drop>=50 && item_drop<=80){
+                return item_drop*3+1;
+            }
+            else{
+                return item_drop*3;
+            }
+        }
+    }
+
+    return -1;
+}
+
+extern int loot_coffre(int niv_coffre) {
+    int item_drop = rand() % 8;
+    return item_drop*3+niv_coffre;
+
 }

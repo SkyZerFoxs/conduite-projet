@@ -69,10 +69,10 @@ monstre_t * creer_monstre(char * nom, int niv, int y, int x) {
 
     monstre->niveau = niv;
 
-    monstre->caract->pv = 50 + ( niv - 1 ) * 10;
+    monstre->caract->pv =  50 + (niv * 5) ;
     monstre->caract->maxPv = monstre->caract->pv;
-    monstre->caract->atk = 5 + ( niv - 1 ) * 5;
-    monstre->caract->def = 2 + ( niv - 1 ) * 2;
+    monstre->caract->atk = 5 + (niv * 2) ;
+    monstre->caract->def = 5 + (niv * 2) ;
 
     return monstre;
 }

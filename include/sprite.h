@@ -165,6 +165,8 @@ extern void Detruire_Liste_Pnj(pnj_liste_t ** liste)  ;
 extern int Detecter_Monstre(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **monstre) ;
 extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **pnj) ;
 
+extern int Detecter_Zone_Atk_Monstre(sprite_t **** spriteMap, map_t * map, int yJoueur, int xJoueur, int rayon, sprite_t ** detectedMonster ) ;
+
 extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX ) ;
 
 #endif
