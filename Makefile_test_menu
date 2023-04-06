@@ -7,10 +7,14 @@ INCLUDEDIR=include
 OBJDIR=obj
 TESTDIR=test
 
-all: test_menu
+all: test_main
 
-test_menu: $(TESTDIR)/menu.c
-	${CC} $(TESTDIR)/menu.c -o test_menu $(CFLAGS) $(LDFLAGS)
+test_menu: $(SRCDIR)/menu.c
+	${CC} $(SRCDIR)/menu.c -o test_menu $(CFLAGS) $(LDFLAGS)
+
+
+test_main: $(SRCDIR)/menu.c $(TESTDIR)/main.c
+	${CC} $(SRCDIR)/menu.c $(TESTDIR)/main.c -o test_main $(CFLAGS) $(LDFLAGS)
 
 mrproper:
 	rm -f test_menu
