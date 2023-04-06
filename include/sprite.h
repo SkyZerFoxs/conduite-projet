@@ -1,0 +1,172 @@
+#ifndef _SPRITE_H_
+#define _SPRITE_H_
+
+#include <string.h>
+#include <map.h>
+#include <data.h>
+
+#define MAX_SPRITE_FRAME 20
+#define BORNE_PERSO_SPRITE 132
+#define BORNE_PNJ_SPRITE 209
+
+/**
+ * \file sprite.h
+ * \brief Header Gestion Sprite
+ * \author Yamis MANFALOTI
+ * \version 2.1
+ * \date 12 mars 2023
+ *
+ * Header Gestion Sprite:
+ * \n structure sprite_type_t
+ * \n structure sprite_type_liste_t
+ * \n structure sprite_t
+ * \n Signature des fonction externe de sprite.c
+ */
+
+/**
+ * \typedef sprite_type_s sprite_type_t Structure Sprite Type
+ * \struct sprite_type_t
+ * \brief Structure avec pour attributs, les informations sur un type de sprite
+ * 
+ * Contient:
+ * \n spriteName    : Nom du type de sprite
+ * \n frameNumber   : Frame finale/maximal du sprite
+ * \n spriteSheet   : Chemin du spriteSheet 
+ * \n spriteSize    : Taille en pixel du sprite
+ * \n spriteLine    : Indice de ligne du sprite dans la spriteSheet
+ * 
+*/
+typedef struct sprite_type_s {
+    // Nom du type de sprite
+    char * spriteName;
+
+    //Son frameNumber
+    int frameNumber;
+    int frameCat;
+    
+    // Metadonnées Texture Sprite
+    char * spriteSheet;
+    int spriteSize;
+    int spriteLine;
+
+    // Donné de SDL_Texture
+    int textureId;
+
+}sprite_type_t;
+
+/**
+ * \typedef sprite_type_liste_s sprite_type_liste_t Structure Sprite Type Liste
+ * \struct sprite_type_liste_t
+ * \brief Liste des types de sprites
+ * 
+ * Contient:
+ * \n typeListe     : Liste des types de sprite
+ * \n nbElem;       : Nombre d'éléments dans la liste
+ * 
+*/
+typedef struct sprite_type_liste_s {
+    sprite_type_t ** typeListe;
+    int nbElem;
+
+}sprite_type_liste_t;
+
+/**
+ * \typedef sprite_s sprite_t Structure Sprite
+ * \struct sprite_t
+ * \brief Structure des Sprites
+ * 
+ * Contient:
+ * \n x             : Coordonnées x du sprite
+ * \n y             : Coordonnées y du sprite
+ * \n frame         : Frame courante du sprite
+ * \n spriteTypeId  : Id du type de sprite à afficheer (sprite_type_liste_t)
+ * 
+ */
+typedef struct sprite_s {
+    //Coordonnées
+    int x;
+    int y;
+
+    //Sa frame courante
+    int frame;
+
+    //Son type ( texture )
+    int spriteTypeId;
+
+    // Le monstre au quelle il est rataché ( NULL si ce n'est pas un sprite de monstre)
+    monstre_t * monstre;
+
+    // Le pnj au quelle il est rataché ( NULL si ce n'est pas un sprite de pnj )
+    pnj_t * pnj;
+
+}sprite_t;
+
+/**
+ * \typedef sprite_liste_s sprite_liste_t Structure Liste Sprite
+ * \struct sprite_liste_t
+ * \brief Structure qui correspond à une liste de sprite
+ * 
+ * Contient:
+ * \n spriteListe   : Liste de sprite
+ * \n nbElem;       : Nombre d'éléments dans la liste
+*/
+typedef struct sprite_liste_s {
+    sprite_t ** spriteListe;
+    int nbElem;
+
+}sprite_liste_t;
+
+/**
+ * \typedef monstre_liste_s monstre_liste_t
+ * \struct monstre_liste_s
+ * \brief Structure qui correspond à une liste de monstres
+ * 
+ * Contient :
+ * \n tabMonstres : Tableau de pointeurs sur des monstres
+ * \n nbElem : Nombre d'éléments dans le tableau
+ */
+typedef struct {
+    monstre_t** tabMonstres;
+    int nbElem;
+} monstre_liste_t;
+
+
+typedef struct {
+    pnj_t ** tabPnj;
+    int nbElem;
+} pnj_liste_t;
+
+
+
+extern sprite_type_liste_t * Load_Sprite_Type(const char * nom_fichier) ;
+extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) ;
+
+extern sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_type_liste_t * liste, map_t * map) ;
+extern void Detruire_Sprite( sprite_t ** sprite) ;
+
+extern sprite_liste_t * Load_PersoSprite_List(sprite_type_liste_t * listeType, map_t * map, int debut, int fin) ;
+extern void Detruire_Sprite_Liste(sprite_liste_t ** liste) ;
+
+extern sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t * map) ;
+extern void Detruire_SpriteMap(sprite_t ***** spriteMap, map_t * map) ;
+
+extern int Deplacement_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
+extern int Change_Sprite(sprite_t **** spriteMap, map_t * map, sprite_t * sprite, int y, int x) ;
+extern int Copy_Sprite(sprite_t **** spriteMap, map_t * map, int y1, int x1, int y2, int x2) ;
+
+extern int Colision(map_t * map, sprite_t **** spriteMap, char direction, int y, int x) ;
+
+extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) ;
+extern void Detruire_Liste_Monstres(monstre_liste_t** liste)  ;
+
+extern pnj_liste_t * Load_Pnj(map_t* map, sprite_t**** spriteMap, liste_type_pnj_t * liste_type) ;
+extern void Detruire_Liste_Pnj(pnj_liste_t ** liste)  ;
+
+extern int Detecter_Monstre(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **monstre) ;
+extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **pnj) ;
+
+extern int Detecter_Zone_Atk_Monstre(sprite_t **** spriteMap, map_t * map, int yJoueur, int xJoueur, int rayon, sprite_t ** detectedMonster ) ;
+
+extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX ) ;
+
+#endif

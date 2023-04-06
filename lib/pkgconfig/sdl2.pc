@@ -1,13 +1,13 @@
 # sdl pkg-config source file
 
-prefix=/info/etu/l2info/s2101681/SDL2
+prefix=/info/etu/l2info/s2101681/Projet/conduite-projet
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: sdl2
 Description: Simple DirectMedia Layer is a cross-platform multimedia library designed to provide low level access to audio, keyboard, mouse, joystick, 3D hardware via OpenGL, and 2D video framebuffer.
-Version: 2.26.2
+Version: 2.26.4
 Requires:
 Conflicts:
 Libs: -L${libdir} -Wl,-rpath,${libdir} -Wl,--enable-new-dtags -lSDL2 

@@ -6,8 +6,8 @@
  * \file map.c
  * \brief Gestion map
  * \author Yamis MANFALOTI
- * \version 2.0
- * \date 14 février 2023
+ * \version 2.1
+ * \date 9 mars 2023
  *
  * Gestion des map:
  * \n Initialisation en mémoire
@@ -16,14 +16,14 @@
  */
 
 /**
- * \fn int load_map(char * fichier, map_t * map)
+ * \fn int Load_Map(char * fichier, map_t * map)
  * \brief Fonction interne qui charge la map depuis le fichier map sélectionné
  * 
  * \param fichier Chemin du fichier map
  * \param map Structure map_t où sont stockées les informations de la map
  * \return Int qui caractérise la réussite de la fonction
  */
-int load_map(char * fichier, map_t * map) {
+int Load_Map(char * fichier, map_t * map) {
     FILE *file;
     int tile;
 
@@ -32,7 +32,7 @@ int load_map(char * fichier, map_t * map) {
 
     // vérifie si l'ouverture du fichier a échoué
     if (file == NULL) {
-        printf("Error opening file!");
+        printf("Erreur : Echec ouverture fichier dans Load_Map()\n");
         return 1;
     }
 
@@ -61,24 +61,26 @@ int load_map(char * fichier, map_t * map) {
         }
     }
 
-
     // fermeture du fichier
     fclose(file);
     return 0;
 }
 
 /**
- * \fn map_t * initialiser_map(char * fichier)
+ * \fn map_t * Initialiser_Map(char * fichier)
  * \brief Fonction externe qui charge la map depuis le fichier map sélectionné
  * 
  * \param fichier Chemin du fichier map
  * \return Pointeur sur une structure map_t qui correspond à la map qui vient d'être créée
  */
-extern map_t * initialiser_map(char * fichier) {
+extern map_t * Initialiser_Map(char * fichier) {
     // initialisation et allocation mémoire de la structure map_t
     map_t * map = malloc( sizeof(map_t) );
-    // génération de la matriceMap en appellant load_map
-    load_map(fichier, map);
+    // génération de la matriceMap en appellant Load_Map
+    if ( Load_Map(fichier, map) ) {
+        printf("Erreur : Echec Load_Map() dans Initialiser_Map()\n");
+        return NULL;
+    }
     // renvoie de la map final
     return map;
 }
@@ -89,27 +91,39 @@ extern map_t * initialiser_map(char * fichier) {
  * \param map Pointeur sur la structure map_t qu'on souhaite détruire
  * \return Aucun retour effectué en fin de fonction
  */
-extern void detruire_map(map_t * map) {
+extern void Detruire_Map(map_t ** map) {
+    if ( map == NULL || (*map) == NULL ) {
+        printf("Erreur : map inexsitant dans Detruire_Map() ");
+        return;
+    }
+
+    if ( (*map)->layer <= 0 || (*map)->height <= 0 ) {
+        printf("Erreur : layer ou height <= 0 dans Detruire_Map()\n" );
+        return;
+    }
+
     // destruction des lignes dans chaques layers de la matrice
-    for (int n = 0; n < map->layer; n++) {
-        for ( int i = 0; i < map->height; i++ ) {
-            free(map->matrice[n][i]);
-            map->matrice[n][i] = NULL;
+    for (int n = 0; n < (*map)->layer; n++) {
+        for ( int i = 0; i < (*map)->height; i++ ) {
+            if ( (*map)->matrice[n][i] != NULL ) {
+                free((*map)->matrice[n][i]);
+                (*map)->matrice[n][i] = NULL;
+            }
+            
+        }
+        if ( (*map)->matrice[n] != NULL ) {
+            free((*map)->matrice[n]);
+            (*map)->matrice[n] = NULL;
         }
     }
-    // destruction de chaque layers dans la matrice
-    for (int n = 0; n < map->layer; n++) {
-        free(map->matrice[n]);
-        map->matrice[n] = NULL;
-    }
+
     // destruction de la matrice
-    free(map->matrice);
-    map->matrice = NULL;
-    // destruction de la structure map_t
-    free(map);
-    map = NULL;
-}
-
-
-
+    if ( (*map)->matrice != NULL ) {
+        free((*map)->matrice);
+        (*map)->matrice = NULL;
+    }
     
+    // destruction de la structure map_t
+    free((*map));
+    (*map) = NULL;
+}

@@ -1,11 +1,11 @@
-prefix=/mnt/d/Utilisateurs/Yamis/Documents/Universite/Cours/L2/S4/Projet_S4/SDL2_image-2.6.2/SDL2_image
+prefix=/info/etu/l2info/s2101681/Projet/conduite-projet
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: SDL2_image
 Description: image loading library for Simple DirectMedia Layer
-Version: 2.6.2
+Version: 2.6.3
 Requires: sdl2 >= 2.0.9
 Libs: -L${libdir} -lSDL2_image
 Requires.private: 

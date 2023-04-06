@@ -1,0 +1,10 @@
+pos_x_joueur:pos_y_joueur:
+1:0:0:
+pv:maxPv:def:atk
+invHeight:invWidth
+## Matrice inventaire ##
+equipementHeight:equipementWidth:
+## Matrice equipement ##
+nbObjets:
+## Quantité Objets ##
+lastQuestID:

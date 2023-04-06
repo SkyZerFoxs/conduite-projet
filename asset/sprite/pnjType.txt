@@ -1,0 +1,19 @@
+Blacksmith:asset/hud/dialogue/pnj_dialogue/0.png:Bienvenue dans ma forge! Je peux vous vendre des armes et des armures ou reparer celles que vous avez deja.:
+Alchemist:asset/hud/dialogue/pnj_dialogue/1.png:Bonjour! Je suis un alchimiste. Si vous avez besoin d'objets magiques ou de potions, vous etes au bon endroit.:
+Archer:asset/hud/dialogue/pnj_dialogue/2.png:Salut! Je suis un archer. Si vous cherchez des informations sur les ennemis qui rodent dans les environs, je peux vous aider.:
+Butcher:asset/hud/dialogue/pnj_dialogue/3.png:Bonjour! Je suis un boucher. Si vous cherchez de la viande fraiche, vous etes au bon endroit.:
+EliteKnight:asset/hud/dialogue/pnj_dialogue/4.png:Je suis un chevalier d'elite. Mon epee et mon bouclier sont toujours prets a defendre le royaume. Mais ne me derangez pas inutilement.:
+Executioner:asset/hud/dialogue/pnj_dialogue/5.png:Je suis le bourreau royal. Si vous enfreignez les lois de ce royaume, je m'occuperai de votre cas.:
+HeavyKnight:asset/hud/dialogue/pnj_dialogue/6.png:Je suis un chevalier lourdement arme. Mon devoir est de proteger ce royaume.:
+Herald:asset/hud/dialogue/pnj_dialogue/7.png:Je suis le heraut du roi. Si vous avez besoin de nouvelles du royaume, demandez-moi.:
+King:asset/hud/dialogue/pnj_dialogue/8.png:Bonjour aventurier! Je suis heureux que vous soyez la pour nous aider dans notre lutte contre les demons.:
+Knight:asset/hud/dialogue/pnj_dialogue/9.png:Je suis un chevalier. Je sers le roi et je protege le royaume. Si vous avez besoin d'aide, demandez-moi.:
+LargeEliteKnight:asset/hud/dialogue/pnj_dialogue/10.png:Je suis un preux chevalier. Et je ferai tout ce qui est en mon pouvoir pour defendre ce royaume.:
+LargeKnight:asset/hud/dialogue/pnj_dialogue/11.png:Je suis fier d'etre un chevalier de ce royaume. Et je ferai tout ce qui est en mon pouvoir pour le defendre.:
+Mage:asset/hud/dialogue/pnj_dialogue/12.png:Je suis un mage. Si vous cherchez des sorts ou des objets magiques, vous etes au bon endroit.:
+Merchant:asset/hud/dialogue/pnj_dialogue/13.png:Bonjour! Je suis un marchand. Si vous cherchez des objets rares ou des fournitures, je peux vous aider.:
+Princess:asset/hud/dialogue/pnj_dialogue/14.png:Bonjour aventurier! Je suis la princesse, et je suis heureuse que vous soyez venu nous aider a combattre les demons.:
+Queen:asset/hud/dialogue/pnj_dialogue/15.png:Je suis la reine de ce royaume, et je vous remercie d'etre venu nous aider.:
+Thief:asset/hud/dialogue/pnj_dialogue/16.png:Salut! Je suis un voleur. Si vous cherchez des objets voles ou des informations, je peux vous aider.:
+Townsfolk:asset/hud/dialogue/pnj_dialogue/17.png:Bonjour! Je suis un habitant de la ville. Si vous avez besoin d'informations sur la ville ou les environs, je peux vous aider.:
+TownsfolkFemale:asset/hud/dialogue/pnj_dialogue/18.png:Bonjour! Je suis une habitante de la ville. Si vous avez besoin d'informations sur la ville ou les environs, je peux vous aider.:

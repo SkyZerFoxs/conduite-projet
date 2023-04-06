@@ -1,4 +1,4 @@
-prefix=/mnt/d/Utilisateurs/Yamis/Documents/Universite/Cours/L2/S4/Projet_S4/SDL2_ttf-2.20.1/SDL2_ttf
+prefix=/info/etu/l2info/s2101681/Projet/conduite-projet
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
