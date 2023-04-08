@@ -18,11 +18,13 @@
 #include <play.h>
 
 
-
+/* ------------------------------------------------------ */
+/* ------------------ Fonction Externe ------------------ */
+/* ------------------------------------------------------ */
 
 extern int menu(SDL_Window *window,SDL_Renderer *renderer);
 
-extern int echap(SDL_Window *window, SDL_Renderer *renderer, SDL_Texture *tabTextGif[9]);
+extern int echap(SDL_Window *window, SDL_Renderer *renderer, SDL_Texture * background_texture, SDL_Texture * tabTextGif[9]) ;
 
 extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window);
 

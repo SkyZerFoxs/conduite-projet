@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest:  Fichier source de include/map.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('map_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">map.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="map_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _MAP_H_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _MAP_H_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="map_8h.html#a733db83465e065e92132864b39b4006d">    4</a></span>&#160;<span class="preprocessor">#define LAST_TILEMAP_LAYER 3</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="map_8h.html#adbcbb2c561badcb16b8149d1fc070dd8">    5</a></span>&#160;<span class="preprocessor">#define COLISION_LAYER 4</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="map_8h.html#a5616150658b0947a482c000c377c023e">    6</a></span>&#160;<span class="preprocessor">#define SPRITEMAP_LAYER 5</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">/* ------------------------------------------------ */</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">/* ------------------ Structure  ------------------ */</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">/* ------------------------------------------------ */</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structmap__t.html">   37</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>map_s{</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structmap__t.html#abc690d333d1000d5203dc85e79cd6a32">   38</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmap__t.html#abc690d333d1000d5203dc85e79cd6a32">width</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structmap__t.html#a6f57ef4a9fa739fb16a53664bfcd4dee">   39</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmap__t.html#a6f57ef4a9fa739fb16a53664bfcd4dee">height</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structmap__t.html#a12f5e4b8d1f847802b7cd5b144668c3b">   40</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmap__t.html#a12f5e4b8d1f847802b7cd5b144668c3b">tileSize</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structmap__t.html#a047a3bad447ba2a80454c93bdb15f0e5">   41</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmap__t.html#a047a3bad447ba2a80454c93bdb15f0e5">layer</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structmap__t.html#aa03ef51f246059e4e9510ca138f26efd">   42</a></span>&#160;    <span class="keywordtype">int</span> ***<a class="code" href="structmap__t.html#aa03ef51f246059e4e9510ca138f26efd">matrice</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}<a class="code" href="structmap__t.html">map_t</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">/* ------------------ Fonction Externe ------------------ */</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">extern</span> <a class="code" href="structmap__t.html">map_t</a> * <a class="code" href="map_8h.html#a7cfb1dac2f4be78275bdf06060861c3f">Initialiser_Map</a>(<span class="keywordtype">char</span> * fichier) ;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="map_8h.html#a06ca4f44229769cf58ca8495a2a984ff">Detruire_Map</a>(<a class="code" href="structmap__t.html">map_t</a> ** map) ;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="amap_8h_html_a06ca4f44229769cf58ca8495a2a984ff"><div class="ttname"><a href="map_8h.html#a06ca4f44229769cf58ca8495a2a984ff">Detruire_Map</a></div><div class="ttdeci">void Detruire_Map(map_t **map)</div><div class="ttdoc">Fonction qui permet de détruire en mémoire la structure map_t passée en paramètre ainsi que ses dépen...</div><div class="ttdef"><b>Definition:</b> map.c:94</div></div>
+<div class="ttc" id="amap_8h_html_a7cfb1dac2f4be78275bdf06060861c3f"><div class="ttname"><a href="map_8h.html#a7cfb1dac2f4be78275bdf06060861c3f">Initialiser_Map</a></div><div class="ttdeci">map_t * Initialiser_Map(char *fichier)</div><div class="ttdoc">Fonction externe qui charge la map depuis le fichier map sélectionné</div><div class="ttdef"><b>Definition:</b> map.c:76</div></div>
+<div class="ttc" id="astructmap__t_html"><div class="ttname"><a href="structmap__t.html">map_t</a></div><div class="ttdoc">Structure map.</div><div class="ttdef"><b>Definition:</b> map.h:37</div></div>
+<div class="ttc" id="astructmap__t_html_a047a3bad447ba2a80454c93bdb15f0e5"><div class="ttname"><a href="structmap__t.html#a047a3bad447ba2a80454c93bdb15f0e5">map_t::layer</a></div><div class="ttdeci">int layer</div><div class="ttdef"><b>Definition:</b> map.h:41</div></div>
+<div class="ttc" id="astructmap__t_html_a12f5e4b8d1f847802b7cd5b144668c3b"><div class="ttname"><a href="structmap__t.html#a12f5e4b8d1f847802b7cd5b144668c3b">map_t::tileSize</a></div><div class="ttdeci">int tileSize</div><div class="ttdef"><b>Definition:</b> map.h:40</div></div>
+<div class="ttc" id="astructmap__t_html_a6f57ef4a9fa739fb16a53664bfcd4dee"><div class="ttname"><a href="structmap__t.html#a6f57ef4a9fa739fb16a53664bfcd4dee">map_t::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition:</b> map.h:39</div></div>
+<div class="ttc" id="astructmap__t_html_aa03ef51f246059e4e9510ca138f26efd"><div class="ttname"><a href="structmap__t.html#aa03ef51f246059e4e9510ca138f26efd">map_t::matrice</a></div><div class="ttdeci">int *** matrice</div><div class="ttdef"><b>Definition:</b> map.h:42</div></div>
+<div class="ttc" id="astructmap__t_html_abc690d333d1000d5203dc85e79cd6a32"><div class="ttname"><a href="structmap__t.html#abc690d333d1000d5203dc85e79cd6a32">map_t::width</a></div><div class="ttdeci">int width</div><div class="ttdef"><b>Definition:</b> map.h:38</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="map_8h.html">map.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

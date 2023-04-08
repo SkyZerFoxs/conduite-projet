@@ -2,6 +2,22 @@
 
 #include <hud.h>
 
+
+/**
+ * \fn inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem, char * cheminSelecteur, char * cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer * renderer)
+ * \brief Fonction externe qui charger les ressources de l'inventaire
+ * 
+ * \param cheminInventaire, chemin vers l'image de l'interface de l'inventaire
+ * \param cheminItem, chemin vers l'image des objets
+ * \param cheminSelecteur, chemin vers l'image du selecteur
+ * \param cheminItemInfo, chemin vers l'image de l'inteface des informations d'un objet
+ * \param invHeight, la hauteur de l'inventaire
+ * \param invWidth, la largeur de l'inventaire
+ * \param equipementHeight, la hauteur de l'inventaire d'équipement
+ * \param equipementWidth, la largeur de l'inventaire d'équipement
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return pointeur sur inventaire_t || Null Fail ( statut fonction )
+*/
 extern inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem, char * cheminSelecteur, char * cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer * renderer) {
     if (invHeight <= 0 || invWidth <= 0) {
         printf("Erreur : Mauvaise dimension d'inventaire dans Load_Inventaire()\n");
@@ -120,6 +136,13 @@ extern inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem
 
 }
 
+/**
+ * \fn void Detruire_Inventaire(inventaire_t** inventaire)
+ * \brief Fonction externe qui detruit en memoire l'inventaire
+ * 
+ * \param inventaire Pointeur de pointeur sur l' inventaire_t a detruire
+ * \return Aucun retour effectué en fin de fonction 
+*/
 extern void Detruire_Inventaire(inventaire_t** inventaire) {
     // Verification paramètres
     if (inventaire == NULL || *inventaire == NULL) {
@@ -174,20 +197,31 @@ extern void Detruire_Inventaire(inventaire_t** inventaire) {
 }
 
 
+/**
+ * \fn int Afficher_Fond_Inventaire(inventaire_t * inventaire, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche l'interface de l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Fond_Inventaire(inventaire_t * inventaire, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
     // Verification paramètres
     if ( inventaire->textInventaire == NULL ) {
-       printf("Erreur : La texture de l'hud d'inventaire n'est pas chargé dans Afficher_Inventaire()\n");
+       printf("Erreur : La texture de l'hud d'inventaire n'est pas chargé dans Afficher_Fond_Inventaire()\n");
        return 1;
     }
 
     if ( renderer == NULL ) {
-       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_Inventaire()\n");
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_Fond_Inventaire()\n");
        return 1;
     }
 
     if ( dstCoef == 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur : Le WinInfo Incorrecte dans Afficher_Inventaire()\n");
+        printf("Erreur : Le WinInfo Incorrecte dans Afficher_Fond_Inventaire()\n");
         return 1;
     }
 
@@ -210,7 +244,7 @@ static int Afficher_Fond_Inventaire(inventaire_t * inventaire, int  dstCoef, int
 
             // Affiche La Tile Obtenue Grace Au Rectangle Source Vers Le Rectangle Destination Dans Le Renderer
             if ( SDL_RenderCopy(renderer, inventaire->textInventaire, &srcrect, &dstrect) < 0 ) {
-                printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Inventaire\n");
+                printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Fond_Inventaire\n");
                 return 1;
             }
             tileNumber++;
@@ -220,6 +254,17 @@ static int Afficher_Fond_Inventaire(inventaire_t * inventaire, int  dstCoef, int
     return 0;
 }
 
+/**
+ * \fn int Afficher_Item_Inventaire(inventaire_t * inventaire, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche les objets de l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Item_Inventaire(inventaire_t * inventaire, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
 
     // Verification paramètres
@@ -291,6 +336,17 @@ static int Afficher_Item_Inventaire(inventaire_t * inventaire, int  dstCoef, int
     return 0;
 }
 
+/**
+ * \fn int Afficher_Selecteur_Inventaire(inventaire_t * inventaire, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche le selecteur dans l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Selecteur_Inventaire(inventaire_t * inventaire, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
 
     // Verification paramètres
@@ -335,30 +391,44 @@ static int Afficher_Selecteur_Inventaire(inventaire_t * inventaire, int  dstCoef
     return 0;
 }
 
+/**
+ * \fn int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \brief Fonction static qui affiche le preview du personnage dans l'invetaire
+ * 
+
+ * \param mat Matrice[y][x] de pointeur sur sprite_t, les sprites à afficher ( partie haute et basse du personnage ) .
+ * \param SpriteTextureListe Liste des textures des sprites
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite.
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
     if ( SpriteTextureListe == NULL ) {
-       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_PersoPreview()\n");
+       printf("Erreur : La SpriteTextureListe n'est pas chargé dans Afficher_PersoPreview_Inventaire()\n");
        return 1;
     }
 
     if ( mat == NULL ) {
-       printf("Erreur : La matrice des sprites de preview n'est pas chargé dans Afficher_PersoPreview()\n");
+       printf("Erreur : La matrice des sprites de preview n'est pas chargé dans Afficher_PersoPreview_Inventaire()\n");
        return 1;
     }
 
     if ( listeType == NULL ) {
-       printf("Erreur : La listeType n'est pas chargé dans Afficher_PersoPreview()\n");
+       printf("Erreur : La listeType n'est pas chargé dans Afficher_PersoPreview_Inventaire()\n");
        return 1;
     }
 
     if ( renderer == NULL ) {
-       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_PersoPreview()\n");
+       printf("Erreur : Le Renderer n'est pas chargé dans Afficher_PersoPreview_Inventaire()\n");
        return 1;
     }
 
     if ( dstCoef < 0 || xBorder < 0 || yBorder < 0) {
-        printf("Erreur : WinInfo Incorrecte dans Afficher_PersoPreview()\n");
+        printf("Erreur : WinInfo Incorrecte dans Afficher_PersoPreview_Inventaire()\n");
         return 1;
     }
     for (int n = 0; n < 2; n++) {
@@ -389,7 +459,7 @@ static int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_List
 
         // Affichage de la frame courante du sprite
         if ( SDL_RenderCopy(renderer, texture, &rectSrc, &rectDst) < 0 ) {
-            printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_PersoPreview()\n");
+            printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_PersoPreview_Inventaire()\n");
             return 1;
         }
         
@@ -398,6 +468,19 @@ static int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_List
     return 0;
 }
 
+/**
+ * \fn int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \brief Fonction static qui affiche l'interface d'information des objets
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
+ * \param font Police d'écriture pour afficher le texte 
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, TTF_Font* font, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
 
     // Verification paramètres
@@ -534,7 +617,7 @@ static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_
 
         y = ( dstCoef * (16 * ( inventaire->selecteurY - 1.66 ) ) ) + yBorder + (palierY * i);
         if ( Afficher_Texte_Zone(renderer, font, string, y, x, w, &marronCLaireInventaire) ) {
-            printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Inventaire()\n");
+            printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Item_Info_Inventaire()\n");
             return 1;
         }
     }
@@ -542,6 +625,21 @@ static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_
     return 0;
 }
 
+/**
+ * \fn int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \brief Fonction static qui affiche l'interface d'information des objets
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param perso pointeur sur le personnage_t
+ * \param matPreviewPerso Matrice[y][x] de pointeur sur sprite_t, les sprites à afficher ( partie haute et basse du personnage ) .
+ * \param SpriteTextureListe Liste des textures des sprites
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param font Police d'écriture pour afficher le texte 
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Inventaire(inventaire_t * inventaire, personnage_t * perso, sprite_t ** matPreviewPerso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
 
     // Initialisation variable getWinInfo
@@ -629,20 +727,28 @@ static int Afficher_Inventaire(inventaire_t * inventaire, personnage_t * perso, 
     return 0;
 }
 
+/**
+ * \fn int Deplacement_Curseur_Inventaire(inventaire_t * inventaire, char direction ) 
+ * \brief Fonction static qui deplace le curseur dans l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param direction direction deplacement du curseur
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Deplacement_Curseur_Inventaire(inventaire_t * inventaire, char direction ) {
     // Verification paramètres
     if ( inventaire == NULL ) {
-       printf("Erreur : L'inventaire n'est pas chargé dans Drop_Item_Inventaire()\n");
+       printf("Erreur : L'inventaire n'est pas chargé dans Deplacement_Curseur_Inventaire()\n");
        return 1;
     }
 
     if ( inventaire->selecteurX < 3 || inventaire->selecteurX >= 17 ) {
-        printf("Erreur : Le inventaire->selecteurX invalide dans Drop_Item_Inventaire()\n");
+        printf("Erreur : Le inventaire->selecteurX invalide dans Deplacement_Curseur_Inventaire()\n");
         return 1;
     }
 
     if ( inventaire->selecteurY < 2 || inventaire->selecteurY >= 8 ) {
-        printf("Erreur : Le inventaire->selecteurY invalide dans Drop_Item_Inventaire()\n");
+        printf("Erreur : Le inventaire->selecteurY invalide dans Deplacement_Curseur_Inventaire()\n");
         return 1;
     }
 
@@ -688,6 +794,15 @@ static int Deplacement_Curseur_Inventaire(inventaire_t * inventaire, char direct
     return 0;
 }
 
+/**
+ * \fn int Drop_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, int dropMethode )
+ * \brief Fonction static qui permet de drop un objet de l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
+ * \param dropMethode entier qui correspond a la manière de drop un objet
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Drop_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, int dropMethode ) {
     // Verification paramètres
     if ( inventaire == NULL ) {
@@ -748,6 +863,15 @@ static int Drop_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * liste
     return 0;
 }
 
+/**
+ * \fn int Add_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, int itemID)
+ * \brief Fonction static qui permet d'ajouter un objet de l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
+ * \param itemID entier qui correspond a ID de l'objet que l'on souhaite ajouter
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Add_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, int itemID) {
     if ( inventaire == NULL ) {
        printf("Erreur : L'inventaire n'est pas chargé dans Add_Item_Inventaire()\n");
@@ -795,6 +919,15 @@ extern int Add_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeO
     return 0;
 }
 
+/**
+ * \fn int Use_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso)
+ * \brief Fonction extern qui permet d'utiliser un objet de l'inventaire
+ * 
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
+ * \param perso pointeur sur le personnage_t
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Use_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso) {
     if ( inventaire == NULL ) {
        printf("Erreur : L'inventaire n'est pas chargé dans Use_Item_Inventaire()\n");
@@ -912,6 +1045,22 @@ extern int Use_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeO
     return 0;
 }
 
+/**
+ * \fn int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, sprite_liste_t * spritePersoList, SDL_Rect * view, SDL_Window *window, SDL_Texture * background_texture, SDL_Renderer *renderer) {
+ * \brief Fonction externe qui lance l'interface d'inventaire
+ * 
+ * \param inventaire pointeur sur l' inventaire_t
+ * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
+ * \param perso pointeur sur le personnage_t
+ * \param SpriteTextureListe Liste des textures des sprites
+ * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite.
+ * \param spritePersoList Pointeur sur la sprite_liste_t qui contient les sprites du personnage
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param background_texture Pointeur sur la texture a afficher en arrière plan
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0  Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, sprite_liste_t * spritePersoList, SDL_Rect * view, SDL_Window *window, SDL_Texture * background_texture, SDL_Renderer *renderer) {
     
     /* ------------------ Detection Erreur Parametre ------------------ */
@@ -1037,7 +1186,7 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
             return 1;
         }
 
-        font2 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 16);
+        font2 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 14);
         if (font2 == NULL) {
             printf("Erreur : Echec TTF_OpenFont(font16) dans Inventaire()");
             return 1;
@@ -1256,6 +1405,14 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
     return erreur;
 }
 
+/**
+ * \fn liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type_pnj_t * liste_type, SDL_Renderer * renderer)
+ * \brief Fonction externe qui charge la liste des textures d'image de pnj pour les dialogues
+ * 
+ * \param liste_type liste des types de pnj
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return pointeur sur liste_texture_pnj_dialogue_t || Null Fail ( statut fonction )
+*/
 extern liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type_pnj_t * liste_type, SDL_Renderer * renderer) {
     if ( liste_type == NULL ) {
         printf("Erreur : liste_type_pnj en parametre invalide dans Load_Liste_Texture_Pnj_Dialogue()\n");
@@ -1308,6 +1465,13 @@ extern liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type
     return liste;
 }
 
+/**
+ * \fn void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** liste_texture_pnj)
+ * \brief Fonction externe qui detruit en meomoire la liste_texture_pnj_dialogue_t
+ * 
+ * \param liste_texture_pnj Pointeur de pointeur sur liste_texture_pnj_dialogue_t
+ * \return Aucun retour effectué en fin de fonction 
+*/
 extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** liste_texture_pnj) {
     if (liste_texture_pnj == NULL || (*liste_texture_pnj) == NULL) {
         printf("Erreur : liste_texture_pnj en parametre invalide dans Detruire_Liste_Texture_Pnj_Dialogue()\n");
@@ -1349,6 +1513,17 @@ extern void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t ** 
 }
 
 
+/**
+ * \fn int Afficher_Fond_Boite_Dialogue(SDL_Texture * textDialogue, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche l'interface de dialogue
+ * 
+ * \param textDialogue texture de l'image d'interface de dialogue
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Fond_Boite_Dialogue(SDL_Texture * textDialogue, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
     // Verification paramètres
     if (textDialogue == NULL ) {
@@ -1395,6 +1570,18 @@ static int Afficher_Fond_Boite_Dialogue(SDL_Texture * textDialogue, int  dstCoef
     return 0;
 }
 
+/**
+ * \fn int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, pnj_t * pnj, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche l'image de dialogue des pnj
+ * 
+ * \param listeTextPnj pointeur sur liste_texture_pnj_dialogue_t, la liste des textures des image de dialogue des pnj
+ * \param pnj pointeur sur le pnj_t a qui on parle
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, pnj_t * pnj, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
     // Verification paramètres
     if (listeTextPnj == NULL) {
@@ -1454,16 +1641,28 @@ static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, pn
     return 0;
 }
 
+/**
+ * \fn int Afficher_Bouton_Dialogue(SDL_Texture ** mat, int frameButton, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder)
+ * \brief Fonction static qui affiche l'image du bouton ( animation )
+ * 
+ * \param mat tableau de pointeur sur SDL_Texture, tableau des textures du bouton
+ * \param frameButton frame courant du bouton pour gerer son animation
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Bouton_Dialogue(SDL_Texture ** mat, int frameButton, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
 
     if ( mat == NULL ) {
-       printf("Erreur : La matrice des texture de boutton en paramètre est invalide dans Afficher_Bouton_Dialogue()\n");
+       printf("Erreur : La matrice des texture de bouton en paramètre est invalide dans Afficher_Bouton_Dialogue()\n");
        return 1;
     }
 
     if ( mat[0] == NULL || mat[1] == NULL ) {
-        printf("Erreur : La matrice des texture de boutton est invalide dans Afficher_Bouton_Dialogue()\n");
+        printf("Erreur : La matrice des texture de bouton est invalide dans Afficher_Bouton_Dialogue()\n");
         return 1;
     }
 
@@ -1491,7 +1690,7 @@ static int Afficher_Bouton_Dialogue(SDL_Texture ** mat, int frameButton, SDL_Ren
     rectDst.h = dstCoef * 16;
     rectDst.w = dstCoef * 16 * 3;
 
-    // Affichage de la frame courante du sprite
+    // Affichage de la frame courante du bouton
     if ( SDL_RenderCopy(renderer, text, NULL, &rectDst) < 0 ) {
         printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Bouton_Dialogue()\n");
         return 1;
@@ -1500,6 +1699,22 @@ static int Afficher_Bouton_Dialogue(SDL_Texture ** mat, int frameButton, SDL_Ren
     return 0;
 }
 
+/**
+ * \fn int Afficher_Dialogue(SDL_Texture * textDialogue, SDL_Texture ** matTextButton, int frameButton, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
+ * \brief Fonction static qui affiche tous les elements de l'affichage du dialogue
+ * 
+ * \param textDialogue texture de l'image d'interface de dialogue
+ * \param matTextButton tableau de pointeur sur SDL_Texture, tableau des textures du bouton
+ * \param frameButton frame courant du bouton pour gerer son animation
+ * \param listeTextPnjDialogue pointeur sur liste_texture_pnj_dialogue_t, la liste des textures des image de dialogue des pnj
+ * \param pnj pointeur sur le pnj_t a qui on parle
+ * \param listeTypePnj pointeur sur liste_type_pnj_t, liste des types de pnj
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param font Police d'écriture pour afficher le texte 
+ * \param window Pointeur de pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Dialogue(SDL_Texture * textDialogue, SDL_Texture ** matTextButton, int frameButton, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer) {
     // Verification paramètre
     if ( textDialogue == NULL ) {
@@ -1592,6 +1807,19 @@ static int Afficher_Dialogue(SDL_Texture * textDialogue, SDL_Texture ** matTextB
 
 }
 
+/**
+ * \fn int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+ * \brief Fonction externe qui lance l'interface de dialogue
+ * 
+ * \param textDialogue texture de l'image d'interface de dialogue
+ * \param listeTextPnjDialogue pointeur sur liste_texture_pnj_dialogue_t, la liste des textures des image de dialogue des pnj
+ * \param pnj pointeur sur le pnj_t a qui on parle
+ * \param listeTypePnj pointeur sur liste_type_pnj_t, liste des types de pnj
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param window Pointeur de pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * listeTextPnjDialogue, pnj_t * pnj, liste_type_pnj_t * listeTypePnj, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
     /* ------------------ Detection Erreur Parametre ------------------ */
 
@@ -1763,7 +1991,7 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
             return 1;
         }
 
-        // Augmentation frame boutton
+        // Augmentation frame bouton
         if ( (int)Timer_Get_Time( &timerFrameButton ) > 700 ) {
             frameButton = ( frameButton + 1 ) % 2;
             Timer_Start( &timerFrameButton );
@@ -1795,6 +2023,17 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
     return erreur;
 }
 
+/**
+ * \fn int Afficher_Fond_Level_UP(SDL_Texture * textFondLvlUP, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche l'interface d'augmentation de niveau
+ * 
+ * \param textFondLvlUP texture de l'image d'interface d'augmentation de niveau
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Fond_Level_UP(SDL_Texture * textFondLvlUP, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer) {
     // Verification paramètres
     if (textFondLvlUP == NULL ) {
@@ -1841,15 +2080,27 @@ static int Afficher_Fond_Level_UP(SDL_Texture * textFondLvlUP, int  dstCoef, int
     return 0;
 }
 
+/**
+ * \fn int Afficher_Bouton_Level_UP(SDL_Texture ** mat, int selectButton, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder)
+ * \brief Fonction static qui affiche les boutons dans l'interface d'augmentation de niveau
+ * 
+ * \param mat tableau de pointeur sur SDL_Texture, tableau des textures des bouton
+ * \param selectButton indice du bouton actuellement sélectionné
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
+ * \param xBorder Bordure à gauche dans la fenêtre
+ * \param yBorder Bordure en haut dans la fenêtre
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Bouton_Level_UP(SDL_Texture ** mat, int selectButton, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
     if ( mat == NULL ) {
-       printf("Erreur : La matrice des texture de boutton en paramètre est invalide dans Afficher_Bouton_Level_UP()\n");
+       printf("Erreur : La matrice des texture de bouton en paramètre est invalide dans Afficher_Bouton_Level_UP()\n");
        return 1;
     }
 
     if ( mat[0] == NULL || mat[1] == NULL ) {
-        printf("Erreur : La matrice des texture de boutton est invalide dans Afficher_Bouton_Level_UP()\n");
+        printf("Erreur : La matrice des texture de bouton est invalide dans Afficher_Bouton_Level_UP()\n");
         return 1;
     }
 
@@ -1891,6 +2142,20 @@ static int Afficher_Bouton_Level_UP(SDL_Texture ** mat, int selectButton, SDL_Re
     return 0;
 }
 
+/**
+ * \fn int Afficher_Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture ** matTextButton, int selectButton, personnage_t * perso, SDL_Rect * view, TTF_Font ** tabFont, SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction static qui affiche tous les elements de l'affichage de l'interface d'augmentation de niveau
+ * 
+ * \param textFondLevelUP Texture de l'image d'interface d'augmentation de niveau
+ * \param matTextButton Tableau de pointeur sur SDL_Texture, tableau des textures des bouton
+ * \param selectButton Indice du bouton actuellement sélectionné
+ * \param perso Pointeur sur le personnage_t
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param tabFont Tableau des polices d'écriture pour afficher le texte 
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 static int Afficher_Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture ** matTextButton, int selectButton, personnage_t * perso, SDL_Rect * view, TTF_Font ** tabFont, SDL_Window *window, SDL_Renderer *renderer) {
     // Verification paramètre
     if ( textFondLevelUP == NULL ) {
@@ -2027,6 +2292,18 @@ static int Afficher_Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture ** matTe
 
 }
 
+/**
+ * \fn int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_texture, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction externe qui lance l'interface d'augmentation de niveau
+ * 
+ * \param textFondLevelUP Texture de l'image d'interface d'augmentation de niveau
+ * \param background_texture Pointeur sur la texture a afficher en arrière plan
+ * \param perso Pointeur sur le personnage_t
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_texture, personnage_t * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
     /* ------------------ Detection Erreur Parametre ------------------ */
 
@@ -2274,6 +2551,15 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_text
     return erreur;
 }
 
+/**
+ * \fn int Mort_Joueur( personnage_t * perso, inventaire_t * inventaire, liste_objet_t *listeObjets )
+ * \brief Fonction externe qui gere la mort du personnage
+ * 
+ * \param perso Pointeur sur le personnage_t
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Mort_Joueur( personnage_t * perso, inventaire_t * inventaire, liste_objet_t *listeObjets ) { 
 
     if ( perso == NULL ) {
@@ -2314,6 +2600,15 @@ extern int Mort_Joueur( personnage_t * perso, inventaire_t * inventaire, liste_o
     return 0;
 }
 
+/**
+ * \fn int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view )
+ * \brief Fonction externe qui lance l'interface d'Introduction
+ * 
+ * \param window Pointeur de pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
 extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view ) {
     /* ------------------ Detection Erreur Parametre ------------------ */
     
@@ -2355,6 +2650,12 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
     // Variable frame img
     int frame = 0;
 
+    // Variable frame button
+    int frameButton = 0;
+
+    // Variable de timer
+    SDL_timer_t timerFrameButton;
+
     // Variable getWinInfo
     int win_width;
     int win_height;
@@ -2370,10 +2671,11 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
         "asset/hud/introduction/Frame3.png",
         "asset/hud/introduction/Frame4.png"
     };
-
     SDL_Texture * matTextImgIntro[4];
+    SDL_Texture * matTextButton[2] = { NULL, NULL};
+    char * cheminTextButton[2] = { "asset/hud/dialogue/button.png","asset/hud/dialogue/buttonPressed.png"};
 
-    // Chargement texture bouton
+    // Chargement texture Ilg introduction
     for (int i = 0; i < 4; i++) {
         matTextImgIntro[i] = IMG_LoadTexture(renderer,cheminTextImgIntro[i]);
         if ( matTextImgIntro[i] == NULL ) {
@@ -2382,6 +2684,18 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
         }
     }
 
+    // Chargement texture bouton
+    for (int i = 0; i < 2; i++) {
+        matTextButton[i] = IMG_LoadTexture(renderer,cheminTextButton[i]);
+        if ( matTextButton[i] == NULL ) {
+            printf("Erreur : Echec IMG_Load(matTextButton[%d]) dans Dialogue()",i);
+            return 1;
+        }
+    }
+
+
+    Timer_Start( &timerFrameButton );
+    timerFrameButton.start -= 701;
 
     /* ------------------ Boucle Principal ------------------ */
 
@@ -2421,21 +2735,45 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
             break;
         }
         
+        /* */
+
+        // Augmentation frame bouton
+        if ( (int)Timer_Get_Time( &timerFrameButton ) > 700 ) {
+            frameButton = ( frameButton + 1 ) % 2;
+            Timer_Start( &timerFrameButton );
+        }
 
         /* --------- Gestion Affichage --------- */
     
         // Récupération des informations de la fenêtre utile à l'affichage
         getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder );
-
         // Rect Destination ( renderer )
         SDL_Rect dest;
         dest.h = dstCoef * 16 * 11;
         dest.w = dstCoef * 16 * 20;
         dest.x = xBorder;
         dest.y = yBorder;
-
         // Affichage HUD Skill Bar
-        SDL_RenderCopy(renderer, matTextImgIntro[frame], NULL, &dest);
+        if ( SDL_RenderCopy(renderer, matTextImgIntro[frame], NULL, &dest) < 0 ) {
+            printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Bouton_Dialogue()\n");
+            return 1;
+        }
+
+
+
+        // Rectangle Destination ( Renderer )
+        SDL_Rect rectDst;
+        rectDst.x = ( dstCoef * 16 * 17 ) + xBorder;
+        rectDst.y = ( dstCoef * 16 * 10 ) + yBorder; 
+        rectDst.h = dstCoef * 16;
+        rectDst.w = dstCoef * 16 * 3;
+        // Affichage de la frame courante du bouton
+        if ( SDL_RenderCopy(renderer, matTextButton[frameButton], NULL, &rectDst) < 0 ) {
+            printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_Bouton_Dialogue()\n");
+            return 1;
+        }
+
+
         
         // Gestion fps
         if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
@@ -2445,7 +2783,17 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
         // mise à jour du renderer ( update affichage)
         SDL_RenderPresent(renderer);
         
-    }        
+    }
+
+
+    // Destruction texture button
+    for (int i = 0; i < 2; i++) {
+        Detruire_Texture( &(matTextButton[i]) );
+        if ( matTextButton[i] != NULL ) {
+            printf("Erreur : Echec Detruire_Texture(matTextButton[%d]) dans Dialogue()",i);
+            return 1;
+        }
+    }
 
     // Destruction texture button
     for (int i = 0; i < 4; i++) {

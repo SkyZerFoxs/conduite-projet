@@ -7,18 +7,19 @@
  * \file affichage.c
  * \brief Gestion affichage
  * \author Yamis MANFALOTI
- * \version 6.0
- * \date 16 mars 2023
+ * \version 7.0
+ * \date 05 avril 2023
  *
  * Gestion de l'affichage:
  * \n Initialisation en mémoire
- * \n Afficher Une IMG
+ * \n Afficher Des IMG
  * \n Obtenir les informations relatives à la fenêtre et/ou utile à l'affichage
  * \n Gestion texture sprite
  * \n Afficher une TileMap
  * \n Afficher une SpriteMap
  * \n Gestion timer
  * \n Destruction en mémoire
+ * \n Autres fonction d'affichage ...
  */
 
 /**
@@ -30,7 +31,7 @@
  * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
  * \param width  Largeur de la fenêtre
  * \param height  Hauteur de la fenêtre
- * \return 0 success || 1 fail
+ * \return 0 success || 1 fail ( statut fonction )
  */
 extern int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, int height) {
     // Initialisation library SDL
@@ -145,16 +146,16 @@ extern void getWinInfo(SDL_Window *window, int * width, int * height, int tileSi
 
 
 /**
- * \fn void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window)
+ * \fn void changeResolution(int coef1920, int indiceFullscreen, SDL_Window *window)
  * \brief Fonction externe qui permet de changer la résolution de la fenêtre
  * 
- * \param indiceResolution [ 1: 1280x720 | 2: 1600x900 | 3: 1920x1080 | default: 1600x900 ]
+ * \param coef1920 [ 1: 1280x720 | 2: 1600x900 | 3: 1920x1080 | default: 1600x900 ]
  * \param indiceFullscreen [ 0: fenêtré | 1: plein écran | 2: plein écran fenêtré | default: fenêtré ]
  * \param window Pointeur sur l'objet SDL_Window
  * \return Aucun retour effectué en fin de fonction
  */
-extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window) {
-    switch (indiceResolution) {
+extern void changeResolution(int coef1920, int indiceFullscreen, SDL_Window *window) {
+    switch (coef1920) {
     case 1:
         SDL_SetWindowSize(window, 1280, 720);
         break;
@@ -184,44 +185,12 @@ extern void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Win
     }
 }
 
-
-/**
- * \fn void Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect )
- * \brief Fonction externe qui charge et affiche une image
- * 
- * \param IMG Chemin de l'image à afficher
- * \param renderer Pointeur sur l'objet SDL_Renderer
- * \param texture Pointeur de pointeur sur l'objet SDL_Texture
- * \param srcrect Pointeur sur l'objet SDL_Rect ( Rectangle Source )
- * \param dstrect Pointeur sur l'objet SDL_Rect ( Rectangle Destination )
- * \return 0 success || 1 fail
- */
-/*
-static int Afficher_IMG(char * IMG, SDL_Renderer *renderer, SDL_Texture **texture, const SDL_Rect * srcrect, const SDL_Rect * dstrect ) {
-    // Chargement d'une texture avec le Moteur de Rendu Graphique et le fichier de l'image
-    if ( (*texture) == NULL ) {
-        (*texture) = IMG_LoadTexture(renderer, IMG);
-        if ( (*texture) == NULL ) {
-            printf("Erreur : IMG_LoadTexture() à échoué dans Afficher_IMG\n");
-            return 1;
-        }
-    }
-    // Envoie de la texture vers le Moteur de Rendu Graphique
-    if ( SDL_RenderCopy(renderer, (*texture), srcrect, dstrect) < 0) {
-        printf("Erreur : SDL_RenderCopy() à échoué dans Afficher_IMG\n");
-        return 1;
-    }
-
-    return 0;
-}
-*/
-
 /**
  * \fn Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste()
  * \brief Fonction externe qui initialise la liste des textures des sprites
  * 
  * \param void Aucun paramètre
- * \return Un pointeur sur la structure Sprite_Texture_Liste_t, la liste des textures de sprite || NULL si echec
+ * \return Un pointeur sur la structure Sprite_Texture_Liste_t, la liste des textures de sprite || NULL si echec ( statut fonction )
 */
 extern Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste() {
     // Malloc Sprite_Texture_Liste_t
@@ -265,7 +234,7 @@ extern int Chercher_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet) {
  * \param liste Pointeur sur Sprite_Texture_Liste_t, La liste des textures de sprite 
  * \param spriteSheet Chaine de caractères, chemin vers le spriteSheet
  * \param texture Pointeur sur SDL_Texture, la texture correspondante au spriteSheet
- * \return (int) L'indice i de la texture dans la liste || -1 Echec de la fonction
+ * \return (int) L'indice i de la texture dans la liste || -1 Echec de la fonction ( statut fonction )
 */
 extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL_Texture *texture) {
     // Vérification que le spriteSheet n'est pas déjà dans la liste
@@ -312,7 +281,7 @@ extern int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL
  * \param SpriteTexteListe Pointeur sur Sprite_Texture_Liste_t, la liste des textures de sprite
  * \param listeType Pointeur sur sprite_type_liste_t, la listes des types de sprite
  * \param renderer Pointeur sur l'objet SDL_Renderer
- * \return 0 success || 1 Echec de la fonction
+ * \return 0 success || 1 Echec de la fonction ( statut fonction )
 */
 extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, sprite_type_liste_t * listeType, SDL_Renderer *renderer ) {
     if ( SpriteTexteListe == NULL || listeType == NULL ) {
@@ -350,7 +319,7 @@ extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, s
  * 
  * \param liste Pointeur sur Sprite_Texture_Liste_t, la liste des textures de sprite à supprimer
  * \return Aucun retour effectué en fin de fonction
-*/
+ */
 extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
     if ( liste == NULL || (*liste) == NULL ) {
         printf("Erreur : Liste des textures vide dans Detruire_Sprite_Texture_Liste()\n");
@@ -405,7 +374,7 @@ extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
  * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions
  * \param xBorder Bordure à gauche dans la fenêtre
  * \param yBorder Bordure en haut dans la fenêtre
- * \return 0 success || 1 fail
+ * \return 0 success || 1 fail ( statut fonction )
  */
 static int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder ) {
 
@@ -504,8 +473,9 @@ static int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
  * \fn int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
  * \brief Fonction externe qui affiche les sprites de la spriteMap qui correspondent à la view sur le renderer.
  * 
- * \param SpriteTextureListe
+ * \param SpriteTextureListe Liste des textures des sprites
  * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
+ * \param layer Layer dans la spriteMap a afficher
  * \param map Pointeur sur l'objet map_t, map à afficher.
  * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite.
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
@@ -513,7 +483,7 @@ static int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
  * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions.
  * \param xBorder Bordure à gauche dans la fenêtre.
  * \param yBorder Bordure en haut dans la fenêtre.
- * \return 0 success || 1 fail
+ * \return 0 success || 1 fail ( statut fonction )
  */
 static int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     // Verification paramètres
@@ -629,16 +599,16 @@ static int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
                         }
                         
                     }
-                    if ( sprite != NULL && sprite->pnj != NULL ) {
-                        sprite_t * sprite2 = spriteMap[0][y][x+1];
-                        sprite_t * sprite3 = spriteMap[0][y+1][x+1];
-                        sprite_t * sprite4 = spriteMap[0][y+1][x];
-                        if (sprite2 != NULL && sprite2->pnj != NULL && sprite2->pnj == sprite->pnj &&
-                            sprite3 != NULL && sprite3->pnj != NULL && sprite3->pnj == sprite->pnj &&
-                            sprite4 != NULL && sprite4->pnj != NULL && sprite4->pnj == sprite->pnj    )
-                        {
-                            sprite4->frame = sprite3->frame = sprite2->frame = sprite->frame;
-                        }
+                    if (    (y + 1) < map->height && (x + 1) < map->width      
+                            && spriteMap[layer][y    ][x    ] != NULL && spriteMap[layer][y    ][x    ]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
+                            && spriteMap[layer][y + 1][x    ] != NULL && spriteMap[layer][y + 1][x    ]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
+                            && spriteMap[layer][y    ][x + 1] != NULL && spriteMap[layer][y    ][x + 1]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
+                            && spriteMap[layer][y + 1][x + 1] != NULL && spriteMap[layer][y + 1][x + 1]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
+                        ) 
+                    {   
+                        spriteMap[layer][y + 1][x    ]->frame = sprite->frame;
+                        spriteMap[layer][y    ][x + 1]->frame = sprite->frame;
+                        spriteMap[layer][y + 1][x + 1]->frame = sprite->frame;
                     }
 
                 }
@@ -649,7 +619,21 @@ static int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
     return 0;
 }
 
-static int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+/**
+ * \fn int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \brief Fonction externe qui affiche les statistiques des monstres.
+ * 
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
+ * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param font Police d'écriture pour afficher le texte 
+ * \param renderer Pointeur sur l'objet SDL_Renderer.
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions.
+ * \param xBorder Bordure à gauche dans la fenêtre.
+ * \param yBorder Bordure en haut dans la fenêtre.
+ * \return 0 success || 1 fail ( statut fonction )
+ */
+static int  Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
     if ( spriteMap[0] == NULL ) {
        printf("Erreur : La spriteMap[layer] n'est pas chargé dans Afficher_Stats_Monstre()\n");
        return 1;
@@ -730,14 +714,14 @@ static int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
                         // Affichage des stats du monstre
                             for (int n = 0; n < 2; n++) {
                                 if ( n == 0 ) {
-                                    sprintf(string,"%-6s %-3d","niveau",sprite->monstre->niveau);
+                                    sprintf(string,"%-3s:%-4d","niv",sprite->monstre->niveau);
                                 }
                                 if ( n == 1 ) {
-                                    sprintf(string," %-3s:%-4d","vie",sprite->monstre->caract->pv);
+                                    sprintf(string,"%-3s:%-4d","vie",sprite->monstre->caract->pv);
                                 }
                                 if ( Afficher_Texte_Zone(renderer, font, string, 
                                 ( dstCoef * (16 * (sprite->y - view->y - 0.8)) ) + yBorder + ( palierY * n ), 
-                                ( dstCoef * (16 * (sprite->x - view->x )) ) + xBorder, 
+                                ( dstCoef * (16 * (sprite->x - view->x - 0.10)) ) + xBorder, 
                                 dstCoef * (16 * 2), &gris) ) {
                                     printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Stats_Monstre()\n");
                                     return 1;
@@ -752,7 +736,37 @@ static int Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rect
     return 0;
 }
 
-static int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+/**
+ * \fn int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \brief Fonction externe qui affiche l'interface de la barre de skill.
+ * 
+ * \param perso pointeur sur le personnage_t
+ * \param tabSkill tableau de 3 entier qui correspondent a l'état des attaques ( disponible / indisponible )
+ * \param textSkillBar tableau de 4 textire qui contient l'ensemble des textures nécessaire pour afficher la SkillBar
+ * \param font Police d'écriture pour afficher le texte 
+ * \param renderer Pointeur sur l'objet SDL_Renderer.
+ * \param dstCoef Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions.
+ * \param xBorder Bordure à gauche dans la fenêtre.
+ * \param yBorder Bordure en haut dans la fenêtre.
+ * \param win_width Largeur de la fenêtre.
+ * \return 0 success || 1 fail ( statut fonction )
+ */
+static int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder, int win_width) {
+    if ( perso == NULL ) {
+        printf("Erreur : perso en parametre invalide dans Afficher_Skill_Bar()\n");
+        return 1;
+    }
+
+    if ( font == NULL ) {
+        printf("Erreur : font en parametre invalide dans Afficher_Skill_Bar()\n");
+        return 1;
+    }
+
+    if ( renderer == NULL ) {
+        printf("Erreur : renderer en parametre invalide dans Afficher_Skill_Bar()\n");
+        return 1;
+    }
+    
     // Rect Destination ( renderer )
     SDL_Rect dest;
     dest.h = dstCoef * 16 * 11;
@@ -776,50 +790,75 @@ static int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture
 
     caract_t caractSortie = { 0, 0, 0, 0 };
     calculer_stats_perso(perso,&caractSortie);
-    int pv = perso->caract->pv , maxPv = caractSortie.maxPv;
+    int pv = perso->caract->pv;
+    int maxPv = caractSortie.maxPv;
+
+    // Calcule indice resolution 
+    int coef1280, coef1920;
+    if ( win_width > 1200 && win_width < 1300) {
+        coef1920 = 1;
+        coef1280 = 0;
+    }
+    else if ( win_width > 1500 && win_width < 1700) {
+        coef1920 = 0;
+        coef1280 = 1;
+    }
+    else if ( win_width > 1900 && win_width < 2000) {
+        coef1920 = 1;
+        coef1280 = 1;
+    }
+    else {
+        printf("Erreur : win_width invalide dans Afficher_Skill_Bar()\n");
+        return 1;
+    }
     
     if ( pv / 1000 > 0 || maxPv / 1000 > 0 ) {
         sprintf(string,"%-4d",pv);
-        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.17, dstCoef * 16 * 7.24, dstCoef * 16 * 2, &blanc);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * ( 10.17 + ( coef1280 * coef1920 * 0.1 ) ), dstCoef * 16 * ( 7.24 + ( coef1280 * coef1920 * 0.1 ) ), dstCoef * 16 * 2, &blanc);
 
-        int yLine = dstCoef * 16 * 10.6;
-        int xLine = dstCoef * 16 * 7.20;
+        int yLine = dstCoef * 16 * (  10.6 - ( coef1280 * coef1920 * 0.00 ) - ( coef1280 * !coef1920 * 0.02 ) );
+        int xLine = dstCoef * 16 * ( 7.20 - ( coef1280 * !coef1920 * 0.05 ) );
         int hLine = 0;
         int wLine = dstCoef * 16 * 0.88;
         drawLine(renderer,yLine,xLine,yLine+hLine,xLine+wLine, 3, blanc);
 
         sprintf(string,"%-4d",maxPv);
-        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.55, dstCoef * 16 * 7.24, dstCoef * 16 * 2, &blanc);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * ( 10.55 + ( coef1280 * coef1920 * 0.1 ) ), dstCoef * 16 *( 7.24 + ( coef1280 * coef1920 * 0.1 ) ), dstCoef * 16 * 2, &blanc);
     }
     else {
         sprintf(string," %03d",pv);
-        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.17, dstCoef * 16 * 7.16, dstCoef * 16 * 2, &blanc);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * ( 10.17 + ( coef1280 * coef1920 * 0.08 ) ), dstCoef * 16 * ( 7.16 + ( coef1280 * coef1920 * 0.1 ) ), dstCoef * 16 * 2, &blanc);
 
-        int yLine = dstCoef * 16 * 10.6;
-        int xLine = dstCoef * 16 * 7.25;
+        int yLine = dstCoef * 16 *( 10.6 -  ( coef1280 * !coef1920 * 0.02 ) );
+        int xLine = dstCoef * 16 * ( 7.25 - ( coef1280 * !coef1920 * 0.08 ) );
         int hLine = 0;
         int wLine = dstCoef * 16 * 0.78;
         drawLine(renderer,yLine,xLine,yLine+hLine,xLine+wLine, 3, blanc);
 
         sprintf(string," %03d",maxPv);
-        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * 10.55, dstCoef * 16 * 7.16, dstCoef * 16 * 2, &blanc);
+        Afficher_Texte_Zone(renderer, font, string, dstCoef * 16 * ( 10.55 + ( coef1280 * coef1920 * 0.08) ), dstCoef * 16 *  ( 7.16 + ( coef1280 * coef1920 * 0. ) ), dstCoef * 16 * 2, &blanc);
     }
 
     return 0;
 }
 
 /**
- * \fn void Affichage_All(char * tileSet, map_t * map, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view)
- * \brief Fonction externe qui affiche tout les ellements graphiques
+ * \fn int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) {   // Initialisation des variables
+ * \brief Fonction externe qui affiche Les elements graphiques
  * 
+ * \param perso pointeur sur le personnage_t
+ * \param tabSkill tableau de 3 entier qui correspondent a l'état des attaques ( disponible / indisponible )
+ * \param textSkillBar tableau de 4 textire qui contient l'ensemble des textures nécessaire pour afficher la SkillBar
  * \param texture Texture du tileSet
  * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param SpriteTextureListe Liste des textures des sprites
  * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher
  * \param listeType Pointeur sur sprite_type_liste_t, La liste des types de sprite
  * \param window Pointeur sur l'objet SDL_Window
+ * \param font Police d'écriture pour afficher le texte 
  * \param renderer Pointeur sur l'objet SDL_Renderer
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
- * \return 0 success || 1 fail
+ * \return 0 success || 1 fail  ( statut fonction )
  */
 extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], SDL_Texture * texture, map_t * map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, sprite_type_liste_t * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) {   // Initialisation des variables
     if ( perso == NULL ) {
@@ -839,8 +878,14 @@ extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * te
         return 1;
     }
     
-    // Afficher la Map
+    // Afficher la Map Monstre
     if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 0 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
+        printf("Erreur : Afficher_SpriteMap() à echoué dans Affichage_All().\n");
+        return 1;
+    }
+
+    // Afficher la Map PNJ
+    if ( Afficher_SpriteMap(SpriteTextureListe, spriteMap, 2 ,map, listeType, view, renderer, dstCoef, xBorder, yBorder) ) {
         printf("Erreur : Afficher_SpriteMap() à echoué dans Affichage_All().\n");
         return 1;
     }
@@ -864,7 +909,7 @@ extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * te
     }
 
     // Afficher la skill bar
-    if ( Afficher_Skill_Bar(perso, tabSkill, textSkillBar, font, renderer, dstCoef, xBorder, yBorder) ) {
+    if ( Afficher_Skill_Bar(perso, tabSkill, textSkillBar, font, renderer, dstCoef, xBorder, yBorder, win_width) ) {
         printf("Erreur : Afficher_Skill_Bar() à echoué dans Affichage_All().\n");
         return 1;
     }
@@ -917,7 +962,7 @@ extern void AddFrame(sprite_t **** spriteMap, int FrameCat, sprite_type_liste_t 
     }
 
     // Parcourt la spriteMap qui correspond a la view, et augmente la frame des sprite présent qui correspondent à la categorie donnée
-    for (int i = 0; i < 2; i++ ) {
+    for (int i = 0; i < 3; i++ ) {
         for (int y = ymin; y < ymax; y++) {
             for (int x = xmin; x < xmax; x++) {
                 if ( spriteMap[i][y][x] != NULL ) {
@@ -965,39 +1010,79 @@ extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
     return ( timer->now - timer->start );
 }
 
+/**
+ * \fn int Clean_Remanent_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect * view, int all)
+ * \brief Fonction externe qui nettoie les anciens sprites présents dans la spriteMap[layerPersonnage] qui correspondent à la view.
+ * 
+ * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param all Entier qui correspond au type d'affichage ( 1 == tous || 0 = sprite 2 x 1 du joueur exclu )
+ * \return 0 success || 1 fail  ( statut fonction )
+*/
+extern int Clean_Remanent_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect * view, int all) {
+
+    for (int y = view->y ; y < view->y+view->h; y++) {
+        for (int x = view->x ; x < view->x + view->w; x++ ) {
+            if (y < 0 || x < 0 || y >= map->height || x >= map->width) {
+                printf("Erreur : Hors map dans Clean_Remanent_Sprite()\n");
+                return 1;
+            }
+            else if ( !all && ( (y == view->y + 5 && x == view->x + 9) || (y == view->y + 6 && x == view->x + 9) ) ) {
+                // Ne rien faire
+            }
+            else if (spriteMap[1][y][x] != NULL) {
+                spriteMap[1][y][x] = NULL;
+            }
+        }
+    }
+
+    return 0;
+}
 
 /**
- * \fn int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, SDL_Rect * view, char Action )
+ * \fn int Synchronise_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect * view)
+ * \brief Fonction externe qui synchronise les sprites présents dans la spriteMap[layerPersonnage] qui correspondent à la view.
+ * 
+ * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \return 0 success || 1 fail  ( statut fonction )
+*/
+extern int Synchronise_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect * view) {
+
+    for (int y = view->y ; y < view->y+view->h; y++) {
+        for (int x = view->x ; x < view->x + view->w; x++ ) {
+            if (y < 0 || x < 0 || y >= map->height || x >= map->width) {
+                printf("Erreur : En Dehors de la map dans Deplacement_PersoSprite()\n");
+                return 1;
+            }
+            else if (spriteMap[1][y][x] != NULL) {
+                spriteMap[1][y][x]->y = y;
+                spriteMap[1][y][x]->x = x;
+                spriteMap[1][y][x]->frame = spriteMap[1][view->y+5+1][view->x+9]->frame;
+            }
+        }
+    }
+    
+    return 0;
+}
+
+/**
+ * \fn int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action )
  * \brief Fonction externe qui gere le deplacement du sprite et de la camera du joueur ( Changement Affichage )
  * 
  * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
  * \param map Pointeur sur l'objet map_t, map à afficher.
  * \param spritePerso Tableau de sprite_t, Liste des sprites pour le personnage.
  * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
- * \param Action Char qui correspond a l'action de deplacement
- * \return 0 Success || 1 Fail
+ * \param Action Char qui correspond a l'action a effectuer
+ * \return 0 Success || 1 Fail ( statut fonction )
  */
 extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
-    
 
-    // clean old sprite
-    for (int j = -6; j < 6; j++) {
-        for (int i = -6; i < 6; i++ ) {
-            int y = view->y + 5 + i;
-            int x = view->x + 9 + j;
-            if (y >= map->height || x >= map->width) {
-                printf("Erreur : En Dehors de la map dans Deplacement_PersoSprite()\n");
-                return 1;
-            } else if ((y == view->y + 5 && x == view->x + 9) || (y == view->y + 6 && x == view->x + 9)) {
-                // Ne rien faire
-            } else if (spriteMap[1][y][x] != NULL) {
-                spriteMap[1][y][x]->frame = 0;
-                spriteMap[1][y][x] = NULL;
-            }
-        }
-    }
-    
-    
+    // Netoyage Ancien Sprite
+    Clean_Remanent_Sprite(map,spriteMap,view,0);
 
     // Initialisation variable de colision
     int col;
@@ -1149,22 +1234,28 @@ extern int Deplacement_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_
             break;
     }
 
-
-    // Modification ancien x et y sprite partie Upper
-    spriteMap[1][view->y+5][view->x+9]->y = view->y+5;
-    spriteMap[1][view->y+5][view->x+9]->x = view->x+9;
-
-    // Modification ancien x et y sprite partie Lower
-    spriteMap[1][view->y+5+1][view->x+9]->y = view->y+5+1;
-    spriteMap[1][view->y+5+1][view->x+9]->x = view->x+9;
-    
-    // Synchronise le nombre de frames des deux partie Upper et Lower
-    spriteMap[1][view->y+5+1][view->x+9]->frame = spriteMap[1][view->y+5][view->x+9]->frame;
+    // Synchronise les sprites
+    Synchronise_Sprite(map,spriteMap,view);
 
     return 0;
 }
 
+/**
+ * \fn int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) 
+ * \brief Fonction externe qui gere l'animation de l'attaque de base 
+ * 
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
+ * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param spritePerso Tableau de sprite_t, Liste des sprites pour le personnage.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param Action Char qui correspond a la direction de l'attaque
+ * \return 0 Success || 1 Fail ( statut fonction )
+ */
 extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+
+    // Netoyage Ancien Sprite
+    Clean_Remanent_Sprite(map,spriteMap,view,1);
+
     switch (Action)
     {
     case 'Z':
@@ -1229,35 +1320,29 @@ extern int Attack_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
         break;
     }
 
-    // Modification ancien x et y sprite partie Upper
-    spriteMap[1][view->y+5][view->x+8]->y = view->y+5;
-    spriteMap[1][view->y+5][view->x+8]->x = view->x+8;
-    spriteMap[1][view->y+5][view->x+8]->frame = 3;
-    spriteMap[1][view->y+5+1][view->x+8]->y = view->y+5+1;
-    spriteMap[1][view->y+5+1][view->x+8]->x = view->x+8;
-    spriteMap[1][view->y+5+1][view->x+8]->frame = 3;
-
-    // Modification ancien x et y sprite partie Upper
-    spriteMap[1][view->y+5][view->x+9]->y = view->y+5;
-    spriteMap[1][view->y+5][view->x+9]->x = view->x+9;
-    spriteMap[1][view->y+5][view->x+9]->frame = 3;
-
-    // Modification ancien x et y sprite partie Lower
-    spriteMap[1][view->y+5+1][view->x+9]->y = view->y+5+1;
-    spriteMap[1][view->y+5+1][view->x+9]->x = view->x+9;
+    // Synchronise les sprites
     spriteMap[1][view->y+5+1][view->x+9]->frame = 3;
-    
-    spriteMap[1][view->y+5][view->x+10]->y = view->y+5; 
-    spriteMap[1][view->y+5][view->x+10]->x = view->x+10;
-    spriteMap[1][view->y+5][view->x+10]->frame = 3;
-    spriteMap[1][view->y+5+1][view->x+10]->y = view->y+5+1;
-    spriteMap[1][view->y+5+1][view->x+10]->x = view->x+10;
-    spriteMap[1][view->y+5+1][view->x+10]->frame = 3;
+    Synchronise_Sprite(map,spriteMap,view);
 
     return 0;
 }
 
+/**
+ * \fn int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action )
+ * \brief Fonction externe qui gere l'animation de l'attaque special 
+ * 
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
+ * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param spritePerso Tableau de sprite_t, Liste des sprites pour le personnage.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param Action Char qui correspond a la direction de l'attaque
+ * \return 0 Success || 1 Fail ( statut fonction )
+ */
 extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+
+    // Netoyage Ancien Sprite
+    Clean_Remanent_Sprite(map,spriteMap,view,1);
+
     int index;
     switch (Action) {
     case 'Z':
@@ -1326,11 +1411,30 @@ extern int Special_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_list
         break;
     }
 
+    // Synchronise les sprites
+    spriteMap[1][view->y+5+1][view->x+9]->frame = 5;
+    Synchronise_Sprite(map,spriteMap,view);
+
     return 0;
 }
 
 
+/**
+ * \fn int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action )
+ * \brief Fonction externe qui gere l'animation de l'attaque ultime 
+ * 
+ * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher.
+ * \param map Pointeur sur l'objet map_t, map à afficher.
+ * \param spritePerso Tableau de sprite_t, Liste des sprites pour le personnage.
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur.
+ * \param Action Char qui correspond a la direction de l'attaque
+ * \return 0 Success || 1 Fail ( statut fonction )
+ */
 extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste_t * spritePersoList , SDL_Rect * view, char Action ) {
+
+    // Netoyage Ancien Sprite
+    Clean_Remanent_Sprite(map,spriteMap,view,1);
+
     int index;
     switch (Action) {
     case 'Z':
@@ -1399,9 +1503,26 @@ extern int Ultime_PersoSprite(sprite_t **** spriteMap, map_t * map, sprite_liste
         break;
     }
 
+    // Synchronise les sprites
+    spriteMap[1][view->y+5+1][view->x+9]->frame = 5;
+    Synchronise_Sprite(map,spriteMap,view);
+
     return 0;
 }
 
+/**
+ * \fn int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor)
+ * \brief Fonction externe qui affiche du texte dans une zone
+ * 
+ * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \param font Police d'écriture pour afficher le texte 
+ * \param texte Le texte a afficher
+ * \param y La position y du texte
+ * \param x La position x du texte
+ * \param w La longueur de la zone de texte
+ * \param textColor La couleur a utiliser pour le texte
+ * \return 0 Success || 1 Fail ( statut fonction )
+ */
 extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const char* text, int y, int x, int w, SDL_Color * textColor)
 {
     // Rectangle Destination ( Renderer )
@@ -1441,6 +1562,19 @@ extern int Afficher_Texte_Zone(SDL_Renderer* renderer, TTF_Font* font, const cha
     return 0;
 }
 
+/**
+ * \fn void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color)
+ * \brief Fonction externe qui affiche / dessine une ligne
+ * 
+ * \param renderer Pointeur sur l'objet SDL_Renderer
+ * \param y1 La position y1 du texte
+ * \param x1 La position x1 du texte
+ * \param y2 La position y2 du texte
+ * \param x2 La position x2 du texte
+ * \param thickness L'epaisseur de la ligne
+ * \param color La couleur a utiliser pour la ligne
+ * \return 0 Success || 1 Fail ( statut fonction )
+ */
 extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color) {
     // Calculate the slope and direction of the line
     int dx = abs(x2 - x1);
@@ -1474,6 +1608,16 @@ extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int
     SDL_FreeSurface(lineSurface);
 }
 
+/**
+ * \fn int Respawn_Joueur( map_t * map, personnage_t * perso, SDL_Rect * view, int tabRespawnJoueur[6][2] )
+ * \brief Fonction externe qui fait reapparaitre le joueur apres sa mort
+ *
+ * \param map Pointeur sur l'objet map_t, map à afficher
+ * \param perso pointeur sur le personnage_t
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param tabRespawnJoueur Tableau d'entier qui correspond au couple de coordonnee ou reapparait le joueur selon la zone ou il est mort
+ * \return 0 success || 1 fail  ( statut fonction )
+ */
 extern int Respawn_Joueur( map_t * map, personnage_t * perso, SDL_Rect * view, int tabRespawnJoueur[6][2] ) {
 
     if ( map == NULL ) {

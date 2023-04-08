@@ -3,7 +3,21 @@
 
 #include <pnj.h>
 
+/**
+ *  \file pnj.c
+ *  \brief fonction pour gérer les pnj
+ *  \author MANFALOTI Yamis
+ *  \version 2.0
+ *  \date 28/02/2023
+**/
 
+/**
+ * \fn liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich)
+ * \brief Charge les pnj du jeu contenus dans un fichier texte
+ * 
+ * \param nom_fich nom du fichier à charger
+ * \return pointeur sur une liste de type_pnj_t || NULL Fail ( statut fonction )
+**/
 extern 
 liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich) {
 
@@ -89,7 +103,13 @@ liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich) {
 }
 
 
-
+/**
+ * \fn void detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type  )
+ * \brief Libère l'espace reservée par liste_typee
+ * 
+ * \param liste_type pointeur de pointeur sur la liste_type_pnj_t a detruire
+ * \return Aucun retour
+**/
 extern void Detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type  ) {
     if ( liste_type == NULL || (*liste_type) == NULL ) {
         printf("Erreur : liste_type_pnj en parametre invalide dans Detruire_Liste_Type_Pnj()\n");
@@ -133,6 +153,13 @@ extern void Detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type  ) {
 }
 
 
+/**
+ * \fn int Afficher_Liste_Type_Pnj(liste_type_pnj_t * liste_type)
+ * \brief Afficher chaque PNJ de la liste (nom, icone, dialogue)
+ * 
+ * \param liste_type pointeur sur liste_type_pnj_, la liste en question
+ * \return 0 Success || 1 Fail ( statut fonction )
+**/
 extern int Afficher_Liste_Type_Pnj(liste_type_pnj_t * liste_type) {
     if ( liste_type == NULL ) {
         printf("Erreur : liste_type en parametre invalide dans Afficher_Liste_Type_Pnj()\n");
@@ -152,6 +179,16 @@ extern int Afficher_Liste_Type_Pnj(liste_type_pnj_t * liste_type) {
     return 0;
 }
 
+/**
+ * \fn pnj_t * creer_pnj(int ID, int y, int x, liste_type_pnj_t * liste_type) 
+ * \brief Créer un PNJ
+ * 
+ * \param ID ID du PNJ
+ * \param y position verticale du PNJ
+ * \param x position horizontale du PNJ
+ * \param liste_type pointeur sur liste_type_pnj_t, liste des types de PNJ
+ * \return pointeur sur pnj_t || NULL Fail ( statut fonction )
+**/
 extern pnj_t * creer_pnj(int ID, int y, int x, liste_type_pnj_t * liste_type) {
 
     if ( liste_type == NULL ) {
@@ -182,6 +219,13 @@ extern pnj_t * creer_pnj(int ID, int y, int x, liste_type_pnj_t * liste_type) {
     return pnj;
 }
 
+/**
+ * \fn void supprimer_pnj(pnj_t ** pnj)
+ * \brief Libère l'espace reservée par un pnj 
+ * 
+ * \param pnj pointeur de pointeur sur le pnj_t a detruire
+ * \return Aucun retour
+**/
 extern void supprimer_pnj(pnj_t ** pnj) {
     if ( pnj == NULL || (*pnj) == NULL ) {
         printf("Erreur : pnj en parametre invalide dans supprimer_pnj()\n");
@@ -197,6 +241,13 @@ extern void supprimer_pnj(pnj_t ** pnj) {
 
 }
 
+/**
+ * \fn void afficher_pnj(pnj_t * pnj)
+ * \brief Affiche un PNJ 
+ * 
+ * \param pnj pointeur sur le pnj_t a afficher
+ * \return Aucun retour
+**/
 extern void afficher_pnj(pnj_t * pnj) {
     if ( pnj == NULL  ) {
         printf("Erreur : pnj en parametre invalide dans afficher_pnj()\n");

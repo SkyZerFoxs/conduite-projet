@@ -1,0 +1,1660 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest: Référence du fichier src/affichage.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('affichage_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier affichage.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Gestion affichage.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="affichage_8h_source.html">affichage.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de affichage.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="affichage_8c__incl.png" border="0" usemap="#asrc_2affichage_8c" alt=""/></div>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a8d8847dd8acd9cb9bcf669a0a79a6cf6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a8d8847dd8acd9cb9bcf669a0a79a6cf6">Init_SDL</a> (SDL_Window **window, SDL_Renderer **renderer, int width, int height)</td></tr>
+<tr class="separator:a8d8847dd8acd9cb9bcf669a0a79a6cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb7455d9e7c096d13726b1a17a53d57c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#adb7455d9e7c096d13726b1a17a53d57c">Quit_SDL</a> (SDL_Window *window, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:adb7455d9e7c096d13726b1a17a53d57c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui ferme les composants de SDL.  <a href="affichage_8c.html#adb7455d9e7c096d13726b1a17a53d57c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adb7455d9e7c096d13726b1a17a53d57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c419ea073f9c2045d0f1a5cc318a4e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a5c419ea073f9c2045d0f1a5cc318a4e1">Detruire_Texture</a> (SDL_Texture **texture)</td></tr>
+<tr class="separator:a5c419ea073f9c2045d0f1a5cc318a4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803f57a72cfe8dabcf47a654c9ce9ff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a803f57a72cfe8dabcf47a654c9ce9ff7">getWinInfo</a> (SDL_Window *window, int *width, int *height, int tileSize, SDL_Rect *view, int *dstCoef, int *xBorder, int *yBorder)</td></tr>
+<tr class="separator:a803f57a72cfe8dabcf47a654c9ce9ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa862808ca63ce3245efd340f53e3f4e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#aa862808ca63ce3245efd340f53e3f4e5">changeResolution</a> (int coef1920, int indiceFullscreen, SDL_Window *window)</td></tr>
+<tr class="memdesc:aa862808ca63ce3245efd340f53e3f4e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet de changer la résolution de la fenêtre.  <a href="affichage_8c.html#aa862808ca63ce3245efd340f53e3f4e5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa862808ca63ce3245efd340f53e3f4e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b662be76be385245e772f373524ab90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a0b662be76be385245e772f373524ab90">Init_Sprite_Texture_Liste</a> ()</td></tr>
+<tr class="memdesc:a0b662be76be385245e772f373524ab90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui initialise la liste des textures des sprites.  <a href="affichage_8c.html#a0b662be76be385245e772f373524ab90">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0b662be76be385245e772f373524ab90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a615cabab710e711fdca253ce1aca0561"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a615cabab710e711fdca253ce1aca0561">Chercher_Texture</a> (<a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *liste, char *spriteSheet)</td></tr>
+<tr class="memdesc:a615cabab710e711fdca253ce1aca0561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui cherche une texture ( char * spriteSheet ) dans la liste des textures de sprite.  <a href="affichage_8c.html#a615cabab710e711fdca253ce1aca0561">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a615cabab710e711fdca253ce1aca0561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f080ec3fbddc20e4ff82d78fdfc3142"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a1f080ec3fbddc20e4ff82d78fdfc3142">Ajouter_Texture</a> (<a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *liste, char *spriteSheet, SDL_Texture *texture)</td></tr>
+<tr class="memdesc:a1f080ec3fbddc20e4ff82d78fdfc3142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui ajoute une texture dans la liste des textures de sprite si elle n'est pas déja présente ou renvoie simplement son indice dans la liste.  <a href="affichage_8c.html#a1f080ec3fbddc20e4ff82d78fdfc3142">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1f080ec3fbddc20e4ff82d78fdfc3142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab197ccca3d00b65c9211e629087f23bf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ab197ccca3d00b65c9211e629087f23bf">Load_Sprite_Texture_Liste</a> (<a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTexteListe, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:ab197ccca3d00b65c9211e629087f23bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charge les texture dans SpriteTexteListe depuis listeType.  <a href="affichage_8c.html#ab197ccca3d00b65c9211e629087f23bf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab197ccca3d00b65c9211e629087f23bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac96f07c86c1ea6142b8625dfdddab319"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ac96f07c86c1ea6142b8625dfdddab319">Detruire_Sprite_Texture_Liste</a> (<a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> **liste)</td></tr>
+<tr class="separator:ac96f07c86c1ea6142b8625dfdddab319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7010348d52c28f31d4eb292023959b7"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#af7010348d52c28f31d4eb292023959b7">Afficher_TileMap</a> (SDL_Texture *texture, <a class="el" href="structmap__t.html">map_t</a> *map, int minLayer, int maxLayer, SDL_Rect *view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder)</td></tr>
+<tr class="separator:af7010348d52c28f31d4eb292023959b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8dfcbe9c1dbcff030e58abe0076bde6"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ab8dfcbe9c1dbcff030e58abe0076bde6">Afficher_SpriteMap</a> (<a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, int layer, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, SDL_Rect *view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder)</td></tr>
+<tr class="separator:ab8dfcbe9c1dbcff030e58abe0076bde6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e26ab0b92dca4b0f9b25d60f0572759"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a7e26ab0b92dca4b0f9b25d60f0572759">Afficher_Stats_Monstre</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Rect *view, TTF_Font *font, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder)</td></tr>
+<tr class="memdesc:a7e26ab0b92dca4b0f9b25d60f0572759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche les statistiques des monstres.  <a href="affichage_8c.html#a7e26ab0b92dca4b0f9b25d60f0572759">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7e26ab0b92dca4b0f9b25d60f0572759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b4de87c7e779b59bd9a1305377facb"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a25b4de87c7e779b59bd9a1305377facb">Afficher_Skill_Bar</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, int tabSkill[3], SDL_Texture *textSkillBar[4], TTF_Font *font, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder, int win_width)</td></tr>
+<tr class="separator:a25b4de87c7e779b59bd9a1305377facb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06efee678093aed016692a8637527fc6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a06efee678093aed016692a8637527fc6">Affichage_All</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, int tabSkill[3], SDL_Texture *textSkillBar[4], SDL_Texture *texture, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, SDL_Window *window, TTF_Font *font, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
+<tr class="memdesc:a06efee678093aed016692a8637527fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche Les&#160;elements graphiques.  <a href="affichage_8c.html#a06efee678093aed016692a8637527fc6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a06efee678093aed016692a8637527fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ef6c182f20df8643f2a1d3f0236568"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#af4ef6c182f20df8643f2a1d3f0236568">AddFrame</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, int FrameCat, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, <a class="el" href="structmap__t.html">map_t</a> *map, SDL_Rect *view)</td></tr>
+<tr class="separator:af4ef6c182f20df8643f2a1d3f0236568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af770e0593075fcca8b924ea5cc056358"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#af770e0593075fcca8b924ea5cc056358">Timer_Start</a> (<a class="el" href="structSDL__timer__t.html">SDL_timer_t</a> *timer)</td></tr>
+<tr class="memdesc:af770e0593075fcca8b924ea5cc056358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise SDL_timer_t-&gt;start au temps courant.  <a href="affichage_8c.html#af770e0593075fcca8b924ea5cc056358">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af770e0593075fcca8b924ea5cc056358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a7e23a7766f44dcc9ef14e1f0b719f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ac3a7e23a7766f44dcc9ef14e1f0b719f">Timer_Update</a> (<a class="el" href="structSDL__timer__t.html">SDL_timer_t</a> *timer)</td></tr>
+<tr class="memdesc:ac3a7e23a7766f44dcc9ef14e1f0b719f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialise SDL_timer_t-&gt;now au temps courant.  <a href="affichage_8c.html#ac3a7e23a7766f44dcc9ef14e1f0b719f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac3a7e23a7766f44dcc9ef14e1f0b719f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a238789d2067bd9d9c5505e52f70465"><td class="memItemLeft" align="right" valign="top">Uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a7a238789d2067bd9d9c5505e52f70465">Timer_Get_Time</a> (<a class="el" href="structSDL__timer__t.html">SDL_timer_t</a> *timer)</td></tr>
+<tr class="memdesc:a7a238789d2067bd9d9c5505e52f70465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule le temps ecouler depuis le debut du timer.  <a href="affichage_8c.html#a7a238789d2067bd9d9c5505e52f70465">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7a238789d2067bd9d9c5505e52f70465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9363fe196979d99c5c1132257c541654"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a9363fe196979d99c5c1132257c541654">Clean_Remanent_Sprite</a> (<a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, SDL_Rect *view, int all)</td></tr>
+<tr class="memdesc:a9363fe196979d99c5c1132257c541654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui nettoie les anciens sprites présents dans la spriteMap[layerPersonnage] qui correspondent à la view.  <a href="affichage_8c.html#a9363fe196979d99c5c1132257c541654">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9363fe196979d99c5c1132257c541654"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fac8e3a00e71e8829ff14592863b367"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a2fac8e3a00e71e8829ff14592863b367">Synchronise_Sprite</a> (<a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, SDL_Rect *view)</td></tr>
+<tr class="memdesc:a2fac8e3a00e71e8829ff14592863b367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui synchronise les sprites présents dans la spriteMap[layerPersonnage] qui correspondent à la view.  <a href="affichage_8c.html#a2fac8e3a00e71e8829ff14592863b367">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2fac8e3a00e71e8829ff14592863b367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedc87d13cd4faead6b3d550c09c9f8d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#aedc87d13cd4faead6b3d550c09c9f8d3">Deplacement_PersoSprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *spritePersoList, SDL_Rect *view, char Action)</td></tr>
+<tr class="memdesc:aedc87d13cd4faead6b3d550c09c9f8d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui gere le deplacement du sprite et de la camera du joueur ( Changement Affichage )  <a href="affichage_8c.html#aedc87d13cd4faead6b3d550c09c9f8d3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aedc87d13cd4faead6b3d550c09c9f8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af55ec0fb172ef7cd4cea407cd37a0df8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#af55ec0fb172ef7cd4cea407cd37a0df8">Attack_PersoSprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *spritePersoList, SDL_Rect *view, char Action)</td></tr>
+<tr class="memdesc:af55ec0fb172ef7cd4cea407cd37a0df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui gere l'animation de l'attaque de base.  <a href="affichage_8c.html#af55ec0fb172ef7cd4cea407cd37a0df8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af55ec0fb172ef7cd4cea407cd37a0df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0237120f53c01e777d9b67d084a5e6b6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a0237120f53c01e777d9b67d084a5e6b6">Special_PersoSprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *spritePersoList, SDL_Rect *view, char Action)</td></tr>
+<tr class="memdesc:a0237120f53c01e777d9b67d084a5e6b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui gere l'animation de l'attaque special.  <a href="affichage_8c.html#a0237120f53c01e777d9b67d084a5e6b6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0237120f53c01e777d9b67d084a5e6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47125c71743a664f74662dd1355f842d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a47125c71743a664f74662dd1355f842d">Ultime_PersoSprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *spritePersoList, SDL_Rect *view, char Action)</td></tr>
+<tr class="memdesc:a47125c71743a664f74662dd1355f842d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui gere l'animation de l'attaque ultime.  <a href="affichage_8c.html#a47125c71743a664f74662dd1355f842d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a47125c71743a664f74662dd1355f842d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78ab02fca79bb8eb2f6d6ecb5fb7330"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ae78ab02fca79bb8eb2f6d6ecb5fb7330">Afficher_Texte_Zone</a> (SDL_Renderer *renderer, TTF_Font *font, const char *text, int y, int x, int w, SDL_Color *textColor)</td></tr>
+<tr class="memdesc:ae78ab02fca79bb8eb2f6d6ecb5fb7330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche du texte dans une zone.  <a href="affichage_8c.html#ae78ab02fca79bb8eb2f6d6ecb5fb7330">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae78ab02fca79bb8eb2f6d6ecb5fb7330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77b538d0f5b14c905d27a782c648c620"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#a77b538d0f5b14c905d27a782c648c620">drawLine</a> (SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color)</td></tr>
+<tr class="memdesc:a77b538d0f5b14c905d27a782c648c620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche / dessine une ligne.  <a href="affichage_8c.html#a77b538d0f5b14c905d27a782c648c620">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a77b538d0f5b14c905d27a782c648c620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab819095dda9ec0af509c0b68973da073"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="affichage_8c.html#ab819095dda9ec0af509c0b68973da073">Respawn_Joueur</a> (<a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, SDL_Rect *view, int tabRespawnJoueur[6][2])</td></tr>
+<tr class="memdesc:ab819095dda9ec0af509c0b68973da073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui fait reapparaitre le joueur apres sa mort.  <a href="affichage_8c.html#ab819095dda9ec0af509c0b68973da073">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab819095dda9ec0af509c0b68973da073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Gestion affichage. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>7.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>05 avril 2023</dd></dl>
+<p>Gestion de l'affichage: <br  />
+ Initialisation en mémoire <br  />
+ Afficher Des IMG <br  />
+ Obtenir les informations relatives à la fenêtre et/ou utile à l'affichage <br  />
+ Gestion texture sprite <br  />
+ Afficher une TileMap <br  />
+ Afficher une SpriteMap <br  />
+ Gestion timer <br  />
+ Destruction en mémoire <br  />
+ Autres fonction d'affichage ... </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="af4ef6c182f20df8643f2a1d3f0236568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ef6c182f20df8643f2a1d3f0236568">&#9670;&nbsp;</a></span>AddFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AddFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>FrameCat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a06efee678093aed016692a8637527fc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06efee678093aed016692a8637527fc6">&#9670;&nbsp;</a></span>Affichage_All()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Affichage_All </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tabSkill</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>textSkillBar</em>[4], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td>
+          <td class="paramname"><em>SpriteTextureListe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui affiche Les&#160;elements graphiques. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso</td><td>pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
+    <tr><td class="paramname">tabSkill</td><td>tableau de 3 entier qui correspondent a l'état des attaques ( disponible / indisponible ) </td></tr>
+    <tr><td class="paramname">textSkillBar</td><td>tableau de 4 textire qui contient l'ensemble des textures nécessaire pour afficher la SkillBar </td></tr>
+    <tr><td class="paramname">texture</td><td>Texture du tileSet </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher </td></tr>
+    <tr><td class="paramname">SpriteTextureListe</td><td>Liste des textures des sprites </td></tr>
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher </td></tr>
+    <tr><td class="paramname">listeType</td><td>Pointeur sur <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a>, La liste des types de sprite </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">font</td><td>Police d'écriture pour afficher le texte </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a25b4de87c7e779b59bd9a1305377facb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b4de87c7e779b59bd9a1305377facb">&#9670;&nbsp;</a></span>Afficher_Skill_Bar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int Afficher_Skill_Bar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tabSkill</em>[3], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>textSkillBar</em>[4], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dstCoef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>win_width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab8dfcbe9c1dbcff030e58abe0076bde6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8dfcbe9c1dbcff030e58abe0076bde6">&#9670;&nbsp;</a></span>Afficher_SpriteMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int Afficher_SpriteMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td>
+          <td class="paramname"><em>SpriteTextureListe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dstCoef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yBorder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e26ab0b92dca4b0f9b25d60f0572759"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e26ab0b92dca4b0f9b25d60f0572759">&#9670;&nbsp;</a></span>Afficher_Stats_Monstre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Afficher_Stats_Monstre </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dstCoef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yBorder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui affiche les statistiques des monstres. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher. </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+    <tr><td class="paramname">font</td><td>Police d'écriture pour afficher le texte </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer. </td></tr>
+    <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions. </td></tr>
+    <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre. </td></tr>
+    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="ae78ab02fca79bb8eb2f6d6ecb5fb7330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78ab02fca79bb8eb2f6d6ecb5fb7330">&#9670;&nbsp;</a></span>Afficher_Texte_Zone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Afficher_Texte_Zone </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TTF_Font *&#160;</td>
+          <td class="paramname"><em>font</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color *&#160;</td>
+          <td class="paramname"><em>textColor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui affiche du texte dans une zone. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">font</td><td>Police d'écriture pour afficher le texte </td></tr>
+    <tr><td class="paramname">texte</td><td>Le texte a afficher </td></tr>
+    <tr><td class="paramname">y</td><td>La position y du texte </td></tr>
+    <tr><td class="paramname">x</td><td>La position x du texte </td></tr>
+    <tr><td class="paramname">w</td><td>La longueur de la zone de texte </td></tr>
+    <tr><td class="paramname">textColor</td><td>La couleur a utiliser pour le texte </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="af7010348d52c28f31d4eb292023959b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7010348d52c28f31d4eb292023959b7">&#9670;&nbsp;</a></span>Afficher_TileMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int Afficher_TileMap </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>minLayer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxLayer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dstCoef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yBorder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f080ec3fbddc20e4ff82d78fdfc3142"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f080ec3fbddc20e4ff82d78fdfc3142">&#9670;&nbsp;</a></span>Ajouter_Texture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Ajouter_Texture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td>
+          <td class="paramname"><em>liste</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>spriteSheet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>texture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui ajoute une texture dans la liste des textures de sprite si elle n'est pas déja présente ou renvoie simplement son indice dans la liste. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">liste</td><td>Pointeur sur <a class="el" href="structSprite__Texture__Liste__t.html" title="Structure Liste Sprite Texture.">Sprite_Texture_Liste_t</a>, La liste des textures de sprite </td></tr>
+    <tr><td class="paramname">spriteSheet</td><td>Chaine de caractères, chemin vers le spriteSheet </td></tr>
+    <tr><td class="paramname">texture</td><td>Pointeur sur SDL_Texture, la texture correspondante au spriteSheet </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>(int) L'indice i de la texture dans la liste || -1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="af55ec0fb172ef7cd4cea407cd37a0df8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af55ec0fb172ef7cd4cea407cd37a0df8">&#9670;&nbsp;</a></span>Attack_PersoSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Attack_PersoSprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>spritePersoList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>Action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui gere l'animation de l'attaque de base. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher. </td></tr>
+    <tr><td class="paramname">spritePerso</td><td>Tableau de <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, Liste des sprites pour le personnage. </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+    <tr><td class="paramname">Action</td><td>Char qui correspond a la direction de l'attaque </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="aa862808ca63ce3245efd340f53e3f4e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa862808ca63ce3245efd340f53e3f4e5">&#9670;&nbsp;</a></span>changeResolution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void changeResolution </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>coef1920</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>indiceFullscreen</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui permet de changer la résolution de la fenêtre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">coef1920</td><td>[ 1: 1280x720 | 2: 1600x900 | 3: 1920x1080 | default: 1600x900 ] </td></tr>
+    <tr><td class="paramname">indiceFullscreen</td><td>[ 0: fenêtré | 1: plein écran | 2: plein écran fenêtré | default: fenêtré ] </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
+
+</div>
+</div>
+<a id="a615cabab710e711fdca253ce1aca0561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a615cabab710e711fdca253ce1aca0561">&#9670;&nbsp;</a></span>Chercher_Texture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Chercher_Texture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td>
+          <td class="paramname"><em>liste</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>spriteSheet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui cherche une texture ( char * spriteSheet ) dans la liste des textures de sprite. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">liste</td><td>Pointeur sur <a class="el" href="structSprite__Texture__Liste__t.html" title="Structure Liste Sprite Texture.">Sprite_Texture_Liste_t</a>, la liste des textures de sprite </td></tr>
+    <tr><td class="paramname">spriteSheet</td><td>Chaine de caractères, chemin vers le spriteSheet </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>(int) L'indice i de la texture dans la liste || -1 Si la texture n'est pas présente </dd></dl>
+
+</div>
+</div>
+<a id="a9363fe196979d99c5c1132257c541654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9363fe196979d99c5c1132257c541654">&#9670;&nbsp;</a></span>Clean_Remanent_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Clean_Remanent_Sprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>all</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui nettoie les anciens sprites présents dans la spriteMap[layerPersonnage] qui correspondent à la view. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher </td></tr>
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">all</td><td>Entier qui correspond au type d'affichage ( 1 == tous || 0 = sprite 2 x 1 du joueur exclu ) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="aedc87d13cd4faead6b3d550c09c9f8d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedc87d13cd4faead6b3d550c09c9f8d3">&#9670;&nbsp;</a></span>Deplacement_PersoSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Deplacement_PersoSprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>spritePersoList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>Action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui gere le deplacement du sprite et de la camera du joueur ( Changement Affichage ) </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher. </td></tr>
+    <tr><td class="paramname">spritePerso</td><td>Tableau de <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, Liste des sprites pour le personnage. </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+    <tr><td class="paramname">Action</td><td>Char qui correspond a l'action a effectuer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="ac96f07c86c1ea6142b8625dfdddab319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac96f07c86c1ea6142b8625dfdddab319">&#9670;&nbsp;</a></span>Detruire_Sprite_Texture_Liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Sprite_Texture_Liste </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> **&#160;</td>
+          <td class="paramname"><em>liste</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c419ea073f9c2045d0f1a5cc318a4e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c419ea073f9c2045d0f1a5cc318a4e1">&#9670;&nbsp;</a></span>Detruire_Texture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Texture </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture **&#160;</td>
+          <td class="paramname"><em>texture</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a77b538d0f5b14c905d27a782c648c620"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77b538d0f5b14c905d27a782c648c620">&#9670;&nbsp;</a></span>drawLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void drawLine </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>thickness</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui affiche / dessine une ligne. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">y1</td><td>La position y1 du texte </td></tr>
+    <tr><td class="paramname">x1</td><td>La position x1 du texte </td></tr>
+    <tr><td class="paramname">y2</td><td>La position y2 du texte </td></tr>
+    <tr><td class="paramname">x2</td><td>La position x2 du texte </td></tr>
+    <tr><td class="paramname">thickness</td><td>L'epaisseur de la ligne </td></tr>
+    <tr><td class="paramname">color</td><td>La couleur a utiliser pour la ligne </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a803f57a72cfe8dabcf47a654c9ce9ff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803f57a72cfe8dabcf47a654c9ce9ff7">&#9670;&nbsp;</a></span>getWinInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void getWinInfo </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tileSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>dstCoef</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>xBorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>yBorder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d8847dd8acd9cb9bcf669a0a79a6cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8847dd8acd9cb9bcf669a0a79a6cf6">&#9670;&nbsp;</a></span>Init_SDL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Init_SDL </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Window **&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer **&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b662be76be385245e772f373524ab90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b662be76be385245e772f373524ab90">&#9670;&nbsp;</a></span>Init_Sprite_Texture_Liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> * Init_Sprite_Texture_Liste </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui initialise la liste des textures des sprites. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">void</td><td>Aucun paramètre </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Un pointeur sur la structure <a class="el" href="structSprite__Texture__Liste__t.html" title="Structure Liste Sprite Texture.">Sprite_Texture_Liste_t</a>, la liste des textures de sprite || NULL si echec ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="ab197ccca3d00b65c9211e629087f23bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab197ccca3d00b65c9211e629087f23bf">&#9670;&nbsp;</a></span>Load_Sprite_Texture_Liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Load_Sprite_Texture_Liste </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td>
+          <td class="paramname"><em>SpriteTexteListe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui charge les texture dans SpriteTexteListe depuis listeType. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SpriteTexteListe</td><td>Pointeur sur <a class="el" href="structSprite__Texture__Liste__t.html" title="Structure Liste Sprite Texture.">Sprite_Texture_Liste_t</a>, la liste des textures de sprite </td></tr>
+    <tr><td class="paramname">listeType</td><td>Pointeur sur <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a>, la listes des types de sprite </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="adb7455d9e7c096d13726b1a17a53d57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb7455d9e7c096d13726b1a17a53d57c">&#9670;&nbsp;</a></span>Quit_SDL()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Quit_SDL </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui ferme les composants de SDL. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
+
+</div>
+</div>
+<a id="ab819095dda9ec0af509c0b68973da073"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab819095dda9ec0af509c0b68973da073">&#9670;&nbsp;</a></span>Respawn_Joueur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Respawn_Joueur </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tabRespawnJoueur</em>[6][2]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui fait reapparaitre le joueur apres sa mort. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher </td></tr>
+    <tr><td class="paramname">perso</td><td>pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">tabRespawnJoueur</td><td>Tableau d'entier qui correspond au couple de coordonnee ou reapparait le joueur selon la zone ou il est mort </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a0237120f53c01e777d9b67d084a5e6b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0237120f53c01e777d9b67d084a5e6b6">&#9670;&nbsp;</a></span>Special_PersoSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Special_PersoSprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>spritePersoList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>Action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui gere l'animation de l'attaque special. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher. </td></tr>
+    <tr><td class="paramname">spritePerso</td><td>Tableau de <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, Liste des sprites pour le personnage. </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+    <tr><td class="paramname">Action</td><td>Char qui correspond a la direction de l'attaque </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a2fac8e3a00e71e8829ff14592863b367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fac8e3a00e71e8829ff14592863b367">&#9670;&nbsp;</a></span>Synchronise_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Synchronise_Sprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui synchronise les sprites présents dans la spriteMap[layerPersonnage] qui correspondent à la view. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher </td></tr>
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a7a238789d2067bd9d9c5505e52f70465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a238789d2067bd9d9c5505e52f70465">&#9670;&nbsp;</a></span>Timer_Get_Time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Uint32 Timer_Get_Time </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSDL__timer__t.html">SDL_timer_t</a> *&#160;</td>
+          <td class="paramname"><em>timer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule le temps ecouler depuis le debut du timer. </p>
+
+</div>
+</div>
+<a id="af770e0593075fcca8b924ea5cc056358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af770e0593075fcca8b924ea5cc056358">&#9670;&nbsp;</a></span>Timer_Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Timer_Start </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSDL__timer__t.html">SDL_timer_t</a> *&#160;</td>
+          <td class="paramname"><em>timer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialise SDL_timer_t-&gt;start au temps courant. </p>
+
+</div>
+</div>
+<a id="ac3a7e23a7766f44dcc9ef14e1f0b719f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3a7e23a7766f44dcc9ef14e1f0b719f">&#9670;&nbsp;</a></span>Timer_Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Timer_Update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSDL__timer__t.html">SDL_timer_t</a> *&#160;</td>
+          <td class="paramname"><em>timer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialise SDL_timer_t-&gt;now au temps courant. </p>
+
+</div>
+</div>
+<a id="a47125c71743a664f74662dd1355f842d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47125c71743a664f74662dd1355f842d">&#9670;&nbsp;</a></span>Ultime_PersoSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Ultime_PersoSprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>spritePersoList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>Action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui gere l'animation de l'attaque ultime. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur l'objet <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, map à afficher. </td></tr>
+    <tr><td class="paramname">spritePerso</td><td>Tableau de <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, Liste des sprites pour le personnage. </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+    <tr><td class="paramname">Action</td><td>Char qui correspond a la direction de l'attaque </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="affichage_8c.html">affichage.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

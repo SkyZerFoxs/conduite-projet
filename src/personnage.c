@@ -7,15 +7,17 @@
  *	\file personnage.c
  *  \brief fonction pour gérer les personnages
  *  \author Raccouard Nathan
- *  \version 1.0
- *  \date 9/02/2023
+ *  \version 2.0
+ *  \date 27/02/2023
 **/
 
 /**
- * \fn personnage_t * creer_personnage(char * nom, int num_classe)
+ * \fn personnage_t * creer_personnage(char * nom)
  * \brief création d'un personnage
- * \param nom du personnage et le numéro de sa classe
+ * 
+ * \param nom du personnage
  * \return personnage_t perso
+ * \return pointeur sur le personnage_t || NULL Fail ( statut fonction )
 **/
 extern
 personnage_t * creer_personnage(char * nom){
@@ -63,10 +65,13 @@ personnage_t * creer_personnage(char * nom){
 
     return perso;
 }
+
 /**
  * \fn void afficher_perso(personnage_t * perso)
- * \brief Affiche les caractéristiques du personnage (nom, pv,...)
- * \param le personnage à afficher
+ * \brief afficher statistiques du personnage
+ * 
+ * \param personnage_t * perso
+ * \return Aucun retour
 **/
 extern
 void afficher_perso(personnage_t * perso){ 
@@ -105,6 +110,14 @@ void afficher_perso(personnage_t * perso){
     printf("-------------------------------------------------------\n");
 }
 
+/**
+ * \fn int calculer_stats_perso(personnage_t * perso, caract_t * caractSortie )
+ * \brief Calcul des statistiques du personnage avec objets
+ * 
+ * \param perso stats personnage 
+ * \param caractSortie stats personnage avec objets
+ * \return 0 Success || 1 Fail ( statut fonction )
+**/
 extern int calculer_stats_perso(personnage_t * perso, caract_t * caractSortie ) {
     if ( perso == NULL ) {
         printf("Erreur : perso inexistant dans calculer_stats_perso()");
@@ -141,13 +154,15 @@ extern int calculer_stats_perso(personnage_t * perso, caract_t * caractSortie ) 
 
 /**
  * \fn void supprimer_perso(personnage_t ** perso)
- * \brief suppression d'un personnage de la base de donnée
- * \param nom du personnage à supprimer
+ * \brief Libère l'espace mémoire réservée par personnage_t
+ * 
+ * \param perso à supprimer
+ * \return Aucun retour
 **/
 extern
 void supprimer_perso(personnage_t ** perso){
     if ( perso == NULL || (*perso) == NULL ) {
-        printf("Erreur : perso inexistant dans supprimer_perso()");
+        printf("Erreur : perso inexistant dans supprimer_perso()\n");
         return;
     }
 
@@ -177,8 +192,9 @@ void supprimer_perso(personnage_t ** perso){
 /**
  * \fn void upgrade_perso(personnage_t * perso)
  * \brief amélioration d'un personnage
- * \param personnage à améliorer
- * \return 0 Success || 1 Fail
+ * \param personnage pointeur sur la structure du personnage qu'on améliore
+ * \param stats indice de la statistique a améliorer
+ * \return 0 Success || 1 Fail ( statut fonction )
 **/
 extern
 int upgrade_perso(personnage_t * perso, int stats) { 

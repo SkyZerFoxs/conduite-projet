@@ -17,6 +17,27 @@
 /* ------------------ Structure  ------------------ */
 /* ------------------------------------------------ */
 
+/**
+ * \typedef inventaire_s inventaire_t Structure inventaire
+ * \struct inventaire_t
+ * \brief Structure de l'inventaire du personnage ( Data & Affichage )
+ * 
+* Contient:
+* \n int **inventaire, un pointeur de pointeur vers un tableau 2D d'entiers représentant l'inventaire
+* \n int nbPlaceInventaire, le nombre total de places dans l'inventaire
+* \n int invHeight, la hauteur de l'inventaire
+* \n int invWidth, la largeur de l'inventaire
+* \n int **equipement, un pointeur de pointeur vers un tableau 2D d'entiers représentant l'équipement
+* \n int nbPlaceEquipement, le nombre total de places dans l'équipement
+* \n int equipementHeight, la hauteur de l'inventaire d'équipement
+* \n int equipementWidth, la largeur de l'inventaire d'équipement
+* \n SDL_Texture * textInventaire, un pointeur vers une texture SDL représentant la texture de l'inteface d'inventaire
+* \n SDL_Texture * textItem, un pointeur vers une texture SDL représentant la texture des objets
+* \n SDL_Texture * textSelecteur, un pointeur vers une texture SDL représentant la texture du sélecteur
+* \n SDL_Texture * textItemInfo, un pointeur vers une texture SDL représentant la texture de l'inteface des informations d'un objet
+* \n int selecteurX, la position X du sélecteur
+* \n int selecteurY, la position Y du sélecteur
+*/
 typedef struct inventaire_s {
     // Données inventaire
     int **inventaire;
@@ -42,6 +63,15 @@ typedef struct inventaire_s {
     
 }inventaire_t;
 
+/**
+ * \typedef liste_texture_pnj_dialogue_s liste_texture_pnj_dialogue_t Structure liste texture pnj dialogue
+ * \struct liste_texture_pnj_dialogue_t
+ * \brief Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )
+ * 
+ * Contient:
+ * \n SDL_Texture ** tabTexture, tableau / liste des différentes textures
+ * \n int nbElem, nombre d'élements dans le tableau
+*/
 typedef struct liste_texture_pnj_dialogue_s {
     SDL_Texture ** tabTexture;
     int nbElem;

@@ -10,6 +10,13 @@
  *  \date 10/02/2023
 **/
 
+/**
+ * \fn liste_objet_t * load_liste_objets(char * nom_fich)
+ * \brief Charge les objets du jeu contenus dans un fichier texte
+ * 
+ * \param nom_fich nom du fichier à charger
+ * \return pointeur sur une liste de objet_t || NULL Fail ( statut fonction )
+**/
 extern 
 liste_objet_t * load_liste_objets(char * nom_fich) {
 
@@ -92,7 +99,13 @@ liste_objet_t * load_liste_objets(char * nom_fich) {
     return liste;
 }
 
-
+/**
+ * \fn int afficher_liste_objet(liste_objet_t * liste)
+ * \brief Affiche la liste d'objets chargée pour vérification
+ * 
+ * \param liste liste des objets
+ * \return 0 Success || 1 Fail ( statut fonction )
+**/
 extern
 int afficher_liste_objet(liste_objet_t * liste) { 
     if ( liste == NULL ) {
@@ -109,25 +122,30 @@ int afficher_liste_objet(liste_objet_t * liste) {
     printf("nb objets: %d\n",liste->nbElem);
     printf("-------------------------------------------------------\n");
     for (int i=0; i<liste->nbElem;i++){
-        if ( liste->tab[i]->nb > 0 ) {
-            printf("Id : %d\n", liste->tab[i]->id);
-            printf("Nom : %s\n",liste->tab[i]->nom);
-            printf("Type : %d\n", liste->tab[i]->typeID);
-            printf("Niveau : %d\n", liste->tab[i]->niv);
-            printf("PV : %d\n", liste->tab[i]->stats->pv);
-            printf("Defense : %d\n", liste->tab[i]->stats->def);
-            printf("Attaque : %d\n", liste->tab[i]->stats->atk);
-            printf("Prix achat: %d\n", liste->tab[i]->prix_achat);
-            printf("Prix vente : %d\n", liste->tab[i]->prix_vente);
-            printf("Nombre : %d\n", liste->tab[i]->nb);
-            printf("\n");
-        }
+        printf("Id : %d\n", liste->tab[i]->id);
+        printf("Nom : %s\n",liste->tab[i]->nom);
+        printf("Type : %d\n", liste->tab[i]->typeID);
+        printf("Niveau : %d\n", liste->tab[i]->niv);
+        printf("PV : %d\n", liste->tab[i]->stats->pv);
+        printf("Defense : %d\n", liste->tab[i]->stats->def);
+        printf("Attaque : %d\n", liste->tab[i]->stats->atk);
+        printf("Prix achat: %d\n", liste->tab[i]->prix_achat);
+        printf("Prix vente : %d\n", liste->tab[i]->prix_vente);
+        printf("Nombre : %d\n", liste->tab[i]->nb);
+        printf("\n");
     }
     printf("-------------------------------------------------------\n");
 
     return 0;
 }
 
+/**
+ * \fn void detruire_objet(objet_t ** objet)
+ * \brief Libère l'espace mémoire reservée par l'objet
+ * 
+ * \param liste pointeur de pointeur sur l'objet' a detruire
+ * \return Aucun retour
+**/
 extern
 void detruire_objet(objet_t ** objet){
     if ( objet == NULL || (*objet) == NULL ) {
@@ -148,6 +166,13 @@ void detruire_objet(objet_t ** objet){
     (*objet) = NULL;
 }
 
+/**
+ * \fn void detruire_liste_objet( liste_objet_t ** liste) 
+ * \brief Libère l'espace mémoire reservée par liste
+ * 
+ * \param liste pointeur de pointeur sur la liste des objets a detruire
+ * \return Aucun retour
+**/
 extern
 void detruire_liste_objet( liste_objet_t ** liste) {
 
@@ -176,6 +201,13 @@ void detruire_liste_objet( liste_objet_t ** liste) {
     (*liste) = NULL;
 }
 
+/**
+ * \fn int loot_monstre(int niv_monstre)
+ * \brief Fonction qui tire aléatoirement un objet en récompense pour avoir vaincu un monstre
+ * 
+ * \param niv_monstre niveau du monstre vaincu
+ * \return -1 Aucun objet en récompense || ID de l'objet tiré aléatoirement en récompense
+**/
 extern int loot_monstre(int niv_monstre) {
     int drop = rand() % 3; 
     if( drop==1 ) {
@@ -219,8 +251,14 @@ extern int loot_monstre(int niv_monstre) {
     return -1;
 }
 
+/**
+ * \fn int loot_coffre(int niv_coffre)
+ * \brief Fonction qui tire aléatoirement un objet en récompense pour avoir ouvert un coffre
+ * 
+ * \param niv_coffre niveau du coffre ouvert
+ * \return ID de l'objet tiré aléatoirement en récompense
+**/
 extern int loot_coffre(int niv_coffre) {
     int item_drop = rand() % 8;
     return item_drop*3+niv_coffre;
-
 }

@@ -35,8 +35,8 @@
 int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]) {
     /* ------------------ Initialisation variable ------------------ */
 
-    // statut des erreurs
-    int erreur = 0;
+    // statut de la sortie du programme
+    int sortie = 0;
 
     // initialisation CameraJoueur du joueur
     SDL_Rect CameraJoueur;
@@ -60,8 +60,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     SDL_timer_t timerDegatHUD;
 
     // Variable qui correspond au sprite detecté
-    sprite_t * detectedMonstre;
-    sprite_t * detectedMonstreAtkZone;
+    sprite_t * detectedMonstre = NULL;
+    sprite_t * detectedMonstreAtkZone = NULL;
 
     // Varriable qui correspond a la detection de mosntre
     int detectMonstre;
@@ -69,9 +69,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
 
     // Variable resultat comabt monstre
     int resultAtkMonstre = 0;
-
-    // Variable Pour Quitter La Boucle Principal
-    int quit = SDL_FALSE;
 
     // Nombre De FPS A Afficher
     int FRAME_PER_SECONDE = 30;
@@ -130,8 +127,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     // Variable Gestion Sortie Inventaire
     int sortieDiag = 0;
     
-    // Variable Gestion Sorite Level UP
+    // Variable Gestion Sortie Level UP
     int sortieLevlUP = 0;
+
+    // Variable gestion Sortie Echap
+    int sortieEchap = 0;
 
     // Variables des temps de cooldowns
     int MsCooldownFrame1 = 600;
@@ -190,7 +190,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         "asset/hud/skillBar/lockedUltime.png"
     };
     SDL_Texture * textSkillBar[4] = { NULL, NULL, NULL, NULL };
-    SDL_Texture * textDamageHUD;
+    SDL_Texture * textDamageHUD = NULL;
     
     // initialisation générateur de nombres aléatoires
     srand(time(NULL));
@@ -199,7 +199,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     continent = Initialiser_Map( "asset/map/map.txt");
     if ( continent == NULL ) {
         printf("Erreur : Echec Initialiser_Map() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -207,7 +207,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     ListeTypeSprite = Load_Sprite_Type("asset/sprite/spriteType.txt");
     if ( ListeTypeSprite == NULL ) {
         printf("Erreur : Echec Load_Sprite_Type() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -215,7 +215,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     spriteMap = Load_SpriteMap(ListeTypeSprite,continent);
     if ( spriteMap == NULL ) {
         printf("Erreur : Echec Load_SpriteMap() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -223,7 +223,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     mapTexture = IMG_LoadTexture(renderer, "asset/tileset.png");
     if ( mapTexture == NULL ) {
         printf("Erreur : Echec IMG_LoadTexture(mapTexture) dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -231,14 +231,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     SpriteTextureListe = Init_Sprite_Texture_Liste();
     if ( SpriteTextureListe == NULL ) {
         printf("Erreur : Echec Init_Sprite_Texture_Liste() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
     // chargmement Sprite Texture Liste
     if ( Load_Sprite_Texture_Liste(SpriteTextureListe,ListeTypeSprite,renderer) ) {
         printf("Erreur : Echec Load_Sprite_Texture_Liste() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -246,13 +246,13 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     listePersoSprite = Load_PersoSprite_List(ListeTypeSprite,continent,0,BORNE_PERSO_SPRITE);
     if ( listePersoSprite == NULL ) {
         printf("Erreur : Echec Load_PersoSprite_List() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
     // positionement du personnage
     if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
         printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -260,7 +260,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     listeTypePnj = Load_Liste_Type_Pnj("asset/sprite/pnjType.txt");
     if ( listeTypePnj == NULL ) {
         printf("Erreur : Echec Load_Liste_Type_Pnj() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -268,7 +268,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     listePnj = Load_Pnj(continent,spriteMap,listeTypePnj);
     if ( listePnj == NULL ) {
         printf("Erreur : Echec Load_Pnj() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -276,7 +276,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     listeMonstre = Load_Monster(continent, spriteMap);
     if ( listeMonstre == NULL ) {
         printf("Erreur : Echec Load_Monster() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -284,7 +284,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     perso = creer_personnage("Cody");
     if ( perso == NULL ) {
         printf("Erreur : Echec creer_personnage() dans Play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
 
     }
@@ -293,7 +293,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     inventaire = Load_Inventaire("asset/hud/inventaire/inventaire.png","asset/objet/objets.png","asset/hud/inventaire/selecteur.png","asset/hud/inventaire/item_info.png",6, 9, 3, 2, renderer) ;
     if ( inventaire == NULL ) {
         printf("Erreur : Echec Load_Inventaire() dans Play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -301,7 +301,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     listeObjets = load_liste_objets("asset/objet/objet.txt");
     if ( listeObjets == NULL ) {
         printf("Erreur : Echec load_liste_objets() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
     
@@ -309,7 +309,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     textHudDialogue = IMG_LoadTexture(renderer, "asset/hud/dialogue/boite_dialogue.png");
     if ( textHudDialogue == NULL ) {
         printf("Erreur : Echec IMG_LoadTexture(textHudDialogue) dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -317,7 +317,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     listeTextPnjDialogue = Load_Liste_Texture_Pnj_Dialogue(listeTypePnj,renderer);
     if ( listeTextPnjDialogue == NULL ) {
         printf("Erreur : Echec Load_Liste_Texture_Pnj_Dialogue() dans play()\n");
-        erreur = 1;
+        sortie = 1;
         goto detruire;
     }
 
@@ -329,7 +329,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 22);
         if (font1 == NULL) {
             printf("Erreur : Echec TTF_OpenFont(font1) dans play()\n");
-            erreur = 1;
+            sortie = 1;
             goto detruire;
         }
     }
@@ -337,7 +337,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         font1 = TTF_OpenFont("asset/font/RobotoMono-Medium.ttf", 26);
         if (font1 == NULL) {
             printf("Erreur : Echec TTF_OpenFont(font1) dans play()\n");
-            erreur = 1;
+            sortie = 1;
             goto detruire;
         }
     }
@@ -346,7 +346,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     textFondLevelUP = IMG_LoadTexture(renderer, "asset/hud/lvl_up/lvl_up.png");
     if ( textFondLevelUP == NULL ) {
         printf("Erreur : Echec IMG_LoadTexture(textFondLevelUP) dans play()\n");
-        erreur = 1;
+        sortie = 1;
     }
 
     // chargement texture skill bar
@@ -354,7 +354,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         textSkillBar[i] =  IMG_LoadTexture(renderer,cheminSkillBar[i]);
         if ( textSkillBar[i] == NULL ) {
             printf("Erreur : Echec IMG_LoadTexture(textSkillBar[%d]) dans play()\n",i);
-            erreur = 1;
+            sortie = 1;
         }
     }
 
@@ -362,7 +362,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     textDamageHUD = IMG_LoadTexture(renderer, "asset/hud/degat.png");
     if ( textDamageHUD == NULL ) {
         printf("Erreur : Echec IMG_LoadTexture(textDamageHUD) dans play()\n");
-        erreur = 1;
+        sortie = 1;
     }
 
 
@@ -390,9 +390,6 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
 
     /* ------------------ Zone teste ( A supprimer ) ------------------ */
 
-    (void)charger;
-
-    
     if ( charger ) {
         load_game(&CameraJoueur.x,&CameraJoueur.y,perso,inventaire,listeObjets,"asset/save/auto-save");
     }
@@ -404,7 +401,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
 
     /* ------------------ Boucle Principal ------------------ */
 
-    while( quit == SDL_FALSE && !erreur ) {
+    while( sortie == 0 ) {
         /* --------- Variable Boucle --------- */
 
         // Lancement timer temps d'execution
@@ -420,7 +417,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
             switch (event.type) {
                 // Evenement QUIT
                 case SDL_QUIT:
-                    quit = SDL_TRUE;
+                    sortie = -1;
                     break;
                 // Evenement Touche Clavier
                 case SDL_KEYDOWN:
@@ -444,7 +441,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                                 if ( tabSkill[1] == 0 ) {
                                     if ( Special_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                         printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
-                                        erreur = 1;
+                                        sortie = 1;
                                         goto detruire;
                                     }
                                     aKeyClicked = 1;
@@ -459,7 +456,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                                 if ( tabSkill[2] == 0 ) {
                                     if ( Ultime_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                         printf("Erreur : Echec Ultime_PersoSprite() dans play()\n");
-                                        erreur = 1;
+                                        sortie = 1;
                                         goto detruire;
                                     }
                                     rKeyClicked = 1;
@@ -473,18 +470,18 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                                detectMonstre = Detecter_Pnj(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedPnj);
                                 if ( detectMonstre == -1 ) {
                                     printf("Erreur : Echec Detecter_Monstre('basique') dans play()\n");
-                                    erreur = 1;
+                                    sortie = 1;
                                     goto detruire;
                                 }
                                 if ( detectMonstre == 1 ) {
                                     sortieDiag = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj, listeTypePnj, &CameraJoueur, window, renderer);
                                     if ( sortieDiag == -1 ) {
-                                        quit = SDL_TRUE;
+                                        sortie = -1;
                                         goto detruire;
                                     }
                                     else if ( sortieDiag == 1 ) {
                                         printf("Erreur : Echec Dialogue() dans play()\n");
-                                        erreur = 1;
+                                        sortie = 1;
                                         goto detruire;
                                     }
                                 }
@@ -497,48 +494,63 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                                 surface = SDL_CreateRGBSurface(0, win_width, win_height, 32, 0, 0, 0, 0);
                                 if ( surface == NULL ) {
                                     printf("Erreur : Echec SDL_CreateRGBSurface(Inventaire) dans Play()\n");
-                                    erreur = 1;
+                                    sortie = 1;
                                     goto detruire;
                                 }
                                 if ( SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch) < 0) {
                                     printf("Erreur : Echec SDL_RenderReadPixels(Inventaire) dans Play()\n");
-                                    erreur = 1;
+                                    sortie = 1;
                                     goto detruire;
                                 }
                                 background_texture = SDL_CreateTextureFromSurface(renderer, surface);
                                 if ( background_texture == NULL ) {
                                     printf("Erreur : Echec SDL_CreateTextureFromSurface(Inventaire) dans Play()\n");
-                                    erreur = 1;
+                                    sortie = 1;
                                     goto detruire;
-                                }
-
-                                // Destruction SDL_Surface surface (background_text)
-                                if ( surface != NULL ) {
-                                    SDL_FreeSurface(surface);
                                 }
                                 
                                 // Appelle fonction inventaire
                                 sortieInv = Inventaire(inventaire, listeObjets, perso, SpriteTextureListe, ListeTypeSprite, listePersoSprite, &CameraJoueur, window, background_texture, renderer);
                                 if ( sortieInv == -1 ) {
-                                    quit = SDL_TRUE;
+                                    sortie = -1;
                                     goto detruire;
                                 }
                                 else if ( sortieInv == 1 ) {
                                     printf("Erreur : Echec inventaire() dans play()\n");
-                                    erreur = 1;
+                                    sortie = 1;
                                     goto detruire;
-                                }
-
-                                // Destruction texture background_texture
-                                if ( background_texture != NULL ) {
-                                    SDL_DestroyTexture(background_texture);
                                 }
                                 
                                 break;
                             case SDLK_ESCAPE:
-                                if ( echap(window, renderer, tabTextGif) == 0 ) {
-                                    quit = SDL_TRUE;
+                                // Récupération des informations de la fenêtre utile à l'affichage
+                                getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
+
+                                // Recuperation background_texture
+                                surface = SDL_CreateRGBSurface(0, win_width, win_height, 32, 0, 0, 0, 0);
+                                if ( surface == NULL ) {
+                                    printf("Erreur : Echec SDL_CreateRGBSurface(Level_UP) dans Play()\n");
+                                    sortie = 1;
                                     goto detruire;
+                                }
+                                if ( SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch) < 0) {
+                                    printf("Erreur : Echec SDL_RenderReadPixels(Level_UP) dans Play()\n");
+                                    sortie = 1;
+                                    goto detruire;
+                                }
+                                background_texture = SDL_CreateTextureFromSurface(renderer, surface);
+                                if ( background_texture == NULL ) {
+                                    printf("Erreur : Echec SDL_CreateTextureFromSurface(Level_UP) dans Play()\n");
+                                    sortie = 1;
+                                    goto detruire;
+                                }
+                                sortieEchap =  echap(window, renderer, background_texture, tabTextGif);
+                                if ( sortieEchap == -1 ) {
+                                    sortie = -1;
+                                    goto detruire;
+                                }
+                                if ( sortieEchap == -2 ) {
+                                    sortie = -2;
                                 }
                             default:
                                 break;
@@ -550,7 +562,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                         {
                             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,tolower(direction)) ) {
                                 printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
-                                erreur = 1;
+                                sortie = 1;
                                 goto detruire;
                             }
                             Timer_Start( &DeplacementCooldown );
@@ -567,7 +579,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                         if ( tabSkill[0] == 0 && !aKeyClicked && !rKeyClicked ) {
                             if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
                                 printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
-                                erreur = 1;
+                                sortie = 1;
                                 goto detruire;
                             }
                             mouseClicked = 1;
@@ -625,12 +637,12 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
             perso->caract->pv = 0;
             if ( Respawn_Joueur(continent,perso,&CameraJoueur,tabRespawnJoueur ) ) {
                 printf("Erreur : Echec Respawn_Joueur() dans play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
             }
             if ( Mort_Joueur(perso,inventaire,listeObjets) ) {
                 printf("Erreur : Echec Mort_Joueur() dans play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
             }
 
@@ -649,15 +661,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedMonstre);
                 if ( detectMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Monstre('basique') dans play()\n");
-                    erreur = 1;
+                    sortie = 1;
                     goto detruire;
                 }
                 if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     attaqueJoueur = 1;
-                }
-                if ( detectedMonstre != NULL ) {
-                    afficher_monstre(detectedMonstre->monstre);
-                    printf("\n");
                 }
             }
         }
@@ -673,15 +681,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,2,&detectedMonstre);
                 if ( detectMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Monstre('spe') dans play()\n");
-                    erreur = 1;
+                    sortie = 1;
                     goto detruire;
                 }
                 if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     attaqueJoueur = 2;
-                }
-                if ( detectedMonstre != NULL ) {
-                    afficher_monstre(detectedMonstre->monstre);
-                    printf("\n");
                 }
             }
         }
@@ -697,15 +701,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,3,&detectedMonstre);
                 if ( detectMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Monstre('ult') dans play()\n");
-                    erreur = 1;
+                    sortie = 1;
                     goto detruire;
                 }
                 if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     attaqueJoueur = 3;
-                }
-                if ( detectedMonstre != NULL ) {
-                    afficher_monstre(detectedMonstre->monstre);
-                    printf("\n");
                 }
             }
         }
@@ -724,10 +724,22 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
 
         if ( degatMonstre ) {
             if ( frameDegatMonstre == 0 ) {
-                if ( detectedMonstre->monstre->monstreSize > 1 ) {
-                    yMonstre = detectedMonstre->monstre->pos_y;
-                    xMonstre = detectedMonstre->monstre->pos_x;
-                    
+                yMonstre = detectedMonstre->monstre->pos_y;
+                xMonstre = detectedMonstre->monstre->pos_x;
+                if ( detectedMonstre->monstre->monstreSize == 4) {
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre][xMonstre+1]->spriteTypeId++;
+                    spriteMap[0][yMonstre][xMonstre+1]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre+1]->spriteTypeId++;
+                    spriteMap[0][yMonstre+1][xMonstre+1]->frame = 0;
+                }
+                else if ( detectedMonstre->monstre->monstreSize == 2 ) {
                     spriteMap[0][yMonstre][xMonstre]->spriteTypeId++;
                     spriteMap[0][yMonstre][xMonstre]->frame = 0;
 
@@ -743,10 +755,22 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
             frameDegatMonstre++;
             if ( frameDegatMonstre == 2 ) {
                 degatMonstre = 0;
-                if ( detectedMonstre->monstre->monstreSize > 1 ) {
-                    yMonstre = detectedMonstre->monstre->pos_y;
-                    xMonstre = detectedMonstre->monstre->pos_x;
+                yMonstre = detectedMonstre->monstre->pos_y;
+                xMonstre = detectedMonstre->monstre->pos_x;
+                if ( detectedMonstre->monstre->monstreSize == 4 ) {
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
 
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre][xMonstre+1]->spriteTypeId--;
+                    spriteMap[0][yMonstre][xMonstre+1]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre+1]->spriteTypeId--;
+                    spriteMap[0][yMonstre+1][xMonstre+1]->frame = 0;
+                }
+                else if ( detectedMonstre->monstre->monstreSize == 2 ) {
                     spriteMap[0][yMonstre][xMonstre]->spriteTypeId--;
                     spriteMap[0][yMonstre][xMonstre]->frame = 0;
 
@@ -788,7 +812,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         if ( (int)Timer_Get_Time( &lastKey ) > MsCooldownIdleAnimation  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 ) {
             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
                 printf("Erreur : Echec Change_Sprite //Deplacement_PersoSprite() dans play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
             }
         }
@@ -799,14 +823,14 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
                 detecZoneAtkMonstre = Detecter_Zone_Atk_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,i,&detectedMonstreAtkZone);
                 if ( detecZoneAtkMonstre == -1 ) {
                     printf("Erreur : Echec Detecter_Zone_Atk_Monstre() dans play()\n");
-                    erreur = 1;
+                    sortie = 1;
                     goto detruire;
                 }
                 if ( detecZoneAtkMonstre == 1 && detectedMonstreAtkZone->monstre->caract->pv > 0 ) {
                     resultAtkMonstre = combat_monstre(detectedMonstreAtkZone->monstre,perso,i);
                     if ( resultAtkMonstre == -1 ) {
                         printf("Erreur : Echec combat_monstre() dans play()\n");
-                        erreur = 1;
+                        sortie = 1;
                         goto detruire;
                     }
                     else if ( resultAtkMonstre == 1 ) {
@@ -840,7 +864,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         // remise à 0 du renderer ( fond noir )
         if ( SDL_RenderClear(renderer) < 0 ) {
             printf("Erreur : Echec SDL_RenderClear() dans play()\n");
-            erreur = 1;
+            sortie = 1;
             goto detruire;
         }
         
@@ -848,7 +872,7 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
         // Affichage Complet
         if ( Affichage_All(perso, tabSkill, textSkillBar, mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, font1, renderer,&CameraJoueur) ) {
             printf("Erreur : Echec Affichage_All() dans play()\n");
-            erreur = 1;
+            sortie = 1;
             goto detruire;
         }
 
@@ -874,50 +898,39 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
 
         // Affichage Level UP
         if ( perso->exp >= ( perso->palierExp = 100 + (perso->niveau * 50) ) ) {
-             // Récupération des informations de la fenêtre utile à l'affichage
+            // Récupération des informations de la fenêtre utile à l'affichage
             getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
 
             // Recuperation background_texture
             surface = SDL_CreateRGBSurface(0, win_width, win_height, 32, 0, 0, 0, 0);
             if ( surface == NULL ) {
                 printf("Erreur : Echec SDL_CreateRGBSurface(Level_UP) dans Play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
             }
             if ( SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, surface->pixels, surface->pitch) < 0) {
                 printf("Erreur : Echec SDL_RenderReadPixels(Level_UP) dans Play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
             }
             background_texture = SDL_CreateTextureFromSurface(renderer, surface);
             if ( background_texture == NULL ) {
                 printf("Erreur : Echec SDL_CreateTextureFromSurface(Level_UP) dans Play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
-            }
-
-            // Destruction SDL_Surface surface (background_text)
-            if ( surface != NULL ) {
-                SDL_FreeSurface(surface);
             }
             
             perso->niveau++;
             perso->pts_upgrade += 3;
             sortieLevlUP = Level_UP(textFondLevelUP,background_texture,perso,&CameraJoueur,window,renderer);
             if ( sortieLevlUP == -1 ) {
-                quit = SDL_TRUE;
+                sortie = -1;
             }
             else if ( sortieLevlUP == 1 ) {
                 printf("Erreur : Echec sortieLevlUP() dans play()\n");
-                erreur = 1;
+                sortie = 1;
                 goto detruire;
             }
-
-            // Destruction texture background_texture
-            if ( background_texture != NULL ) {
-                SDL_DestroyTexture(background_texture);
-            }
-            
         }
 
         // Gestion fps
@@ -942,21 +955,11 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     // Clean variable detected monstre
     detectedMonstre = NULL;
     detectedMonstreAtkZone = NULL;
-
-    // clean old sprite
-    for (int y = CameraJoueur.y ; y < CameraJoueur.y+CameraJoueur.h; y++) {
-        for (int x = CameraJoueur.x ; x < CameraJoueur.x + CameraJoueur.w; x++ ) {
-            if (y < 0 || x < 0 || y >= continent->height || x >= continent->width) {
-                printf("Erreur : Hors map , netoyage sprites personnage (detruire) dans Play()\n");
-                return 1;
-            } else if (spriteMap[1][y][x] != NULL) {
-                spriteMap[1][y][x] = NULL;
-            }
-        }
-    }
-
+    
     // Destruction texture DamageHUD
-    Detruire_Texture(&textDamageHUD);
+    if ( textDamageHUD != NULL ) {
+        Detruire_Texture(&textDamageHUD);
+    }
 
     // Destruction texture SkillBar
     for (int i = 0; i < 4; i++ ) {
@@ -967,7 +970,10 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     }
 	
     // Destruction texture Boite Level UP
-    Detruire_Texture(&textFondLevelUP);
+    if ( textFondLevelUP != NULL ) {
+        Detruire_Texture(&textFondLevelUP);
+    }
+    
 
     // Destruction background_texture
     if ( background_texture != NULL ) {
@@ -990,6 +996,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
 	Detruire_Liste_Texture_Pnj_Dialogue(&listeTextPnjDialogue);
 
     // Detruire texture Hud Dialogue
+    if ( textHudDialogue != NULL ) {
+        Detruire_Texture(&textHudDialogue);
+    }
 
     // Detruire liste objets
     detruire_liste_objet(&listeObjets);
@@ -1016,7 +1025,9 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     Detruire_Sprite_Texture_Liste(&SpriteTextureListe); 
 
 	// destruction en mémoire de la texture en paramètre
-    Detruire_Texture(&mapTexture);
+    if ( mapTexture != NULL ) {
+        Detruire_Texture(&mapTexture);
+    }
 
     // destruction en mémoire de la SpriteMap en paramètre
     Detruire_SpriteMap(&spriteMap,continent);
@@ -1028,8 +1039,8 @@ int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *t
     Detruire_Map(&continent); 
     
 
-    /* -------  Fin fonction Play() + sortie status d'erreur -------*/
+    /* -------  Fin fonction Play() + sortie status du programme -------*/
 
-    return erreur;
+    return sortie;
 
 }

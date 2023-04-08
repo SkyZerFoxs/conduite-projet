@@ -6,7 +6,7 @@
  * \brief Fonction principale qui init SDL et appelle la fonction Play
  * 
  * \param void Aucun paramètre en entrée 
- * \return Int qui caractérise la réussite de la fonction
+ * \return Int qui caractérise la réussite de la fonction ( statut fonction )
  */
 int main() {
     SDL_Window *window = NULL;
@@ -22,19 +22,12 @@ int main() {
     }
     printf("Init SDL ................ OK\n");
 
-    /*
-    // fonction principal du jeu (play) 
-    printf("Debut Play .............. OK\n");
-    if ( play(window,renderer,1) ) {
-        printf("Erreur : play() à échoué\n");
-        erreur = 1;
-        goto quit;
-    }
-    */
 
+    // Fonction menu
+    printf("Debut Menu .............. OK\n");
     menu(window,renderer);
+    printf("Fin Menu ................ OK\n");
 
-    printf("Fin Play ................ OK\n");
 
     // Fin de SDL + destruction allocation mémoire
     quit:

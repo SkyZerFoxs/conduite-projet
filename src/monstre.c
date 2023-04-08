@@ -11,6 +11,12 @@
  *  \date 9/02/2023
 **/
 
+/**
+ * \fn int afficher_monstre(monstre_t * monstre)
+ * \brief Affiche les statistiques d'un monstre
+ * \param monstre pointeur sur monstre
+ * \return 0 Success || 1 Fail ( statut fonction )
+**/
 extern
 int afficher_monstre(monstre_t * monstre){ 
     if ( monstre == NULL ) {
@@ -32,6 +38,16 @@ int afficher_monstre(monstre_t * monstre){
     return 0;
 }
 
+/**
+ * \fn monstre_t * creer_monstre(char * nom, int niv, int y, int x)
+ * \brief Créer un monstre
+ * 
+ * \param nom nom du monstre
+ * \param niv niveau du monstre
+ * \param y position verticale du monstre
+ * \param x position horizontale du monstre
+ * \return pointeur sur monstre_t || NULL Fail ( statut fonction )
+**/
 extern
 monstre_t * creer_monstre(char * nom, int niv, int y, int x) {
     if ( nom == NULL ) {
@@ -77,6 +93,13 @@ monstre_t * creer_monstre(char * nom, int niv, int y, int x) {
     return monstre;
 }
 
+/**
+ * \fn void supprimer_monstre(monstre_t ** monstre)
+ * \brief Libère l'espace mémoire reservée par monstre
+ * 
+ * \param monstre pointeur de pointeur sur le monstre_t à supprimer
+ * \return Aucun retour
+**/
 void supprimer_monstre(monstre_t ** monstre) {
     if ( monstre == NULL || (*monstre) == NULL ) {
         printf("Erreur : monstre inexistant dans supprimer_monstre()");

@@ -23,6 +23,11 @@
  * \n Signature des fonction externe de sprite.c
  */
 
+
+/* ------------------------------------------------ */
+/* ------------------ Structure  ------------------ */
+/* ------------------------------------------------ */
+
 /**
  * \typedef sprite_type_s sprite_type_t Structure Sprite Type
  * \struct sprite_type_t
@@ -80,7 +85,8 @@ typedef struct sprite_type_liste_s {
  * \n y             : Coordonnées y du sprite
  * \n frame         : Frame courante du sprite
  * \n spriteTypeId  : Id du type de sprite à afficheer (sprite_type_liste_t)
- * 
+ * \n monstre       : Pointeur sur monstre_t du monstre relier au sprite ( NULL si aucun monstre )
+ * \n pnj           : Pointeur sur pnj_t du pnj relier au sprite ( NULL si aucun pnj )
  */
 typedef struct sprite_s {
     //Coordonnées
@@ -118,25 +124,35 @@ typedef struct sprite_liste_s {
 
 /**
  * \typedef monstre_liste_s monstre_liste_t
- * \struct monstre_liste_s
+ * \struct monstre_liste_t
  * \brief Structure qui correspond à une liste de monstres
  * 
  * Contient :
  * \n tabMonstres : Tableau de pointeurs sur des monstres
  * \n nbElem : Nombre d'éléments dans le tableau
  */
-typedef struct {
+typedef struct monstre_liste_s{
     monstre_t** tabMonstres;
     int nbElem;
 } monstre_liste_t;
 
-
-typedef struct {
+/**
+ * \typedef pnj_liste_s pnj_liste_t
+ * \struct pnj_liste_t
+ * \brief Structure qui correspond à une liste de pnj
+ * 
+ * Contient :
+ * \n tabPnj : Tableau de pointeurs sur des pnj
+ * \n nbElem : Nombre d'éléments dans le tableau
+ */
+typedef struct pnj_liste_s{
     pnj_t ** tabPnj;
     int nbElem;
 } pnj_liste_t;
 
-
+/* ------------------------------------------------------ */
+/* ------------------ Fonction Externe ------------------ */
+/* ------------------------------------------------------ */
 
 extern sprite_type_liste_t * Load_Sprite_Type(const char * nom_fichier) ;
 extern void Detruire_Liste_Sprite_Type(sprite_type_liste_t ** liste) ;
