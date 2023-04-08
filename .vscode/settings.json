@@ -5,6 +5,9 @@
         "stdio.h": "c",
         "time.h": "c",
         "affichage.h": "c",
-        "menu.h": "c"
+        "menu.h": "c",
+        "stdlib.h": "c",
+        "personnage.h": "c",
+        "pnj.h": "c"
     }
 }

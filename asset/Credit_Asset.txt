@@ -21,3 +21,7 @@ https://melthie.itch.io/mini-dungeon
 => Sprite Mushroom & Goblin & Skull ( Modified )
 Credtis to Stephen "Redshrike" Challener. ( https://opengameart.org/users/redshrike )
 https://opengameart.org/content/16x16-16x24-32x32-rpg-enemies-updated
+
+=> Sprite Boss Monster ( Modified )
+Credtis to DeepDiveGameStudio. ( https://deepdivegamestudio.itch.io/ )
+https://deepdivegamestudio.itch.io/demon-sprite-pack

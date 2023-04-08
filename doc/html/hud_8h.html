@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest: Référence du fichier include/hud.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('hud_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier hud.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Header pour l'hud.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="affichage_8h_source.html">affichage.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="data_8h_source.html">data.h</a>&gt;</code><br />
+<code>#include &lt;dirent.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de hud.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="hud_8h__incl.png" border="0" usemap="#ainclude_2hud_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="hud_8h__dep__incl.png" border="0" usemap="#ainclude_2hud_8hdep" alt=""/></div>
+</div>
+</div>
+<p><a href="hud_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structinventaire__t.html">inventaire_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure de l'inventaire du personnage ( Data &amp; Affichage )  <a href="structinventaire__t.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )  <a href="structliste__texture__pnj__dialogue__t.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ac71293119bb27ea4dbe70a516739f718"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#ac71293119bb27ea4dbe70a516739f718">Load_Inventaire</a> (char *cheminInventaire, char *cheminItem, char *cheminSelecteur, char *cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:ac71293119bb27ea4dbe70a516739f718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charger les ressources de l'inventaire.  <a href="hud_8h.html#ac71293119bb27ea4dbe70a516739f718">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac71293119bb27ea4dbe70a516739f718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a81724c581e3df8e635a89761704c4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a9a81724c581e3df8e635a89761704c4a">Detruire_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> **inventaire)</td></tr>
+<tr class="memdesc:a9a81724c581e3df8e635a89761704c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui detruit en memoire l'inventaire.  <a href="hud_8h.html#a9a81724c581e3df8e635a89761704c4a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9a81724c581e3df8e635a89761704c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38de404127d4007859f922344e0098af"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a38de404127d4007859f922344e0098af">Add_Item_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, int itemID)</td></tr>
+<tr class="memdesc:a38de404127d4007859f922344e0098af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction static qui permet d'ajouter un objet de l'inventaire.  <a href="hud_8h.html#a38de404127d4007859f922344e0098af">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a38de404127d4007859f922344e0098af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af326746caf977ea8fdc5736b02ec63a4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#af326746caf977ea8fdc5736b02ec63a4">Use_Item_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso)</td></tr>
+<tr class="memdesc:af326746caf977ea8fdc5736b02ec63a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction extern qui permet d'utiliser un objet de l'inventaire.  <a href="hud_8h.html#af326746caf977ea8fdc5736b02ec63a4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af326746caf977ea8fdc5736b02ec63a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a067c6e370540674d91f7453c5602e2ef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a067c6e370540674d91f7453c5602e2ef">Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, <a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *spritePersoList, SDL_Rect *view, SDL_Window *window, SDL_Texture *background_texture, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:a067c6e370540674d91f7453c5602e2ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface d'inventaire.  <a href="hud_8h.html#a067c6e370540674d91f7453c5602e2ef">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a067c6e370540674d91f7453c5602e2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e17d49a5c7a51c9e5aaab598d539aa2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a5e17d49a5c7a51c9e5aaab598d539aa2">Load_Liste_Texture_Pnj_Dialogue</a> (<a class="el" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> *liste_type, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:a5e17d49a5c7a51c9e5aaab598d539aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charge la liste des textures d'image de pnj pour les dialogues.  <a href="hud_8h.html#a5e17d49a5c7a51c9e5aaab598d539aa2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5e17d49a5c7a51c9e5aaab598d539aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf959470dd0ad0cdbeb03567ecca54b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#abf959470dd0ad0cdbeb03567ecca54b0">Detruire_Liste_Texture_Pnj_Dialogue</a> (<a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> **liste_texture_pnj)</td></tr>
+<tr class="memdesc:abf959470dd0ad0cdbeb03567ecca54b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui detruit en meomoire la <a class="el" href="structliste__texture__pnj__dialogue__t.html" title="Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )">liste_texture_pnj_dialogue_t</a>.  <a href="hud_8h.html#abf959470dd0ad0cdbeb03567ecca54b0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:abf959470dd0ad0cdbeb03567ecca54b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2144ddf38cb439a28c616e58a86d80a6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a2144ddf38cb439a28c616e58a86d80a6">Dialogue</a> (SDL_Texture *textDialogue, <a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> *ListeTextPnjDialogue, <a class="el" href="structpnj__t.html">pnj_t</a> *pnj, <a class="el" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> *listeTypePnj, SDL_Rect *view, SDL_Window *window, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:a2144ddf38cb439a28c616e58a86d80a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface de dialogue.  <a href="hud_8h.html#a2144ddf38cb439a28c616e58a86d80a6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2144ddf38cb439a28c616e58a86d80a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc6545c3af41282bee73b1efe3a83f6c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#afc6545c3af41282bee73b1efe3a83f6c">Level_UP</a> (SDL_Texture *textFondLevelUP, SDL_Texture *background_texture, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, SDL_Rect *view, SDL_Window *window, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:afc6545c3af41282bee73b1efe3a83f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface d'augmentation de niveau.  <a href="hud_8h.html#afc6545c3af41282bee73b1efe3a83f6c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afc6545c3af41282bee73b1efe3a83f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a954ed30ef109282313da0101ff01b228"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a954ed30ef109282313da0101ff01b228">Mort_Joueur</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets)</td></tr>
+<tr class="memdesc:a954ed30ef109282313da0101ff01b228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui gere la mort du personnage.  <a href="hud_8h.html#a954ed30ef109282313da0101ff01b228">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a954ed30ef109282313da0101ff01b228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Introduction</a> (SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
+<tr class="memdesc:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface d'Introduction.  <a href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Header pour l'hud. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>24 mars 2023 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a38de404127d4007859f922344e0098af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38de404127d4007859f922344e0098af">&#9670;&nbsp;</a></span>Add_Item_Inventaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Add_Item_Inventaire </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td>
+          <td class="paramname"><em>inventaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__objet__t.html">liste_objet_t</a> *&#160;</td>
+          <td class="paramname"><em>listeObjets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>itemID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction static qui permet d'ajouter un objet de l'inventaire. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
+    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+    <tr><td class="paramname">itemID</td><td>entier qui correspond a ID de l'objet que l'on souhaite ajouter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a9a81724c581e3df8e635a89761704c4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a81724c581e3df8e635a89761704c4a">&#9670;&nbsp;</a></span>Detruire_Inventaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Inventaire </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> **&#160;</td>
+          <td class="paramname"><em>inventaire</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui detruit en memoire l'inventaire. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inventaire</td><td>Pointeur de pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> a detruire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
+
+</div>
+</div>
+<a id="abf959470dd0ad0cdbeb03567ecca54b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf959470dd0ad0cdbeb03567ecca54b0">&#9670;&nbsp;</a></span>Detruire_Liste_Texture_Pnj_Dialogue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Liste_Texture_Pnj_Dialogue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> **&#160;</td>
+          <td class="paramname"><em>liste_texture_pnj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui detruit en meomoire la <a class="el" href="structliste__texture__pnj__dialogue__t.html" title="Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )">liste_texture_pnj_dialogue_t</a>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">liste_texture_pnj</td><td>Pointeur de pointeur sur <a class="el" href="structliste__texture__pnj__dialogue__t.html" title="Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )">liste_texture_pnj_dialogue_t</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
+
+</div>
+</div>
+<a id="a2144ddf38cb439a28c616e58a86d80a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2144ddf38cb439a28c616e58a86d80a6">&#9670;&nbsp;</a></span>Dialogue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Dialogue </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>textDialogue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> *&#160;</td>
+          <td class="paramname"><em>listeTextPnjDialogue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpnj__t.html">pnj_t</a> *&#160;</td>
+          <td class="paramname"><em>pnj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> *&#160;</td>
+          <td class="paramname"><em>listeTypePnj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface de dialogue. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">textDialogue</td><td>texture de l'image d'interface de dialogue </td></tr>
+    <tr><td class="paramname">listeTextPnjDialogue</td><td>pointeur sur <a class="el" href="structliste__texture__pnj__dialogue__t.html" title="Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )">liste_texture_pnj_dialogue_t</a>, la liste des textures des image de dialogue des pnj </td></tr>
+    <tr><td class="paramname">pnj</td><td>pointeur sur le <a class="el" href="structpnj__t.html" title="Structure d&#39;un pnj ( Data )">pnj_t</a> a qui on parle </td></tr>
+    <tr><td class="paramname">listeTypePnj</td><td>pointeur sur <a class="el" href="structliste__type__pnj__t.html" title="Structure de la liste des types de pnj ( Data )">liste_type_pnj_t</a>, liste des types de pnj </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur de pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="afb4c8ef6445d5554ecb05c3bde36db6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb4c8ef6445d5554ecb05c3bde36db6d">&#9670;&nbsp;</a></span>Introduction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Introduction </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface d'Introduction. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>Pointeur de pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a067c6e370540674d91f7453c5602e2ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a067c6e370540674d91f7453c5602e2ef">&#9670;&nbsp;</a></span>Inventaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Inventaire </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td>
+          <td class="paramname"><em>inventaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__objet__t.html">liste_objet_t</a> *&#160;</td>
+          <td class="paramname"><em>listeObjets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *&#160;</td>
+          <td class="paramname"><em>SpriteTextureListe</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>spritePersoList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>background_texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface d'inventaire. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inventaire</td><td>pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
+    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+    <tr><td class="paramname">perso</td><td>pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
+    <tr><td class="paramname">SpriteTextureListe</td><td>Liste des textures des sprites </td></tr>
+    <tr><td class="paramname">listeType</td><td>Pointeur sur <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a>, La liste des types de sprite. </td></tr>
+    <tr><td class="paramname">spritePersoList</td><td>Pointeur sur la <a class="el" href="structsprite__liste__t.html" title="Structure qui correspond à une liste de sprite.">sprite_liste_t</a> qui contient les sprites du personnage </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">background_texture</td><td>Pointeur sur la texture a afficher en arrière plan </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="afc6545c3af41282bee73b1efe3a83f6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc6545c3af41282bee73b1efe3a83f6c">&#9670;&nbsp;</a></span>Level_UP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Level_UP </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>textFondLevelUP</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>background_texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface d'augmentation de niveau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">textFondLevelUP</td><td>Texture de l'image d'interface d'augmentation de niveau </td></tr>
+    <tr><td class="paramname">background_texture</td><td>Pointeur sur la texture a afficher en arrière plan </td></tr>
+    <tr><td class="paramname">perso</td><td>Pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="ac71293119bb27ea4dbe70a516739f718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac71293119bb27ea4dbe70a516739f718">&#9670;&nbsp;</a></span>Load_Inventaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structinventaire__t.html">inventaire_t</a>* Load_Inventaire </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cheminInventaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cheminItem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cheminSelecteur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>cheminItemInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>invHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>invWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>equipementHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>equipementWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui charger les ressources de l'inventaire. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cheminInventaire,chemin</td><td>vers l'image de l'interface de l'inventaire </td></tr>
+    <tr><td class="paramname">cheminItem,chemin</td><td>vers l'image des objets </td></tr>
+    <tr><td class="paramname">cheminSelecteur,chemin</td><td>vers l'image du selecteur </td></tr>
+    <tr><td class="paramname">cheminItemInfo,chemin</td><td>vers l'image de l'inteface des informations d'un objet </td></tr>
+    <tr><td class="paramname">invHeight,la</td><td>hauteur de l'inventaire </td></tr>
+    <tr><td class="paramname">invWidth,la</td><td>largeur de l'inventaire </td></tr>
+    <tr><td class="paramname">equipementHeight,la</td><td>hauteur de l'inventaire d'équipement </td></tr>
+    <tr><td class="paramname">equipementWidth,la</td><td>largeur de l'inventaire d'équipement </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>pointeur sur <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> || Null Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a5e17d49a5c7a51c9e5aaab598d539aa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e17d49a5c7a51c9e5aaab598d539aa2">&#9670;&nbsp;</a></span>Load_Liste_Texture_Pnj_Dialogue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a>* Load_Liste_Texture_Pnj_Dialogue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> *&#160;</td>
+          <td class="paramname"><em>liste_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui charge la liste des textures d'image de pnj pour les dialogues. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">liste_type</td><td>liste des types de pnj </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>pointeur sur <a class="el" href="structliste__texture__pnj__dialogue__t.html" title="Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )">liste_texture_pnj_dialogue_t</a> || Null Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a954ed30ef109282313da0101ff01b228"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a954ed30ef109282313da0101ff01b228">&#9670;&nbsp;</a></span>Mort_Joueur()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Mort_Joueur </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td>
+          <td class="paramname"><em>inventaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__objet__t.html">liste_objet_t</a> *&#160;</td>
+          <td class="paramname"><em>listeObjets</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui gere la mort du personnage. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso</td><td>Pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
+    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
+    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="af326746caf977ea8fdc5736b02ec63a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af326746caf977ea8fdc5736b02ec63a4">&#9670;&nbsp;</a></span>Use_Item_Inventaire()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Use_Item_Inventaire </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td>
+          <td class="paramname"><em>inventaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__objet__t.html">liste_objet_t</a> *&#160;</td>
+          <td class="paramname"><em>listeObjets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction extern qui permet d'utiliser un objet de l'inventaire. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
+    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+    <tr><td class="paramname">perso</td><td>pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="hud_8h.html">hud.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

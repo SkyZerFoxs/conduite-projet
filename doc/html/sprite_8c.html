@@ -1,0 +1,1048 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest: Référence du fichier src/sprite.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('sprite_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier sprite.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Gestion des sprites.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="sprite_8h_source.html">sprite.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de sprite.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="sprite_8c__incl.png" border="0" usemap="#asrc_2sprite_8c" alt=""/></div>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ae4dd090c9e584be24848403e854adc2b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#ae4dd090c9e584be24848403e854adc2b">Charger_Sprite_Type</a> (const char *nom_fichier, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *liste)</td></tr>
+<tr class="memdesc:ae4dd090c9e584be24848403e854adc2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charge les données de sprites depuis un fichier.  <a href="sprite_8c.html#ae4dd090c9e584be24848403e854adc2b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae4dd090c9e584be24848403e854adc2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4e5141646b7467b08b7f83a62c1cc2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#aa4e5141646b7467b08b7f83a62c1cc2d">Detruire_Liste_Sprite_Type</a> (<a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> **liste)</td></tr>
+<tr class="separator:aa4e5141646b7467b08b7f83a62c1cc2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75f49f19cfe6f71b9cf243e06a4e9338"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a75f49f19cfe6f71b9cf243e06a4e9338">Load_Sprite_Type</a> (const char *nom_fichier)</td></tr>
+<tr class="memdesc:a75f49f19cfe6f71b9cf243e06a4e9338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui charge les données de sprites depuis un fichier et retourne un pointeur sur la liste de sprites chargée.  <a href="sprite_8c.html#a75f49f19cfe6f71b9cf243e06a4e9338">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a75f49f19cfe6f71b9cf243e06a4e9338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8842c2814a1c279dbc6de38fa949752"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#aa8842c2814a1c279dbc6de38fa949752">Load_Sprite</a> (int x, int y, int frame, int spriteTypeId, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *liste, <a class="el" href="structmap__t.html">map_t</a> *map)</td></tr>
+<tr class="separator:aa8842c2814a1c279dbc6de38fa949752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51e69c0b5819f480385fe1fa903e0ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#ad51e69c0b5819f480385fe1fa903e0ea">Detruire_Sprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> **sprite)</td></tr>
+<tr class="memdesc:ad51e69c0b5819f480385fe1fa903e0ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui détruit en mémoire la structure <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a> passé en paramètre &#160;* &#160;*.  <a href="sprite_8c.html#ad51e69c0b5819f480385fe1fa903e0ea">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad51e69c0b5819f480385fe1fa903e0ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dcc3a3aa9d14291ef76b7e445c5bd7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a3dcc3a3aa9d14291ef76b7e445c5bd7f">Detruire_SpriteMap</a> (<a class="el" href="structsprite__t.html">sprite_t</a> *****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map)</td></tr>
+<tr class="separator:a3dcc3a3aa9d14291ef76b7e445c5bd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f623990a11bb0cb21afd3912bda4f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a62f623990a11bb0cb21afd3912bda4f1">Load_SpriteMap</a> (<a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, <a class="el" href="structmap__t.html">map_t</a> *map)</td></tr>
+<tr class="memdesc:a62f623990a11bb0cb21afd3912bda4f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charge la matrice de sprites à partir d'une liste de types des sprites et de la map.  <a href="sprite_8c.html#a62f623990a11bb0cb21afd3912bda4f1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a62f623990a11bb0cb21afd3912bda4f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64aee6973db7655d2eee54f8095ea14a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a64aee6973db7655d2eee54f8095ea14a">Deplacement_Sprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, int y1, int x1, int y2, int x2)</td></tr>
+<tr class="memdesc:a64aee6973db7655d2eee54f8095ea14a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui echange l'emplacement de deux sprite dans la SpriteMap.  <a href="sprite_8c.html#a64aee6973db7655d2eee54f8095ea14a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a64aee6973db7655d2eee54f8095ea14a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf449bc205ab5889590944509f5c3307"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#acf449bc205ab5889590944509f5c3307">Copy_Sprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, int y1, int x1, int y2, int x2)</td></tr>
+<tr class="memdesc:acf449bc205ab5889590944509f5c3307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet de copier un sprite de la spriteMap vers un emplacement dans la spriteMap.  <a href="sprite_8c.html#acf449bc205ab5889590944509f5c3307">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acf449bc205ab5889590944509f5c3307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4d4855de974033217e17e9a90f9884b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#ac4d4855de974033217e17e9a90f9884b">Change_Sprite</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__t.html">sprite_t</a> *sprite, int y, int x)</td></tr>
+<tr class="memdesc:ac4d4855de974033217e17e9a90f9884b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet de changer le sprite dans la spriteMap au coordonnées y et x.  <a href="sprite_8c.html#ac4d4855de974033217e17e9a90f9884b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac4d4855de974033217e17e9a90f9884b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eff934f7952f17405ae6f25876166a2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a9eff934f7952f17405ae6f25876166a2">Colision</a> (<a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, char direction, int y, int x)</td></tr>
+<tr class="separator:a9eff934f7952f17405ae6f25876166a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a746428dcf1ec5885bc42f05e131c3176"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a746428dcf1ec5885bc42f05e131c3176">Load_PersoSprite_List</a> (<a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, <a class="el" href="structmap__t.html">map_t</a> *map, int debut, int fin)</td></tr>
+<tr class="separator:a746428dcf1ec5885bc42f05e131c3176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b2046d48453ce5ad9c50713ab8d3e09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a4b2046d48453ce5ad9c50713ab8d3e09">Detruire_Sprite_Liste</a> (<a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> **liste)</td></tr>
+<tr class="memdesc:a4b2046d48453ce5ad9c50713ab8d3e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui détruit en mémoire la structure <a class="el" href="structsprite__liste__t.html" title="Structure qui correspond à une liste de sprite.">sprite_liste_t</a> passée en paramètre, ainsi que tous les sprites qu'elle contient.  <a href="sprite_8c.html#a4b2046d48453ce5ad9c50713ab8d3e09">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4b2046d48453ce5ad9c50713ab8d3e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae93c4935a6a7b7d3676bfe9af8b96bfe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpnj__liste__t.html">pnj_liste_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#ae93c4935a6a7b7d3676bfe9af8b96bfe">Load_Pnj</a> (<a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> *liste_type_pnj)</td></tr>
+<tr class="separator:ae93c4935a6a7b7d3676bfe9af8b96bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d71c032a8bec6777256e8b3bcc01d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a52d71c032a8bec6777256e8b3bcc01d2">Detruire_Liste_Pnj</a> (<a class="el" href="structpnj__liste__t.html">pnj_liste_t</a> **liste)</td></tr>
+<tr class="separator:a52d71c032a8bec6777256e8b3bcc01d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc4dcb71166d440ed977981246e33fcb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#adc4dcb71166d440ed977981246e33fcb">Load_Monster</a> (<a class="el" href="structmap__t.html">map_t</a> *map, <a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap)</td></tr>
+<tr class="memdesc:adc4dcb71166d440ed977981246e33fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charge les <a class="el" href="structmonstre__t.html" title="Structure des monstres ( Data )">monstre_t</a>.  <a href="sprite_8c.html#adc4dcb71166d440ed977981246e33fcb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adc4dcb71166d440ed977981246e33fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b955cc4f03444a21c6c4511486fcc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#af4b955cc4f03444a21c6c4511486fcc4">Detruire_Liste_Monstres</a> (<a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> **liste)</td></tr>
+<tr class="separator:af4b955cc4f03444a21c6c4511486fcc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05eb75a1cba3e8c93b67ce161ec7fd47"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a05eb75a1cba3e8c93b67ce161ec7fd47">Detecter_Monstre</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, int y_joueur, int x_joueur, char direction, int distance, <a class="el" href="structsprite__t.html">sprite_t</a> **monstre)</td></tr>
+<tr class="separator:a05eb75a1cba3e8c93b67ce161ec7fd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59c2ae15fbdd7058491a89027ff5566b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a59c2ae15fbdd7058491a89027ff5566b">Detecter_Pnj</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, int y_joueur, int x_joueur, char direction, int distance, <a class="el" href="structsprite__t.html">sprite_t</a> **pnj)</td></tr>
+<tr class="separator:a59c2ae15fbdd7058491a89027ff5566b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aeaa20eb8a463512551bb82870093b6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#a6aeaa20eb8a463512551bb82870093b6">Respawn_Monstre</a> (<a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> *liste, <a class="el" href="structmap__t.html">map_t</a> *map, int posJoueurY, int posJoueurX)</td></tr>
+<tr class="separator:a6aeaa20eb8a463512551bb82870093b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af44e0a4e24101164f3a3b86c64ae96db"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8c.html#af44e0a4e24101164f3a3b86c64ae96db">Detecter_Zone_Atk_Monstre</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, int yJoueur, int xJoueur, int rayon, <a class="el" href="structsprite__t.html">sprite_t</a> **detectedMonster)</td></tr>
+<tr class="separator:af44e0a4e24101164f3a3b86c64ae96db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Gestion des sprites. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>2.2 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>12 mars 2023</dd></dl>
+<p>Gestion des sprites: <br  />
+ Chargement des données des types de sprite depuis un fichier <br  />
+ Chargement de la listes des types de sprites <br  />
+ Chargement d'un sprite <br  />
+ Destruction de la liste des types de sprites <br  />
+ Destruction d'un sprite </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ac4d4855de974033217e17e9a90f9884b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d4855de974033217e17e9a90f9884b">&#9670;&nbsp;</a></span>Change_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Change_Sprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> *&#160;</td>
+          <td class="paramname"><em>sprite</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui permet de changer le sprite dans la spriteMap au coordonnées y et x. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la carte correspondante. </td></tr>
+    <tr><td class="paramname">sprite</td><td>Pointeur sur le sprite qui remplacera dans la spriteMap. </td></tr>
+    <tr><td class="paramname">y</td><td>Coordonée y dans la spriteMap du pointeur de sprite. </td></tr>
+    <tr><td class="paramname">x</td><td>Coordonée x dans la spriteMap du pointeur de sprite. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 Fail </dd></dl>
+
+</div>
+</div>
+<a id="ae4dd090c9e584be24848403e854adc2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4dd090c9e584be24848403e854adc2b">&#9670;&nbsp;</a></span>Charger_Sprite_Type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Charger_Sprite_Type </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>nom_fichier</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>liste</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui charge les données de sprites depuis un fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nom_fichier</td><td>Le nom du fichier à lire </td></tr>
+    <tr><td class="paramname">liste</td><td>Pointeur sur une structure <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a> où stocker les données des sprites </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Un entier qui caractérise la réussite ou non de la fonction </dd></dl>
+
+</div>
+</div>
+<a id="a9eff934f7952f17405ae6f25876166a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eff934f7952f17405ae6f25876166a2">&#9670;&nbsp;</a></span>Colision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Colision </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf449bc205ab5889590944509f5c3307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf449bc205ab5889590944509f5c3307">&#9670;&nbsp;</a></span>Copy_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Copy_Sprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui permet de copier un sprite de la spriteMap vers un emplacement dans la spriteMap. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la carte correspondante. </td></tr>
+    <tr><td class="paramname">sprite</td><td>Pointeur sur le sprite qui remplacera dans la spriteMap. </td></tr>
+    <tr><td class="paramname">y1</td><td>Coordonée y1 dans la spriteMap du pointeur de sprite ( source ). </td></tr>
+    <tr><td class="paramname">x1</td><td>Coordonée x1 dans la spriteMap du pointeur de sprite ( source ). </td></tr>
+    <tr><td class="paramname">y2</td><td>Coordonée y2 dans la spriteMap du pointeur de sprite ( destination ). </td></tr>
+    <tr><td class="paramname">x2</td><td>Coordonée x2 dans la spriteMap du pointeur de sprite ( destination ). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 Fail </dd></dl>
+
+</div>
+</div>
+<a id="a64aee6973db7655d2eee54f8095ea14a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64aee6973db7655d2eee54f8095ea14a">&#9670;&nbsp;</a></span>Deplacement_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Deplacement_Sprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui echange l'emplacement de deux sprite dans la SpriteMap. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spriteMap</td><td>Matrice[layer][y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap à afficher. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la carte correspondante. </td></tr>
+    <tr><td class="paramname">y1</td><td>Coordonée y dans la spriteMap du sprite N°1 </td></tr>
+    <tr><td class="paramname">x1</td><td>Coordonée x dans la spriteMap du sprite N°1 </td></tr>
+    <tr><td class="paramname">y2</td><td>Coordonée y dans la spriteMap du sprite N°2 </td></tr>
+    <tr><td class="paramname">x2</td><td>Coordonée x dans la spriteMap du sprite N°2 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 success || 1 Fail </dd></dl>
+
+</div>
+</div>
+<a id="a05eb75a1cba3e8c93b67ce161ec7fd47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05eb75a1cba3e8c93b67ce161ec7fd47">&#9670;&nbsp;</a></span>Detecter_Monstre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Detecter_Monstre </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y_joueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x_joueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>distance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> **&#160;</td>
+          <td class="paramname"><em>monstre</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59c2ae15fbdd7058491a89027ff5566b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c2ae15fbdd7058491a89027ff5566b">&#9670;&nbsp;</a></span>Detecter_Pnj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Detecter_Pnj </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y_joueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x_joueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>distance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> **&#160;</td>
+          <td class="paramname"><em>pnj</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af44e0a4e24101164f3a3b86c64ae96db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af44e0a4e24101164f3a3b86c64ae96db">&#9670;&nbsp;</a></span>Detecter_Zone_Atk_Monstre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Detecter_Zone_Atk_Monstre </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yJoueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xJoueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rayon</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> **&#160;</td>
+          <td class="paramname"><em>detectedMonster</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4b955cc4f03444a21c6c4511486fcc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b955cc4f03444a21c6c4511486fcc4">&#9670;&nbsp;</a></span>Detruire_Liste_Monstres()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Liste_Monstres </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> **&#160;</td>
+          <td class="paramname"><em>liste</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52d71c032a8bec6777256e8b3bcc01d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d71c032a8bec6777256e8b3bcc01d2">&#9670;&nbsp;</a></span>Detruire_Liste_Pnj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Liste_Pnj </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpnj__liste__t.html">pnj_liste_t</a> **&#160;</td>
+          <td class="paramname"><em>liste</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa4e5141646b7467b08b7f83a62c1cc2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4e5141646b7467b08b7f83a62c1cc2d">&#9670;&nbsp;</a></span>Detruire_Liste_Sprite_Type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Liste_Sprite_Type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> **&#160;</td>
+          <td class="paramname"><em>liste</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad51e69c0b5819f480385fe1fa903e0ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad51e69c0b5819f480385fe1fa903e0ea">&#9670;&nbsp;</a></span>Detruire_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Sprite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> **&#160;</td>
+          <td class="paramname"><em>sprite</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui détruit en mémoire la structure <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a> passé en paramètre &#160;* &#160;*. </p>
+<p>&#160;*</p><dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sprite</td><td>Pointeur de pointeur sur l'objet SDL_Texture &#160;* </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
+
+</div>
+</div>
+<a id="a4b2046d48453ce5ad9c50713ab8d3e09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b2046d48453ce5ad9c50713ab8d3e09">&#9670;&nbsp;</a></span>Detruire_Sprite_Liste()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_Sprite_Liste </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a> **&#160;</td>
+          <td class="paramname"><em>liste</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui détruit en mémoire la structure <a class="el" href="structsprite__liste__t.html" title="Structure qui correspond à une liste de sprite.">sprite_liste_t</a> passée en paramètre, ainsi que tous les sprites qu'elle contient. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">liste</td><td>Pointeur de pointeur vers la structure <a class="el" href="structsprite__liste__t.html" title="Structure qui correspond à une liste de sprite.">sprite_liste_t</a> à détruire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
+
+</div>
+</div>
+<a id="a3dcc3a3aa9d14291ef76b7e445c5bd7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dcc3a3aa9d14291ef76b7e445c5bd7f">&#9670;&nbsp;</a></span>Detruire_SpriteMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Detruire_SpriteMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> *****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc4dcb71166d440ed977981246e33fcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc4dcb71166d440ed977981246e33fcb">&#9670;&nbsp;</a></span>Load_Monster()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a>* Load_Monster </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui charge les <a class="el" href="structmonstre__t.html" title="Structure des monstres ( Data )">monstre_t</a>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Structure <a class="el" href="structmap__t.html" title="Structure map.">map_t</a> où sont stockées les informations de la map </td></tr>
+    <tr><td class="paramname">spriteMap</td><td>Quadruple pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, la spriteMap dans laquelle on travaille </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Un pointeur sur la structure <a class="el" href="structmonstre__liste__t.html" title="Structure qui correspond à une liste de monstres.">monstre_liste_t</a> || NULL si erreur </dd></dl>
+
+</div>
+</div>
+<a id="a746428dcf1ec5885bc42f05e131c3176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a746428dcf1ec5885bc42f05e131c3176">&#9670;&nbsp;</a></span>Load_PersoSprite_List()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsprite__liste__t.html">sprite_liste_t</a>* Load_PersoSprite_List </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>debut</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fin</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listeType</td><td>Pointeur sur <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a> , la liste des types de sprites. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la map à partir de laquelle charger la matrice de sprites. </td></tr>
+    <tr><td class="paramname">debut</td><td>Indice du spriteTypeId du premier sprite de la liste </td></tr>
+    <tr><td class="paramname">fin</td><td>Indice du spriteTypeId du dernier sprite de la liste</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Un pointeur vers la liste de sprites du perso chargée || fail NULL . </dd></dl>
+
+</div>
+</div>
+<a id="ae93c4935a6a7b7d3676bfe9af8b96bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93c4935a6a7b7d3676bfe9af8b96bfe">&#9670;&nbsp;</a></span>Load_Pnj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpnj__liste__t.html">pnj_liste_t</a>* Load_Pnj </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__t.html">sprite_t</a> ****&#160;</td>
+          <td class="paramname"><em>spriteMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> *&#160;</td>
+          <td class="paramname"><em>liste_type_pnj</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8842c2814a1c279dbc6de38fa949752"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8842c2814a1c279dbc6de38fa949752">&#9670;&nbsp;</a></span>Load_Sprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsprite__t.html">sprite_t</a>* Load_Sprite </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>spriteTypeId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>liste</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75f49f19cfe6f71b9cf243e06a4e9338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75f49f19cfe6f71b9cf243e06a4e9338">&#9670;&nbsp;</a></span>Load_Sprite_Type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * Load_Sprite_Type </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>nom_fichier</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction qui charge les données de sprites depuis un fichier et retourne un pointeur sur la liste de sprites chargée. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nom_fichier</td><td>Le nom du fichier à lire </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Pointeur sur une structure <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a> où sont stockées les données des sprites </dd></dl>
+
+</div>
+</div>
+<a id="a62f623990a11bb0cb21afd3912bda4f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62f623990a11bb0cb21afd3912bda4f1">&#9670;&nbsp;</a></span>Load_SpriteMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structsprite__t.html">sprite_t</a> *** Load_SpriteMap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>listeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui charge la matrice de sprites à partir d'une liste de types des sprites et de la map. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listeType</td><td>Pointeur sur <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a> , la liste des types de sprites. </td></tr>
+    <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la map à partir de laquelle charger la matrice de sprites.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Un pointeur vers la matrice de sprites chargée, ou NULL en cas d'erreur. </dd></dl>
+
+</div>
+</div>
+<a id="a6aeaa20eb8a463512551bb82870093b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aeaa20eb8a463512551bb82870093b6">&#9670;&nbsp;</a></span>Respawn_Monstre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Respawn_Monstre </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> *&#160;</td>
+          <td class="paramname"><em>liste</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>posJoueurY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>posJoueurX</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="sprite_8c.html">sprite.c</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

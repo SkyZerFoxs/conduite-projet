@@ -8,9 +8,13 @@
  *	\file combat.h
  *  \brief Header pour gérer les combats
  *  \author Raccouard Nathan
- *  \version 1.0
- *  \date 9/02/2023
+ *  \version 2.0
+ *  \date 27/02/2023
 **/
+
+/* ------------------------------------------------------ */
+/* ------------------ Fonction Extern  ------------------ */
+/* ------------------------------------------------------ */
 
 extern int combat_joueur(personnage_t* personnage, monstre_t* monstre, int typeAttaque) ;
 extern int combat_monstre(monstre_t* monstre, personnage_t* personnage, int distance) ;

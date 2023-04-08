@@ -17,8 +17,8 @@
  * \file affichage.h
  * \brief Header Gestion Affichage
  * \author Yamis MANFALOTI
- * \version 6.0
- * \date 16 mars 2023
+ * \version 7.0
+ * \date 05 avril 2023
  *
  * Header Gestion de l'affichage:
  * \n Signature des fonction externe de affichage.c
@@ -98,6 +98,9 @@ extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * te
 /* ------------------ Gestion Des Frames Des Sprites ------------------ */
 extern void AddFrame(sprite_t **** spriteMap, int frameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view) ;
 
+extern int Clean_Remanent_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect * view, int all) ;
+extern int Synchronise_Remanent_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect * view) ;
+
 /* ------------------ Gestion Des Timers ------------------ */
 extern void Timer_Start( SDL_timer_t * timer ) ;
 extern void Timer_Update( SDL_timer_t * timer ) ; 
@@ -118,5 +121,6 @@ extern void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int
 
 /* ------------------ Gestion Joueur ------------------ */
 extern int Respawn_Joueur( map_t * map, personnage_t * perso, SDL_Rect * view, int tabRespawnJoueur[6][2] ) ;
+
 
 #endif 

@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest:  Fichier source de include/hud.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('hud_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">hud.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="hud_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef HUD_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define HUD_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="affichage_8h.html">affichage.h</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="data_8h.html">data.h</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;dirent.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">/* ------------------------------------------------ */</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">/* ------------------ Structure  ------------------ */</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">/* ------------------------------------------------ */</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structinventaire__t.html">   41</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>inventaire_s {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">// Données inventaire</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a8832da59b1a0b28abbe85bbf8d095ed5">   43</a></span>&#160;    <span class="keywordtype">int</span> **<a class="code" href="structinventaire__t.html#a8832da59b1a0b28abbe85bbf8d095ed5">inventaire</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structinventaire__t.html#af91b3896f2936674d8a01aaa3734ef7b">   44</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#af91b3896f2936674d8a01aaa3734ef7b">nbPlaceInventaire</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a9a75966d0a25c5769ef287e233f45177">   45</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#a9a75966d0a25c5769ef287e233f45177">invHeight</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a78c228380919eed07f8e4f6c9b5ad301">   46</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#a78c228380919eed07f8e4f6c9b5ad301">invWidth</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// Données inventaire equipement</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a0d7c47381e14ffb339615bed25638d72">   49</a></span>&#160;    <span class="keywordtype">int</span> **<a class="code" href="structinventaire__t.html#a0d7c47381e14ffb339615bed25638d72">equipement</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structinventaire__t.html#ad82c86d3a433c341556cc5abfd54672f">   50</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#ad82c86d3a433c341556cc5abfd54672f">nbPlaceEquipement</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a5c20b1859aaa5d13ff18b06fb718fa76">   51</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#a5c20b1859aaa5d13ff18b06fb718fa76">equipementHeight</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structinventaire__t.html#ad31cadf0bfa963e2c5f8650075d88ada">   52</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#ad31cadf0bfa963e2c5f8650075d88ada">equipementWidth</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="comment">// Texture</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a3fa35430e441f3104469698d95293f9e">   55</a></span>&#160;    SDL_Texture * <a class="code" href="structinventaire__t.html#a3fa35430e441f3104469698d95293f9e">textInventaire</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a3b2d22c90eb6b19e074e45e0a46d9c3b">   56</a></span>&#160;    SDL_Texture * <a class="code" href="structinventaire__t.html#a3b2d22c90eb6b19e074e45e0a46d9c3b">textItem</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a8cd0b1f6e8ac69a5f00d6d9bbdb28bf3">   57</a></span>&#160;    SDL_Texture * <a class="code" href="structinventaire__t.html#a8cd0b1f6e8ac69a5f00d6d9bbdb28bf3">textSelecteur</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a7210d524dc966dd69f36537318a9dad1">   58</a></span>&#160;    SDL_Texture * <a class="code" href="structinventaire__t.html#a7210d524dc966dd69f36537318a9dad1">textItemInfo</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// Coordonée selecteur</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a1f78628b4d0580e2e4f77dfc64be0ed6">   61</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#a1f78628b4d0580e2e4f77dfc64be0ed6">selecteurX</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structinventaire__t.html#a70ee9a807536052003ff261fc749386d">   62</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structinventaire__t.html#a70ee9a807536052003ff261fc749386d">selecteurY</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}<a class="code" href="structinventaire__t.html">inventaire_t</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="structliste__texture__pnj__dialogue__t.html">   75</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>liste_texture_pnj_dialogue_s {</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structliste__texture__pnj__dialogue__t.html#ad5458e47892a49e3e0877cd881f9ad1f">   76</a></span>&#160;    SDL_Texture ** <a class="code" href="structliste__texture__pnj__dialogue__t.html#ad5458e47892a49e3e0877cd881f9ad1f">tabTexture</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structliste__texture__pnj__dialogue__t.html#a37ce4d4a761f960a8cf4261066ef21b3">   77</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structliste__texture__pnj__dialogue__t.html#a37ce4d4a761f960a8cf4261066ef21b3">nbElem</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}<a class="code" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">/* ------------------ Fonction Externe ------------------ */</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">/* ------------------ Gestion HUD Inventaire ------------------ */</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// Gestion Item</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">extern</span> <a class="code" href="structinventaire__t.html">inventaire_t</a> * <a class="code" href="hud_8h.html#ac71293119bb27ea4dbe70a516739f718">Load_Inventaire</a>(<span class="keywordtype">char</span> * cheminInventaire, <span class="keywordtype">char</span> * cheminItem, <span class="keywordtype">char</span> * cheminSelecteur, <span class="keywordtype">char</span> * cheminItemInfo, <span class="keywordtype">int</span> invHeight, <span class="keywordtype">int</span> invWidth, <span class="keywordtype">int</span> equipementHeight, <span class="keywordtype">int</span> equipementWidth, SDL_Renderer * renderer) ;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="hud_8h.html#a9a81724c581e3df8e635a89761704c4a">Detruire_Inventaire</a>(<a class="code" href="structinventaire__t.html">inventaire_t</a> ** inventaire) ;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// Gestion Utilité Item</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#a38de404127d4007859f922344e0098af">Add_Item_Inventaire</a>(<a class="code" href="structinventaire__t.html">inventaire_t</a> * inventaire, <a class="code" href="structliste__objet__t.html">liste_objet_t</a> * listeObjets, <span class="keywordtype">int</span> itemID) ;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#af326746caf977ea8fdc5736b02ec63a4">Use_Item_Inventaire</a>(<a class="code" href="structinventaire__t.html">inventaire_t</a> * inventaire, <a class="code" href="structliste__objet__t.html">liste_objet_t</a> * listeObjets, <a class="code" href="structpersonnage__t.html">personnage_t</a> * perso) ;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">//Fonction Boucle Inventaire</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#a067c6e370540674d91f7453c5602e2ef">Inventaire</a>(<a class="code" href="structinventaire__t.html">inventaire_t</a> * inventaire, <a class="code" href="structliste__objet__t.html">liste_objet_t</a> * listeObjets, <a class="code" href="structpersonnage__t.html">personnage_t</a> * perso, <a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * listeType, <a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> * spritePersoList, SDL_Rect * view, SDL_Window *window, SDL_Texture * background_texture, SDL_Renderer *renderer) ;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">/* ------------------ Gestion HUD Dialogue ------------------ */</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">// Gestopn texture Pnj Dialogue</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">extern</span> <a class="code" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> * <a class="code" href="hud_8h.html#a5e17d49a5c7a51c9e5aaab598d539aa2">Load_Liste_Texture_Pnj_Dialogue</a>(<a class="code" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> * liste_type, SDL_Renderer * renderer) ;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="hud_8h.html#abf959470dd0ad0cdbeb03567ecca54b0">Detruire_Liste_Texture_Pnj_Dialogue</a>(<a class="code" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> ** liste_texture_pnj) ;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">// Fonction Boucle Dialogue</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#a2144ddf38cb439a28c616e58a86d80a6">Dialogue</a>(SDL_Texture * textDialogue, <a class="code" href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a> * ListeTextPnjDialogue, <a class="code" href="structpnj__t.html">pnj_t</a> * pnj, <a class="code" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> * listeTypePnj, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">/* ------------------ Gestion HUD Level UP ------------------ */</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">// Fonction Boucle Dialogue</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#afc6545c3af41282bee73b1efe3a83f6c">Level_UP</a>(SDL_Texture * textFondLevelUP, SDL_Texture * background_texture, <a class="code" href="structpersonnage__t.html">personnage_t</a> * perso, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) ;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">/* ------------------ Gestion Mort Joueur  ------------------ */</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#a954ed30ef109282313da0101ff01b228">Mort_Joueur</a>( <a class="code" href="structpersonnage__t.html">personnage_t</a> * perso, <a class="code" href="structinventaire__t.html">inventaire_t</a> * inventaire, <a class="code" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets ) ;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">/* ------------------ Gestion Introduction  ------------------ */</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Introduction</a>(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view ) ;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="ttc" id="aaffichage_8h_html"><div class="ttname"><a href="affichage_8h.html">affichage.h</a></div><div class="ttdoc">Header Gestion Affichage.</div></div>
+<div class="ttc" id="adata_8h_html"><div class="ttname"><a href="data_8h.html">data.h</a></div><div class="ttdoc">Header pour la gestion des données.</div></div>
+<div class="ttc" id="ahud_8h_html_a067c6e370540674d91f7453c5602e2ef"><div class="ttname"><a href="hud_8h.html#a067c6e370540674d91f7453c5602e2ef">Inventaire</a></div><div class="ttdeci">int Inventaire(inventaire_t *inventaire, liste_objet_t *listeObjets, personnage_t *perso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t *listeType, sprite_liste_t *spritePersoList, SDL_Rect *view, SDL_Window *window, SDL_Texture *background_texture, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui lance l'interface d'inventaire.</div><div class="ttdef"><b>Definition:</b> hud.c:1064</div></div>
+<div class="ttc" id="ahud_8h_html_a2144ddf38cb439a28c616e58a86d80a6"><div class="ttname"><a href="hud_8h.html#a2144ddf38cb439a28c616e58a86d80a6">Dialogue</a></div><div class="ttdeci">int Dialogue(SDL_Texture *textDialogue, liste_texture_pnj_dialogue_t *ListeTextPnjDialogue, pnj_t *pnj, liste_type_pnj_t *listeTypePnj, SDL_Rect *view, SDL_Window *window, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui lance l'interface de dialogue.</div><div class="ttdef"><b>Definition:</b> hud.c:1823</div></div>
+<div class="ttc" id="ahud_8h_html_a38de404127d4007859f922344e0098af"><div class="ttname"><a href="hud_8h.html#a38de404127d4007859f922344e0098af">Add_Item_Inventaire</a></div><div class="ttdeci">int Add_Item_Inventaire(inventaire_t *inventaire, liste_objet_t *listeObjets, int itemID)</div><div class="ttdoc">Fonction static qui permet d'ajouter un objet de l'inventaire.</div><div class="ttdef"><b>Definition:</b> hud.c:875</div></div>
+<div class="ttc" id="ahud_8h_html_a5e17d49a5c7a51c9e5aaab598d539aa2"><div class="ttname"><a href="hud_8h.html#a5e17d49a5c7a51c9e5aaab598d539aa2">Load_Liste_Texture_Pnj_Dialogue</a></div><div class="ttdeci">liste_texture_pnj_dialogue_t * Load_Liste_Texture_Pnj_Dialogue(liste_type_pnj_t *liste_type, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui charge la liste des textures d'image de pnj pour les dialogues.</div><div class="ttdef"><b>Definition:</b> hud.c:1416</div></div>
+<div class="ttc" id="ahud_8h_html_a954ed30ef109282313da0101ff01b228"><div class="ttname"><a href="hud_8h.html#a954ed30ef109282313da0101ff01b228">Mort_Joueur</a></div><div class="ttdeci">int Mort_Joueur(personnage_t *perso, inventaire_t *inventaire, liste_objet_t *listeObjets)</div><div class="ttdoc">Fonction externe qui gere la mort du personnage.</div><div class="ttdef"><b>Definition:</b> hud.c:2563</div></div>
+<div class="ttc" id="ahud_8h_html_a9a81724c581e3df8e635a89761704c4a"><div class="ttname"><a href="hud_8h.html#a9a81724c581e3df8e635a89761704c4a">Detruire_Inventaire</a></div><div class="ttdeci">void Detruire_Inventaire(inventaire_t **inventaire)</div><div class="ttdoc">Fonction externe qui detruit en memoire l'inventaire.</div><div class="ttdef"><b>Definition:</b> hud.c:146</div></div>
+<div class="ttc" id="ahud_8h_html_abf959470dd0ad0cdbeb03567ecca54b0"><div class="ttname"><a href="hud_8h.html#abf959470dd0ad0cdbeb03567ecca54b0">Detruire_Liste_Texture_Pnj_Dialogue</a></div><div class="ttdeci">void Detruire_Liste_Texture_Pnj_Dialogue(liste_texture_pnj_dialogue_t **liste_texture_pnj)</div><div class="ttdoc">Fonction externe qui detruit en meomoire la liste_texture_pnj_dialogue_t.</div><div class="ttdef"><b>Definition:</b> hud.c:1475</div></div>
+<div class="ttc" id="ahud_8h_html_ac71293119bb27ea4dbe70a516739f718"><div class="ttname"><a href="hud_8h.html#ac71293119bb27ea4dbe70a516739f718">Load_Inventaire</a></div><div class="ttdeci">inventaire_t * Load_Inventaire(char *cheminInventaire, char *cheminItem, char *cheminSelecteur, char *cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui charger les ressources de l'inventaire.</div><div class="ttdef"><b>Definition:</b> hud.c:21</div></div>
+<div class="ttc" id="ahud_8h_html_af326746caf977ea8fdc5736b02ec63a4"><div class="ttname"><a href="hud_8h.html#af326746caf977ea8fdc5736b02ec63a4">Use_Item_Inventaire</a></div><div class="ttdeci">int Use_Item_Inventaire(inventaire_t *inventaire, liste_objet_t *listeObjets, personnage_t *perso)</div><div class="ttdoc">Fonction extern qui permet d'utiliser un objet de l'inventaire.</div><div class="ttdef"><b>Definition:</b> hud.c:931</div></div>
+<div class="ttc" id="ahud_8h_html_afb4c8ef6445d5554ecb05c3bde36db6d"><div class="ttname"><a href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Introduction</a></div><div class="ttdeci">int Introduction(SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</div><div class="ttdoc">Fonction externe qui lance l'interface d'Introduction.</div><div class="ttdef"><b>Definition:</b> hud.c:2612</div></div>
+<div class="ttc" id="ahud_8h_html_afc6545c3af41282bee73b1efe3a83f6c"><div class="ttname"><a href="hud_8h.html#afc6545c3af41282bee73b1efe3a83f6c">Level_UP</a></div><div class="ttdeci">int Level_UP(SDL_Texture *textFondLevelUP, SDL_Texture *background_texture, personnage_t *perso, SDL_Rect *view, SDL_Window *window, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui lance l'interface d'augmentation de niveau.</div><div class="ttdef"><b>Definition:</b> hud.c:2307</div></div>
+<div class="ttc" id="astructSprite__Texture__Liste__t_html"><div class="ttname"><a href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a></div><div class="ttdoc">Structure Liste Sprite Texture.</div><div class="ttdef"><b>Definition:</b> affichage.h:69</div></div>
+<div class="ttc" id="astructinventaire__t_html"><div class="ttname"><a href="structinventaire__t.html">inventaire_t</a></div><div class="ttdoc">Structure de l'inventaire du personnage ( Data &amp; Affichage )</div><div class="ttdef"><b>Definition:</b> hud.h:41</div></div>
+<div class="ttc" id="astructinventaire__t_html_a0d7c47381e14ffb339615bed25638d72"><div class="ttname"><a href="structinventaire__t.html#a0d7c47381e14ffb339615bed25638d72">inventaire_t::equipement</a></div><div class="ttdeci">int ** equipement</div><div class="ttdef"><b>Definition:</b> hud.h:49</div></div>
+<div class="ttc" id="astructinventaire__t_html_a1f78628b4d0580e2e4f77dfc64be0ed6"><div class="ttname"><a href="structinventaire__t.html#a1f78628b4d0580e2e4f77dfc64be0ed6">inventaire_t::selecteurX</a></div><div class="ttdeci">int selecteurX</div><div class="ttdef"><b>Definition:</b> hud.h:61</div></div>
+<div class="ttc" id="astructinventaire__t_html_a3b2d22c90eb6b19e074e45e0a46d9c3b"><div class="ttname"><a href="structinventaire__t.html#a3b2d22c90eb6b19e074e45e0a46d9c3b">inventaire_t::textItem</a></div><div class="ttdeci">SDL_Texture * textItem</div><div class="ttdef"><b>Definition:</b> hud.h:56</div></div>
+<div class="ttc" id="astructinventaire__t_html_a3fa35430e441f3104469698d95293f9e"><div class="ttname"><a href="structinventaire__t.html#a3fa35430e441f3104469698d95293f9e">inventaire_t::textInventaire</a></div><div class="ttdeci">SDL_Texture * textInventaire</div><div class="ttdef"><b>Definition:</b> hud.h:55</div></div>
+<div class="ttc" id="astructinventaire__t_html_a5c20b1859aaa5d13ff18b06fb718fa76"><div class="ttname"><a href="structinventaire__t.html#a5c20b1859aaa5d13ff18b06fb718fa76">inventaire_t::equipementHeight</a></div><div class="ttdeci">int equipementHeight</div><div class="ttdef"><b>Definition:</b> hud.h:51</div></div>
+<div class="ttc" id="astructinventaire__t_html_a70ee9a807536052003ff261fc749386d"><div class="ttname"><a href="structinventaire__t.html#a70ee9a807536052003ff261fc749386d">inventaire_t::selecteurY</a></div><div class="ttdeci">int selecteurY</div><div class="ttdef"><b>Definition:</b> hud.h:62</div></div>
+<div class="ttc" id="astructinventaire__t_html_a7210d524dc966dd69f36537318a9dad1"><div class="ttname"><a href="structinventaire__t.html#a7210d524dc966dd69f36537318a9dad1">inventaire_t::textItemInfo</a></div><div class="ttdeci">SDL_Texture * textItemInfo</div><div class="ttdef"><b>Definition:</b> hud.h:58</div></div>
+<div class="ttc" id="astructinventaire__t_html_a78c228380919eed07f8e4f6c9b5ad301"><div class="ttname"><a href="structinventaire__t.html#a78c228380919eed07f8e4f6c9b5ad301">inventaire_t::invWidth</a></div><div class="ttdeci">int invWidth</div><div class="ttdef"><b>Definition:</b> hud.h:46</div></div>
+<div class="ttc" id="astructinventaire__t_html_a8832da59b1a0b28abbe85bbf8d095ed5"><div class="ttname"><a href="structinventaire__t.html#a8832da59b1a0b28abbe85bbf8d095ed5">inventaire_t::inventaire</a></div><div class="ttdeci">int ** inventaire</div><div class="ttdef"><b>Definition:</b> hud.h:43</div></div>
+<div class="ttc" id="astructinventaire__t_html_a8cd0b1f6e8ac69a5f00d6d9bbdb28bf3"><div class="ttname"><a href="structinventaire__t.html#a8cd0b1f6e8ac69a5f00d6d9bbdb28bf3">inventaire_t::textSelecteur</a></div><div class="ttdeci">SDL_Texture * textSelecteur</div><div class="ttdef"><b>Definition:</b> hud.h:57</div></div>
+<div class="ttc" id="astructinventaire__t_html_a9a75966d0a25c5769ef287e233f45177"><div class="ttname"><a href="structinventaire__t.html#a9a75966d0a25c5769ef287e233f45177">inventaire_t::invHeight</a></div><div class="ttdeci">int invHeight</div><div class="ttdef"><b>Definition:</b> hud.h:45</div></div>
+<div class="ttc" id="astructinventaire__t_html_ad31cadf0bfa963e2c5f8650075d88ada"><div class="ttname"><a href="structinventaire__t.html#ad31cadf0bfa963e2c5f8650075d88ada">inventaire_t::equipementWidth</a></div><div class="ttdeci">int equipementWidth</div><div class="ttdef"><b>Definition:</b> hud.h:52</div></div>
+<div class="ttc" id="astructinventaire__t_html_ad82c86d3a433c341556cc5abfd54672f"><div class="ttname"><a href="structinventaire__t.html#ad82c86d3a433c341556cc5abfd54672f">inventaire_t::nbPlaceEquipement</a></div><div class="ttdeci">int nbPlaceEquipement</div><div class="ttdef"><b>Definition:</b> hud.h:50</div></div>
+<div class="ttc" id="astructinventaire__t_html_af91b3896f2936674d8a01aaa3734ef7b"><div class="ttname"><a href="structinventaire__t.html#af91b3896f2936674d8a01aaa3734ef7b">inventaire_t::nbPlaceInventaire</a></div><div class="ttdeci">int nbPlaceInventaire</div><div class="ttdef"><b>Definition:</b> hud.h:44</div></div>
+<div class="ttc" id="astructliste__objet__t_html"><div class="ttname"><a href="structliste__objet__t.html">liste_objet_t</a></div><div class="ttdoc">Structure de la liste des objets ( Data )</div><div class="ttdef"><b>Definition:</b> objets.h:60</div></div>
+<div class="ttc" id="astructliste__texture__pnj__dialogue__t_html"><div class="ttname"><a href="structliste__texture__pnj__dialogue__t.html">liste_texture_pnj_dialogue_t</a></div><div class="ttdoc">Structure de la liste des textures des images de pnj lors du dialogue ( Affichage )</div><div class="ttdef"><b>Definition:</b> hud.h:75</div></div>
+<div class="ttc" id="astructliste__texture__pnj__dialogue__t_html_a37ce4d4a761f960a8cf4261066ef21b3"><div class="ttname"><a href="structliste__texture__pnj__dialogue__t.html#a37ce4d4a761f960a8cf4261066ef21b3">liste_texture_pnj_dialogue_t::nbElem</a></div><div class="ttdeci">int nbElem</div><div class="ttdef"><b>Definition:</b> hud.h:77</div></div>
+<div class="ttc" id="astructliste__texture__pnj__dialogue__t_html_ad5458e47892a49e3e0877cd881f9ad1f"><div class="ttname"><a href="structliste__texture__pnj__dialogue__t.html#ad5458e47892a49e3e0877cd881f9ad1f">liste_texture_pnj_dialogue_t::tabTexture</a></div><div class="ttdeci">SDL_Texture ** tabTexture</div><div class="ttdef"><b>Definition:</b> hud.h:76</div></div>
+<div class="ttc" id="astructliste__type__pnj__t_html"><div class="ttname"><a href="structliste__type__pnj__t.html">liste_type_pnj_t</a></div><div class="ttdoc">Structure de la liste des types de pnj ( Data )</div><div class="ttdef"><b>Definition:</b> pnj.h:46</div></div>
+<div class="ttc" id="astructpersonnage__t_html"><div class="ttname"><a href="structpersonnage__t.html">personnage_t</a></div><div class="ttdoc">Structure du personnage ( Data )</div><div class="ttdef"><b>Definition:</b> personnage.h:37</div></div>
+<div class="ttc" id="astructpnj__t_html"><div class="ttname"><a href="structpnj__t.html">pnj_t</a></div><div class="ttdoc">Structure d'un pnj ( Data )</div><div class="ttdef"><b>Definition:</b> pnj.h:62</div></div>
+<div class="ttc" id="astructsprite__liste__t_html"><div class="ttname"><a href="structsprite__liste__t.html">sprite_liste_t</a></div><div class="ttdoc">Structure qui correspond à une liste de sprite.</div><div class="ttdef"><b>Definition:</b> sprite.h:119</div></div>
+<div class="ttc" id="astructsprite__type__liste__t_html"><div class="ttname"><a href="structsprite__type__liste__t.html">sprite_type_liste_t</a></div><div class="ttdoc">Liste des types de sprites.</div><div class="ttdef"><b>Definition:</b> sprite.h:72</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="hud_8h.html">hud.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

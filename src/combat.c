@@ -7,70 +7,20 @@
  *	\file combat.c
  *  \brief fonction pour gérer les combats
  *  \author Raccouard Nathan
- *  \version 1.0
- *  \date 9/02/2023
+ *  \version 2.0
+ *  \date 27/02/2023
 **/
 
 
-/*
-
-extern
-void combat_joueur(personnage_t * perso, monstre_t * monstre, int atk) {
-    if ( perso == NULL ) {
-        printf("Erreur : perso Inexistant dans combat_joueur()\n");
-        return;
-    }
-
-    if ( monstre == NULL ) {
-        printf("Erreur : monstre Inexistant dans combat_joueur()\n");
-        return;
-    }
-
-    int degats = 0;
-    switch ( atk ) {
-    case 0: 
-        degats = perso->caract->atk - monstre->caract->def;
-        break;
-    case 1: 
-        degats = ( 3 * perso->caract->atk ) - monstre->caract->def;
-        break;
-    case 2: 
-        degats = ( 5 * perso->caract->atk ) - monstre->caract->def;
-        break;
-    default:
-        printf("Erreur : Atk incorrecte dans combat_joueur()\n");
-        return;
-        break;
-    }
-
-    if ( degats > 0 ) {
-        monstre->caract->pv -= degats;
-    }
-
-}
-
-extern 
-void combat_monstre(monstre_t * monstre, personnage_t * perso) {
-    if ( perso == NULL ) {
-        printf("Erreur : perso Inexistant dans combat_monstre()\n");
-        return;
-    }
-
-    if ( monstre == NULL ) {
-        printf("Erreur : monstre Inexistant dans combat_monstre()\n");
-        return;
-    }
-
-    int degats = monstre->caract->atk - perso->caract->def ;
-    if ( degats > 0 ) {
-        perso->caract->pv -= degats;
-    }
-
-}
-
-*/
-
-// Fonction d'attaque du joueur sur un monstre
+/**
+ * \fn void combat_joueur(personnage_t * perso, monstre_t * monstre, int atk)
+ * \brief Calcul les dégats reçus par le monstre et enlève les points de vie correpondants
+ * 
+ * \param perso pointeur sur personnage du jeu
+ * \param monstre pointeur sur monstre qu'on combat
+ * \param typeAttaque atk choisie par le joueur
+ * \return 0 Success || 1 Fail ( statut fonction )
+**/
 extern
 int combat_joueur(personnage_t * personnage, monstre_t * monstre, int typeAttaque) {
     if ( personnage == NULL ) {
@@ -119,7 +69,14 @@ int combat_joueur(personnage_t * personnage, monstre_t * monstre, int typeAttaqu
 }   
 
 
-// Fonction d'attaque du monstre sur le joueur
+/**
+ * \fn void combat_monstre(monstre_t * monstre, personnage_t * perso)
+ * \brief Calcul les dégats reçus par le joueur et enlève les points de vie correspondants
+ * 
+ * \param monstre pointeur sur monstre qui combat
+ * \param perso pointeur sur personnage du jeu
+ * \return 0 Success || 1 Fail ( statut fonction )
+**/
 extern
 int combat_monstre(monstre_t* monstre, personnage_t* personnage, int distance) {
 
@@ -154,5 +111,3 @@ int combat_monstre(monstre_t* monstre, personnage_t* personnage, int distance) {
     
     return 0;
 }
-
-

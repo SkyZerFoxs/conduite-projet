@@ -17,6 +17,11 @@
  * \n Signature des fonction externe de map.c
  */
 
+/* ------------------------------------------------ */
+/* ------------------ Structure  ------------------ */
+/* ------------------------------------------------ */
+
+
 /**
  * \typedef map_s map_t Struct de la map
  * \struct map_t
@@ -37,6 +42,10 @@ typedef struct map_s{
     int ***matrice;
 }map_t;
 
+
+/* ------------------------------------------------------ */
+/* ------------------ Fonction Externe ------------------ */
+/* ------------------------------------------------------ */
 
 extern map_t * Initialiser_Map(char * fichier) ;
 extern void Detruire_Map(map_t ** map) ;

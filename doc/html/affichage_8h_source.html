@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest:  Fichier source de include/affichage.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('affichage_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">affichage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="affichage_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _AFFICHAGE_H_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _AFFICHAGE_H_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SDL2/SDL.h&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;SDL2/SDL_image.h&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SDL2/SDL_ttf.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="map_8h.html">map.h</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="sprite_8h.html">sprite.h</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="affichage_8h.html#a37fcece4078ac62596abc92f23657e5a">   13</a></span>&#160;<span class="preprocessor">#define MAX_TEXTURE_NUMBER 100</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">/* ------------------------------------------------ */</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">/* ------------------ Structure  ------------------ */</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">/* ------------------------------------------------ */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structSDL__timer__t.html">   40</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>SDL_timer_s {</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structSDL__timer__t.html#a8b1499bec7fb58a7d1f4e8749a9ef0c9">   41</a></span>&#160;    Uint32 <a class="code" href="structSDL__timer__t.html#a8b1499bec7fb58a7d1f4e8749a9ef0c9">start</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structSDL__timer__t.html#aec565742b8c3f2763641d482a5e45234">   42</a></span>&#160;    Uint32 <a class="code" href="structSDL__timer__t.html#aec565742b8c3f2763641d482a5e45234">now</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}<a class="code" href="structSDL__timer__t.html">SDL_timer_t</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structSprite__Texture__t.html">   54</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>Sprite_Texture_s {</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structSprite__Texture__t.html#abcae9847a3504c62fe337f99002b1221">   55</a></span>&#160;    <span class="keywordtype">char</span> * <a class="code" href="structSprite__Texture__t.html#abcae9847a3504c62fe337f99002b1221">spriteSheet</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structSprite__Texture__t.html#aa7eb6824584050dc27c7d5b7df838678">   56</a></span>&#160;    SDL_Texture * <a class="code" href="structSprite__Texture__t.html#aa7eb6824584050dc27c7d5b7df838678">spriteSheetTexture</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}<a class="code" href="structSprite__Texture__t.html">Sprite_Texture_t</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structSprite__Texture__Liste__t.html">   69</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>Sprite_Texture_Liste_s {</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structSprite__Texture__Liste__t.html#a0173d7532896c2efebb7e4e378091c59">   70</a></span>&#160;    <a class="code" href="structSprite__Texture__t.html">Sprite_Texture_t</a> * tab[<a class="code" href="affichage_8h.html#a37fcece4078ac62596abc92f23657e5a">MAX_TEXTURE_NUMBER</a>];</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structSprite__Texture__Liste__t.html#ae3026265efd28853fafdffaa415daf2b">   71</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structSprite__Texture__Liste__t.html#ae3026265efd28853fafdffaa415daf2b">nbElem</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">/* ------------------ Fonction Externe ------------------ */</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/* ------------------ Gestion SDL------------------ */</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a8d8847dd8acd9cb9bcf669a0a79a6cf6">Init_SDL</a>(SDL_Window **window, SDL_Renderer **renderer, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c">Quit_SDL</a>(SDL_Window *window, SDL_Renderer *renderer);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">/* ------------------ Destruction Texture ------------------ */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#a5c419ea073f9c2045d0f1a5cc318a4e1">Detruire_Texture</a>(SDL_Texture ** texture) ;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">/* ------------------ Gestion Fenetre &amp; Affichage  ------------------ */</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#a803f57a72cfe8dabcf47a654c9ce9ff7">getWinInfo</a>(SDL_Window *window, <span class="keywordtype">int</span> * width, <span class="keywordtype">int</span> * height, <span class="keywordtype">int</span> tileSize, SDL_Rect * view, <span class="keywordtype">int</span> * dstCoef, <span class="keywordtype">int</span> * xBorder, <span class="keywordtype">int</span> * yBorder);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#ab340ffb86982124bee917684122edecb">changeResolution</a>(<span class="keywordtype">int</span> indiceResolution, <span class="keywordtype">int</span> indiceFullscreen, SDL_Window *window);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">/* ------------------ Gestion Texture Sprite ------------------ */</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">extern</span> <a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> * <a class="code" href="affichage_8h.html#a92574d9bf7e6983508446e6cf10b1c27">Init_Sprite_Texture_Liste</a>() ;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a615cabab710e711fdca253ce1aca0561">Chercher_Texture</a>(<a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *liste, <span class="keywordtype">char</span> *spriteSheet) ;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a1f080ec3fbddc20e4ff82d78fdfc3142">Ajouter_Texture</a>(<a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *liste, <span class="keywordtype">char</span> *spriteSheet, SDL_Texture *texture) ;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#ab197ccca3d00b65c9211e629087f23bf">Load_Sprite_Texture_Liste</a>(<a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTexteListe, <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * listeType, SDL_Renderer *renderer ) ;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#ac96f07c86c1ea6142b8625dfdddab319">Detruire_Sprite_Texture_Liste</a>(<a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> **liste) ;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a06efee678093aed016692a8637527fc6">Affichage_All</a>(<a class="code" href="structpersonnage__t.html">personnage_t</a> * perso, <span class="keywordtype">int</span> tabSkill[3], SDL_Texture * textSkillBar[4], SDL_Texture * texture, <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * listeType, SDL_Window * window, TTF_Font * font, SDL_Renderer *renderer, SDL_Rect * view) ;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">/* ------------------ Gestion Des Frames Des Sprites ------------------ */</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#a9182ebab006cab1f78b6813fb9a36214">AddFrame</a>(<a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <span class="keywordtype">int</span> frameCat, <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * listeType, <a class="code" href="structmap__t.html">map_t</a> * map, SDL_Rect * view) ;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a9363fe196979d99c5c1132257c541654">Clean_Remanent_Sprite</a>( <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, SDL_Rect * view, <span class="keywordtype">int</span> all) ;</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="affichage_8h.html#aa9c1fe8ce04df17ac7558998f018af3e">  102</a></span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#aa9c1fe8ce04df17ac7558998f018af3e">Synchronise_Remanent_Sprite</a>( <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, SDL_Rect * view) ;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">/* ------------------ Gestion Des Timers ------------------ */</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#af770e0593075fcca8b924ea5cc056358">Timer_Start</a>( <a class="code" href="structSDL__timer__t.html">SDL_timer_t</a> * timer ) ;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#ac3a7e23a7766f44dcc9ef14e1f0b719f">Timer_Update</a>( <a class="code" href="structSDL__timer__t.html">SDL_timer_t</a> * timer ) ; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">extern</span> Uint32 <a class="code" href="affichage_8h.html#a7a238789d2067bd9d9c5505e52f70465">Timer_Get_Time</a>( <a class="code" href="structSDL__timer__t.html">SDL_timer_t</a> * timer ) ;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">/* ------------------ Gestion Deplacement Attaque ------------------ */</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#aedc87d13cd4faead6b3d550c09c9f8d3">Deplacement_PersoSprite</a>(<a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> * spritePersoList, SDL_Rect * view, <span class="keywordtype">char</span> Action ) ;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">/* ------------------ Gestion Animation Attaque ------------------ */</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#af55ec0fb172ef7cd4cea407cd37a0df8">Attack_PersoSprite</a>(<a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> * spritePersoList , SDL_Rect * view, <span class="keywordtype">char</span> Action ) ;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a0237120f53c01e777d9b67d084a5e6b6">Special_PersoSprite</a>(<a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> * spritePersoList , SDL_Rect * view, <span class="keywordtype">char</span> Action ) ;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#a47125c71743a664f74662dd1355f842d">Ultime_PersoSprite</a>(<a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> * spritePersoList , SDL_Rect * view, <span class="keywordtype">char</span> Action ) ;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">/* ------------------ Affichage Texte ------------------ */</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#ae78ab02fca79bb8eb2f6d6ecb5fb7330">Afficher_Texte_Zone</a>(SDL_Renderer* renderer, TTF_Font* font, <span class="keyword">const</span> <span class="keywordtype">char</span>* text, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> w, SDL_Color * textColor) ;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="affichage_8h.html#a77b538d0f5b14c905d27a782c648c620">drawLine</a>(SDL_Renderer *renderer, <span class="keywordtype">int</span> y1, <span class="keywordtype">int</span> x1, <span class="keywordtype">int</span> y2, <span class="keywordtype">int</span> x2, <span class="keywordtype">int</span> thickness, SDL_Color color) ;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">/* ------------------ Gestion Joueur ------------------ */</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="affichage_8h.html#ab819095dda9ec0af509c0b68973da073">Respawn_Joueur</a>( <a class="code" href="structmap__t.html">map_t</a> * map, <a class="code" href="structpersonnage__t.html">personnage_t</a> * perso, SDL_Rect * view, <span class="keywordtype">int</span> tabRespawnJoueur[6][2] ) ;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif </span></div>
+<div class="ttc" id="aaffichage_8h_html_a0237120f53c01e777d9b67d084a5e6b6"><div class="ttname"><a href="affichage_8h.html#a0237120f53c01e777d9b67d084a5e6b6">Special_PersoSprite</a></div><div class="ttdeci">int Special_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action)</div><div class="ttdoc">Fonction externe qui gere l'animation de l'attaque special.</div><div class="ttdef"><b>Definition:</b> affichage.c:1341</div></div>
+<div class="ttc" id="aaffichage_8h_html_a06efee678093aed016692a8637527fc6"><div class="ttname"><a href="affichage_8h.html#a06efee678093aed016692a8637527fc6">Affichage_All</a></div><div class="ttdeci">int Affichage_All(personnage_t *perso, int tabSkill[3], SDL_Texture *textSkillBar[4], SDL_Texture *texture, map_t *map, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t ****spriteMap, sprite_type_liste_t *listeType, SDL_Window *window, TTF_Font *font, SDL_Renderer *renderer, SDL_Rect *view)</div><div class="ttdoc">Fonction externe qui affiche Les&amp;#160;elements graphiques.</div><div class="ttdef"><b>Definition:</b> affichage.c:863</div></div>
+<div class="ttc" id="aaffichage_8h_html_a1f080ec3fbddc20e4ff82d78fdfc3142"><div class="ttname"><a href="affichage_8h.html#a1f080ec3fbddc20e4ff82d78fdfc3142">Ajouter_Texture</a></div><div class="ttdeci">int Ajouter_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet, SDL_Texture *texture)</div><div class="ttdoc">Fonction externe qui ajoute une texture dans la liste des textures de sprite si elle n'est pas déja p...</div><div class="ttdef"><b>Definition:</b> affichage.c:239</div></div>
+<div class="ttc" id="aaffichage_8h_html_a37fcece4078ac62596abc92f23657e5a"><div class="ttname"><a href="affichage_8h.html#a37fcece4078ac62596abc92f23657e5a">MAX_TEXTURE_NUMBER</a></div><div class="ttdeci">#define MAX_TEXTURE_NUMBER</div><div class="ttdef"><b>Definition:</b> affichage.h:13</div></div>
+<div class="ttc" id="aaffichage_8h_html_a47125c71743a664f74662dd1355f842d"><div class="ttname"><a href="affichage_8h.html#a47125c71743a664f74662dd1355f842d">Ultime_PersoSprite</a></div><div class="ttdeci">int Ultime_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action)</div><div class="ttdoc">Fonction externe qui gere l'animation de l'attaque ultime.</div><div class="ttdef"><b>Definition:</b> affichage.c:1433</div></div>
+<div class="ttc" id="aaffichage_8h_html_a5c419ea073f9c2045d0f1a5cc318a4e1"><div class="ttname"><a href="affichage_8h.html#a5c419ea073f9c2045d0f1a5cc318a4e1">Detruire_Texture</a></div><div class="ttdeci">void Detruire_Texture(SDL_Texture **texture)</div><div class="ttdef"><b>Definition:</b> affichage.c:107</div></div>
+<div class="ttc" id="aaffichage_8h_html_a615cabab710e711fdca253ce1aca0561"><div class="ttname"><a href="affichage_8h.html#a615cabab710e711fdca253ce1aca0561">Chercher_Texture</a></div><div class="ttdeci">int Chercher_Texture(Sprite_Texture_Liste_t *liste, char *spriteSheet)</div><div class="ttdoc">Fonction externe qui cherche une texture ( char * spriteSheet ) dans la liste des textures de sprite.</div><div class="ttdef"><b>Definition:</b> affichage.c:220</div></div>
+<div class="ttc" id="aaffichage_8h_html_a77b538d0f5b14c905d27a782c648c620"><div class="ttname"><a href="affichage_8h.html#a77b538d0f5b14c905d27a782c648c620">drawLine</a></div><div class="ttdeci">void drawLine(SDL_Renderer *renderer, int y1, int x1, int y2, int x2, int thickness, SDL_Color color)</div><div class="ttdoc">Fonction externe qui affiche / dessine une ligne.</div><div class="ttdef"><b>Definition:</b> affichage.c:1578</div></div>
+<div class="ttc" id="aaffichage_8h_html_a7a238789d2067bd9d9c5505e52f70465"><div class="ttname"><a href="affichage_8h.html#a7a238789d2067bd9d9c5505e52f70465">Timer_Get_Time</a></div><div class="ttdeci">Uint32 Timer_Get_Time(SDL_timer_t *timer)</div><div class="ttdoc">Calcule le temps ecouler depuis le debut du timer.</div><div class="ttdef"><b>Definition:</b> affichage.c:1008</div></div>
+<div class="ttc" id="aaffichage_8h_html_a803f57a72cfe8dabcf47a654c9ce9ff7"><div class="ttname"><a href="affichage_8h.html#a803f57a72cfe8dabcf47a654c9ce9ff7">getWinInfo</a></div><div class="ttdeci">void getWinInfo(SDL_Window *window, int *width, int *height, int tileSize, SDL_Rect *view, int *dstCoef, int *xBorder, int *yBorder)</div><div class="ttdef"><b>Definition:</b> affichage.c:131</div></div>
+<div class="ttc" id="aaffichage_8h_html_a8d8847dd8acd9cb9bcf669a0a79a6cf6"><div class="ttname"><a href="affichage_8h.html#a8d8847dd8acd9cb9bcf669a0a79a6cf6">Init_SDL</a></div><div class="ttdeci">int Init_SDL(SDL_Window **window, SDL_Renderer **renderer, int width, int height)</div><div class="ttdef"><b>Definition:</b> affichage.c:36</div></div>
+<div class="ttc" id="aaffichage_8h_html_a9182ebab006cab1f78b6813fb9a36214"><div class="ttname"><a href="affichage_8h.html#a9182ebab006cab1f78b6813fb9a36214">AddFrame</a></div><div class="ttdeci">void AddFrame(sprite_t ****spriteMap, int frameCat, sprite_type_liste_t *listeType, map_t *map, SDL_Rect *view)</div><div class="ttdef"><b>Definition:</b> affichage.c:931</div></div>
+<div class="ttc" id="aaffichage_8h_html_a92574d9bf7e6983508446e6cf10b1c27"><div class="ttname"><a href="affichage_8h.html#a92574d9bf7e6983508446e6cf10b1c27">Init_Sprite_Texture_Liste</a></div><div class="ttdeci">Sprite_Texture_Liste_t * Init_Sprite_Texture_Liste()</div><div class="ttdoc">Fonction externe qui initialise la liste des textures des sprites.</div><div class="ttdef"><b>Definition:</b> affichage.c:195</div></div>
+<div class="ttc" id="aaffichage_8h_html_a9363fe196979d99c5c1132257c541654"><div class="ttname"><a href="affichage_8h.html#a9363fe196979d99c5c1132257c541654">Clean_Remanent_Sprite</a></div><div class="ttdeci">int Clean_Remanent_Sprite(map_t *map, sprite_t ****spriteMap, SDL_Rect *view, int all)</div><div class="ttdoc">Fonction externe qui nettoie les anciens sprites présents dans la spriteMap[layerPersonnage] qui corr...</div><div class="ttdef"><b>Definition:</b> affichage.c:1023</div></div>
+<div class="ttc" id="aaffichage_8h_html_aa9c1fe8ce04df17ac7558998f018af3e"><div class="ttname"><a href="affichage_8h.html#aa9c1fe8ce04df17ac7558998f018af3e">Synchronise_Remanent_Sprite</a></div><div class="ttdeci">int Synchronise_Remanent_Sprite(map_t *map, sprite_t ****spriteMap, SDL_Rect *view)</div></div>
+<div class="ttc" id="aaffichage_8h_html_ab197ccca3d00b65c9211e629087f23bf"><div class="ttname"><a href="affichage_8h.html#ab197ccca3d00b65c9211e629087f23bf">Load_Sprite_Texture_Liste</a></div><div class="ttdeci">int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, sprite_type_liste_t *listeType, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui charge les texture dans SpriteTexteListe depuis listeType.</div><div class="ttdef"><b>Definition:</b> affichage.c:286</div></div>
+<div class="ttc" id="aaffichage_8h_html_ab340ffb86982124bee917684122edecb"><div class="ttname"><a href="affichage_8h.html#ab340ffb86982124bee917684122edecb">changeResolution</a></div><div class="ttdeci">void changeResolution(int indiceResolution, int indiceFullscreen, SDL_Window *window)</div><div class="ttdoc">Fonction externe qui permet de changer la résolution de la fenêtre.</div><div class="ttdef"><b>Definition:</b> affichage.c:157</div></div>
+<div class="ttc" id="aaffichage_8h_html_ab819095dda9ec0af509c0b68973da073"><div class="ttname"><a href="affichage_8h.html#ab819095dda9ec0af509c0b68973da073">Respawn_Joueur</a></div><div class="ttdeci">int Respawn_Joueur(map_t *map, personnage_t *perso, SDL_Rect *view, int tabRespawnJoueur[6][2])</div><div class="ttdoc">Fonction externe qui fait reapparaitre le joueur apres sa mort.</div><div class="ttdef"><b>Definition:</b> affichage.c:1621</div></div>
+<div class="ttc" id="aaffichage_8h_html_ac3a7e23a7766f44dcc9ef14e1f0b719f"><div class="ttname"><a href="affichage_8h.html#ac3a7e23a7766f44dcc9ef14e1f0b719f">Timer_Update</a></div><div class="ttdeci">void Timer_Update(SDL_timer_t *timer)</div><div class="ttdoc">Initialise SDL_timer_t-&gt;now au temps courant.</div><div class="ttdef"><b>Definition:</b> affichage.c:997</div></div>
+<div class="ttc" id="aaffichage_8h_html_ac96f07c86c1ea6142b8625dfdddab319"><div class="ttname"><a href="affichage_8h.html#ac96f07c86c1ea6142b8625dfdddab319">Detruire_Sprite_Texture_Liste</a></div><div class="ttdeci">void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste)</div><div class="ttdef"><b>Definition:</b> affichage.c:323</div></div>
+<div class="ttc" id="aaffichage_8h_html_adb7455d9e7c096d13726b1a17a53d57c"><div class="ttname"><a href="affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c">Quit_SDL</a></div><div class="ttdeci">void Quit_SDL(SDL_Window *window, SDL_Renderer *renderer)</div><div class="ttdoc">Fonction externe qui ferme les composants de SDL.</div><div class="ttdef"><b>Definition:</b> affichage.c:79</div></div>
+<div class="ttc" id="aaffichage_8h_html_ae78ab02fca79bb8eb2f6d6ecb5fb7330"><div class="ttname"><a href="affichage_8h.html#ae78ab02fca79bb8eb2f6d6ecb5fb7330">Afficher_Texte_Zone</a></div><div class="ttdeci">int Afficher_Texte_Zone(SDL_Renderer *renderer, TTF_Font *font, const char *text, int y, int x, int w, SDL_Color *textColor)</div><div class="ttdoc">Fonction externe qui affiche du texte dans une zone.</div><div class="ttdef"><b>Definition:</b> affichage.c:1526</div></div>
+<div class="ttc" id="aaffichage_8h_html_aedc87d13cd4faead6b3d550c09c9f8d3"><div class="ttname"><a href="affichage_8h.html#aedc87d13cd4faead6b3d550c09c9f8d3">Deplacement_PersoSprite</a></div><div class="ttdeci">int Deplacement_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action)</div><div class="ttdoc">Fonction externe qui gere le deplacement du sprite et de la camera du joueur ( Changement Affichage )</div><div class="ttdef"><b>Definition:</b> affichage.c:1082</div></div>
+<div class="ttc" id="aaffichage_8h_html_af55ec0fb172ef7cd4cea407cd37a0df8"><div class="ttname"><a href="affichage_8h.html#af55ec0fb172ef7cd4cea407cd37a0df8">Attack_PersoSprite</a></div><div class="ttdeci">int Attack_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action)</div><div class="ttdoc">Fonction externe qui gere l'animation de l'attaque de base.</div><div class="ttdef"><b>Definition:</b> affichage.c:1254</div></div>
+<div class="ttc" id="aaffichage_8h_html_af770e0593075fcca8b924ea5cc056358"><div class="ttname"><a href="affichage_8h.html#af770e0593075fcca8b924ea5cc056358">Timer_Start</a></div><div class="ttdeci">void Timer_Start(SDL_timer_t *timer)</div><div class="ttdoc">Initialise SDL_timer_t-&gt;start au temps courant.</div><div class="ttdef"><b>Definition:</b> affichage.c:986</div></div>
+<div class="ttc" id="amap_8h_html"><div class="ttname"><a href="map_8h.html">map.h</a></div><div class="ttdoc">Header Gestion map.</div></div>
+<div class="ttc" id="asprite_8h_html"><div class="ttname"><a href="sprite_8h.html">sprite.h</a></div><div class="ttdoc">Header Gestion Sprite.</div></div>
+<div class="ttc" id="astructSDL__timer__t_html"><div class="ttname"><a href="structSDL__timer__t.html">SDL_timer_t</a></div><div class="ttdoc">Structure Timer Basé Sur SDL_GetTicks()</div><div class="ttdef"><b>Definition:</b> affichage.h:40</div></div>
+<div class="ttc" id="astructSDL__timer__t_html_a8b1499bec7fb58a7d1f4e8749a9ef0c9"><div class="ttname"><a href="structSDL__timer__t.html#a8b1499bec7fb58a7d1f4e8749a9ef0c9">SDL_timer_t::start</a></div><div class="ttdeci">Uint32 start</div><div class="ttdef"><b>Definition:</b> affichage.h:41</div></div>
+<div class="ttc" id="astructSDL__timer__t_html_aec565742b8c3f2763641d482a5e45234"><div class="ttname"><a href="structSDL__timer__t.html#aec565742b8c3f2763641d482a5e45234">SDL_timer_t::now</a></div><div class="ttdeci">Uint32 now</div><div class="ttdef"><b>Definition:</b> affichage.h:42</div></div>
+<div class="ttc" id="astructSprite__Texture__Liste__t_html"><div class="ttname"><a href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a></div><div class="ttdoc">Structure Liste Sprite Texture.</div><div class="ttdef"><b>Definition:</b> affichage.h:69</div></div>
+<div class="ttc" id="astructSprite__Texture__Liste__t_html_ae3026265efd28853fafdffaa415daf2b"><div class="ttname"><a href="structSprite__Texture__Liste__t.html#ae3026265efd28853fafdffaa415daf2b">Sprite_Texture_Liste_t::nbElem</a></div><div class="ttdeci">int nbElem</div><div class="ttdef"><b>Definition:</b> affichage.h:71</div></div>
+<div class="ttc" id="astructSprite__Texture__t_html"><div class="ttname"><a href="structSprite__Texture__t.html">Sprite_Texture_t</a></div><div class="ttdoc">Structure Sprite Texture.</div><div class="ttdef"><b>Definition:</b> affichage.h:54</div></div>
+<div class="ttc" id="astructSprite__Texture__t_html_aa7eb6824584050dc27c7d5b7df838678"><div class="ttname"><a href="structSprite__Texture__t.html#aa7eb6824584050dc27c7d5b7df838678">Sprite_Texture_t::spriteSheetTexture</a></div><div class="ttdeci">SDL_Texture * spriteSheetTexture</div><div class="ttdef"><b>Definition:</b> affichage.h:56</div></div>
+<div class="ttc" id="astructSprite__Texture__t_html_abcae9847a3504c62fe337f99002b1221"><div class="ttname"><a href="structSprite__Texture__t.html#abcae9847a3504c62fe337f99002b1221">Sprite_Texture_t::spriteSheet</a></div><div class="ttdeci">char * spriteSheet</div><div class="ttdef"><b>Definition:</b> affichage.h:55</div></div>
+<div class="ttc" id="astructmap__t_html"><div class="ttname"><a href="structmap__t.html">map_t</a></div><div class="ttdoc">Structure map.</div><div class="ttdef"><b>Definition:</b> map.h:37</div></div>
+<div class="ttc" id="astructpersonnage__t_html"><div class="ttname"><a href="structpersonnage__t.html">personnage_t</a></div><div class="ttdoc">Structure du personnage ( Data )</div><div class="ttdef"><b>Definition:</b> personnage.h:37</div></div>
+<div class="ttc" id="astructsprite__liste__t_html"><div class="ttname"><a href="structsprite__liste__t.html">sprite_liste_t</a></div><div class="ttdoc">Structure qui correspond à une liste de sprite.</div><div class="ttdef"><b>Definition:</b> sprite.h:119</div></div>
+<div class="ttc" id="astructsprite__t_html"><div class="ttname"><a href="structsprite__t.html">sprite_t</a></div><div class="ttdoc">Structure des Sprites.</div><div class="ttdef"><b>Definition:</b> sprite.h:91</div></div>
+<div class="ttc" id="astructsprite__type__liste__t_html"><div class="ttname"><a href="structsprite__type__liste__t.html">sprite_type_liste_t</a></div><div class="ttdoc">Liste des types de sprites.</div><div class="ttdef"><b>Definition:</b> sprite.h:72</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="affichage_8h.html">affichage.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

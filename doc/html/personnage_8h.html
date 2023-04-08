@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero&#39;s Quest: Référence du fichier include/personnage.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Hero&#39;s Quest
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('personnage_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier personnage.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Header pour gérer les personnage.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="caract_8h_source.html">caract.h</a>&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de personnage.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="personnage_8h__incl.png" border="0" usemap="#ainclude_2personnage_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="personnage_8h__dep__incl.png" border="0" usemap="#ainclude_2personnage_8hdep" alt=""/></div>
+</div>
+</div>
+<p><a href="personnage_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Structures de données</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpersonnage__t.html">personnage_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure du personnage ( Data )  <a href="structpersonnage__t.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa54c701a7afab4b9fd8e2b425cb46258"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#aa54c701a7afab4b9fd8e2b425cb46258">UPGRADE_MAX_PV</a>&#160;&#160;&#160;10</td></tr>
+<tr class="separator:aa54c701a7afab4b9fd8e2b425cb46258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bbcd413d19c3bdf3f3ecb2d9133c392"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#a1bbcd413d19c3bdf3f3ecb2d9133c392">UPGRADE_ATK</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a1bbcd413d19c3bdf3f3ecb2d9133c392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9c6a81befd7beee5280b3bff20a80fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#aa9c6a81befd7beee5280b3bff20a80fc">UPGRADE_DEF</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aa9c6a81befd7beee5280b3bff20a80fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a155715949773ae90a170cb700c5f6ab2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#a155715949773ae90a170cb700c5f6ab2">creer_personnage</a> (char *nom)</td></tr>
+<tr class="memdesc:a155715949773ae90a170cb700c5f6ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">création d'un personnage  <a href="personnage_8h.html#a155715949773ae90a170cb700c5f6ab2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a155715949773ae90a170cb700c5f6ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c52ca812c4aab8d7f96ea244768674"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#a79c52ca812c4aab8d7f96ea244768674">supprimer_perso</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> **perso)</td></tr>
+<tr class="memdesc:a79c52ca812c4aab8d7f96ea244768674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère l'espace mémoire réservée par <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a>.  <a href="personnage_8h.html#a79c52ca812c4aab8d7f96ea244768674">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a79c52ca812c4aab8d7f96ea244768674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5ce3c09ed8ff88a399c2d0c391fd4f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#ad5ce3c09ed8ff88a399c2d0c391fd4f2">afficher_perso</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso)</td></tr>
+<tr class="memdesc:ad5ce3c09ed8ff88a399c2d0c391fd4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">afficher statistiques du personnage  <a href="personnage_8h.html#ad5ce3c09ed8ff88a399c2d0c391fd4f2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad5ce3c09ed8ff88a399c2d0c391fd4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b95230e36c7d0b5117a212fca1b954d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#a3b95230e36c7d0b5117a212fca1b954d">calculer_stats_perso</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structcaract__t.html">caract_t</a> *caractSortie)</td></tr>
+<tr class="memdesc:a3b95230e36c7d0b5117a212fca1b954d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul des statistiques du personnage avec objets.  <a href="personnage_8h.html#a3b95230e36c7d0b5117a212fca1b954d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3b95230e36c7d0b5117a212fca1b954d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a7cd38d85c31ecda5eb4e60eef36b80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8h.html#a4a7cd38d85c31ecda5eb4e60eef36b80">upgrade_perso</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, int stats)</td></tr>
+<tr class="separator:a4a7cd38d85c31ecda5eb4e60eef36b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Header pour gérer les personnage. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Raccouard Nathan </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>27/02/2023 </dd></dl>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="a1bbcd413d19c3bdf3f3ecb2d9133c392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bbcd413d19c3bdf3f3ecb2d9133c392">&#9670;&nbsp;</a></span>UPGRADE_ATK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UPGRADE_ATK&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9c6a81befd7beee5280b3bff20a80fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9c6a81befd7beee5280b3bff20a80fc">&#9670;&nbsp;</a></span>UPGRADE_DEF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UPGRADE_DEF&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa54c701a7afab4b9fd8e2b425cb46258"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa54c701a7afab4b9fd8e2b425cb46258">&#9670;&nbsp;</a></span>UPGRADE_MAX_PV</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UPGRADE_MAX_PV&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ad5ce3c09ed8ff88a399c2d0c391fd4f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5ce3c09ed8ff88a399c2d0c391fd4f2">&#9670;&nbsp;</a></span>afficher_perso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void afficher_perso </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>afficher statistiques du personnage </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a></td><td>* perso </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour </dd></dl>
+
+</div>
+</div>
+<a id="a3b95230e36c7d0b5117a212fca1b954d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b95230e36c7d0b5117a212fca1b954d">&#9670;&nbsp;</a></span>calculer_stats_perso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calculer_stats_perso </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcaract__t.html">caract_t</a> *&#160;</td>
+          <td class="paramname"><em>caractSortie</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcul des statistiques du personnage avec objets. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso</td><td>stats personnage </td></tr>
+    <tr><td class="paramname">caractSortie</td><td>stats personnage avec objets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a155715949773ae90a170cb700c5f6ab2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a155715949773ae90a170cb700c5f6ab2">&#9670;&nbsp;</a></span>creer_personnage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpersonnage__t.html">personnage_t</a>* creer_personnage </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>nom</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>création d'un personnage </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nom</td><td>du personnage </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> perso </dd>
+<dd>
+pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> || NULL Fail ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a79c52ca812c4aab8d7f96ea244768674"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c52ca812c4aab8d7f96ea244768674">&#9670;&nbsp;</a></span>supprimer_perso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void supprimer_perso </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> **&#160;</td>
+          <td class="paramname"><em>perso</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Libère l'espace mémoire réservée par <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">perso</td><td>à supprimer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour </dd></dl>
+
+</div>
+</div>
+<a id="a4a7cd38d85c31ecda5eb4e60eef36b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a7cd38d85c31ecda5eb4e60eef36b80">&#9670;&nbsp;</a></span>upgrade_perso()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int upgrade_perso </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>stats</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="personnage_8h.html">personnage.h</a></li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>
