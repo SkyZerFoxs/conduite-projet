@@ -48,11 +48,11 @@ int combat_joueur(personnage_t * personnage, monstre_t * monstre, int typeAttaqu
             break;
         case 2:
             // Attaque spéciale
-            damage = (caractSortie.atk * 2 + 20) - (monstre->caract->def / 2);
+            damage = (caractSortie.atk * 1.5 + 20) - (monstre->caract->def / 2);
             break;
         case 3:
             // Attaque ultime
-            damage = (caractSortie.atk * 5 + 50) - (monstre->caract->def / 2);
+            damage = (caractSortie.atk * 2.5 + 30) - (monstre->caract->def / 2);
             break;
         default :
             printf("Erreur : typeAttaque en parametre invalide dans combat_joueur()\n");

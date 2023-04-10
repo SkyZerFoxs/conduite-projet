@@ -20,5 +20,5 @@ var sprite_8c =
     [ "Load_Sprite", "sprite_8c.html#aefd212a0907d8d13622a35822a911063", null ],
     [ "Load_Sprite_Type", "sprite_8c.html#a75f49f19cfe6f71b9cf243e06a4e9338", null ],
     [ "Load_SpriteMap", "sprite_8c.html#a62f623990a11bb0cb21afd3912bda4f1", null ],
-    [ "Respawn_Monstre", "sprite_8c.html#a6aeaa20eb8a463512551bb82870093b6", null ]
+    [ "Respawn_Monstre", "sprite_8c.html#a5d5d9fa02969ab00e50acc40fd1fe2eb", null ]
 ];

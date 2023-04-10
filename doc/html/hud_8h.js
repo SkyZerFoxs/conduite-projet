@@ -7,11 +7,13 @@ var hud_8h =
     [ "Detruire_Inventaire", "hud_8h.html#a9a81724c581e3df8e635a89761704c4a", null ],
     [ "Detruire_Liste_Texture_Pnj_Dialogue", "hud_8h.html#abf959470dd0ad0cdbeb03567ecca54b0", null ],
     [ "Dialogue", "hud_8h.html#a2144ddf38cb439a28c616e58a86d80a6", null ],
+    [ "Ending", "hud_8h.html#a34c118fe1178d1bba84e13f83ba30298", null ],
     [ "Introduction", "hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d", null ],
     [ "Inventaire", "hud_8h.html#a067c6e370540674d91f7453c5602e2ef", null ],
     [ "Level_UP", "hud_8h.html#afc6545c3af41282bee73b1efe3a83f6c", null ],
     [ "Load_Inventaire", "hud_8h.html#ac71293119bb27ea4dbe70a516739f718", null ],
     [ "Load_Liste_Texture_Pnj_Dialogue", "hud_8h.html#a5e17d49a5c7a51c9e5aaab598d539aa2", null ],
     [ "Mort_Joueur", "hud_8h.html#a954ed30ef109282313da0101ff01b228", null ],
+    [ "Update_Equipement_Stat", "hud_8h.html#a90f25f8f9a69d592af9cea156a33ec8e", null ],
     [ "Use_Item_Inventaire", "hud_8h.html#af326746caf977ea8fdc5736b02ec63a4", null ]
 ];

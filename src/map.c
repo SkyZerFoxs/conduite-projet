@@ -197,10 +197,10 @@ extern int Detecter_Coffre(map_t *map, int y_joueur, int x_joueur, char directio
             printf("Erreur : matZoneLevel[%d][%d] incorrecte dans Detecter_Coffre()\n", y, x);
             return -1;
         }
-        if ( zoneLevel >= 5 || zoneLevel <= 10 ) {
+        if ( zoneLevel >= 5 && zoneLevel <= 10 ) {
             coffreLevel = 1;
         }
-        else if ( zoneLevel > 10 || zoneLevel <= 20 ) {
+        else if ( zoneLevel > 10 && zoneLevel <= 20 ) {
             coffreLevel = 2;
         }
         else {

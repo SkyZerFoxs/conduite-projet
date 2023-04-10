@@ -72,13 +72,14 @@ Un compilateur C++ avec le support de C++11, tel que G++. ( utile pour l'install
 
 Mode d'emploi :
 - Installer SDL :
-    - mise à jour gestionnaire de paquets APT (Advanced Package Tool):
-        - sudo apt update 
-        - sudo apt upgrade
-    - téléchargement SDL via le gestionnaire de paquets APT :
-        - sudo apt install libsdl2-dev
-        - sudo apt install libsdl2-image-dev
-        - sudo apt install libsdl2-ttf-dev
+    - Gestionnaire de paquets APT :
+        - Mise à jour du gestionnaire de paquets APT (Advanced Package Tool):
+            - sudo apt update 
+            - sudo apt upgrade
+        - Installation de SDL :
+            - sudo apt install libsdl2-dev
+            - sudo apt install libsdl2-image-dev
+            - sudo apt install libsdl2-ttf-dev
 
     OU
 

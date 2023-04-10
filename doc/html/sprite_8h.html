@@ -199,9 +199,9 @@ Fonctions</h2></td></tr>
 <tr class="memitem:af44e0a4e24101164f3a3b86c64ae96db"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8h.html#af44e0a4e24101164f3a3b86c64ae96db">Detecter_Zone_Atk_Monstre</a> (<a class="el" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="el" href="structmap__t.html">map_t</a> *map, int yJoueur, int xJoueur, int rayon, <a class="el" href="structsprite__t.html">sprite_t</a> **detectedMonster)</td></tr>
 <tr class="memdesc:af44e0a4e24101164f3a3b86c64ae96db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui détecte si le personnage rentre dans la zone d'attaque d'un monstre.  <a href="sprite_8h.html#af44e0a4e24101164f3a3b86c64ae96db">Plus de détails...</a><br /></td></tr>
 <tr class="separator:af44e0a4e24101164f3a3b86c64ae96db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aeaa20eb8a463512551bb82870093b6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8h.html#a6aeaa20eb8a463512551bb82870093b6">Respawn_Monstre</a> (<a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> *liste, <a class="el" href="structmap__t.html">map_t</a> *map, int posJoueurY, int posJoueurX)</td></tr>
-<tr class="memdesc:a6aeaa20eb8a463512551bb82870093b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui régénère la vie des monstres ( implique la réapparition des monstres morts )  <a href="sprite_8h.html#a6aeaa20eb8a463512551bb82870093b6">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a6aeaa20eb8a463512551bb82870093b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d5d9fa02969ab00e50acc40fd1fe2eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite_8h.html#a5d5d9fa02969ab00e50acc40fd1fe2eb">Respawn_Monstre</a> (<a class="el" href="structmonstre__liste__t.html">monstre_liste_t</a> *liste, <a class="el" href="structmap__t.html">map_t</a> *map, int posJoueurY, int posJoueurX, int idBoss)</td></tr>
+<tr class="memdesc:a5d5d9fa02969ab00e50acc40fd1fe2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui régénère la vie des monstres ( implique la réapparition des monstres morts )  <a href="sprite_8h.html#a5d5d9fa02969ab00e50acc40fd1fe2eb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5d5d9fa02969ab00e50acc40fd1fe2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Header Gestion Sprite. </p>
@@ -1157,8 +1157,8 @@ Fonctions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6aeaa20eb8a463512551bb82870093b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6aeaa20eb8a463512551bb82870093b6">&#9670;&nbsp;</a></span>Respawn_Monstre()</h2>
+<a id="a5d5d9fa02969ab00e50acc40fd1fe2eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d5d9fa02969ab00e50acc40fd1fe2eb">&#9670;&nbsp;</a></span>Respawn_Monstre()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1185,7 +1185,13 @@ Fonctions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>posJoueurX</em>&#160;</td>
+          <td class="paramname"><em>posJoueurX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>idBoss</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1202,6 +1208,7 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la map à partir de laquelle charger la matrice de sprites / monstre . </td></tr>
     <tr><td class="paramname">posJoueurY</td><td>Coordonnée y du joueur sur la carte pour empêcher une superposition du monstre et du joueur. </td></tr>
     <tr><td class="paramname">posJoueurX</td><td>Coordonnée x du joueur sur la carte pour empêcher une superposition du monstre et du joueur. </td></tr>
+    <tr><td class="paramname">idBoss</td><td>Incide du boss dans la liste de monstre ( Si idBoss != -1, on ne regen pas la vie du Boss ) </td></tr>
   </table>
   </dd>
 </dl>

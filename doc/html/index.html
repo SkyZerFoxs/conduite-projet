@@ -121,11 +121,19 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <h4>Installation de SDL :</h4>
   <p>Il y a deux méthodes d'installation de SDL :</p>
   <ul>
-      <li><b>Gestionnaire de paquets APT (Advanced Package Tool) :</b></li>
+      <li><b>Gestionnaire de paquets APT :</b></li>
       <ul>
-          <li>sudo apt install libsdl2-dev</li>
-          <li>sudo apt install libsdl2-image-dev</li>
-          <li>sudo apt install libsdl2-ttf-dev</li>
+        <li>Mise à jour du gestionnaire de paquets APT (Advanced Package Tool):
+        <ul>
+          <li>sudo apt update</li>
+          <li>sudo apt upgrade</li>
+        </ul>
+        <li>Installation de SDL :</li>
+        <ul>
+            <li>sudo apt install libsdl2-dev</li>
+            <li>sudo apt install libsdl2-image-dev</li>
+            <li>sudo apt install libsdl2-ttf-dev</li>
+        </ul>
       </ul>
       <li><b>Installation manuelle :</b></li>
       <ul>
