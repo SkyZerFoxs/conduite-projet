@@ -64,7 +64,7 @@ La sauvegarde :
 
 Prérequis :
 Un système d'exploitation sous Linux ( de préférence Ubuntu ).
-Un périphérique d'affichage vidéo.
+Un périphérique d'affichage vidéo ( Résolution Recommandé pour jouer : 1280 x 720 ).
 Le langage C est installé sur la machine.
 La bibliothèque standard du C est installé sur la machine.
 Un compilateur C++ avec le support de C++11, tel que G++. ( utile pour l'installation manuelle de SDL )
@@ -72,7 +72,10 @@ Un compilateur C++ avec le support de C++11, tel que G++. ( utile pour l'install
 
 Mode d'emploi :
 - Installer SDL :
-    - gestionnaire de paquets APT (Advanced Package Tool) :
+    - mise à jour gestionnaire de paquets APT (Advanced Package Tool):
+        - sudo apt update 
+        - sudo apt upgrade
+    - téléchargement SDL via le gestionnaire de paquets APT :
         - sudo apt install libsdl2-dev
         - sudo apt install libsdl2-image-dev
         - sudo apt install libsdl2-ttf-dev

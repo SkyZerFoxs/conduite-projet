@@ -3,8 +3,20 @@
 
 #include <save.h>
 
-
-extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet) {
+/**
+ * \fn int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map)
+ * \brief Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde
+ * 
+ * \param pos_x Position en x de la camera du joueur ( implique la postion x du joueur )
+ * \param pos_y Position en y de la camera du joueur ( implique la postion y du joueur )
+ * \param perso Pointeur sur le personnage_t
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param liste_objet Pointeur sur la liste_objet_t
+ * \param map Pointeur sur map_t, la map
+ * \return 0 Success || 1 Fail ( statut fonction )
+ * 
+*/
+extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map) {
     // Verification parametre
     if ( pos_x < 0  || pos_y < 0  ) {
         printf("Erreur : Position joueur en paramètre non valide dans save_game()\n");
@@ -55,13 +67,48 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
         fprintf(filename,"%d:",liste_objet->tab[i]->nb);
     }
     fprintf(filename,"\n");
+    // Compter nombre de coffre sur la carte
+    int nbCoffre = 0;
+    for (int y = 0; y < map->height; y++ ) {
+        for (int x = 0; x < map->width; x++ ) {
+            if ( map->matrice[2][y][x] == ID_COFFRE_TILE || map->matrice[2][y][x] == (ID_COFFRE_TILE+1) ) {
+                nbCoffre++;
+            }
+        }
+    }
+    fprintf(filename,"%d:\n",nbCoffre);
+    for (int y = 0; y < map->height; y++ ) {
+        for (int x = 0; x < map->width; x++ ) {
+            if ( map->matrice[2][y][x] == ID_COFFRE_TILE ) {
+                fprintf(filename,"%d:",0);
+            }
+            if ( map->matrice[2][y][x] == (ID_COFFRE_TILE+1) ) {
+                fprintf(filename,"%d:",1);
+            }
+        }
+    }
+    fprintf(filename,"\n");
 
     fclose(filename);
 
     return 0;
 }
 
-extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, char * nomFichier) {
+/**
+ * \fn int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, char * nomFichier)
+ * \brief Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde
+ * 
+ * \param pos_x Pointeur vers le int de la position en x de la camera du joueur ( implique la postion x du joueur )
+ * \param pos_y Pointeur vers le int de la position en y de la camera du joueur ( implique la postion y du joueur )
+ * \param perso Pointeur sur le personnage_t
+ * \param inventaire Pointeur sur l' inventaire_t
+ * \param liste_objet Pointeur sur la liste_objet_t
+ * \param map Pointeur sur map_t, la map
+ * \param nomFichier Chemin vers le fichier de sauvegarde
+ * \return 0 Success || 1 Fail ( statut fonction )
+ * 
+*/
+extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, char * nomFichier) {
     // Verification parametre
     if ( pos_x == NULL || pos_y == NULL ) {
         printf("Erreur : Position joueur en paramètre non valide dans load_game()\n");
@@ -116,7 +163,24 @@ extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_
         fscanf(filename,"%d:",&(liste_objet->tab[i]->nb));
     }
     fscanf(filename,"\n");
-
+    // Compter nombre de coffre sur la carte
+    int nbCoffre;
+    fscanf(filename,"%d:\n",&nbCoffre);
+    int * tabCoffre = malloc( sizeof(int) * nbCoffre );
+    for (int n = 0; n < nbCoffre; n++ ) {
+        fscanf(filename,"%d:",&(tabCoffre[n]));
+    }
+    fscanf(filename,"\n");
+    // Charger coffre
+    int i = 0;
+    for (int y = 0; y < map->height; y++ ) {
+        for (int x = 0; x < map->width; x++ ) {
+            if ( map->matrice[2][y][x] == ID_COFFRE_TILE && i < nbCoffre ) {
+                map->matrice[2][y][x] += tabCoffre[i++];
+            }
+        }
+    }
+    free(tabCoffre);
     fclose(filename);
 
     return 0;

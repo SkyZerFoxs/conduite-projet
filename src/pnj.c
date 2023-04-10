@@ -33,18 +33,9 @@ liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich) {
     }
 	
     // Compter le nombre de lignes dans le fichier
+    char buffer[1024];
     int nb_lignes = 0;
-    int prec = '\n'; // caractère précédent initialisé à un retour à la ligne
-    int dernier_caractere = -1; // initialiser à une valeur impossible
-    while (!feof(filename)) {
-        int c = fgetc(filename);
-        if (c == '\n' && prec != '\n') {
-            nb_lignes++;
-        }
-        prec = c;
-        dernier_caractere = c;
-    }
-    if (dernier_caractere != '\n' && prec != '\n') {
+    while (fgets(buffer, sizeof(buffer), filename) != NULL) {
         nb_lignes++;
     }
     
@@ -73,18 +64,18 @@ liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich) {
             printf("Erreur : Echec malloc(liste[%d]) dans Load_Liste_Type_Pnj()\n",i);
             return NULL;
         }
-        liste->liste[i]->nom = malloc(sizeof(char) * 25);
+        liste->liste[i]->nom = malloc(sizeof(char) * 32);
         if (liste->liste[i]->nom == NULL) {
             printf("Erreur : Echec malloc(liste[%d]->nom) dans Load_Liste_Type_Pnj()\n",i);
             return NULL;
         }
-        liste->liste[i]->imageDialogue = malloc(sizeof(char) * 50);
+        liste->liste[i]->imageDialogue = malloc(sizeof(char) * 64);
         if (liste->liste[i]->imageDialogue == NULL) {
             printf("Erreur : Echec malloc(liste[%d]->stats) dans Load_Liste_Type_Pnj()\n",i);
             return NULL;
         }
-        liste->liste[i]->dialogue = malloc(sizeof(char) * 250);
-        if (liste->liste[i]->imageDialogue == NULL) {
+        liste->liste[i]->dialogue = malloc(sizeof(char) * 256);
+        if (liste->liste[i]->dialogue == NULL) {
             printf("Erreur : Echec malloc(liste[%d]->stats) dans Load_Liste_Type_Pnj()\n",i);
             return NULL;
         }
@@ -104,13 +95,13 @@ liste_type_pnj_t * Load_Liste_Type_Pnj(char * nom_fich) {
 
 
 /**
- * \fn void detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type  )
+ * \fn void Detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type )
  * \brief Libère l'espace reservée par liste_typee
  * 
  * \param liste_type pointeur de pointeur sur la liste_type_pnj_t a detruire
  * \return Aucun retour
 **/
-extern void Detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type  ) {
+extern void Detruire_Liste_Type_Pnj( liste_type_pnj_t ** liste_type ) {
     if ( liste_type == NULL || (*liste_type) == NULL ) {
         printf("Erreur : liste_type_pnj en parametre invalide dans Detruire_Liste_Type_Pnj()\n");
         return; 

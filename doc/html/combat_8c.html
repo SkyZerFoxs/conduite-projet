@@ -104,10 +104,11 @@ Graphe des dépendances par inclusion de combat.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Fonctions</h2></td></tr>
-<tr class="memitem:a4b8674c96da38d0adc869ad2c06eb29c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a4b8674c96da38d0adc869ad2c06eb29c">combat_joueur</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *personnage, <a class="el" href="structmonstre__t.html">monstre_t</a> *monstre, int typeAttaque)</td></tr>
-<tr class="memdesc:a4b8674c96da38d0adc869ad2c06eb29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul les dégats reçus par le monstre et enlève les points de vie correpondants.  <a href="combat_8c.html#a4b8674c96da38d0adc869ad2c06eb29c">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a4b8674c96da38d0adc869ad2c06eb29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f3cee4c90c757871408f83ff7bfb7e9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a2f3cee4c90c757871408f83ff7bfb7e9">combat_joueur</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *personnage, <a class="el" href="structmonstre__t.html">monstre_t</a> *monstre, int typeAttaque)</td></tr>
+<tr class="memdesc:a2f3cee4c90c757871408f83ff7bfb7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul les dégats reçus par le monstre et enlève les points de vie correpondants.  <a href="combat_8c.html#a2f3cee4c90c757871408f83ff7bfb7e9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2f3cee4c90c757871408f83ff7bfb7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f3f4d8529e8a7c94809bb925b20fcd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8c.html#a33f3f4d8529e8a7c94809bb925b20fcd">combat_monstre</a> (<a class="el" href="structmonstre__t.html">monstre_t</a> *monstre, <a class="el" href="structpersonnage__t.html">personnage_t</a> *personnage, int distance)</td></tr>
+<tr class="memdesc:a33f3f4d8529e8a7c94809bb925b20fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul les dégats reçus par le joueur et enlève les points de vie correspondants.  <a href="combat_8c.html#a33f3f4d8529e8a7c94809bb925b20fcd">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a33f3f4d8529e8a7c94809bb925b20fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
@@ -116,17 +117,17 @@ Fonctions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>27/02/2023 </dd></dl>
 </div><h2 class="groupheader">Documentation des fonctions</h2>
-<a id="a4b8674c96da38d0adc869ad2c06eb29c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b8674c96da38d0adc869ad2c06eb29c">&#9670;&nbsp;</a></span>combat_joueur()</h2>
+<a id="a2f3cee4c90c757871408f83ff7bfb7e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3cee4c90c757871408f83ff7bfb7e9">&#9670;&nbsp;</a></span>combat_joueur()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void combat_joueur </td>
+          <td class="memname">int combat_joueur </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
-          <td class="paramname"><em>perso</em>, </td>
+          <td class="paramname"><em>personnage</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -138,7 +139,7 @@ Fonctions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>atk</em>&#160;</td>
+          <td class="paramname"><em>typeAttaque</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -192,6 +193,17 @@ Fonctions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Calcul les dégats reçus par le joueur et enlève les points de vie correspondants. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">monstre</td><td>pointeur sur monstre qui combat </td></tr>
+    <tr><td class="paramname">perso</td><td>pointeur sur personnage du jeu </td></tr>
+    <tr><td class="paramname">distance</td><td>distance entre le joueur et le monstre </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
 
 </div>
 </div>

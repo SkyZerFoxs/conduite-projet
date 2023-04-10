@@ -151,6 +151,9 @@ Fonctions</h2></td></tr>
 <tr class="memitem:a954ed30ef109282313da0101ff01b228"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a954ed30ef109282313da0101ff01b228">Mort_Joueur</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets)</td></tr>
 <tr class="memdesc:a954ed30ef109282313da0101ff01b228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui gere la mort du personnage.  <a href="hud_8h.html#a954ed30ef109282313da0101ff01b228">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a954ed30ef109282313da0101ff01b228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc356df4b7fa28ce62086e8ec34af97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a6dc356df4b7fa28ce62086e8ec34af97">Death</a> (SDL_Texture *textFondDeath, SDL_Texture *background_texture, SDL_Rect *view, SDL_Window *window, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:a6dc356df4b7fa28ce62086e8ec34af97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface de mort du joueur.  <a href="hud_8h.html#a6dc356df4b7fa28ce62086e8ec34af97">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6dc356df4b7fa28ce62086e8ec34af97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Introduction</a> (SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
 <tr class="memdesc:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface d'Introduction.  <a href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Plus de détails...</a><br /></td></tr>
 <tr class="separator:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,6 +202,65 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
     <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
     <tr><td class="paramname">itemID</td><td>entier qui correspond a ID de l'objet que l'on souhaite ajouter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a6dc356df4b7fa28ce62086e8ec34af97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc356df4b7fa28ce62086e8ec34af97">&#9670;&nbsp;</a></span>Death()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Death </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>textFondDeath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>background_texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface de mort du joueur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">textFonDeath</td><td>Texture de l'image d'interface de mort du joueur </td></tr>
+    <tr><td class="paramname">background_texture</td><td>Pointeur sur la texture a afficher en arrière plan </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
   </table>
   </dd>
 </dl>

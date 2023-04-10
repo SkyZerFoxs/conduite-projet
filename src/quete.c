@@ -3,6 +3,21 @@
 
 #include <quete.h>
 
+/**
+ *	\file quete.c
+ *  \brief Fonction Gestion Quete
+ *  \author Yamis MANFALOTI
+ *  \version 1.0
+ *  \date 05/03/2023
+**/
+
+/**
+ * \fn quete_t * Load_Quete(const char * nom_fichier)
+ * \brief Fonction externe qui charge la liste des quetes depuis un fichier
+ * 
+ * \param nom_fichier Le chemin vers le fichier en question
+ * \return Pointeur sur quete_t || Null Fail ( Statut Fonction )
+*/
 extern quete_t * Load_Quete(const char * nom_fichier) {
     // initialisation des variables
     FILE *fichier;
@@ -72,6 +87,14 @@ extern quete_t * Load_Quete(const char * nom_fichier) {
     return first_quete;
 }
 
+
+/**
+ * \fn void afficher_quetes(quete_t * premiere_quete)
+ * \brief Fonction externe qui affiche les quêtes pour déboguer
+ * 
+ * \param premiere_quete La quete de depart
+ * \return Aucun retour en fin de fonction
+*/
 extern void afficher_quetes(quete_t * premiere_quete) {
     quete_t * quete_courante = premiere_quete;
     while (quete_courante != NULL) {

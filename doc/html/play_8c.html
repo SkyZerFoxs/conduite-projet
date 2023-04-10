@@ -105,6 +105,7 @@ Graphe des dépendances par inclusion de play.c:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Fonctions</h2></td></tr>
 <tr class="memitem:af560d00a4d4d76e7d33cce60103222ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="play_8c.html#af560d00a4d4d76e7d33cce60103222ed">play</a> (SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9])</td></tr>
+<tr class="memdesc:af560d00a4d4d76e7d33cce60103222ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction Principal Du Jeu.  <a href="play_8c.html#af560d00a4d4d76e7d33cce60103222ed">Plus de détails...</a><br /></td></tr>
 <tr class="separator:af560d00a4d4d76e7d33cce60103222ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
@@ -112,16 +113,18 @@ Fonctions</h2></td></tr>
 <dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>2.5 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>16 mars 2023</dd></dl>
-<p>&#160;* Fonctionnalité implémentée&#160;: &#160;* <br  />
- Chargement / Initialisation Des Données Nécessaires ( map, ListeTypeSprite, spriteMap ) &#160;* <br  />
- Boucle Principal &#160;* <br  />
- Gestion De La Camera Du Joueur &#160;* <br  />
- Affichage De La TileMap &#160;* <br  />
- Affiche Des Sprite De Monstre &#160;* <br  />
- Affichage Des Sprite Du Personnage &#160;* <br  />
- Gestion Des Frames De Sprite Par Catégorie <br  />
- Gestion FPS &#160;* <br  />
- Destruction En Mémoire Des Données Initialisée ( map, ListeTypeSprite, spriteMap ) </p>
+<p>&#160; <br  />
+ Fonctionnalité implémentée&#160;: &#160; <br  />
+ - Chargement / Initialisation Des Données Nécessaires ( map, ListeTypeSprite, spriteMap ) &#160; <br  />
+ - Boucle Principal &#160; <br  />
+ - Gestion De La Camera Du Joueur &#160; <br  />
+ - Affichage De La TileMap &#160; <br  />
+ - Affiche Des Sprite De Monstre &#160; <br  />
+ - Affichage Des Sprite Du Personnage &#160; <br  />
+ - Gestion Des Frames De Sprite Par Catégorie <br  />
+ - Gestion FPS &#160; <br  />
+ - Destruction En Mémoire Des Données Initialisée ( map, ListeTypeSprite, spriteMap, ... ) <br  />
+ - ... </p>
 </div><h2 class="groupheader">Documentation des fonctions</h2>
 <a id="af560d00a4d4d76e7d33cce60103222ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af560d00a4d4d76e7d33cce60103222ed">&#9670;&nbsp;</a></span>play()</h2>
@@ -160,6 +163,18 @@ Fonctions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction Principal Du Jeu. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">charger</td><td>Int qui correspond au methode de chargement ( Nouvelle Partie / Reprendre Partie ) </td></tr>
+    <tr><td class="paramname">tabTextGif</td><td>Tableau des SDL_Texture du fond animé dans les menus </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail </dd></dl>
 
 </div>
 </div>

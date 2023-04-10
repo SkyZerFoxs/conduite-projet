@@ -2,7 +2,7 @@
 #include <map.h>
 
 /**
- * \fichier test_map.c
+ * \file test_map.c
  * \brief Test des fonctionnalité des map
  * \author Yamis MANFALOTI
  * \version 2.0

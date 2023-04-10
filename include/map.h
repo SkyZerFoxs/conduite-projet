@@ -4,6 +4,8 @@
 #define LAST_TILEMAP_LAYER 3
 #define COLISION_LAYER 4
 #define SPRITEMAP_LAYER 5
+#define ID_COFFRE_TILE 10908
+#define MAX_NB_COFFRE 30
 
 /**
  * \file map.h
@@ -49,5 +51,6 @@ typedef struct map_s{
 
 extern map_t * Initialiser_Map(char * fichier) ;
 extern void Detruire_Map(map_t ** map) ;
+extern int Detecter_Coffre(map_t *map, int y_joueur, int x_joueur, char direction, int distance) ;
 
 #endif

@@ -24,7 +24,7 @@
 
 /**
  * 
- * \fn void Init_SDL(SDL_Window **window, SDL_Renderer **renderer)
+ * \fn int Init_SDL(SDL_Window ** window, SDL_Renderer **renderer, int width, int height)
  * \brief Fonction externe qui initialise les composants de SDL
  * 
  * \param window Pointeur de pointeur sur l'objet SDL_Window
@@ -97,13 +97,12 @@ void Quit_SDL(SDL_Window* window, SDL_Renderer* renderer) {
 
 
 /**
+ * \fn void Detruire_Texture(SDL_Texture ** texture)
+ * \brief Fonction externe qui détruit en mémoire la texture en paramètres.
  * 
- * \fn void Detruire_Texture(SDL_Texture *texture)
- * \brief Fonction externe qui détruit en mémoire la texture en paramètres
- * 
- * \param texture Pointeur sur l'objet SDL_Texture
- * \return Aucun retour effectué en fin de fonction
- */
+ * \param texture Pointeur de pointeur sur l'objet SDL_Texture a detruire
+ * \return Aucun retour effectué en fin de fonction
+*/
 extern void Detruire_Texture(SDL_Texture ** texture) {
     if ( texture == NULL || *texture == NULL ) {
         printf("Erreur : Texture vide dans Detruire_Texture()\n");
@@ -114,8 +113,9 @@ extern void Detruire_Texture(SDL_Texture ** texture) {
     (*texture) = NULL;
 }
 
+
 /**
- * \fn void getWinInfo(SDL_Window *window, map_t * map, SDL_Rect * view, int * width, int * height, int * dstCoef, int * xBorder, int * yBorder)
+ * \fn void getWinInfo(SDL_Window *window, int * width, int * height, int tileSize, SDL_Rect * view, int * dstCoef, int * xBorder, int * yBorder)
  * \brief Fonction externe qui permet d'obtenir les informations de la fenêtre
  * 
  * \param window Pointeur sur l'objet SDL_Window
@@ -314,10 +314,10 @@ extern int Load_Sprite_Texture_Liste(Sprite_Texture_Liste_t *SpriteTexteListe, s
 }
 
 /**
- * \fn void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t *liste)
+ * \fn void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste)
  * \brief Fonction externe qui supprime la liste des textures de sprite
  * 
- * \param liste Pointeur sur Sprite_Texture_Liste_t, la liste des textures de sprite à supprimer
+ * \param liste Pointeur de pointeur sur Sprite_Texture_Liste_t, la liste des textures de sprite à supprimer
  * \return Aucun retour effectué en fin de fonction
  */
 extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
@@ -362,7 +362,7 @@ extern void Detruire_Sprite_Texture_Liste(Sprite_Texture_Liste_t **liste) {
 
 
 /**
- * \fn int Afficher_Map(SDL_Texture * texture, map_t * map, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder )
+ * \fn int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, int maxLayer, SDL_Rect * view, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder )
  * \brief Fonction externe qui affiche une map composée des tiles d'un tileSet
  * 
  * \param texture Texture du tileSet
@@ -470,7 +470,7 @@ static int Afficher_TileMap(SDL_Texture * texture, map_t * map, int minLayer, in
 }
 
 /**
- * \fn int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \fn int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite_t **** spriteMap, int layer, map_t * map, sprite_type_liste_t * listeType, SDL_Rect * view, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder)
  * \brief Fonction externe qui affiche les sprites de la spriteMap qui correspondent à la view sur le renderer.
  * 
  * \param SpriteTextureListe Liste des textures des sprites
@@ -557,7 +557,7 @@ static int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
     for (int y = ymin; y < ymax; y++) {
         for (int x = xmin; x < xmax; x++) {
             if ( spriteMap[layer][y][x] != NULL ) {
-                if (spriteMap[layer][y][x]->monstre != NULL && spriteMap[layer][y][x]->monstre->caract->pv <= 0) {
+                if ( layer == 0 && spriteMap[layer][y][x]->monstre != NULL && spriteMap[layer][y][x]->monstre->caract->pv <= 0) {
                     continue;
                 }
                 else {
@@ -591,19 +591,19 @@ static int Afficher_SpriteMap(Sprite_Texture_Liste_t *SpriteTextureListe, sprite
                         return 1;
                     }
 
-                    if ( sprite != NULL && sprite->monstre != NULL ) {
-                        sprite_t * sprite2 = spriteMap[0][y+1][x];
-                        if ( sprite2 != NULL && sprite2->monstre == sprite->monstre ) 
-                        {
-                            sprite2->frame = sprite->frame;
-                        }
+                    if  (   layer == 0 && (y + 1) < map->height && 
+                            spriteMap[layer][y    ][x    ] != NULL && spriteMap[layer][y    ][x    ]->monstre != NULL && spriteMap[layer][y    ][x    ]->monstre == sprite->monstre &&
+                            spriteMap[layer][y + 1][x    ] != NULL && spriteMap[layer][y + 1][x    ]->monstre != NULL && spriteMap[layer][y    ][x    ]->monstre == sprite->monstre
+                        ) 
+                    {
+                        spriteMap[layer][y + 1][x    ]->frame = sprite->frame;
                         
                     }
-                    if (    (y + 1) < map->height && (x + 1) < map->width      
-                            && spriteMap[layer][y    ][x    ] != NULL && spriteMap[layer][y    ][x    ]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
-                            && spriteMap[layer][y + 1][x    ] != NULL && spriteMap[layer][y + 1][x    ]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
-                            && spriteMap[layer][y    ][x + 1] != NULL && spriteMap[layer][y    ][x + 1]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
-                            && spriteMap[layer][y + 1][x + 1] != NULL && spriteMap[layer][y + 1][x + 1]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
+                    else if  (   layer == 2 && (y + 1) < map->height && (x + 1) < map->width &&  
+                            spriteMap[layer][y    ][x    ] != NULL && spriteMap[layer][y    ][x    ]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj &&
+                            spriteMap[layer][y + 1][x    ] != NULL && spriteMap[layer][y + 1][x    ]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj &&
+                            spriteMap[layer][y    ][x + 1] != NULL && spriteMap[layer][y    ][x + 1]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj &&
+                            spriteMap[layer][y + 1][x + 1] != NULL && spriteMap[layer][y + 1][x + 1]->pnj != NULL && spriteMap[layer][y    ][x    ]->pnj == sprite->pnj
                         ) 
                     {   
                         spriteMap[layer][y + 1][x    ]->frame = sprite->frame;
@@ -737,7 +737,7 @@ static int  Afficher_Stats_Monstre(sprite_t **** spriteMap, map_t * map, SDL_Rec
 }
 
 /**
- * \fn int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \fn int Afficher_Skill_Bar(personnage_t * perso, int tabSkill[3], SDL_Texture * textSkillBar[4], TTF_Font * font, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder, int win_width)
  * \brief Fonction externe qui affiche l'interface de la barre de skill.
  * 
  * \param perso pointeur sur le personnage_t
@@ -918,7 +918,7 @@ extern int Affichage_All(personnage_t * perso, int tabSkill[3], SDL_Texture * te
 }
 
 /**
- * \fn void AddFrame(sprite_t **** spriteMap, map_t * map, SDL_Rect * view)
+ * \fn void AddFrame(sprite_t **** spriteMap, int FrameCat, sprite_type_liste_t * listeType, map_t * map, SDL_Rect * view)
  * \brief Fonction externe qui incrémente la frame des sprites présents dans la spriteMap qui correspondent à la view.
  * 
  * \param spriteMap Matrice[layer][y][x] de pointeur sur sprite_t, la spriteMap à afficher
@@ -980,7 +980,7 @@ extern void AddFrame(sprite_t **** spriteMap, int FrameCat, sprite_type_liste_t 
  * \fn void Timer_Start( SDL_timer_t * timer )
  * \brief Initialise SDL_timer_t->start au temps courant
  * 
- * \fn timer Pointeur sur SDL_timer_t, le timer à lancer
+ * \param timer Pointeur sur SDL_timer_t, le timer à lancer
  * \return Aucun retour effectué en fin de fonction
 */
 extern void Timer_Start( SDL_timer_t * timer ) {
@@ -991,7 +991,7 @@ extern void Timer_Start( SDL_timer_t * timer ) {
  * \fn void Timer_Update( SDL_timer_t * timer )
  * \brief Initialise SDL_timer_t->now au temps courant
  * 
- * \fn timer Pointeur sur SDL_timer_t, le timer à update
+ * \param timer Pointeur sur SDL_timer_t, le timer à update
  * \return Aucun retour effectué en fin de fonction
 */
 extern void Timer_Update( SDL_timer_t * timer ) {
@@ -1002,7 +1002,7 @@ extern void Timer_Update( SDL_timer_t * timer ) {
  * \fn Uint32 Timer_Get_Time( SDL_timer_t * timer )
  * \brief Calcule le temps ecouler depuis le debut du timer
  * 
- * \fn timer Pointeur sur SDL_timer_t, le timer dont on doit calculer le temps
+ * \param timer Pointeur sur SDL_timer_t, le timer dont on doit calculer le temps
  * \return type Uint32 , Temps ecoulé debuit le debut du timer
 */
 extern Uint32 Timer_Get_Time( SDL_timer_t * timer ) {
@@ -1031,7 +1031,7 @@ extern int Clean_Remanent_Sprite( map_t * map, sprite_t **** spriteMap, SDL_Rect
             else if ( !all && ( (y == view->y + 5 && x == view->x + 9) || (y == view->y + 6 && x == view->x + 9) ) ) {
                 // Ne rien faire
             }
-            else if (spriteMap[1][y][x] != NULL) {
+            else {
                 spriteMap[1][y][x] = NULL;
             }
         }

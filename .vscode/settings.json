@@ -8,6 +8,8 @@
         "menu.h": "c",
         "stdlib.h": "c",
         "personnage.h": "c",
-        "pnj.h": "c"
+        "pnj.h": "c",
+        "string.h": "c",
+        "combat.h": "c"
     }
 }

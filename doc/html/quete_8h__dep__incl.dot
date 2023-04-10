@@ -5,7 +5,7 @@ digraph "include/quete.h"
   node [fontname="Helvetica",fontsize="10",shape=record];
   Node1 [label="include/quete.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Header Gestion Quete."];
   Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="src/quete.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$quete_8c.html",tooltip=" "];
+  Node2 [label="src/quete.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$quete_8c.html",tooltip="Fonction Gestion Quete."];
   Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node3 [label="include/pnj.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pnj_8h.html",tooltip="Header gestion des personnages non joueurs."];
   Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
@@ -15,7 +15,7 @@ digraph "include/quete.h"
   Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node6 [label="include/hud.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$hud_8h.html",tooltip="Header pour l'hud."];
   Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 [label="src/hud.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$hud_8c.html",tooltip=" "];
+  Node7 [label="src/hud.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$hud_8c.html",tooltip="Gestion HUD."];
   Node6 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node8 [label="include/play.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$play_8h.html",tooltip="Header Fonction Play."];
   Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
@@ -23,7 +23,7 @@ digraph "include/quete.h"
   Node8 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node10 [label="include/menu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8h.html",tooltip="Header Gestion Menu."];
   Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node11 [label="src/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html",tooltip=" "];
+  Node11 [label="src/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html",tooltip="Programme Principal."];
   Node10 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node12 [label="src/menu.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html",tooltip="Affichage du menu."];
   Node10 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];

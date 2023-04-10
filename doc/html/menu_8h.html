@@ -115,11 +115,13 @@ Fonctions</h2></td></tr>
 <tr class="memdesc:a2e231699d09cb58f7d9db370a0c06ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction qui affiche le menu.  <a href="menu_8h.html#a2e231699d09cb58f7d9db370a0c06ef7">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a2e231699d09cb58f7d9db370a0c06ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dace2648c48b7b76dda5139674e05d6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a3dace2648c48b7b76dda5139674e05d6">echap</a> (SDL_Window *window, SDL_Renderer *renderer, SDL_Texture *background_texture, SDL_Texture *tabTextGif[9])</td></tr>
+<tr class="memdesc:a3dace2648c48b7b76dda5139674e05d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet d'afficher le menu pause.  <a href="menu_8h.html#a3dace2648c48b7b76dda5139674e05d6">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a3dace2648c48b7b76dda5139674e05d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab340ffb86982124bee917684122edecb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#ab340ffb86982124bee917684122edecb">changeResolution</a> (int indiceResolution, int indiceFullscreen, SDL_Window *window)</td></tr>
 <tr class="memdesc:ab340ffb86982124bee917684122edecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet de changer la résolution de la fenêtre.  <a href="menu_8h.html#ab340ffb86982124bee917684122edecb">Plus de détails...</a><br /></td></tr>
 <tr class="separator:ab340ffb86982124bee917684122edecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a803f57a72cfe8dabcf47a654c9ce9ff7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="menu_8h.html#a803f57a72cfe8dabcf47a654c9ce9ff7">getWinInfo</a> (SDL_Window *window, int *width, int *height, int tileSize, SDL_Rect *view, int *dstCoef, int *xBorder, int *yBorder)</td></tr>
+<tr class="memdesc:a803f57a72cfe8dabcf47a654c9ce9ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui permet d'obtenir les informations de la fenêtre.  <a href="menu_8h.html#a803f57a72cfe8dabcf47a654c9ce9ff7">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a803f57a72cfe8dabcf47a654c9ce9ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
@@ -213,6 +215,18 @@ Fonctions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction externe qui permet d'afficher le menu pause. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">background_texture</td><td>Pointeur sur la texture de l'image d'arrière plan </td></tr>
+    <tr><td class="paramname">tabTextGif</td><td>Tableau de pointeurs sur les objets SDL_Texture </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>-1 Si on ferme le jeux || 0 Si on quite seulement le menu echap </dd></dl>
+
 </div>
 </div>
 <a id="a803f57a72cfe8dabcf47a654c9ce9ff7"></a>
@@ -276,6 +290,22 @@ Fonctions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction externe qui permet d'obtenir les informations de la fenêtre. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">width</td><td>Pointeur sur un int, largeur de la fenêtre </td></tr>
+    <tr><td class="paramname">height</td><td>Pointeur sur un int, hauteur de la fenêtre </td></tr>
+    <tr><td class="paramname">tileSize</td><td>Taille en pixel des tiles </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
+    <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
+    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour effectué en fin de fonction </dd></dl>
 
 </div>
 </div>

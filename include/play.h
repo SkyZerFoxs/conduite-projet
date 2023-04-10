@@ -27,6 +27,6 @@
 /* ------------------------------------------------------ */
 
 // Fonction Pour Lancer Le Jeu
-int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]) ;
+extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]) ;
 
 #endif

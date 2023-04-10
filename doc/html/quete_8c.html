@@ -90,6 +90,9 @@ $(document).ready(function(){initNavTree('quete_8c.html',''); initResizable(); }
 <div class="title">Référence du fichier quete.c</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Fonction Gestion Quete.  
+<a href="#details">Plus de détails...</a></p>
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="quete_8h_source.html">quete.h</a>&gt;</code><br />
@@ -101,12 +104,19 @@ Graphe des dépendances par inclusion de quete.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Fonctions</h2></td></tr>
-<tr class="memitem:a5a4addeca3048330f74189879a53d967"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structquete__t.html">quete_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quete_8c.html#a5a4addeca3048330f74189879a53d967">Load_Quete</a> (const char *nom_fichier)</td></tr>
-<tr class="separator:a5a4addeca3048330f74189879a53d967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f08952ca4a5ada93031163646602ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structquete__t.html">quete_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quete_8c.html#a44f08952ca4a5ada93031163646602ba">Load_Quete</a> (const char *nom_fichier)</td></tr>
+<tr class="memdesc:a44f08952ca4a5ada93031163646602ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui charge la liste des quetes depuis un fichier.  <a href="quete_8c.html#a44f08952ca4a5ada93031163646602ba">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a44f08952ca4a5ada93031163646602ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad30a2b6e7be3db57caba7069356f6103"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="quete_8c.html#ad30a2b6e7be3db57caba7069356f6103">afficher_quetes</a> (<a class="el" href="structquete__t.html">quete_t</a> *premiere_quete)</td></tr>
+<tr class="memdesc:ad30a2b6e7be3db57caba7069356f6103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui affiche les quêtes pour déboguer.  <a href="quete_8c.html#ad30a2b6e7be3db57caba7069356f6103">Plus de détails...</a><br /></td></tr>
 <tr class="separator:ad30a2b6e7be3db57caba7069356f6103"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentation des fonctions</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Fonction Gestion Quete. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>05/03/2023 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
 <a id="ad30a2b6e7be3db57caba7069356f6103"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad30a2b6e7be3db57caba7069356f6103">&#9670;&nbsp;</a></span>afficher_quetes()</h2>
 
@@ -123,16 +133,25 @@ Fonctions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fonction externe qui affiche les quêtes pour déboguer. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">premiere_quete</td><td>La quete de depart </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Aucun retour en fin de fonction </dd></dl>
+
 </div>
 </div>
-<a id="a5a4addeca3048330f74189879a53d967"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a4addeca3048330f74189879a53d967">&#9670;&nbsp;</a></span>Load_Quete()</h2>
+<a id="a44f08952ca4a5ada93031163646602ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44f08952ca4a5ada93031163646602ba">&#9670;&nbsp;</a></span>Load_Quete()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structquete__t.html">quete_t</a>* Load_Quete </td>
+          <td class="memname"><a class="el" href="structquete__t.html">quete_t</a> * Load_Quete </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>nom_fichier</em></td><td>)</td>
@@ -140,6 +159,15 @@ Fonctions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Fonction externe qui charge la liste des quetes depuis un fichier. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nom_fichier</td><td>Le chemin vers le fichier en question </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Pointeur sur <a class="el" href="structquete__t.html" title="Structure des quetes ( Data )">quete_t</a> || Null Fail ( Statut Fonction ) </dd></dl>
 
 </div>
 </div>
