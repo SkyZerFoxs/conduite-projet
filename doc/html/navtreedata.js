@@ -48,7 +48,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "affichage_8c.html",
-"pnj_8c.html#a7593e902cf85989f39323e6c8b21843a"
+"play_8h.html#af560d00a4d4d76e7d33cce60103222ed"
 ];
 
 var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';

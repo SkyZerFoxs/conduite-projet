@@ -16,7 +16,7 @@ var searchData=
   ['colision_5flayer_53',['COLISION_LAYER',['../map_8h.html#adbcbb2c561badcb16b8149d1fc070dd8',1,'map.h']]],
   ['combat_2ec_54',['combat.c',['../combat_8c.html',1,'']]],
   ['combat_2eh_55',['combat.h',['../combat_8h.html',1,'']]],
-  ['combat_5fjoueur_56',['combat_joueur',['../combat_8c.html#a4b8674c96da38d0adc869ad2c06eb29c',1,'combat_joueur(personnage_t *personnage, monstre_t *monstre, int typeAttaque):&#160;combat.c'],['../combat_8h.html#a2f3cee4c90c757871408f83ff7bfb7e9',1,'combat_joueur(personnage_t *personnage, monstre_t *monstre, int typeAttaque):&#160;combat.c']]],
+  ['combat_5fjoueur_56',['combat_joueur',['../combat_8c.html#a2f3cee4c90c757871408f83ff7bfb7e9',1,'combat_joueur(personnage_t *personnage, monstre_t *monstre, int typeAttaque):&#160;combat.c'],['../combat_8h.html#a2f3cee4c90c757871408f83ff7bfb7e9',1,'combat_joueur(personnage_t *personnage, monstre_t *monstre, int typeAttaque):&#160;combat.c']]],
   ['combat_5fmonstre_57',['combat_monstre',['../combat_8h.html#a33f3f4d8529e8a7c94809bb925b20fcd',1,'combat_monstre(monstre_t *monstre, personnage_t *personnage, int distance):&#160;combat.c'],['../combat_8c.html#a33f3f4d8529e8a7c94809bb925b20fcd',1,'combat_monstre(monstre_t *monstre, personnage_t *personnage, int distance):&#160;combat.c']]],
   ['commande_58',['commande',['../menu_8c.html#aad35b231ca94136965c09d3e2ef1612e',1,'menu.c']]],
   ['copy_5fsprite_59',['Copy_Sprite',['../sprite_8c.html#acf449bc205ab5889590944509f5c3307',1,'Copy_Sprite(sprite_t ****spriteMap, map_t *map, int y1, int x1, int y2, int x2):&#160;sprite.c'],['../sprite_8h.html#acf449bc205ab5889590944509f5c3307',1,'Copy_Sprite(sprite_t ****spriteMap, map_t *map, int y1, int x1, int y2, int x2):&#160;sprite.c']]],

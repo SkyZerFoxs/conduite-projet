@@ -5,13 +5,14 @@
 /**
  *	\file pnj.h
  *  \brief Header gestion des personnages non joueurs
- *  \author Sardon William
+ *  \author Sardon William & MANFALOTI Yamis 
  *  \version 2.0
  *  \date 3/03/2023
  */
 
 #include <string.h>
 #include <quete.h>
+#include <string.h>
 
 /* ------------------------------------------------ */
 /* ------------------ Structure  ------------------ */

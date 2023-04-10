@@ -15,6 +15,7 @@
 #include <combat.h>
 #include <objets.h>
 #include <pnj.h>
+#include <math.h>
 
 #endif
 

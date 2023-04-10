@@ -23,7 +23,7 @@
  * \brief Fonction principale du test
  * 
  * \param void Aucun paramètre en entrée 
- * \return Int qui caractérise la du main
+ * \return Int qui caractérise le statut de la fonction main
  */
 int main() {
 

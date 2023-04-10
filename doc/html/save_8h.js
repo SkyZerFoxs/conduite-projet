@@ -1,5 +1,5 @@
 var save_8h =
 [
-    [ "load_game", "save_8h.html#a92941d41623c943ee1de19d9f693a0cb", null ],
-    [ "save_game", "save_8h.html#a37565cd29896ab7c71d88f60bab4442d", null ]
+    [ "load_game", "save_8h.html#a9138aa07851f37f36ccf22b8e1b4c398", null ],
+    [ "save_game", "save_8h.html#a5e3f640f18b14e62b455dc67738ed8ff", null ]
 ];

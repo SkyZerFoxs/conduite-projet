@@ -19,6 +19,4 @@
 extern int combat_joueur(personnage_t* personnage, monstre_t* monstre, int typeAttaque) ;
 extern int combat_monstre(monstre_t* monstre, personnage_t* personnage, int distance) ;
 
-extern int level_up(personnage_t * perso, monstre_t * monstre)  ;
-
 #endif

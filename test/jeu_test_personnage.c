@@ -9,17 +9,48 @@
 #define ATK 1
 #define DEF 2
 
-// Fonction d'initialisation de CUnit
+/**
+ * \file jeu_test_personnage.c
+ * \brief Jeu de test sur la fonction upgrade_perso()
+ * \author Yamis MANFALOTI
+ * \version 1.0
+ * \date 04 mars 2023
+ *
+ * \n Jeu de test: 
+ * \n => Correct:
+ * \n    - Upgrade stats 0 (  maxPV  )
+ * \n    - Upgrade stats 1 ( attaque )
+ * \n    - Upgrade stats 2 ( defense )
+ * \n => Incorrect:
+ * \n    - Upgrade stats 3 ( stats > 2 = invalide )
+ */
+
+/**
+ * \fn int init_suite(void)
+ * \brief Fonction d'initialisation de CUnit
+ * \param void Aucun parametre
+ * \return int
+*/
 int init_suite(void) {
     return 0;
 }
 
-// Fonction de nettoyage de CUnit
+/**
+ * \fn int clean_suite(void)
+ * \brief Fonction de nettoyage de CUnit
+ * \param void Aucun parametre
+ * \return int
+*/
 int clean_suite(void) {
     return 0;
 }
 
-// Test d'amélioration de la statistique maxPv
+/**
+ * \fn void test_upgrade_maxPv(void)
+ * \brief Test d'amélioration de la statistique maxPv
+ * \param void Aucun parametre
+ * \return Aucun retour en fin de fonction
+*/
 void test_upgrade_maxPv(void) {
     // Création d'un personnage de test
     personnage_t * perso = creer_personnage("Alice");
@@ -35,7 +66,12 @@ void test_upgrade_maxPv(void) {
     supprimer_perso(&perso);
 }
 
-// Test d'amélioration de la statistique attaque
+/**
+ * \fn void test_upgrade_atk(void)
+ * \brief Test d'amélioration de la statistique attaque
+ * \param void Aucun parametre
+ * \return Aucun retour en fin de fonction
+*/
 void test_upgrade_atk(void) {
     // Création d'un personnage de test
     personnage_t * perso = creer_personnage("Bob");
@@ -51,7 +87,12 @@ void test_upgrade_atk(void) {
     supprimer_perso(&perso);
 }
 
-// Test d'amélioration de la statistique défense
+/**
+ * \fn void test_upgrade_def(void)
+ * \brief Test d'amélioration de la statistique défense
+ * \param void Aucun parametre
+ * \return Aucun retour en fin de fonction
+*/
 void test_upgrade_def(void) {
     // Création d'un personnage de test
     personnage_t * perso = creer_personnage("Charlie");
@@ -67,7 +108,12 @@ void test_upgrade_def(void) {
     supprimer_perso(&perso);
 }
 
-// Test d'amélioration d'une statistique invalide
+/**
+ * \fn void test_upgrade_invalidStat(void)
+ * \brief Test d'amélioration d'une statistique invalide
+ * \param void Aucun parametre
+ * \return Aucun retour en fin de fonction
+*/
 void test_upgrade_invalidStat(void) {
     // Création d'un personnage de test
     personnage_t * perso = creer_personnage("Bob");
@@ -83,6 +129,13 @@ void test_upgrade_invalidStat(void) {
     supprimer_perso(&perso);
 }
 
+
+/**
+ * \brief Fonction principale du test
+ * 
+ * \param void Aucun paramètre en entrée 
+ * \return Int qui caractérise le statut de la fonction main
+ */
 int main() {
     // Initialisation de CUnit
     if (CU_initialize_registry() != CUE_SUCCESS) {

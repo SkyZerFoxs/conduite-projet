@@ -114,9 +114,8 @@ Fonctions</h2></td></tr>
 <tr class="memdesc:a2f3cee4c90c757871408f83ff7bfb7e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul les dégats reçus par le monstre et enlève les points de vie correpondants.  <a href="combat_8h.html#a2f3cee4c90c757871408f83ff7bfb7e9">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a2f3cee4c90c757871408f83ff7bfb7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33f3f4d8529e8a7c94809bb925b20fcd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8h.html#a33f3f4d8529e8a7c94809bb925b20fcd">combat_monstre</a> (<a class="el" href="structmonstre__t.html">monstre_t</a> *monstre, <a class="el" href="structpersonnage__t.html">personnage_t</a> *personnage, int distance)</td></tr>
+<tr class="memdesc:a33f3f4d8529e8a7c94809bb925b20fcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcul les dégats reçus par le joueur et enlève les points de vie correspondants.  <a href="combat_8h.html#a33f3f4d8529e8a7c94809bb925b20fcd">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a33f3f4d8529e8a7c94809bb925b20fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a170d4af8a8ec79e609bf997c4823bc0f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="combat_8h.html#a170d4af8a8ec79e609bf997c4823bc0f">level_up</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structmonstre__t.html">monstre_t</a> *monstre)</td></tr>
-<tr class="separator:a170d4af8a8ec79e609bf997c4823bc0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Header pour gérer les combats. </p>
@@ -201,33 +200,16 @@ Fonctions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a170d4af8a8ec79e609bf997c4823bc0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a170d4af8a8ec79e609bf997c4823bc0f">&#9670;&nbsp;</a></span>level_up()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int level_up </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
-          <td class="paramname"><em>perso</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structmonstre__t.html">monstre_t</a> *&#160;</td>
-          <td class="paramname"><em>monstre</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Calcul les dégats reçus par le joueur et enlève les points de vie correspondants. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">monstre</td><td>pointeur sur monstre qui combat </td></tr>
+    <tr><td class="paramname">perso</td><td>pointeur sur personnage du jeu </td></tr>
+    <tr><td class="paramname">distance</td><td>distance entre le joueur et le monstre </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Fail ( statut fonction ) </dd></dl>
 
 </div>
 </div>

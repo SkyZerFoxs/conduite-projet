@@ -13,7 +13,7 @@
 
 
 /**
- * \fn void combat_joueur(personnage_t * perso, monstre_t * monstre, int atk)
+ * \fn int combat_joueur(personnage_t * personnage, monstre_t * monstre, int typeAttaque)
  * \brief Calcul les dégats reçus par le monstre et enlève les points de vie correpondants
  * 
  * \param perso pointeur sur personnage du jeu
@@ -70,11 +70,12 @@ int combat_joueur(personnage_t * personnage, monstre_t * monstre, int typeAttaqu
 
 
 /**
- * \fn void combat_monstre(monstre_t * monstre, personnage_t * perso)
+ * \fn int combat_monstre(monstre_t* monstre, personnage_t* personnage, int distance)
  * \brief Calcul les dégats reçus par le joueur et enlève les points de vie correspondants
  * 
  * \param monstre pointeur sur monstre qui combat
  * \param perso pointeur sur personnage du jeu
+ * \param distance distance entre le joueur et le monstre
  * \return 0 Success || 1 Fail ( statut fonction )
 **/
 extern

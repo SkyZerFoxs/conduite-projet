@@ -3,7 +3,15 @@
 #include <menu.h>
 
 /**
- * \brief Fonction principale qui init SDL et appelle la fonction Play
+ * \file main.c
+ * \brief Programme Principal
+ * \author Yamis MANFALOTI
+ * \version 1.0
+ * \date 02 avril 2023
+ */
+
+/**
+ * \brief Fonction principale qui init SDL et appelle la fonction Menu
  * 
  * \param void Aucun paramètre en entrée 
  * \return Int qui caractérise la réussite de la fonction ( statut fonction )

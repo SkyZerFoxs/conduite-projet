@@ -3,6 +3,7 @@ var hud_8h =
     [ "inventaire_t", "structinventaire__t.html", "structinventaire__t" ],
     [ "liste_texture_pnj_dialogue_t", "structliste__texture__pnj__dialogue__t.html", "structliste__texture__pnj__dialogue__t" ],
     [ "Add_Item_Inventaire", "hud_8h.html#a38de404127d4007859f922344e0098af", null ],
+    [ "Death", "hud_8h.html#a6dc356df4b7fa28ce62086e8ec34af97", null ],
     [ "Detruire_Inventaire", "hud_8h.html#a9a81724c581e3df8e635a89761704c4a", null ],
     [ "Detruire_Liste_Texture_Pnj_Dialogue", "hud_8h.html#abf959470dd0ad0cdbeb03567ecca54b0", null ],
     [ "Dialogue", "hud_8h.html#a2144ddf38cb439a28c616e58a86d80a6", null ],

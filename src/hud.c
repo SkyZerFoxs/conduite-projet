@@ -2,6 +2,13 @@
 
 #include <hud.h>
 
+/**
+ * \file hud.c
+ * \brief Gestion HUD
+ * \author Yamis MANFALOTI
+ * \version 2.0
+ * \date 02 avril 2023
+ */
 
 /**
  * \fn inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem, char * cheminSelecteur, char * cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer * renderer)
@@ -469,7 +476,7 @@ static int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_List
 }
 
 /**
- * \fn int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \fn int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, TTF_Font* font, int  dstCoef, int  xBorder, int  yBorder, SDL_Renderer *renderer)
  * \brief Fonction static qui affiche l'interface d'information des objets
  * 
  * \param inventaire Pointeur sur l' inventaire_t
@@ -626,7 +633,7 @@ static int Afficher_Item_Info_Inventaire(inventaire_t * inventaire, liste_objet_
 }
 
 /**
- * \fn int Afficher_PersoPreview_Inventaire(sprite_t ** mat, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Renderer * renderer, int dstCoef, int xBorder, int yBorder) {
+ * \fn int Afficher_Inventaire(inventaire_t * inventaire, personnage_t * perso, sprite_t ** matPreviewPerso, Sprite_Texture_Liste_t *SpriteTextureListe, sprite_type_liste_t * listeType, SDL_Rect * view, TTF_Font* font, SDL_Window *window, SDL_Renderer *renderer)
  * \brief Fonction static qui affiche l'interface d'information des objets
  * 
  * \param inventaire Pointeur sur l' inventaire_t
@@ -1246,6 +1253,12 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
                                 case SDLK_i:
                                     afficherInfoItem = 0;
                                     break;
+                                case SDLK_ESCAPE:
+                                    quit = SDL_TRUE;
+                                    break;
+                                case SDLK_TAB:
+                                    quit = SDL_TRUE;
+                                    break;
                                 default:
                                     break;
                             }
@@ -1327,6 +1340,8 @@ extern int Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, pe
                             keyPressed = 1;
                             
                         }
+                        break;
+                    default:
                         break;
                 }
             }
@@ -1608,7 +1623,7 @@ static int Afficher_Pnj_Dialogue(liste_texture_pnj_dialogue_t * listeTextPnj, pn
     int pnjID = pnj->pnjTypeID;
 
     if ( pnjID >= listeTextPnj->nbElem  || listeTextPnj->tabTexture[pnjID] == NULL ) {
-       printf("Erreur : La texture du pnj (pnjID) est incorrecte dans Afficher_Pnj_Dialogue()\n");
+       printf("Erreur : La texture du pnj (pnjID=%d) est incorrecte dans Afficher_Pnj_Dialogue()\n",pnjID);
        return 1;
     }
 
@@ -1799,7 +1814,7 @@ static int Afficher_Dialogue(SDL_Texture * textDialogue, SDL_Texture ** matTextB
     int y = ( dstCoef * 16 * 8.45 ) + yBorder;
 
     if ( Afficher_Texte_Zone(renderer, font, listeTypePnj->liste[pnj->pnjTypeID]->dialogue, y, x, w, &marronCLaireInventaire) ) {
-        printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Inventaire()\n");
+        printf("Erreur : Echec Afficher_Texte_Zone() dans Afficher_Dialogue()\n");
         return 1;
     }
 
@@ -1974,8 +1989,15 @@ extern int Dialogue(SDL_Texture * textDialogue, liste_texture_pnj_dialogue_t * l
                                 case SDLK_RETURN:
                                     quit = SDL_TRUE;
                                     break;
+                                case SDLK_ESCAPE:
+                                    quit = SDL_TRUE;
+                                    break;
+                                default:
+                                    break;
                             }
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -2473,10 +2495,10 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_text
                     if (  !keyPressed ) {
                         // Gestion Touche Clavier
                         switch (event.key.keysym.sym) {
-                            case SDLK_UP:
+                            case SDLK_z:
                                 selectButton--;
                                 break;
-                            case SDLK_DOWN:
+                            case SDLK_s:
                                 selectButton++;
                                 break;
                             case SDLK_RETURN:
@@ -2498,6 +2520,8 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_text
                             selectButton = 2;
                         }
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -2523,6 +2547,13 @@ extern int Level_UP(SDL_Texture * textFondLevelUP, SDL_Texture * background_text
 
         // mise à jour du renderer ( update affichage)
         SDL_RenderPresent(renderer);
+
+        // Sortie Si Aucun Upgrade Possible
+        if ( perso->pts_upgrade <= 0 ) {
+            quit = SDL_TRUE;
+            // Correction d'erreur 
+            perso->pts_upgrade = 0;
+        }
         
     }        
 
@@ -2724,8 +2755,15 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
                                 case SDLK_RETURN:
                                     frame++;
                                     break;
+                                case SDLK_ESCAPE:
+                                    quit = SDL_TRUE;
+                                    break;
+                                default:
+                                    break;
                             }
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -2801,6 +2839,223 @@ extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * 
             Detruire_Texture( &matTextImgIntro[i] );
         }
     }
+
+    return erreur;
+}
+
+/**
+ * \fn int Death(SDL_Texture * textFonDeath, SDL_Texture * background_texture, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction externe qui lance l'interface de mort du joueur
+ * 
+ * \param textFonDeath Texture de l'image d'interface de mort du joueur
+ * \param background_texture Pointeur sur la texture a afficher en arrière plan
+ * \param view Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur
+ * \param window Pointeur sur l'objet SDL_Window
+ * \param renderer Pointeur de pointeur sur l'objet SDL_Renderer
+ * \return 0 Success || 1 Echec de la fonction ( statut fonction )
+*/
+extern int Death(SDL_Texture * textFondDeath, SDL_Texture * background_texture, SDL_Rect * view, SDL_Window *window, SDL_Renderer *renderer) {
+    /* ------------------ Detection Erreur Parametre ------------------ */
+
+    // Vérification de la variable textFondLvlUP
+    if ( textFondDeath == NULL ) {
+        printf("Erreur : textFondDeath non Initialisé dans Death()\n");
+        return 1;
+    }
+
+    // Vérification de la variable background_texture
+    if ( background_texture == NULL ) {
+        printf("Erreur : background_texture non Initialisé dans Death()\n");
+        return 1;
+    }
+
+
+    // Vérification de la variable view
+    if ( view == NULL) {
+        printf("Erreur : view non initialisée dans Death()\n");
+        return 1;
+    }
+
+    // Vérification de la variable window
+    if ( window == NULL) {
+        printf("Erreur : window non initialisée dans Death()\n");
+        return 1;
+    }
+
+    // Vérification de la variable renderer
+    if ( renderer == NULL) {
+        printf("Erreur : renderer non initialisé dans Death()\n");
+        return 1;
+    }
+    
+    /* ------------------ Initialisation variable ------------------ */
+
+    // statut des erreurs
+    int erreur = 0;
+
+     // Nombre De FPS A Afficher
+    int FRAME_PER_SECONDE = 30;
+
+    // Nombre De Ms Par Frame Produite
+    int msPerFrame;
+
+    // Variable Pour Quitter La Boucle Principal
+    int quit = SDL_FALSE;
+
+    // Variable qui detecte si une touche est deja été préssé
+    int keyPressed = 0;
+
+    // Variable SDL_Event Pour Detecter Les Actions
+    SDL_Event event;
+
+    // initialisation des timers
+    SDL_timer_t fps;
+    SDL_timer_t timerFrameButton;
+
+    // Variable Frame Button
+    int frameButton = 0;
+
+    // Variable getWinInfo
+    int win_width;
+    int win_height;
+    int dstCoef;
+    int xBorder;
+    int yBorder;
+
+    /* ------------------ Initialisation resource jeux ------------------ */
+
+    // initialisation des variables
+    SDL_Texture * matTextButton[2] = { NULL, NULL};
+    char * cheminTextButton[2] = { "asset/hud/death/button.png", "asset/hud/death/buttonPressed.png"};
+
+    // Récupération des informations de la fenêtre utile à l'affichage
+    getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
+
+
+    // Chargement texture bouton
+    for (int i = 0; i < 2; i++) {
+        matTextButton[i] = IMG_LoadTexture(renderer,cheminTextButton[i]);
+        if ( matTextButton[i] == NULL ) {
+            printf("Erreur : Echec IMG_Load(matTextButton[%d]) dans Death()",i);
+            return 1;
+        }
+    }
+
+
+    Timer_Start(&timerFrameButton);
+    timerFrameButton.start -= 700;
+
+    // Debut Des Timers
+
+    /* ------------------ Boucle Principal ------------------ */
+
+    while( quit == SDL_FALSE && erreur == 0) {
+        /* --------- Variable Boucle --------- */
+        // Lancement timer temps d'execution
+        Timer_Start( &fps );
+
+        // Reset keyPressed
+        keyPressed = 0;
+
+        /* ------- Detection Evenement -------*/
+        while (SDL_PollEvent(&event)) {
+            // Switch Event
+            switch (event.type) {
+                // Evenement QUIT
+                case SDL_QUIT:
+                    quit = SDL_TRUE;
+                    erreur = -1;
+                    break;
+                // Evenement Touche Clavier
+                case SDL_KEYDOWN:
+                    if (  !keyPressed ) {
+                        // Gestion Touche Clavier
+                        switch (event.key.keysym.sym) {
+                            case SDLK_RETURN:
+                                quit = SDL_TRUE;
+                                break;
+                            case SDLK_ESCAPE:
+                                quit = SDL_TRUE;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+
+        /* --------- Gestion Affichage --------- */
+    
+        // Récupération des informations de la fenêtre utile à l'affichage
+        getWinInfo(window, &win_width, &win_height, 16, view, &dstCoef, &xBorder, &yBorder);
+
+        // Clear
+        SDL_RenderClear(renderer);
+
+        // Affichage Arrire Plan
+        if ( SDL_RenderCopy(renderer,background_texture,NULL,NULL) ) {
+            printf("Erreur : SDL_RenderCopy(background_texture) à échoué dans Death()\n");
+            return 1;
+        }
+
+        // Affichage Fond
+        SDL_Rect dest;
+        dest.x = xBorder;
+        dest.y = yBorder; 
+        dest.h = dstCoef * 16 * 11;
+        dest.w = dstCoef * 16 * 20;
+        if ( SDL_RenderCopy(renderer,textFondDeath,NULL,&dest) ) {
+            printf("Erreur : SDL_RenderCopy(textFondDeath) à échoué dans Death()\n");
+            return 1;
+        }
+
+        // Augmentation frame bouton
+        if ( (int)Timer_Get_Time( &timerFrameButton ) > 700 ) {
+            frameButton = ( frameButton + 1 ) % 2;
+            Timer_Start( &timerFrameButton );
+        }
+
+        // Affichage Bouton
+        SDL_Texture * text = matTextButton[frameButton];
+
+        // Rectangle Destination ( Renderer )
+        SDL_Rect rectDst;
+        rectDst.x = ( dstCoef * 16 * 11 ) + xBorder;
+        rectDst.y = ( dstCoef * 16 * 7 ) + yBorder; 
+        rectDst.h = dstCoef * 16;
+        rectDst.w = dstCoef * 16 * 3;
+
+        // Affichage de la frame courante du bouton
+        if ( SDL_RenderCopy(renderer, text, NULL, &rectDst) < 0 ) {
+            printf("Erreur : SDL_RenderCopy(button) à échoué dans Death()\n");
+            return 1;
+        }
+
+        
+        // Gestion fps
+        if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
+            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+        }
+
+        // mise à jour du renderer ( update affichage)
+        SDL_RenderPresent(renderer);
+        
+    }        
+
+    // Destruction texture button
+    for (int i = 0; i < 2; i++) {
+        Detruire_Texture( &(matTextButton[i]) );
+        if ( matTextButton[i] != NULL ) {
+            printf("Erreur : Echec Detruire_Texture(matTextButton[%d]) dans Death()\n",i);
+            return 1;
+        }
+    }
+
+    
 
     return erreur;
 }

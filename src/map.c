@@ -127,3 +127,89 @@ extern void Detruire_Map(map_t ** map) {
     free((*map));
     (*map) = NULL;
 }
+
+/** 
+ * \fn int Detecter_Coffre(map_t *map, int y_joueur, int x_joueur, char direction, int distance)
+ * \brief Fonction externe qui détecte si un coffre est proche et renvoie un booleen
+ *
+ * \param map Pointeur sur map_t, la map à partir de laquelle charger la matrice de sprites.
+ * \param y_joueur Coordonnée y du joueur sur la carte.
+ * \param x_joueur Coordonnée x du joueur sur la carte.
+ * \param direction Direction dans laquelle le joueur regarde.
+ * \param distance Distance maximale à laquelle chercher les un pnj.
+ * \return 1 si un coffre a été trouvé, 0 si aucun coffre n'a été trouvé, -1 en cas d'erreur.
+ */
+extern int Detecter_Coffre(map_t *map, int y_joueur, int x_joueur, char direction, int distance) {
+    // Vérification des paramètres d'entrée
+    if (map == NULL) {
+        printf("Erreur : Map Inexistante dans Detecter_Coffre()\n");
+        return -1;
+    }
+    if (y_joueur < 0 || x_joueur < 0 || y_joueur >= map->height || x_joueur >= map->width) {
+        printf("Erreur : Coordonnées dans la spriteMap ( Emplacement Destination ) Invalide dans Detecter_Coffre()\n");
+        return -1;
+    }
+
+    // Initialisation des variables de detection
+    int dx = 0, dy = 0;
+    
+    switch (direction) {
+        case 'Z':
+            dy = -1;
+            break;
+        case 'Q':
+            dx = -1;
+            break;
+        case 'S':
+            dy = 1;
+            break;
+        case 'D':
+            dx = 1;
+            break;
+        default:
+            printf("Erreur : Direction Invalide dans Detecter_Coffre()\n");
+            return -1;
+    }
+
+    // Variables
+    int detectionCoffre = 0, zoneLevel;
+    int coffreLevel = 0;
+    int x, y;
+    for (int d = 1; d <= distance; d++) {
+        x = x_joueur + dx * d;
+        y = y_joueur + dy * d;
+        if (x < 0 || y < 0 || x >= map->width || y >= map->height) {
+            printf("Erreur : On est en dehors de la carte dans Detecter_Coffre()\n");
+            return -1;
+            break;
+        }
+        if ( map->matrice[2][y][x] == ID_COFFRE_TILE ) {
+            // On a trouvé un coffre
+            detectionCoffre = 1;
+            break;
+        }
+    }
+
+    if ( detectionCoffre ) {
+        // Calcule niveau du coffre
+        zoneLevel = map->matrice[6][y][x];
+        if ( zoneLevel < 5 || zoneLevel % 5 != 0 ) {
+            printf("Erreur : matZoneLevel[%d][%d] incorrecte dans Detecter_Coffre()\n", y, x);
+            return -1;
+        }
+        if ( zoneLevel >= 5 || zoneLevel <= 10 ) {
+            coffreLevel = 1;
+        }
+        else if ( zoneLevel > 10 || zoneLevel <= 20 ) {
+            coffreLevel = 2;
+        }
+        else {
+            coffreLevel = 3;
+        }
+        // Changement tile de coffre ferme vers tile de coffre ouvert
+        map->matrice[2][y][x] += 1;
+    }
+
+    // Aucun coffre trouvé
+    return coffreLevel;
+}

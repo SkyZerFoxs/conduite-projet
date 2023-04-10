@@ -90,6 +90,9 @@ $(document).ready(function(){initNavTree('hud_8c.html',''); initResizable(); });
 <div class="title">Référence du fichier hud.c</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Gestion HUD.  
+<a href="#details">Plus de détails...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;<a class="el" href="hud_8h_source.html">hud.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -118,8 +121,9 @@ Fonctions</h2></td></tr>
 <tr class="memitem:a4a4db720a30f7d590cac4d12ad5c7972"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#a4a4db720a30f7d590cac4d12ad5c7972">Afficher_PersoPreview_Inventaire</a> (<a class="el" href="structsprite__t.html">sprite_t</a> **mat, <a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, SDL_Renderer *renderer, int dstCoef, int xBorder, int yBorder)</td></tr>
 <tr class="memdesc:a4a4db720a30f7d590cac4d12ad5c7972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction static qui affiche le preview du personnage dans l'invetaire.  <a href="hud_8c.html#a4a4db720a30f7d590cac4d12ad5c7972">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a4a4db720a30f7d590cac4d12ad5c7972"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addddfcf104e33e141c849c2c856a8a9d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#addddfcf104e33e141c849c2c856a8a9d">Afficher_Item_Info_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, TTF_Font *font, int dstCoef, int xBorder, int yBorder, SDL_Renderer *renderer)</td></tr>
-<tr class="separator:addddfcf104e33e141c849c2c856a8a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ddc7d6e2d81ab45e806ed68b7c02c7"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#ab5ddc7d6e2d81ab45e806ed68b7c02c7">Afficher_Item_Info_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, TTF_Font *font, int dstCoef, int xBorder, int yBorder, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:ab5ddc7d6e2d81ab45e806ed68b7c02c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction static qui affiche l'interface d'information des objets.  <a href="hud_8c.html#ab5ddc7d6e2d81ab45e806ed68b7c02c7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab5ddc7d6e2d81ab45e806ed68b7c02c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e50dfc0783e48b01513c9a23b369ebc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#a7e50dfc0783e48b01513c9a23b369ebc">Afficher_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structsprite__t.html">sprite_t</a> **matPreviewPerso, <a class="el" href="structSprite__Texture__Liste__t.html">Sprite_Texture_Liste_t</a> *SpriteTextureListe, <a class="el" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, SDL_Rect *view, TTF_Font *font, SDL_Window *window, SDL_Renderer *renderer)</td></tr>
 <tr class="separator:a7e50dfc0783e48b01513c9a23b369ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c52b04589c25e3ae96a13c273d47aaf"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#a2c52b04589c25e3ae96a13c273d47aaf">Deplacement_Curseur_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, char direction)</td></tr>
@@ -176,8 +180,16 @@ Fonctions</h2></td></tr>
 <tr class="memitem:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#afb4c8ef6445d5554ecb05c3bde36db6d">Introduction</a> (SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
 <tr class="memdesc:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface d'Introduction.  <a href="hud_8c.html#afb4c8ef6445d5554ecb05c3bde36db6d">Plus de détails...</a><br /></td></tr>
 <tr class="separator:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc356df4b7fa28ce62086e8ec34af97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8c.html#a6dc356df4b7fa28ce62086e8ec34af97">Death</a> (SDL_Texture *textFondDeath, SDL_Texture *background_texture, SDL_Rect *view, SDL_Window *window, SDL_Renderer *renderer)</td></tr>
+<tr class="memdesc:a6dc356df4b7fa28ce62086e8ec34af97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface de mort du joueur.  <a href="hud_8c.html#a6dc356df4b7fa28ce62086e8ec34af97">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6dc356df4b7fa28ce62086e8ec34af97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentation des fonctions</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Gestion HUD. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Yamis MANFALOTI </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>02 avril 2023 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
 <a id="a38de404127d4007859f922344e0098af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a38de404127d4007859f922344e0098af">&#9670;&nbsp;</a></span>Add_Item_Inventaire()</h2>
 
@@ -752,8 +764,8 @@ Fonctions</h2></td></tr>
 
 </div>
 </div>
-<a id="addddfcf104e33e141c849c2c856a8a9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addddfcf104e33e141c849c2c856a8a9d">&#9670;&nbsp;</a></span>Afficher_Item_Info_Inventaire()</h2>
+<a id="ab5ddc7d6e2d81ab45e806ed68b7c02c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ddc7d6e2d81ab45e806ed68b7c02c7">&#9670;&nbsp;</a></span>Afficher_Item_Info_Inventaire()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -762,7 +774,7 @@ Fonctions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static int Afficher_Item_Info_Inventaire </td>
+          <td class="memname">int Afficher_Item_Info_Inventaire </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td>
           <td class="paramname"><em>inventaire</em>, </td>
@@ -815,6 +827,21 @@ Fonctions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Fonction static qui affiche l'interface d'information des objets. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
+    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+    <tr><td class="paramname">font</td><td>Police d'écriture pour afficher le texte </td></tr>
+    <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
+    <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
+    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
 
 </div>
 </div>
@@ -1038,7 +1065,6 @@ Fonctions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fonction static qui affiche le preview du personnage dans l'invetaire. </p>
-<p>Fonction static qui affiche l'interface d'information des objets.</p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramname">mat</td><td>Matrice[y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, les sprites à afficher ( partie haute et basse du personnage ) . </td></tr>
@@ -1048,34 +1074,6 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
     <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
     <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction )</dd></dl>
-<dl class="params"><dt>Paramètres</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
-    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
-    <tr><td class="paramname">font</td><td>Police d'écriture pour afficher le texte </td></tr>
-    <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
-    <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
-    <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
-    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction )</dd></dl>
-<dl class="params"><dt>Paramètres</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
-    <tr><td class="paramname">perso</td><td>pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
-    <tr><td class="paramname">matPreviewPerso</td><td>Matrice[y][x] de pointeur sur <a class="el" href="structsprite__t.html" title="Structure des Sprites.">sprite_t</a>, les sprites à afficher ( partie haute et basse du personnage ) . </td></tr>
-    <tr><td class="paramname">SpriteTextureListe</td><td>Liste des textures des sprites </td></tr>
-    <tr><td class="paramname">listeType</td><td>Pointeur sur <a class="el" href="structsprite__type__liste__t.html" title="Liste des types de sprites.">sprite_type_liste_t</a>, La liste des types de sprite. </td></tr>
-    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
-    <tr><td class="paramname">font</td><td>Police d'écriture pour afficher le texte </td></tr>
-    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
-    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
   </table>
   </dd>
 </dl>
@@ -1216,6 +1214,65 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">dstCoef</td><td>Coeficient qui permet d'apdater l'affichage de sorties à plusieur dimensions </td></tr>
     <tr><td class="paramname">xBorder</td><td>Bordure à gauche dans la fenêtre </td></tr>
     <tr><td class="paramname">yBorder</td><td>Bordure en haut dans la fenêtre </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a6dc356df4b7fa28ce62086e8ec34af97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc356df4b7fa28ce62086e8ec34af97">&#9670;&nbsp;</a></span>Death()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Death </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>textFonDeath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Texture *&#160;</td>
+          <td class="paramname"><em>background_texture</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface de mort du joueur. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">textFonDeath</td><td>Texture de l'image d'interface de mort du joueur </td></tr>
+    <tr><td class="paramname">background_texture</td><td>Pointeur sur la texture a afficher en arrière plan </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur </td></tr>
+    <tr><td class="paramname">window</td><td>Pointeur sur l'objet SDL_Window </td></tr>
     <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
   </table>
   </dd>

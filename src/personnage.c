@@ -190,7 +190,7 @@ void supprimer_perso(personnage_t ** perso){
 
 
 /**
- * \fn void upgrade_perso(personnage_t * perso)
+ * \fn int upgrade_perso(personnage_t * perso, int stats)
  * \brief amélioration d'un personnage
  * \param personnage pointeur sur la structure du personnage qu'on améliore
  * \param stats indice de la statistique a améliorer

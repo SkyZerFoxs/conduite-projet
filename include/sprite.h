@@ -7,7 +7,7 @@
 
 #define MAX_SPRITE_FRAME 20
 #define BORNE_PERSO_SPRITE 132
-#define BORNE_PNJ_SPRITE 209
+#define BORNE_PNJ_SPRITE 208
 
 /**
  * \file sprite.h
