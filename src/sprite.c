@@ -788,48 +788,50 @@ extern pnj_liste_t * Load_Pnj(map_t* map, sprite_t**** spriteMap, liste_type_pnj
     int id;
     sprite_t * sprite;
     for (int y = 0; y < map->height; y++) {
-        for (int x = 0; x < map->width; x++) {
-            if (    (y + 1) < map->height && (x + 1) < map->width      
-                    && spriteMap[layer][y    ][x    ] != NULL && spriteMap[layer][y    ][x    ]->pnj == NULL 
-                    && spriteMap[layer][y + 1][x    ] != NULL && spriteMap[layer][y + 1][x    ]->pnj == NULL 
-                    && spriteMap[layer][y    ][x + 1] != NULL && spriteMap[layer][y    ][x + 1]->pnj == NULL 
-                    && spriteMap[layer][y + 1][x + 1] != NULL && spriteMap[layer][y + 1][x + 1]->pnj == NULL
-                ) 
+        for (int x = 0; x < map->width; x++ ) {
+            if  ( 
+                  spriteMap[layer][y    ][x    ] != NULL &&
+                  spriteMap[layer][y    ][x + 1] != NULL && 
+                  spriteMap[layer][y + 1][x    ] != NULL &&
+                  spriteMap[layer][y + 1][x + 1] != NULL 
+                )
             {   
                 sprite = spriteMap[layer][y][x];
                 // Si le id du type de sprite correspond bien a un sprite de PNJ
-                if ( sprite->spriteTypeId >= BORNE_PERSO_SPRITE &&  sprite->spriteTypeId < BORNE_PNJ_SPRITE) 
+                if (  sprite->spriteTypeId >= BORNE_PERSO_SPRITE &&  sprite->spriteTypeId < BORNE_PNJ_SPRITE)
                 {
-                    // calcule id pnj ( commence a BORNE_PERSO_SPRITE et 4 sprite par pnj )
-                    id = ( sprite->spriteTypeId - BORNE_PERSO_SPRITE ) / 4;
-                    // Création du nouveau pnj détecté
-                    pnj_t * newPnj = creer_pnj(id,y,x,liste_type_pnj);
-                    if ( newPnj == NULL ) {
-                        printf("Erreur : Echec creer_pnj(%d,%d,%d,liste_type_pnj) dans Load_Pnj()\n",id,y,x);
-                        Detruire_Liste_Pnj(&liste);
-                        return NULL;
-                    }
-                    // Ajout du pnj au sprite
-                    sprite->pnj = newPnj;
-                    spriteMap[layer][y + 1][x    ]->pnj = sprite->pnj;
-                    spriteMap[layer][y    ][x + 1]->pnj = sprite->pnj;
-                    spriteMap[layer][y + 1][x + 1]->pnj = sprite->pnj;
-                    // SyncroFrame
-                    sprite->frame = 0;
-                    spriteMap[layer][y + 1][x    ]->frame = sprite->frame;
-                    spriteMap[layer][y    ][x + 1]->frame = sprite->frame;
-                    spriteMap[layer][y + 1][x + 1]->frame = sprite->frame;
-                    // Ajout du pnj vers le tableau de pnj_t
-                    liste->tabPnj[liste->nbElem++] = sprite->pnj;
+                    // Ne rien faire
                 }
-                else 
-                {
+                else {
                     printf("Warning : ID sprite[%d] differents d'un ID de pnj dans Load_Pnj()\n",sprite->spriteTypeId );
                 }
+
+                // calcule id pnj ( commence a BORNE_PERSO_SPRITE et 4 sprite par pnj )
+                id = ( sprite->spriteTypeId - BORNE_PERSO_SPRITE ) / 4;
+                // Création du nouveau pnj détecté
+                pnj_t * newPnj = creer_pnj(id,y,x,liste_type_pnj);
+                if ( newPnj == NULL ) {
+                    printf("Erreur : Echec creer_pnj(%d,%d,%d,liste_type_pnj) dans Load_Pnj()\n",id,y,x);
+                    Detruire_Liste_Pnj(&liste);
+                    return NULL;
+                }
+                // Ajout du pnj au sprite
+                spriteMap[layer][y    ][x    ]->pnj = newPnj;
+                spriteMap[layer][y + 1][x    ]->pnj = newPnj;
+                spriteMap[layer][y    ][x + 1]->pnj = newPnj;
+                spriteMap[layer][y + 1][x + 1]->pnj = newPnj;
+                // SyncroFrame
+                spriteMap[layer][y    ][x    ]->frame = 0;
+                spriteMap[layer][y + 1][x    ]->frame = 0;
+                spriteMap[layer][y    ][x + 1]->frame = 0;
+                spriteMap[layer][y + 1][x + 1]->frame = 0;
+                // Ajout du pnj vers le tableau de pnj_t
+                liste->tabPnj[liste->nbElem] = newPnj;
+                liste->nbElem++;
             }
 
         }
-    }
+    }   
 
     return liste;
 }
@@ -920,8 +922,7 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
     int zoneLevel, randomLevel;
     for (int y = 0; y < map->height; y++) {
         for (int x = 0; x < map->width; x++) {
-            sprite_t *sprite = spriteMap[layer][y][x];
-            if (sprite != NULL && sprite->monstre == NULL) {
+            if (  spriteMap[layer][y][x] && spriteMap[layer][y][x]->monstre == NULL) {
                 // Calcule lvl monstre
                 zoneLevel = matZoneLevel[y][x];
                 if ( zoneLevel < 5 || zoneLevel % 5 != 0 ) {
@@ -937,12 +938,16 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
                 // Nouveau monstre détecté
                 char nom[20];
                 sprintf(nom, "Monstre N°%d", liste->nbElem + 1);
-                monstre_t* monstre = creer_monstre(nom, randomLevel, y, x); // Création du monstre
-                if ( monstre == NULL ) {
+                monstre_t* newMonstre = creer_monstre(nom, randomLevel, y, x); // Création du monstre
+                if ( newMonstre == NULL ) {
                     printf("Erreur : Echec creer_monstre(%s,%d,%d,%d) dans Load_Monster()\n",nom, randomLevel, y, x);
                     Detruire_Liste_Monstres(&liste);
                     return NULL;
                 }
+                // Pos monstre
+                newMonstre->pos_y = y;
+                newMonstre->pos_x = x;
+                // Detection Format Monstre
                 // 2x2 case ( BOSS )
                 if  (  (y + 1) < map->height && (x + 1) < map->width &&
                       spriteMap[layer][y    ][x    ] != NULL && spriteMap[layer][y    ][x    ]->monstre == NULL &&
@@ -951,15 +956,12 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
                       spriteMap[layer][y + 1][x + 1] != NULL && spriteMap[layer][y + 1][x + 1]->monstre == NULL
                     ) 
                 { 
-                    sprite->monstre = monstre;
-                    sprite->monstre->monstreSize = 4;
-                    spriteMap[layer][y + 1][x]->monstre = monstre;
-                    spriteMap[layer][y + 1][x]->monstre->monstreSize = 4;
-                    spriteMap[layer][y][x + 1]->monstre = monstre;
-                    spriteMap[layer][y][x + 1]->monstre->monstreSize = 4;
-                    spriteMap[layer][y + 1][x + 1]->monstre = monstre;
-                    spriteMap[layer][y + 1][x + 1]->monstre->monstreSize = 4;
-                    liste->tabMonstres[liste->nbElem++] = monstre;
+                    newMonstre->monstreSize = 4;
+                    spriteMap[layer][y    ][x    ]->monstre = newMonstre;
+                    spriteMap[layer][y + 1][x    ]->monstre = newMonstre;
+                    spriteMap[layer][y    ][x + 1]->monstre = newMonstre;
+                    spriteMap[layer][y + 1][x + 1]->monstre = newMonstre;
+                    liste->tabMonstres[liste->nbElem++] = newMonstre;
                 }
                 // Deux sprites de haut en bas
                 else if ( (y + 1) < map->height &&
@@ -967,31 +969,22 @@ extern monstre_liste_t* Load_Monster(map_t* map, sprite_t**** spriteMap) {
                           spriteMap[layer][y + 1][x    ] != NULL && spriteMap[layer][y + 1][x    ]->monstre == NULL
                         )
                 { 
-                    sprite->monstre = monstre;
-                    sprite->monstre->monstreSize = 2; // définir la taille du monstre
-                    spriteMap[layer][y + 1][x]->monstre = monstre;
-                    spriteMap[layer][y + 1][x]->monstre->monstreSize = 2; // définir la taille du monstre
-                    liste->tabMonstres[liste->nbElem++] = monstre;
+                    newMonstre->monstreSize = 2;
+                    spriteMap[layer][y    ][x    ]->monstre = newMonstre; // définir la taille du monstre
+                    spriteMap[layer][y + 1][x    ]->monstre = newMonstre;
+                    liste->tabMonstres[liste->nbElem++] = newMonstre;
                 } 
                 // Un seul sprite
                 else 
                 { 
-                    sprite->monstre = monstre;
-                    sprite->monstre->monstreSize = 1;
-                    liste->tabMonstres[liste->nbElem++] = monstre;
+                    newMonstre->monstreSize = 1;
+                    spriteMap[layer][y    ][x    ]->monstre = newMonstre;
+                    liste->tabMonstres[liste->nbElem++] = newMonstre;
                 }
 
             }
         }
     }   
-
-    /*
-    liste->tabMonstres = realloc(liste->tabMonstres, liste->nbElem * sizeof(monstre_t *));
-    if (liste->tabMonstres == NULL) {
-        printf("Erreur : Echec realloc(liste->tabMonstres) dans Load_Monster()\n");
-        return NULL;
-    }
-    */
 
     return liste;
 }
@@ -1120,7 +1113,7 @@ extern int Detecter_Monstre(sprite_t ****spriteMap, map_t *map, int y_joueur, in
  * \param[out] pnj Pointeur sur le pnj trouvé, NULL si aucun pnj trouvé.
  * \return 1 si un pnj a été trouvé, 0 si aucun pnj n'a été trouvé, -1 en cas d'erreur.
  */
-extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **pnj) {
+extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **pnj)  {
     // Vérification des paramètres d'entrée
     if (spriteMap == NULL) {
         printf("Erreur : spriteMap Inexistante dans Detecter_Pnj()\n");
@@ -1162,7 +1155,7 @@ extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_
             // On est en dehors de la carte
             break;
         }
-        if ( spriteMap[2][y][x] != NULL && spriteMap[2][y][x]->pnj != NULL ) {
+        if (spriteMap[2][y][x] != NULL && spriteMap[2][y][x]->pnj != NULL) {
             // On a trouvé un pnj
             *pnj = spriteMap[2][y][x];
             return 1;
@@ -1170,22 +1163,23 @@ extern int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_
     }
 
     // Aucun ennemi trouvé
-    *pnj = NULL;
     return 0;
 }
 
+
 /** 
- * \fn int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX )
+ * \fn int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX, int idBoss )
  * \brief Fonction externe qui régénère la vie des monstres ( implique la réapparition des monstres morts ) 
  *
  * \param liste Pointeur sur monstre_liste_t, la liste des monstres.
  * \param map Pointeur sur map_t, la map à partir de laquelle charger la matrice de sprites / monstre .
  * \param posJoueurY Coordonnée y du joueur sur la carte pour empêcher une superposition du monstre et du joueur.
  * \param posJoueurX Coordonnée x du joueur sur la carte pour empêcher une superposition du monstre et du joueur.
+ * \param idBoss Incide du boss dans la liste de monstre ( Si idBoss != -1, on ne regen pas la vie du Boss )
  * \return 0 Success || 1 Fail ( statut fonction )
  * 
  */
-extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX ) {
+extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY, int posJoueurX, int idBoss ) {
     if ( liste == NULL ) {
         printf("Erreur : liste en parametre invalide dans Respawn_Monstre()\n");
         return 1;
@@ -1206,13 +1200,18 @@ extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY
         return 1;
     }
 
+    if ( idBoss >= liste->nbElem  ) {
+        printf("Erreur : idBoss invalide dans Respawn_Monstre()\n");
+        return 1;
+    }
+
     if ( liste->tabMonstres == NULL ) {
         printf("Erreur : tabMonstres invalide dans Respawn_Monstre()\n");
         return 1;
     }
 
     for (int i = 0; i < liste->nbElem; i++) {
-        if ( liste->tabMonstres[i] != NULL ) {
+        if ( liste->tabMonstres[i] != NULL && (idBoss == -1 || i != idBoss) ) {
             monstre_t * monstre = liste->tabMonstres[i];
             if ( monstre->caract->maxPv > monstre->caract->pv ) {
                 if ( monstre->pos_x == posJoueurX && ( monstre->pos_y == posJoueurY || monstre->pos_y == posJoueurY-1 ) ) {
@@ -1223,7 +1222,7 @@ extern int Respawn_Monstre( monstre_liste_t * liste, map_t * map, int posJoueurY
                 }
             }
         }
-        else {
+        else if ( i != idBoss ){
             printf("Erreur : tabMonstres[%d] invalide dans Respawn_Monstre()\n",i);
             return 1;
         }

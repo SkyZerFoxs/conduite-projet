@@ -119,6 +119,12 @@ Fonctions</h2></td></tr>
 <tr class="memitem:a4a7cd38d85c31ecda5eb4e60eef36b80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a4a7cd38d85c31ecda5eb4e60eef36b80">upgrade_perso</a> (<a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, int stats)</td></tr>
 <tr class="memdesc:a4a7cd38d85c31ecda5eb4e60eef36b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">amélioration d'un personnage  <a href="personnage_8c.html#a4a7cd38d85c31ecda5eb4e60eef36b80">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a4a7cd38d85c31ecda5eb4e60eef36b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02d4abcc46d0c4c1ba3537c53fbe3e84"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a02d4abcc46d0c4c1ba3537c53fbe3e84">calculePalierExp</a> (int niveau)</td></tr>
+<tr class="memdesc:a02d4abcc46d0c4c1ba3537c53fbe3e84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui calcule le palier pour passez au prochain niveau.  <a href="personnage_8c.html#a02d4abcc46d0c4c1ba3537c53fbe3e84">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a02d4abcc46d0c4c1ba3537c53fbe3e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6dc1d1ecc404c38070c9a81bd96b0b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="personnage_8c.html#a1e6dc1d1ecc404c38070c9a81bd96b0b">calculeExpGagnee</a> (int niveau)</td></tr>
+<tr class="memdesc:a1e6dc1d1ecc404c38070c9a81bd96b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui calcule l'exp gagné par monstre vaincu.  <a href="personnage_8c.html#a1e6dc1d1ecc404c38070c9a81bd96b0b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1e6dc1d1ecc404c38070c9a81bd96b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>fonction pour gérer les personnages </p>
@@ -150,6 +156,60 @@ Fonctions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Renvoie</dt><dd>Aucun retour </dd></dl>
+
+</div>
+</div>
+<a id="a1e6dc1d1ecc404c38070c9a81bd96b0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e6dc1d1ecc404c38070c9a81bd96b0b">&#9670;&nbsp;</a></span>calculeExpGagnee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calculeExpGagnee </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>niveau</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui calcule l'exp gagné par monstre vaincu. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">niveau</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>(int) la valeur de l'exp gagnée calculée || -1 en cas d'erreur ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a02d4abcc46d0c4c1ba3537c53fbe3e84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02d4abcc46d0c4c1ba3537c53fbe3e84">&#9670;&nbsp;</a></span>calculePalierExp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calculePalierExp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>niveau</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui calcule le palier pour passez au prochain niveau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">niveau</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>(int) la valeur du palier calculée || -1 en cas d'erreur ( statut fonction ) </dd></dl>
 
 </div>
 </div>

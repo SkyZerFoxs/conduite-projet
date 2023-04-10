@@ -4,7 +4,7 @@
 #include <save.h>
 
 /**
- * \fn int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map)
+ * \fn int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, int finJeu)
  * \brief Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde
  * 
  * \param pos_x Position en x de la camera du joueur ( implique la postion x du joueur )
@@ -13,10 +13,11 @@
  * \param inventaire Pointeur sur l' inventaire_t
  * \param liste_objet Pointeur sur la liste_objet_t
  * \param map Pointeur sur map_t, la map
+ * \param finJeu Indice de fin du jeu ( Mort du boss final )
  * \return 0 Success || 1 Fail ( statut fonction )
  * 
 */
-extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map) {
+extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, int finJeu) {
     // Verification parametre
     if ( pos_x < 0  || pos_y < 0  ) {
         printf("Erreur : Position joueur en paramètre non valide dans save_game()\n");
@@ -35,6 +36,11 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
 
     if ( liste_objet == NULL ) {
         printf("Erreur : liste_objet en paramètre non valide dans save_game()\n");
+        return 1;
+    }
+
+    if ( finJeu < 0 || finJeu > 1) {
+        printf("Erreur : finJeu en paramètre non valide dans load_game()\n");
         return 1;
     }
 
@@ -88,6 +94,9 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
         }
     }
     fprintf(filename,"\n");
+    // Charger Indice Fin De Jeu ( Boss Mort )
+    fprintf(filename,"%d:\n",finJeu);
+    fprintf(filename,"\n");
 
     fclose(filename);
 
@@ -95,7 +104,7 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
 }
 
 /**
- * \fn int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, char * nomFichier)
+ * \fn int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, int * finJeu, char * nomFichier)
  * \brief Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde
  * 
  * \param pos_x Pointeur vers le int de la position en x de la camera du joueur ( implique la postion x du joueur )
@@ -105,10 +114,11 @@ extern int save_game(int pos_x, int pos_y, personnage_t * perso, inventaire_t * 
  * \param liste_objet Pointeur sur la liste_objet_t
  * \param map Pointeur sur map_t, la map
  * \param nomFichier Chemin vers le fichier de sauvegarde
+ * \param finJeu Indice de fin du jeu ( Mort du boss final )
  * \return 0 Success || 1 Fail ( statut fonction )
  * 
 */
-extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, char * nomFichier) {
+extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_t * inventaire,liste_objet_t * liste_objet, map_t * map, int * finJeu, char * nomFichier) {
     // Verification parametre
     if ( pos_x == NULL || pos_y == NULL ) {
         printf("Erreur : Position joueur en paramètre non valide dans load_game()\n");
@@ -127,6 +137,11 @@ extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_
 
     if ( liste_objet == NULL ) {
         printf("Erreur : liste_objet en paramètre non valide dans load_game()\n");
+        return 1;
+    }
+
+    if ( (*finJeu) < 0 || (*finJeu) > 1) {
+        printf("Erreur : finJeu en paramètre non valide dans load_game()\n");
         return 1;
     }
 
@@ -181,6 +196,11 @@ extern int load_game(int * pos_x, int * pos_y, personnage_t * perso, inventaire_
         }
     }
     free(tabCoffre);
+    tabCoffre = NULL;
+    // Charger Indice Fin De Jeu ( Boss Mort )
+    fscanf(filename,"%d:\n",finJeu);
+    fscanf(filename,"\n");
+
     fclose(filename);
 
     return 0;

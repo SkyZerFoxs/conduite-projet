@@ -127,6 +127,9 @@ Fonctions</h2></td></tr>
 <tr class="memitem:a9a81724c581e3df8e635a89761704c4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a9a81724c581e3df8e635a89761704c4a">Detruire_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> **inventaire)</td></tr>
 <tr class="memdesc:a9a81724c581e3df8e635a89761704c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui detruit en memoire l'inventaire.  <a href="hud_8h.html#a9a81724c581e3df8e635a89761704c4a">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a9a81724c581e3df8e635a89761704c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90f25f8f9a69d592af9cea156a33ec8e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a90f25f8f9a69d592af9cea156a33ec8e">Update_Equipement_Stat</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso)</td></tr>
+<tr class="memdesc:a90f25f8f9a69d592af9cea156a33ec8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction extern qui permet d'actualiser les stats de l'equipement.  <a href="hud_8h.html#a90f25f8f9a69d592af9cea156a33ec8e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a90f25f8f9a69d592af9cea156a33ec8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38de404127d4007859f922344e0098af"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a38de404127d4007859f922344e0098af">Add_Item_Inventaire</a> (<a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *listeObjets, int itemID)</td></tr>
 <tr class="memdesc:a38de404127d4007859f922344e0098af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction static qui permet d'ajouter un objet de l'inventaire.  <a href="hud_8h.html#a38de404127d4007859f922344e0098af">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a38de404127d4007859f922344e0098af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,6 +160,9 @@ Fonctions</h2></td></tr>
 <tr class="memitem:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Introduction</a> (SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
 <tr class="memdesc:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface d'Introduction.  <a href="hud_8h.html#afb4c8ef6445d5554ecb05c3bde36db6d">Plus de détails...</a><br /></td></tr>
 <tr class="separator:afb4c8ef6445d5554ecb05c3bde36db6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c118fe1178d1bba84e13f83ba30298"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hud_8h.html#a34c118fe1178d1bba84e13f83ba30298">Ending</a> (SDL_Window *window, SDL_Renderer *renderer, SDL_Rect *view)</td></tr>
+<tr class="memdesc:a34c118fe1178d1bba84e13f83ba30298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui lance l'interface de fin du jeu.  <a href="hud_8h.html#a34c118fe1178d1bba84e13f83ba30298">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a34c118fe1178d1bba84e13f83ba30298"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Header pour l'hud. </p>
@@ -388,6 +394,51 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
     <tr><td class="paramname">window</td><td>Pointeur de pointeur sur l'objet SDL_Window </td></tr>
     <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a34c118fe1178d1bba84e13f83ba30298"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c118fe1178d1bba84e13f83ba30298">&#9670;&nbsp;</a></span>Ending()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Ending </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Window *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect *&#160;</td>
+          <td class="paramname"><em>view</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction externe qui lance l'interface de fin du jeu. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>Pointeur de pointeur sur l'objet SDL_Window </td></tr>
+    <tr><td class="paramname">renderer</td><td>Pointeur de pointeur sur l'objet SDL_Renderer </td></tr>
+    <tr><td class="paramname">view</td><td>Pointeur sur l'objet SDL_Rect correspondant à la vue du joueur. </td></tr>
   </table>
   </dd>
 </dl>
@@ -763,6 +814,51 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">perso</td><td>Pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
     <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
     <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>0 Success || 1 Echec de la fonction ( statut fonction ) </dd></dl>
+
+</div>
+</div>
+<a id="a90f25f8f9a69d592af9cea156a33ec8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90f25f8f9a69d592af9cea156a33ec8e">&#9670;&nbsp;</a></span>Update_Equipement_Stat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Update_Equipement_Stat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structinventaire__t.html">inventaire_t</a> *&#160;</td>
+          <td class="paramname"><em>inventaire</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structliste__objet__t.html">liste_objet_t</a> *&#160;</td>
+          <td class="paramname"><em>listeObjets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structpersonnage__t.html">personnage_t</a> *&#160;</td>
+          <td class="paramname"><em>perso</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction extern qui permet d'actualiser les stats de l'equipement. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
+    <tr><td class="paramname">listeObjets</td><td>Pointeur sur <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a>, La liste des objets </td></tr>
+    <tr><td class="paramname">perso</td><td>pointeur sur le <a class="el" href="structpersonnage__t.html" title="Structure du personnage ( Data )">personnage_t</a> </td></tr>
   </table>
   </dd>
 </dl>

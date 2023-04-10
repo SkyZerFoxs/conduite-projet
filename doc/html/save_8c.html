@@ -101,16 +101,16 @@ Graphe des dépendances par inclusion de save.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Fonctions</h2></td></tr>
-<tr class="memitem:a5e3f640f18b14e62b455dc67738ed8ff"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="save_8c.html#a5e3f640f18b14e62b455dc67738ed8ff">save_game</a> (int pos_x, int pos_y, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *liste_objet, <a class="el" href="structmap__t.html">map_t</a> *map)</td></tr>
-<tr class="memdesc:a5e3f640f18b14e62b455dc67738ed8ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde.  <a href="save_8c.html#a5e3f640f18b14e62b455dc67738ed8ff">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a5e3f640f18b14e62b455dc67738ed8ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9138aa07851f37f36ccf22b8e1b4c398"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="save_8c.html#a9138aa07851f37f36ccf22b8e1b4c398">load_game</a> (int *pos_x, int *pos_y, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *liste_objet, <a class="el" href="structmap__t.html">map_t</a> *map, char *nomFichier)</td></tr>
-<tr class="memdesc:a9138aa07851f37f36ccf22b8e1b4c398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde.  <a href="save_8c.html#a9138aa07851f37f36ccf22b8e1b4c398">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a9138aa07851f37f36ccf22b8e1b4c398"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ae205c6a4c2a4c39cc2975aa1fb86a6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="save_8c.html#a0ae205c6a4c2a4c39cc2975aa1fb86a6">save_game</a> (int pos_x, int pos_y, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *liste_objet, <a class="el" href="structmap__t.html">map_t</a> *map, int finJeu)</td></tr>
+<tr class="memdesc:a0ae205c6a4c2a4c39cc2975aa1fb86a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde.  <a href="save_8c.html#a0ae205c6a4c2a4c39cc2975aa1fb86a6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0ae205c6a4c2a4c39cc2975aa1fb86a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac011c71067eaf20e6843e37120d9bbac"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="save_8c.html#ac011c71067eaf20e6843e37120d9bbac">load_game</a> (int *pos_x, int *pos_y, <a class="el" href="structpersonnage__t.html">personnage_t</a> *perso, <a class="el" href="structinventaire__t.html">inventaire_t</a> *inventaire, <a class="el" href="structliste__objet__t.html">liste_objet_t</a> *liste_objet, <a class="el" href="structmap__t.html">map_t</a> *map, int *finJeu, char *nomFichier)</td></tr>
+<tr class="memdesc:ac011c71067eaf20e6843e37120d9bbac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction externe qui sauvegarde l'avancé de la partie dans un fichier de sauvegarde.  <a href="save_8c.html#ac011c71067eaf20e6843e37120d9bbac">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac011c71067eaf20e6843e37120d9bbac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentation des fonctions</h2>
-<a id="a9138aa07851f37f36ccf22b8e1b4c398"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9138aa07851f37f36ccf22b8e1b4c398">&#9670;&nbsp;</a></span>load_game()</h2>
+<a id="ac011c71067eaf20e6843e37120d9bbac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac011c71067eaf20e6843e37120d9bbac">&#9670;&nbsp;</a></span>load_game()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,6 +154,12 @@ Fonctions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>finJeu</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>nomFichier</em>&#160;</td>
         </tr>
@@ -175,6 +181,7 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">liste_objet</td><td>Pointeur sur la <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a> </td></tr>
     <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la map </td></tr>
     <tr><td class="paramname">nomFichier</td><td>Chemin vers le fichier de sauvegarde </td></tr>
+    <tr><td class="paramname">finJeu</td><td>Indice de fin du jeu ( Mort du boss final ) </td></tr>
   </table>
   </dd>
 </dl>
@@ -182,8 +189,8 @@ Fonctions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5e3f640f18b14e62b455dc67738ed8ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e3f640f18b14e62b455dc67738ed8ff">&#9670;&nbsp;</a></span>save_game()</h2>
+<a id="a0ae205c6a4c2a4c39cc2975aa1fb86a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ae205c6a4c2a4c39cc2975aa1fb86a6">&#9670;&nbsp;</a></span>save_game()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +229,13 @@ Fonctions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structmap__t.html">map_t</a> *&#160;</td>
-          <td class="paramname"><em>map</em>&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>finJeu</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -241,6 +254,7 @@ Fonctions</h2></td></tr>
     <tr><td class="paramname">inventaire</td><td>Pointeur sur l' <a class="el" href="structinventaire__t.html" title="Structure de l&#39;inventaire du personnage ( Data &amp; Affichage )">inventaire_t</a> </td></tr>
     <tr><td class="paramname">liste_objet</td><td>Pointeur sur la <a class="el" href="structliste__objet__t.html" title="Structure de la liste des objets ( Data )">liste_objet_t</a> </td></tr>
     <tr><td class="paramname">map</td><td>Pointeur sur <a class="el" href="structmap__t.html" title="Structure map.">map_t</a>, la map </td></tr>
+    <tr><td class="paramname">finJeu</td><td>Indice de fin du jeu ( Mort du boss final ) </td></tr>
   </table>
   </dd>
 </dl>

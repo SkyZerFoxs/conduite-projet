@@ -141,7 +141,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     int sortieInv = 0;
 
     // Variable Gestion Sortie Inventaire
-    int sortieDiag = 0;
+    int sortieDialogue = 0;
     
     // Variable Gestion Sortie Level UP
     int sortieLevlUP = 0;
@@ -149,14 +149,19 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     // Variable Gestion Sortie Death
     int sortieDeath = 0;
     
-
     // Variable gestion Sortie Echap
     int sortieEchap = 0;
+
+    // Variable gestion Sortie Introduction
+    int sortieIntro = 0;
+
+    // Variable gestion Sortie Fin Jeu
+    int sortieEnding = 0;
 
     // Variables des temps de cooldowns
     int MsCooldownFrame1 = 600;
     int MsCooldownFrame2 = 200;
-    int MsCooldownIdleAnimation = 180;
+    int MsCooldownIdleAnimation = 201;
     int MsAtkCooldown = 1000;
     int MsSpeCooldown = 5000;
     int MsUltCooldown = 15000;
@@ -166,6 +171,13 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     int MsRegenVie = 5000;
     int msTimerDegatHUD = 800;
     int MsLastReceveidAtk = 10000;
+
+    // Variable Indice Du Boss Dans Le Tableau De Monstre
+    int bossID = -1;
+
+    // Varaible de mort du boss
+    int mortBoss = 0;
+    int finJeu = 0;
 
     // Tableau Skill Unblocked
     int tabUnlockedSkill[3] = { 1, 0, 0};
@@ -397,6 +409,14 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
         goto detruire;
     }
 
+    // Chercher Boss Dans Liste
+    for (int n = 0; n < listeMonstre->nbElem; n++) {
+        if ( listeMonstre->tabMonstres[n]->niveau == 30 ) {
+            bossID = n;
+            break;
+        }
+    }
+
     // Debut Des Timers De Frame Pour Les Sprites
     Timer_Start( &frameTimer1 );
     Timer_Start( &frameTimer2 );
@@ -419,21 +439,39 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     Timer_Start( &lastReceveidAtk );
     lastReceveidAtk.start -= (MsLastReceveidAtk + 1 );
     
-    
 
     /* ------------------ Debut Partie  ------------------ */
 
     // Chargement Partie Precedente
     if ( charger ) {
         Clean_Remanent_Sprite(continent,spriteMap,&CameraJoueur,1);
-        if ( load_game(&CameraJoueur.x,&CameraJoueur.y,perso,inventaire,listeObjets,continent,"asset/save/auto-save") ) {
+        if ( load_game(&CameraJoueur.x,&CameraJoueur.y,perso,inventaire,listeObjets,continent,&finJeu,"asset/save/auto-save") ) {
             printf("Warning : Echec de load_game() dans play()\n");
             printf("Warning : Continuité du jeu en mode nouvelle partie\n");
+        }
+        else {
+            if ( Update_Equipement_Stat(inventaire,listeObjets,perso) ) {
+                printf("Erreur : Echec Update_Equipement_Stat() dans play()\n");
+                sortie = 1;
+                goto detruire;
+            }
+            mortBoss = finJeu;
+            if ( finJeu ) {
+                listeMonstre->tabMonstres[bossID]->caract->pv = 0;
+            }
         }
     }
     // Introduction - Nouvelle Partie
     else {
-        Introduction(window,renderer,&CameraJoueur);
+        sortieIntro = Introduction(window,renderer,&CameraJoueur);
+        if ( sortieIntro == 1 ) {
+            printf("Erreur : Echec Introduction() dans play()\n");
+            sortie = 1;
+            goto detruire;
+        }
+        else if ( sortieIntro == -1 ) {
+            sortie = -1;
+        }
     }
     
 
@@ -447,8 +485,6 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
         Timer_Start( &fps );
         // Reset keyPressed
         keyPressed = 0;
-
-        
 
         /* ------- Detection Evenement -------*/
         while (SDL_PollEvent(&event)) {
@@ -484,6 +520,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                         goto detruire;
                                     }
                                     aKeyClicked = 1;
+                                    frameAtck = 0;
                                     // Gestion cooldown
                                     Timer_Start( &SpeCooldown );
                                     tabSkill[1] = 1;
@@ -499,6 +536,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                         goto detruire;
                                     }
                                     rKeyClicked = 1;
+                                    frameAtck = 0;
                                     // Gestion cooldown
                                     Timer_Start( &UltCooldown );
                                     tabSkill[2] = 1;
@@ -509,17 +547,16 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                 // Detection pnj
                                 detectionPnj = Detecter_Pnj(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedPnj);
                                 if ( detectionPnj == -1 ) {
-                                    printf("Erreur : Echec Detecter_Monstre('basique') dans play()\n");
+                                    printf("Erreur : Echec Detecter_Pnj('basique') dans play()\n");
                                     sortie = 1;
                                     goto detruire;
                                 }
                                 else if ( detectionPnj == 1 ) {
-                                    sortieDiag = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj, listeTypePnj, &CameraJoueur, window, renderer);
-                                    if ( sortieDiag == -1 ) {
+                                    sortieDialogue = Dialogue(textHudDialogue, listeTextPnjDialogue, detectedPnj->pnj, listeTypePnj, &CameraJoueur, window, renderer);
+                                    if ( sortieDialogue == -1 ) {
                                         sortie = -1;
-                                        goto detruire;
                                     }
-                                    else if ( sortieDiag == 1 ) {
+                                    else if ( sortieDialogue == 1 ) {
                                         printf("Erreur : Echec Dialogue() dans play()\n");
                                         sortie = 1;
                                         goto detruire;
@@ -571,7 +608,6 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                 sortieInv = Inventaire(inventaire, listeObjets, perso, SpriteTextureListe, ListeTypeSprite, listePersoSprite, &CameraJoueur, window, background_texture, renderer);
                                 if ( sortieInv == -1 ) {
                                     sortie = -1;
-                                    goto detruire;
                                 }
                                 else if ( sortieInv == 1 ) {
                                     printf("Erreur : Echec inventaire() dans play()\n");
@@ -628,19 +664,23 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     break;
                 // Evenement Souris
                 case SDL_MOUSEBUTTONDOWN:
-                    if (event.button.button == SDL_BUTTON_LEFT ) {
-                        // temps dans le jeux final pour l'atk normale surement 1 seconde
-                        if ( tabSkill[0] == 0 && !aKeyClicked && !rKeyClicked ) {
-                            if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
-                                printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
-                                sortie = 1;
-                                goto detruire;
+                    if (  !mouseClicked && !keyPressed && !aKeyClicked && !rKeyClicked) {
+                        if (event.button.button == SDL_BUTTON_LEFT ) {
+                            // temps dans le jeux final pour l'atk normale surement 1 seconde
+                            if ( tabSkill[0] == 0 && !aKeyClicked && !rKeyClicked ) {
+                                if ( Attack_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction) ) {
+                                    printf("Erreur : Echec Attack_PersoSprite() dans play()\n");
+                                    sortie = 1;
+                                    goto detruire;
+                                }
+                                mouseClicked = 1;
+                                frameAtck = 0;
+                                // Gestion cooldown
+                                Timer_Start( &AtkCooldown );
+                                tabSkill[0] = 1;
+                                break;  
                             }
-                            mouseClicked = 1;
-                            // Gestion cooldown
-                            Timer_Start( &AtkCooldown );
-                            tabSkill[0] = 1;
-                            break;  
+                            Timer_Start( &lastKey );
                         }
                     }
                     break;
@@ -673,6 +713,13 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
             tabSkill[2] = 0;
         }
 
+        // Detection Mort Boss
+        if (  mortBoss == 0 && finJeu == 0 && bossID >= 0 && bossID < listeMonstre->nbElem ) {
+            if ( listeMonstre->tabMonstres[bossID]->caract->pv <= 0 ) {
+                mortBoss = 1;
+            }
+        }
+
         // Regen Pv Personnage & Monstre
         if ( (int)Timer_Get_Time( &lastReceveidAtk ) > MsLastReceveidAtk ) {
             regenPvJoueur = 1;
@@ -699,7 +746,20 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
 
         if ( regenPvMonstre ) {
             if ( (int)Timer_Get_Time( &timerRespawnMonstre ) > MsRespawnMonsterCooldown ) {
-                Respawn_Monstre( listeMonstre, continent, CameraJoueur.y+5+1, CameraJoueur.x+9);
+                if ( finJeu ) {
+                    if ( Respawn_Monstre( listeMonstre, continent, CameraJoueur.y+5+1, CameraJoueur.x+9, bossID) ) {
+                        printf("Erreur : Echec Respawn_Monstre(AutoRespawnCooldown) dans play()\n");
+                        sortie = 1;
+                        goto detruire;
+                    }
+                }
+                else {
+                    if ( Respawn_Monstre( listeMonstre, continent, CameraJoueur.y+5+1, CameraJoueur.x+9, -1) ) {
+                        printf("Erreur : Echec Respawn_Monstre(AutoRespawnCooldown) dans play()\n");
+                        sortie = 1;
+                        goto detruire;
+                    }
+                }
                 Timer_Start( &timerRespawnMonstre );
             }
         }
@@ -735,6 +795,10 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     attaqueJoueur = 1;
                 }
             }
+            if ( frameAtck >= 4 ) {
+                mouseClicked = 0;
+                frameAtck = 0;
+            }
         }
 
         // Bloqué les actions pendants l'attaque spéciale
@@ -754,6 +818,10 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                 if ( detectMonstre == 1 && detectedMonstre->monstre->caract->pv > 0 ) {
                     attaqueJoueur = 2;
                 }
+            }
+            if ( frameAtck >= 6 ) {
+                aKeyClicked = 0;
+                frameAtck = 0;
             }
         }
 
@@ -775,6 +843,10 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     attaqueJoueur = 3;
                 }
             }
+            if ( frameAtck >= 6 ) {
+                rKeyClicked = 0;
+                frameAtck = 0;
+            }
         }
 
         // Attaque Du Joueur
@@ -792,6 +864,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
         // Animation Degat Monstre
         if ( degatMonstre ) {
             if ( frameDegatMonstre == 0 ) {
+                // Debut Animation Degat
                 yMonstre = detectedMonstre->monstre->pos_y;
                 xMonstre = detectedMonstre->monstre->pos_x;
                 if ( detectedMonstre->monstre->monstreSize == 4) {
@@ -819,10 +892,13 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     detectedMonstre->frame = 0;
                 }
             }
+            // Delay pour une meilleur animation
             SDL_Delay(200);
+            // Gestion Frame animation
             frameDegatMonstre++;
             if ( frameDegatMonstre == 2 ) {
-                degatMonstre = 0;
+                frameDegatMonstre = 0;
+                // Fin Animation Degat
                 yMonstre = detectedMonstre->monstre->pos_y;
                 xMonstre = detectedMonstre->monstre->pos_x;
                 if ( detectedMonstre->monstre->monstreSize == 4 ) {
@@ -849,6 +925,10 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     detectedMonstre->spriteTypeId--;
                     detectedMonstre->frame = 0;
                 }
+                // Reset degatMonstre & frameDegatMonstre
+                degatMonstre = 0;
+            }
+            if ( frameDegatMonstre >= 2 ) {
                 frameDegatMonstre = 0;
             }
         }
@@ -856,18 +936,74 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
         // Detection Mort Monstre ( Animation + Reward )
         if ( mortMonstre ) {
             if ( frameMortMonstre == 0 ) {
-                detectedMonstre->spriteTypeId++;
-                detectedMonstre->frame = 0;
-                detectedMonstre->monstre->caract->pv = 1; 
+                // Changement Pv pour laisser visible le monstre
+                detectedMonstre->monstre->caract->pv = 1;
+                // Debut Animation Degat / Mort  
+                yMonstre = detectedMonstre->monstre->pos_y;
+                xMonstre = detectedMonstre->monstre->pos_x;
+                if ( detectedMonstre->monstre->monstreSize == 4) {
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre][xMonstre+1]->spriteTypeId++;
+                    spriteMap[0][yMonstre][xMonstre+1]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre+1]->spriteTypeId++;
+                    spriteMap[0][yMonstre+1][xMonstre+1]->frame = 0;
+                }
+                else if ( detectedMonstre->monstre->monstreSize == 2 ) {
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId++;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+                }
+                else {
+                    detectedMonstre->spriteTypeId++;
+                    detectedMonstre->frame = 0;
+                }
             }
+            // Delay pour une meilleur animation
             SDL_Delay(200);
+            // Gestion Frame animation
             frameMortMonstre++;
             if ( frameMortMonstre == 2 ) {
+                // Reset mortMonstre
                 mortMonstre = 0;
+                // Changement Pv pour ne plus laisser apparaitre le monstre
                 detectedMonstre->monstre->caract->pv = -1;
-                detectedMonstre->spriteTypeId--;
-                frameMortMonstre = 0;
-                perso->exp += ( detectedMonstre->monstre->niveau ) * 10 +  ( ( detectedMonstre->monstre->niveau - perso->niveau ) % detectedMonstre->monstre->niveau ) * 8 ;
+                // Fin Animation Degat / Mort 
+                yMonstre = detectedMonstre->monstre->pos_y;
+                xMonstre = detectedMonstre->monstre->pos_x;
+                if ( detectedMonstre->monstre->monstreSize == 4 ) {
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre][xMonstre+1]->spriteTypeId--;
+                    spriteMap[0][yMonstre][xMonstre+1]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre+1]->spriteTypeId--;
+                    spriteMap[0][yMonstre+1][xMonstre+1]->frame = 0;
+                }
+                else if ( detectedMonstre->monstre->monstreSize == 2 ) {
+                    spriteMap[0][yMonstre][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre][xMonstre]->frame = 0;
+
+                    spriteMap[0][yMonstre+1][xMonstre]->spriteTypeId--;
+                    spriteMap[0][yMonstre+1][xMonstre]->frame = 0;
+                }
+                else {
+                    detectedMonstre->spriteTypeId--;
+                    detectedMonstre->frame = 0;
+                }
+                // Exp Gagné 
+                perso->exp += calculeExpGagnee(detectedMonstre->monstre->niveau); 
                 RandomItemLootID = loot_monstre(detectedMonstre->monstre->niveau);
                 if ( RandomItemLootID != -1 ) {
                     if ( Add_Item_Inventaire(inventaire, listeObjets, RandomItemLootID) ) {
@@ -876,12 +1012,15 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                         goto detruire;
                     }
                 }
-                
+                if ( frameMortMonstre >= 2 ) {
+                    // Reset mortMonstre
+                    mortMonstre = 0;
+                }
             }
         }
         
         // Changement vers animation Idle  Deplacement_PersoSprite(spriteMap,continent,&CameraJoueur,direction)
-        if ( (int)Timer_Get_Time( &lastKey ) > MsCooldownIdleAnimation  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 ) {
+        if ( (int)Timer_Get_Time( &lastKey ) > MsCooldownIdleAnimation  && mouseClicked == 0 && aKeyClicked == 0 && rKeyClicked == 0 && keyPressed == 0) {
             if ( Deplacement_PersoSprite(spriteMap,continent,listePersoSprite,&CameraJoueur,direction)  ) {
                 printf("Erreur : Echec Deplacement_PersoSprite() dans play()\n");
                 sortie = 1;
@@ -941,7 +1080,19 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
             sortie = 1;
             goto detruire;
         }
-        
+
+        if ( mortBoss && finJeu == 0 ) {
+            sortieEnding = Ending(window,renderer,&CameraJoueur);
+            if ( sortieEnding == 1 ) {
+                printf("Erreur : Echec Ending() dans play()\n");
+                sortie = 1;
+                goto detruire;
+            }
+            else if ( sortieEnding == -1 ) {
+                sortie = -1;
+            }
+            finJeu = 1;
+        }
         
         // Affichage Complet
         if ( Affichage_All(perso, tabSkill, textSkillBar, mapTexture, continent, SpriteTextureListe, spriteMap, ListeTypeSprite, window, font1, renderer,&CameraJoueur) ) {
@@ -971,8 +1122,9 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
             degatJoueur = 0;
         }
 
-        // Affichage Level UP
-        if ( perso->exp >= ( perso->palierExp = 100 * perso->niveau ) ) {
+        // Affichage Level UP ( Ancienne Formule : 100 * perso->niveau  )
+        if ( perso->exp >= ( perso->palierExp = calculePalierExp(perso->niveau) ) ) 
+        {
             // Récupération des informations de la fenêtre utile à l'affichage
             getWinInfo(window, &win_width, &win_height, 0, NULL, NULL, NULL, NULL);
 
@@ -1056,6 +1208,24 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                 goto detruire;
             }
 
+            if ( finJeu ) {
+                if ( Respawn_Monstre( listeMonstre, continent, CameraJoueur.y+5+1, CameraJoueur.x+9, bossID) ) {
+                    printf("Erreur : Echec Respawn_Monstre(MortJoueur) dans play()\n");
+                    sortie = 1;
+                    goto detruire;
+                }
+            }
+            else {
+                if ( Respawn_Monstre( listeMonstre, continent, CameraJoueur.y+5+1, CameraJoueur.x+9, -1) ) {
+                    printf("Erreur : Echec Respawn_Monstre(MortJoueur) dans play()\n");
+                    sortie = 1;
+                    goto detruire;
+                }
+            }
+
+            Timer_Start( &timerRespawnMonstre );
+            
+
             MortJoueur = 0;
         }
 
@@ -1075,7 +1245,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     }
 
     // Sauvegarde du jeu
-    save_game(CameraJoueur.x,CameraJoueur.y,perso,inventaire,listeObjets,continent);
+    save_game(CameraJoueur.x,CameraJoueur.y,perso,inventaire,listeObjets,continent,finJeu);
     
 
     /* -------  Destruction de la mémoire -------*/

@@ -64,4 +64,8 @@ extern int calculer_stats_perso(personnage_t * perso, caract_t * caractSortie ) 
 
 extern int upgrade_perso(personnage_t * perso, int stats) ;
 
+extern int calculePalierExp( int niveau ) ;
+
+extern int calculeExpGagnee( int niveau ) ;
+
 #endif

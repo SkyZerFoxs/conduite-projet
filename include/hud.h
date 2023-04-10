@@ -86,6 +86,7 @@ typedef struct liste_texture_pnj_dialogue_s {
 // Gestion Item
 extern inventaire_t * Load_Inventaire(char * cheminInventaire, char * cheminItem, char * cheminSelecteur, char * cheminItemInfo, int invHeight, int invWidth, int equipementHeight, int equipementWidth, SDL_Renderer * renderer) ;
 extern void Detruire_Inventaire(inventaire_t ** inventaire) ;
+extern int Update_Equipement_Stat(inventaire_t * inventaire, liste_objet_t * listeObjets, personnage_t * perso) ;
 
 // Gestion Utilité Item
 extern int Add_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, int itemID) ;
@@ -115,6 +116,9 @@ extern int Death(SDL_Texture * textFondDeath, SDL_Texture * background_texture, 
 
 /* ------------------ Gestion Introduction  ------------------ */
 extern int Introduction(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view ) ;
+
+/* ------------------ Gestion Ending  ------------------ */
+extern int Ending(SDL_Window * window, SDL_Renderer *renderer, SDL_Rect * view ) ;
 
 #endif
 

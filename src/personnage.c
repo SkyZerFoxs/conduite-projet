@@ -218,5 +218,40 @@ int upgrade_perso(personnage_t * perso, int stats) {
     return 0;
 }
 
+/**
+ * \fn int calculePalierExp( int niveau )
+ * \brief Fonction externe qui calcule le palier pour passez au prochain niveau
+ * 
+ * \param niveau
+ * \return (int) la valeur du palier calculée || -1 en cas d'erreur ( statut fonction )
+*/
+extern int calculePalierExp( int niveau ) {
+    if ( niveau < 0 || niveau > 50 ) {
+        return -1;
+    }
 
+    if ( niveau == 0 ) {
+        return 0;
+    }
 
+    return ( (niveau * niveau) * 10 + 10 );
+}
+
+/**
+ * \fn int calculeExpGagnee( int niveau )
+ * \brief Fonction externe qui calcule l'exp gagné par monstre vaincu
+ * 
+ * \param niveau
+ * \return (int) la valeur de l'exp gagnée calculée || -1 en cas d'erreur ( statut fonction )
+*/
+extern int calculeExpGagnee( int niveau ) {
+    if ( niveau < 0 || niveau > 50 ) {
+        return -1;
+    }
+
+    if ( niveau == 0 ) {
+        return 0;
+    }
+
+    return  (100 * niveau) / 18 + 5;
+}
