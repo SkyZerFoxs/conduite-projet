@@ -1,0 +1,15 @@
+<map id="include/sprite.h" name="include/sprite.h">
+<area shape="rect" id="node1" title="Header Gestion Sprite." alt="" coords="225,5,336,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="151,304,216,331"/>
+<area shape="rect" id="node3" href="$map_8h.html" title="Header Gestion map." alt="" coords="438,155,497,181"/>
+<area shape="rect" id="node4" href="$data_8h.html" title="Header pour la gestion des données." alt="" coords="251,80,310,107"/>
+<area shape="rect" id="node5" href="$personnage_8h.html" title="Header pour gérer les personnage." alt="" coords="248,229,348,256"/>
+<area shape="rect" id="node7" href="$monstre_8h.html" title="Header pour gérer les monstres." alt="" coords="143,229,223,256"/>
+<area shape="rect" id="node8" href="$combat_8h.html" title="Header pour gérer les combats." alt="" coords="149,155,225,181"/>
+<area shape="rect" id="node9" href="$objets_8h.html" title="Header pour gérer les objets." alt="" coords="372,229,440,256"/>
+<area shape="rect" id="node11" href="$pnj_8h.html" title="Header gestion des personnages non joueurs." alt="" coords="23,155,74,181"/>
+<area shape="rect" id="node13" title=" " alt="" coords="249,155,312,181"/>
+<area shape="rect" id="node6" href="$caract_8h.html" title="Header pour gérer les caractéristique." alt="" coords="263,304,333,331"/>
+<area shape="rect" id="node10" title=" " alt="" coords="374,304,438,331"/>
+<area shape="rect" id="node12" href="$quete_8h.html" title="Header Gestion Quete." alt="" coords="53,229,119,256"/>
+</map>

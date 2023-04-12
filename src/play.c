@@ -65,6 +65,8 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     SDL_timer_t timerRegenVie;
     SDL_timer_t timerDegatHUD;
     SDL_timer_t lastReceveidAtk;
+    SDL_timer_t tempsAnimationDegatMonstre;
+    SDL_timer_t tempsAnimationJoueur;
 
     // Variable qui correspond au sprite detecté
     sprite_t * detectedMonstre = NULL;
@@ -78,7 +80,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     int resultAtkMonstre = 0;
 
     // Nombre De FPS A Afficher
-    int FRAME_PER_SECONDE = 30;
+    int FRAME_PER_SECONDE = 60;
 
     // Nombre De Ms Par Frame Produite
     int msPerFrame;
@@ -97,9 +99,6 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
 
     // Variable qui detecte si une touche 'r' est déja préssé
     int rKeyClicked = 0;
-    
-    // Variable qui correspond au frame d'animation de l'attaque
-    int frameAtck = 0;
 
     // Varaible de direction du personnage
     char direction = 'S';
@@ -171,6 +170,8 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
     int MsRegenVie = 5000;
     int msTimerDegatHUD = 800;
     int MsLastReceveidAtk = 10000;
+    int MsTempsAnimationDegatMonstre = MsAtkCooldown * 0.3;
+    int MsTempsAnimationJoueur = 800;
 
     // Variable Indice Du Boss Dans Le Tableau De Monstre
     int bossID = -1;
@@ -520,7 +521,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                         goto detruire;
                                     }
                                     aKeyClicked = 1;
-                                    frameAtck = 0;
+                                    Timer_Start( &tempsAnimationJoueur );
                                     // Gestion cooldown
                                     Timer_Start( &SpeCooldown );
                                     tabSkill[1] = 1;
@@ -536,7 +537,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                         goto detruire;
                                     }
                                     rKeyClicked = 1;
-                                    frameAtck = 0;
+                                    Timer_Start( &tempsAnimationJoueur );
                                     // Gestion cooldown
                                     Timer_Start( &UltCooldown );
                                     tabSkill[2] = 1;
@@ -674,7 +675,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                                     goto detruire;
                                 }
                                 mouseClicked = 1;
-                                frameAtck = 0;
+                                Timer_Start( &tempsAnimationJoueur );
                                 // Gestion cooldown
                                 Timer_Start( &AtkCooldown );
                                 tabSkill[0] = 1;
@@ -779,11 +780,8 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
 
         // Bloqué les actions pendants l'attaque de base
         if ( mouseClicked == 1 ) {
-            frameAtck++;
-            SDL_Delay(200);
-            if ( frameAtck == 4 ) {
+            if ( (int)Timer_Get_Time( &tempsAnimationJoueur ) > MsTempsAnimationJoueur  ) { 
                 mouseClicked = 0;
-                frameAtck = 0;
                 // Detection reussie attaque
                detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,1,&detectedMonstre);
                 if ( detectMonstre == -1 ) {
@@ -795,19 +793,12 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     attaqueJoueur = 1;
                 }
             }
-            if ( frameAtck >= 4 ) {
-                mouseClicked = 0;
-                frameAtck = 0;
-            }
         }
 
         // Bloqué les actions pendants l'attaque spéciale
         if ( aKeyClicked == 1 ) {
-            frameAtck++;
-            SDL_Delay(200);
-            if ( frameAtck == 6 ) {
+            if ( (int)Timer_Get_Time( &tempsAnimationJoueur ) > MsTempsAnimationJoueur  ) { 
                 aKeyClicked = 0;
-                frameAtck = 0;
                 // Detection reussie attaque
                detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,2,&detectedMonstre);
                 if ( detectMonstre == -1 ) {
@@ -819,19 +810,12 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     attaqueJoueur = 2;
                 }
             }
-            if ( frameAtck >= 6 ) {
-                aKeyClicked = 0;
-                frameAtck = 0;
-            }
         }
 
         // Bloqué les actions pendants l'attaque ultime
         if ( rKeyClicked == 1 ) {
-            frameAtck++;
-            SDL_Delay(200);
-            if ( frameAtck == 6 ) {
+            if ( (int)Timer_Get_Time( &tempsAnimationJoueur ) > MsTempsAnimationJoueur  ) { 
                 rKeyClicked = 0;
-                frameAtck = 0;
                 // Detection reussie attaque
                detectMonstre = Detecter_Monstre(spriteMap,continent,CameraJoueur.y+5+1, CameraJoueur.x+9,direction,3,&detectedMonstre);
                 if ( detectMonstre == -1 ) {
@@ -843,10 +827,6 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     attaqueJoueur = 3;
                 }
             }
-            if ( frameAtck >= 6 ) {
-                rKeyClicked = 0;
-                frameAtck = 0;
-            }
         }
 
         // Attaque Du Joueur
@@ -854,9 +834,13 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
             combat_joueur(perso, detectedMonstre->monstre, attaqueJoueur);
             if ( detectedMonstre->monstre->caract->pv <= 0 ) {
                 mortMonstre = 1;
+                frameDegatMonstre = 0;
+                Timer_Start( &tempsAnimationDegatMonstre );
             }
             else {
                 degatMonstre = 1;
+                frameDegatMonstre = 0;
+                Timer_Start( &tempsAnimationDegatMonstre );
             }
             attaqueJoueur = 0;
         }
@@ -891,13 +875,9 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     detectedMonstre->spriteTypeId++;
                     detectedMonstre->frame = 0;
                 }
+                frameDegatMonstre++;
             }
-            // Delay pour une meilleur animation
-            SDL_Delay(200);
-            // Gestion Frame animation
-            frameDegatMonstre++;
-            if ( frameDegatMonstre == 2 ) {
-                frameDegatMonstre = 0;
+            if ( (int)Timer_Get_Time( &tempsAnimationDegatMonstre ) > MsTempsAnimationDegatMonstre ) { //frameDegatMonstre == 4 ) {
                 // Fin Animation Degat
                 yMonstre = detectedMonstre->monstre->pos_y;
                 xMonstre = detectedMonstre->monstre->pos_x;
@@ -927,8 +907,6 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                 }
                 // Reset degatMonstre & frameDegatMonstre
                 degatMonstre = 0;
-            }
-            if ( frameDegatMonstre >= 2 ) {
                 frameDegatMonstre = 0;
             }
         }
@@ -965,14 +943,12 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                     detectedMonstre->spriteTypeId++;
                     detectedMonstre->frame = 0;
                 }
+                frameMortMonstre++;
             }
-            // Delay pour une meilleur animation
-            SDL_Delay(200);
-            // Gestion Frame animation
-            frameMortMonstre++;
-            if ( frameMortMonstre == 2 ) {
+            if ( (int)Timer_Get_Time( &tempsAnimationDegatMonstre ) > MsTempsAnimationDegatMonstre ) { //frameMortMonstre == 4 ) {
                 // Reset mortMonstre
                 mortMonstre = 0;
+                frameMortMonstre = 0;
                 // Changement Pv pour ne plus laisser apparaitre le monstre
                 detectedMonstre->monstre->caract->pv = -1;
                 // Fin Animation Degat / Mort 
@@ -1011,10 +987,6 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
                         sortie = 1;
                         goto detruire;
                     }
-                }
-                if ( frameMortMonstre >= 2 ) {
-                    // Reset mortMonstre
-                    mortMonstre = 0;
                 }
             }
         }
@@ -1231,7 +1203,7 @@ extern int play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Tex
 
         // Gestion fps
         if ( ( msPerFrame = (int)Timer_Get_Time( &fps ) ) < (1000 / FRAME_PER_SECONDE) ) {
-            //SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
+            SDL_Delay( (1000 / FRAME_PER_SECONDE)  - msPerFrame );
         }
 
         // mise à jour du renderer ( update affichage)

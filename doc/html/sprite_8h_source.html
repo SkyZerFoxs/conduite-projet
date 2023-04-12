@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Hero&#39;s Quest:  Fichier source de include/sprite.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -26,8 +26,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Hero&#39;s Quest
-   &#160;<span id="projectnumber">1.0</span>
+   <div id="projectname">Hero&#39;s Quest<span id="projectnumber">&#160;1.0</span>
    </div>
    <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
   </td>
@@ -36,21 +35,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Généré par Doxygen 1.9.1 -->
+<!-- Généré par Doxygen 1.9.2 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('',true,false,'search.php','Recherche');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
@@ -64,7 +64,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(document).ready(function(){initNavTree('sprite_8h_source.html',''); initResizable(); });
 /* @license-end */
 </script>
@@ -84,8 +84,7 @@ $(document).ready(function(){initNavTree('sprite_8h_source.html',''); initResiza
 </div>
 
 <div class="header">
-  <div class="headertitle">
-<div class="title">sprite.h</div>  </div>
+  <div class="headertitle"><div class="title">sprite.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="sprite_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _SPRITE_H_</span></div>
@@ -166,16 +165,16 @@ $(document).ready(function(){initNavTree('sprite_8h_source.html',''); initResiza
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">/* ------------------ Fonction Externe ------------------ */</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * <a class="code" href="sprite_8h.html#a24c0b4a18417c8722409837ba6d435cf">Load_Sprite_Type</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * nom_fichier) ;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * <a class="code" href="sprite_8h.html#a75f49f19cfe6f71b9cf243e06a4e9338">Load_Sprite_Type</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * nom_fichier) ;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#aa4e5141646b7467b08b7f83a62c1cc2d">Detruire_Liste_Sprite_Type</a>(<a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> ** liste) ;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__t.html">sprite_t</a> * <a class="code" href="sprite_8h.html#aa8842c2814a1c279dbc6de38fa949752">Load_Sprite</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> frame, <span class="keywordtype">int</span> spriteTypeId, <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * liste, <a class="code" href="structmap__t.html">map_t</a> * map) ;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__t.html">sprite_t</a> * <a class="code" href="sprite_8h.html#aefd212a0907d8d13622a35822a911063">Load_Sprite</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> frame, <span class="keywordtype">int</span> spriteTypeId, <a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * liste, <a class="code" href="structmap__t.html">map_t</a> * map) ;</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#ad51e69c0b5819f480385fe1fa903e0ea">Detruire_Sprite</a>( <a class="code" href="structsprite__t.html">sprite_t</a> ** sprite) ;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> * <a class="code" href="sprite_8h.html#a746428dcf1ec5885bc42f05e131c3176">Load_PersoSprite_List</a>(<a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> * listeType, <a class="code" href="structmap__t.html">map_t</a> * map, <span class="keywordtype">int</span> debut, <span class="keywordtype">int</span> fin) ;</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#a4b2046d48453ce5ad9c50713ab8d3e09">Detruire_Sprite_Liste</a>(<a class="code" href="structsprite__liste__t.html">sprite_liste_t</a> ** liste) ;</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__t.html">sprite_t</a> **** <a class="code" href="sprite_8h.html#a585c24a0b2ed8253c1ed2edf055fa445">Load_SpriteMap</a>(<a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, <a class="code" href="structmap__t.html">map_t</a> * map) ;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">extern</span> <a class="code" href="structsprite__t.html">sprite_t</a> **** <a class="code" href="sprite_8h.html#a62f623990a11bb0cb21afd3912bda4f1">Load_SpriteMap</a>(<a class="code" href="structsprite__type__liste__t.html">sprite_type_liste_t</a> *listeType, <a class="code" href="structmap__t.html">map_t</a> * map) ;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#a3dcc3a3aa9d14291ef76b7e445c5bd7f">Detruire_SpriteMap</a>(<a class="code" href="structsprite__t.html">sprite_t</a> ***** spriteMap, <a class="code" href="structmap__t.html">map_t</a> * map) ;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="sprite_8h.html#a64aee6973db7655d2eee54f8095ea14a">Deplacement_Sprite</a>(<a class="code" href="structsprite__t.html">sprite_t</a> **** spriteMap, <a class="code" href="structmap__t.html">map_t</a> * map, <span class="keywordtype">int</span> y1, <span class="keywordtype">int</span> x1, <span class="keywordtype">int</span> y2, <span class="keywordtype">int</span> x2) ;</div>
@@ -187,7 +186,7 @@ $(document).ready(function(){initNavTree('sprite_8h_source.html',''); initResiza
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="keyword">extern</span> <a class="code" href="structmonstre__liste__t.html">monstre_liste_t</a>* <a class="code" href="sprite_8h.html#adc4dcb71166d440ed977981246e33fcb">Load_Monster</a>(<a class="code" href="structmap__t.html">map_t</a>* map, <a class="code" href="structsprite__t.html">sprite_t</a>**** spriteMap) ;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#af4b955cc4f03444a21c6c4511486fcc4">Detruire_Liste_Monstres</a>(<a class="code" href="structmonstre__liste__t.html">monstre_liste_t</a>** liste)  ;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">extern</span> <a class="code" href="structpnj__liste__t.html">pnj_liste_t</a> * <a class="code" href="sprite_8h.html#a67e545c4b676496004ca902297bd07de">Load_Pnj</a>(<a class="code" href="structmap__t.html">map_t</a>* map, <a class="code" href="structsprite__t.html">sprite_t</a>**** spriteMap, <a class="code" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> * liste_type) ;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="keyword">extern</span> <a class="code" href="structpnj__liste__t.html">pnj_liste_t</a> * <a class="code" href="sprite_8h.html#ada033084686d92a2de589af0a2b485eb">Load_Pnj</a>(<a class="code" href="structmap__t.html">map_t</a>* map, <a class="code" href="structsprite__t.html">sprite_t</a>**** spriteMap, <a class="code" href="structliste__type__pnj__t.html">liste_type_pnj_t</a> * liste_type) ;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="sprite_8h.html#a52d71c032a8bec6777256e8b3bcc01d2">Detruire_Liste_Pnj</a>(<a class="code" href="structpnj__liste__t.html">pnj_liste_t</a> ** liste)  ;</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="sprite_8h.html#a05eb75a1cba3e8c93b67ce161ec7fd47">Detecter_Monstre</a>(<a class="code" href="structsprite__t.html">sprite_t</a> ****spriteMap, <a class="code" href="structmap__t.html">map_t</a> *map, <span class="keywordtype">int</span> y_joueur, <span class="keywordtype">int</span> x_joueur, <span class="keywordtype">char</span> direction, <span class="keywordtype">int</span> distance, <a class="code" href="structsprite__t.html">sprite_t</a> **monstre) ;</div>
@@ -201,23 +200,23 @@ $(document).ready(function(){initNavTree('sprite_8h_source.html',''); initResiza
 <div class="ttc" id="adata_8h_html"><div class="ttname"><a href="data_8h.html">data.h</a></div><div class="ttdoc">Header pour la gestion des données.</div></div>
 <div class="ttc" id="amap_8h_html"><div class="ttname"><a href="map_8h.html">map.h</a></div><div class="ttdoc">Header Gestion map.</div></div>
 <div class="ttc" id="asprite_8h_html_a05eb75a1cba3e8c93b67ce161ec7fd47"><div class="ttname"><a href="sprite_8h.html#a05eb75a1cba3e8c93b67ce161ec7fd47">Detecter_Monstre</a></div><div class="ttdeci">int Detecter_Monstre(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **monstre)</div><div class="ttdoc">Fonction externe qui détecte si un ennemi est proche et renvoie un pointeur sur le monstre si trouvé</div><div class="ttdef"><b>Definition:</b> sprite.c:1049</div></div>
-<div class="ttc" id="asprite_8h_html_a24c0b4a18417c8722409837ba6d435cf"><div class="ttname"><a href="sprite_8h.html#a24c0b4a18417c8722409837ba6d435cf">Load_Sprite_Type</a></div><div class="ttdeci">sprite_type_liste_t * Load_Sprite_Type(const char *nom_fichier)</div><div class="ttdoc">Fonction qui charge les données de sprites depuis un fichier et retourne un pointeur sur la liste de ...</div><div class="ttdef"><b>Definition:</b> sprite.c:219</div></div>
 <div class="ttc" id="asprite_8h_html_a3dcc3a3aa9d14291ef76b7e445c5bd7f"><div class="ttname"><a href="sprite_8h.html#a3dcc3a3aa9d14291ef76b7e445c5bd7f">Detruire_SpriteMap</a></div><div class="ttdeci">void Detruire_SpriteMap(sprite_t *****spriteMap, map_t *map)</div><div class="ttdoc">Fonction externe qui libère la mémoire allouée pour la matrice de sprites.</div><div class="ttdef"><b>Definition:</b> sprite.c:329</div></div>
 <div class="ttc" id="asprite_8h_html_a4b2046d48453ce5ad9c50713ab8d3e09"><div class="ttname"><a href="sprite_8h.html#a4b2046d48453ce5ad9c50713ab8d3e09">Detruire_Sprite_Liste</a></div><div class="ttdeci">void Detruire_Sprite_Liste(sprite_liste_t **liste)</div><div class="ttdoc">Fonction externe qui détruit en mémoire la structure sprite_liste_t passée en paramètre,...</div><div class="ttdef"><b>Definition:</b> sprite.c:703</div></div>
 <div class="ttc" id="asprite_8h_html_a52d71c032a8bec6777256e8b3bcc01d2"><div class="ttname"><a href="sprite_8h.html#a52d71c032a8bec6777256e8b3bcc01d2">Detruire_Liste_Pnj</a></div><div class="ttdeci">void Detruire_Liste_Pnj(pnj_liste_t **liste)</div><div class="ttdoc">Fonction externe qui detruit en mémoire la liste des pnj.</div><div class="ttdef"><b>Definition:</b> sprite.c:846</div></div>
-<div class="ttc" id="asprite_8h_html_a585c24a0b2ed8253c1ed2edf055fa445"><div class="ttname"><a href="sprite_8h.html#a585c24a0b2ed8253c1ed2edf055fa445">Load_SpriteMap</a></div><div class="ttdeci">sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t *map)</div><div class="ttdoc">Fonction externe qui charge la matrice de sprites à partir d'une liste de types des sprites et de la ...</div><div class="ttdef"><b>Definition:</b> sprite.c:379</div></div>
 <div class="ttc" id="asprite_8h_html_a59c2ae15fbdd7058491a89027ff5566b"><div class="ttname"><a href="sprite_8h.html#a59c2ae15fbdd7058491a89027ff5566b">Detecter_Pnj</a></div><div class="ttdeci">int Detecter_Pnj(sprite_t ****spriteMap, map_t *map, int y_joueur, int x_joueur, char direction, int distance, sprite_t **pnj)</div><div class="ttdoc">Fonction externe qui détecte si un pnj est proche et renvoie un pointeur sur le pnj si trouvé</div><div class="ttdef"><b>Definition:</b> sprite.c:1116</div></div>
 <div class="ttc" id="asprite_8h_html_a5d5d9fa02969ab00e50acc40fd1fe2eb"><div class="ttname"><a href="sprite_8h.html#a5d5d9fa02969ab00e50acc40fd1fe2eb">Respawn_Monstre</a></div><div class="ttdeci">int Respawn_Monstre(monstre_liste_t *liste, map_t *map, int posJoueurY, int posJoueurX, int idBoss)</div><div class="ttdoc">Fonction externe qui régénère la vie des monstres ( implique la réapparition des monstres morts )</div><div class="ttdef"><b>Definition:</b> sprite.c:1182</div></div>
+<div class="ttc" id="asprite_8h_html_a62f623990a11bb0cb21afd3912bda4f1"><div class="ttname"><a href="sprite_8h.html#a62f623990a11bb0cb21afd3912bda4f1">Load_SpriteMap</a></div><div class="ttdeci">sprite_t **** Load_SpriteMap(sprite_type_liste_t *listeType, map_t *map)</div><div class="ttdoc">Fonction externe qui charge la matrice de sprites à partir d'une liste de types des sprites et de la ...</div><div class="ttdef"><b>Definition:</b> sprite.c:379</div></div>
 <div class="ttc" id="asprite_8h_html_a64aee6973db7655d2eee54f8095ea14a"><div class="ttname"><a href="sprite_8h.html#a64aee6973db7655d2eee54f8095ea14a">Deplacement_Sprite</a></div><div class="ttdeci">int Deplacement_Sprite(sprite_t ****spriteMap, map_t *map, int y1, int x1, int y2, int x2)</div><div class="ttdoc">Fonction externe qui echange l'emplacement de deux sprite dans la SpriteMap.</div><div class="ttdef"><b>Definition:</b> sprite.c:467</div></div>
-<div class="ttc" id="asprite_8h_html_a67e545c4b676496004ca902297bd07de"><div class="ttname"><a href="sprite_8h.html#a67e545c4b676496004ca902297bd07de">Load_Pnj</a></div><div class="ttdeci">pnj_liste_t * Load_Pnj(map_t *map, sprite_t ****spriteMap, liste_type_pnj_t *liste_type)</div><div class="ttdoc">Fonction externe qui charge la liste pnj_liste_t des pnj.</div><div class="ttdef"><b>Definition:</b> sprite.c:743</div></div>
 <div class="ttc" id="asprite_8h_html_a746428dcf1ec5885bc42f05e131c3176"><div class="ttname"><a href="sprite_8h.html#a746428dcf1ec5885bc42f05e131c3176">Load_PersoSprite_List</a></div><div class="ttdeci">sprite_liste_t * Load_PersoSprite_List(sprite_type_liste_t *listeType, map_t *map, int debut, int fin)</div><div class="ttdef"><b>Definition:</b> sprite.c:643</div></div>
+<div class="ttc" id="asprite_8h_html_a75f49f19cfe6f71b9cf243e06a4e9338"><div class="ttname"><a href="sprite_8h.html#a75f49f19cfe6f71b9cf243e06a4e9338">Load_Sprite_Type</a></div><div class="ttdeci">sprite_type_liste_t * Load_Sprite_Type(const char *nom_fichier)</div><div class="ttdoc">Fonction qui charge les données de sprites depuis un fichier et retourne un pointeur sur la liste de ...</div><div class="ttdef"><b>Definition:</b> sprite.c:219</div></div>
 <div class="ttc" id="asprite_8h_html_a9eff934f7952f17405ae6f25876166a2"><div class="ttname"><a href="sprite_8h.html#a9eff934f7952f17405ae6f25876166a2">Colision</a></div><div class="ttdeci">int Colision(map_t *map, sprite_t ****spriteMap, char direction, int y, int x)</div><div class="ttdoc">Fonction externe qui verifie si il y a colision.</div><div class="ttdef"><b>Definition:</b> sprite.c:595</div></div>
 <div class="ttc" id="asprite_8h_html_aa4e5141646b7467b08b7f83a62c1cc2d"><div class="ttname"><a href="sprite_8h.html#aa4e5141646b7467b08b7f83a62c1cc2d">Detruire_Liste_Sprite_Type</a></div><div class="ttdeci">void Detruire_Liste_Sprite_Type(sprite_type_liste_t **liste)</div><div class="ttdoc">Fonction qui détruit la liste des types de sprites.</div><div class="ttdef"><b>Definition:</b> sprite.c:169</div></div>
-<div class="ttc" id="asprite_8h_html_aa8842c2814a1c279dbc6de38fa949752"><div class="ttname"><a href="sprite_8h.html#aa8842c2814a1c279dbc6de38fa949752">Load_Sprite</a></div><div class="ttdeci">sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_type_liste_t *liste, map_t *map)</div><div class="ttdoc">Fonction externe qui initialise une structure sprite_t.</div><div class="ttdef"><b>Definition:</b> sprite.c:247</div></div>
 <div class="ttc" id="asprite_8h_html_ac4d4855de974033217e17e9a90f9884b"><div class="ttname"><a href="sprite_8h.html#ac4d4855de974033217e17e9a90f9884b">Change_Sprite</a></div><div class="ttdeci">int Change_Sprite(sprite_t ****spriteMap, map_t *map, sprite_t *sprite, int y, int x)</div><div class="ttdoc">Fonction externe qui permet de changer le sprite dans la spriteMap au coordonnées y et x.</div><div class="ttdef"><b>Definition:</b> sprite.c:555</div></div>
 <div class="ttc" id="asprite_8h_html_acf449bc205ab5889590944509f5c3307"><div class="ttname"><a href="sprite_8h.html#acf449bc205ab5889590944509f5c3307">Copy_Sprite</a></div><div class="ttdeci">int Copy_Sprite(sprite_t ****spriteMap, map_t *map, int y1, int x1, int y2, int x2)</div><div class="ttdoc">Fonction externe qui permet de copier un sprite de la spriteMap vers un emplacement dans la spriteMap...</div><div class="ttdef"><b>Definition:</b> sprite.c:512</div></div>
-<div class="ttc" id="asprite_8h_html_ad51e69c0b5819f480385fe1fa903e0ea"><div class="ttname"><a href="sprite_8h.html#ad51e69c0b5819f480385fe1fa903e0ea">Detruire_Sprite</a></div><div class="ttdeci">void Detruire_Sprite(sprite_t **sprite)</div><div class="ttdoc">Fonction externe qui détruit en mémoire la structure sprite_t passé en paramètre &amp;#160;* &amp;#160;*.</div><div class="ttdef"><b>Definition:</b> sprite.c:302</div></div>
+<div class="ttc" id="asprite_8h_html_ad51e69c0b5819f480385fe1fa903e0ea"><div class="ttname"><a href="sprite_8h.html#ad51e69c0b5819f480385fe1fa903e0ea">Detruire_Sprite</a></div><div class="ttdeci">void Detruire_Sprite(sprite_t **sprite)</div><div class="ttdoc">Fonction externe qui détruit en mémoire la structure sprite_t passé en paramètre  *  *.</div><div class="ttdef"><b>Definition:</b> sprite.c:302</div></div>
+<div class="ttc" id="asprite_8h_html_ada033084686d92a2de589af0a2b485eb"><div class="ttname"><a href="sprite_8h.html#ada033084686d92a2de589af0a2b485eb">Load_Pnj</a></div><div class="ttdeci">pnj_liste_t * Load_Pnj(map_t *map, sprite_t ****spriteMap, liste_type_pnj_t *liste_type)</div><div class="ttdoc">Fonction externe qui charge la liste pnj_liste_t des pnj.</div><div class="ttdef"><b>Definition:</b> sprite.c:743</div></div>
 <div class="ttc" id="asprite_8h_html_adc4dcb71166d440ed977981246e33fcb"><div class="ttname"><a href="sprite_8h.html#adc4dcb71166d440ed977981246e33fcb">Load_Monster</a></div><div class="ttdeci">monstre_liste_t * Load_Monster(map_t *map, sprite_t ****spriteMap)</div><div class="ttdoc">Fonction externe qui charge les monstre_t.</div><div class="ttdef"><b>Definition:</b> sprite.c:889</div></div>
+<div class="ttc" id="asprite_8h_html_aefd212a0907d8d13622a35822a911063"><div class="ttname"><a href="sprite_8h.html#aefd212a0907d8d13622a35822a911063">Load_Sprite</a></div><div class="ttdeci">sprite_t * Load_Sprite(int x, int y, int frame, int spriteTypeId, sprite_type_liste_t *liste, map_t *map)</div><div class="ttdoc">Fonction externe qui initialise une structure sprite_t.</div><div class="ttdef"><b>Definition:</b> sprite.c:247</div></div>
 <div class="ttc" id="asprite_8h_html_af44e0a4e24101164f3a3b86c64ae96db"><div class="ttname"><a href="sprite_8h.html#af44e0a4e24101164f3a3b86c64ae96db">Detecter_Zone_Atk_Monstre</a></div><div class="ttdeci">int Detecter_Zone_Atk_Monstre(sprite_t ****spriteMap, map_t *map, int yJoueur, int xJoueur, int rayon, sprite_t **detectedMonster)</div><div class="ttdoc">Fonction externe qui détecte si le personnage rentre dans la zone d'attaque d'un monstre.</div><div class="ttdef"><b>Definition:</b> sprite.c:1246</div></div>
 <div class="ttc" id="asprite_8h_html_af4b955cc4f03444a21c6c4511486fcc4"><div class="ttname"><a href="sprite_8h.html#af4b955cc4f03444a21c6c4511486fcc4">Detruire_Liste_Monstres</a></div><div class="ttdeci">void Detruire_Liste_Monstres(monstre_liste_t **liste)</div><div class="ttdoc">Fonction externe qui permet de detuire la liste de monstres.</div><div class="ttdef"><b>Definition:</b> sprite.c:999</div></div>
 <div class="ttc" id="astructliste__type__pnj__t_html"><div class="ttname"><a href="structliste__type__pnj__t.html">liste_type_pnj_t</a></div><div class="ttdoc">Structure de la liste des types de pnj ( Data )</div><div class="ttdef"><b>Definition:</b> pnj.h:47</div></div>
@@ -257,7 +256,7 @@ $(document).ready(function(){initNavTree('sprite_8h_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="sprite_8h.html">sprite.h</a></li>
-    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
 </body>

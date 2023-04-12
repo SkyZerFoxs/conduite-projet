@@ -1,0 +1,16 @@
+<map id="include/sprite.h" name="include/sprite.h">
+<area shape="rect" id="node1" title="Header Gestion Sprite." alt="" coords="379,5,490,32"/>
+<area shape="rect" id="node2" href="$affichage_8h.html" title="Header Gestion Affichage." alt="" coords="236,80,367,107"/>
+<area shape="rect" id="node13" href="$sprite_8c.html" title="Gestion des sprites." alt="" coords="391,80,478,107"/>
+<area shape="rect" id="node14" href="$test__sprite_8c.html" title="Test des fonctionnalité des sprites." alt="" coords="503,80,623,107"/>
+<area shape="rect" id="node3" href="$hud_8h.html" title="Header pour l&#39;hud." alt="" coords="145,155,244,181"/>
+<area shape="rect" id="node4" href="$play_8h.html" title="Header Fonction Play." alt="" coords="201,304,301,331"/>
+<area shape="rect" id="node12" href="$affichage_8c.html" title="Gestion affichage." alt="" coords="339,155,447,181"/>
+<area shape="rect" id="node9" href="$save_8h.html" title="Header Gestion Sauvegarder &amp; Chargement." alt="" coords="5,229,112,256"/>
+<area shape="rect" id="node11" href="$hud_8c.html" title="Gestion HUD." alt="" coords="137,229,213,256"/>
+<area shape="rect" id="node5" href="$menu_8h.html" title="Header Gestion Menu." alt="" coords="147,379,258,405"/>
+<area shape="rect" id="node8" href="$play_8c.html" title="Fonction Principal Du Jeu." alt="" coords="263,453,340,480"/>
+<area shape="rect" id="node6" href="$main_8c.html" title="Programme Principal." alt="" coords="156,453,239,480"/>
+<area shape="rect" id="node7" href="$menu_8c.html" title="Affichage du menu." alt="" coords="45,453,131,480"/>
+<area shape="rect" id="node10" href="$save_8c.html" title=" " alt="" coords="17,304,100,331"/>
+</map>

@@ -2,11 +2,11 @@ var searchData=
 [
   ['save_2ec_211',['save.c',['../save_8c.html',1,'']]],
   ['save_2eh_212',['save.h',['../save_8h.html',1,'']]],
-  ['save_5fgame_213',['save_game',['../save_8c.html#a0ae205c6a4c2a4c39cc2975aa1fb86a6',1,'save_game(int pos_x, int pos_y, personnage_t *perso, inventaire_t *inventaire, liste_objet_t *liste_objet, map_t *map, int finJeu):&#160;save.c'],['../save_8h.html#a0ae205c6a4c2a4c39cc2975aa1fb86a6',1,'save_game(int pos_x, int pos_y, personnage_t *perso, inventaire_t *inventaire, liste_objet_t *liste_objet, map_t *map, int finJeu):&#160;save.c']]],
+  ['save_5fgame_213',['save_game',['../save_8h.html#a0ae205c6a4c2a4c39cc2975aa1fb86a6',1,'save_game(int pos_x, int pos_y, personnage_t *perso, inventaire_t *inventaire, liste_objet_t *liste_objet, map_t *map, int finJeu):&#160;save.c'],['../save_8c.html#a0ae205c6a4c2a4c39cc2975aa1fb86a6',1,'save_game(int pos_x, int pos_y, personnage_t *perso, inventaire_t *inventaire, liste_objet_t *liste_objet, map_t *map, int finJeu):&#160;save.c']]],
   ['sdl_5ftimer_5ft_214',['SDL_timer_t',['../structSDL__timer__t.html',1,'']]],
   ['selecteurx_215',['selecteurX',['../structinventaire__t.html#a1f78628b4d0580e2e4f77dfc64be0ed6',1,'inventaire_t']]],
   ['selecteury_216',['selecteurY',['../structinventaire__t.html#a70ee9a807536052003ff261fc749386d',1,'inventaire_t']]],
-  ['special_5fpersosprite_217',['Special_PersoSprite',['../affichage_8c.html#a0237120f53c01e777d9b67d084a5e6b6',1,'Special_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action):&#160;affichage.c'],['../affichage_8h.html#a0237120f53c01e777d9b67d084a5e6b6',1,'Special_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action):&#160;affichage.c']]],
+  ['special_5fpersosprite_217',['Special_PersoSprite',['../affichage_8h.html#a0237120f53c01e777d9b67d084a5e6b6',1,'Special_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action):&#160;affichage.c'],['../affichage_8c.html#a0237120f53c01e777d9b67d084a5e6b6',1,'Special_PersoSprite(sprite_t ****spriteMap, map_t *map, sprite_liste_t *spritePersoList, SDL_Rect *view, char Action):&#160;affichage.c']]],
   ['sprite_2ec_218',['sprite.c',['../sprite_8c.html',1,'']]],
   ['sprite_2eh_219',['sprite.h',['../sprite_8h.html',1,'']]],
   ['sprite_5fliste_5ft_220',['sprite_liste_t',['../structsprite__liste__t.html',1,'']]],
@@ -25,9 +25,9 @@ var searchData=
   ['spritetypeid_233',['spriteTypeId',['../structsprite__t.html#ae5a49e244b8ee83d80e8f23da1cd86c7',1,'sprite_t']]],
   ['start_234',['start',['../structSDL__timer__t.html#a8b1499bec7fb58a7d1f4e8749a9ef0c9',1,'SDL_timer_t']]],
   ['stats_235',['stats',['../structobjet__t.html#a9ff9a4c91d666b7a30a69a9bdc47043f',1,'objet_t']]],
-  ['supprimer_5fmonstre_236',['supprimer_monstre',['../monstre_8c.html#a444bd26beabbf0ebebeffeb9465b5e42',1,'supprimer_monstre(monstre_t **monstre):&#160;monstre.c'],['../monstre_8h.html#a444bd26beabbf0ebebeffeb9465b5e42',1,'supprimer_monstre(monstre_t **monstre):&#160;monstre.c']]],
-  ['supprimer_5fperso_237',['supprimer_perso',['../personnage_8c.html#a79c52ca812c4aab8d7f96ea244768674',1,'supprimer_perso(personnage_t **perso):&#160;personnage.c'],['../personnage_8h.html#a79c52ca812c4aab8d7f96ea244768674',1,'supprimer_perso(personnage_t **perso):&#160;personnage.c']]],
-  ['supprimer_5fpnj_238',['supprimer_pnj',['../pnj_8c.html#a98cfb246873159c3357f5c706d9cdaaf',1,'supprimer_pnj(pnj_t **pnj):&#160;pnj.c'],['../pnj_8h.html#a98cfb246873159c3357f5c706d9cdaaf',1,'supprimer_pnj(pnj_t **pnj):&#160;pnj.c']]],
+  ['supprimer_5fmonstre_236',['supprimer_monstre',['../monstre_8h.html#a444bd26beabbf0ebebeffeb9465b5e42',1,'supprimer_monstre(monstre_t **monstre):&#160;monstre.c'],['../monstre_8c.html#a444bd26beabbf0ebebeffeb9465b5e42',1,'supprimer_monstre(monstre_t **monstre):&#160;monstre.c']]],
+  ['supprimer_5fperso_237',['supprimer_perso',['../personnage_8h.html#a79c52ca812c4aab8d7f96ea244768674',1,'supprimer_perso(personnage_t **perso):&#160;personnage.c'],['../personnage_8c.html#a79c52ca812c4aab8d7f96ea244768674',1,'supprimer_perso(personnage_t **perso):&#160;personnage.c']]],
+  ['supprimer_5fpnj_238',['supprimer_pnj',['../pnj_8h.html#a98cfb246873159c3357f5c706d9cdaaf',1,'supprimer_pnj(pnj_t **pnj):&#160;pnj.c'],['../pnj_8c.html#a98cfb246873159c3357f5c706d9cdaaf',1,'supprimer_pnj(pnj_t **pnj):&#160;pnj.c']]],
   ['synchronise_5fremanent_5fsprite_239',['Synchronise_Remanent_Sprite',['../affichage_8h.html#aa9c1fe8ce04df17ac7558998f018af3e',1,'affichage.h']]],
   ['synchronise_5fsprite_240',['Synchronise_Sprite',['../affichage_8c.html#a2fac8e3a00e71e8829ff14592863b367',1,'affichage.c']]]
 ];

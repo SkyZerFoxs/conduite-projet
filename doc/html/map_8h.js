@@ -8,5 +8,5 @@ var map_8h =
     [ "SPRITEMAP_LAYER", "map_8h.html#a5616150658b0947a482c000c377c023e", null ],
     [ "Detecter_Coffre", "map_8h.html#a764d0acf40624f50ea6040f6471cf2e7", null ],
     [ "Detruire_Map", "map_8h.html#a06ca4f44229769cf58ca8495a2a984ff", null ],
-    [ "Initialiser_Map", "map_8h.html#a7cfb1dac2f4be78275bdf06060861c3f", null ]
+    [ "Initialiser_Map", "map_8h.html#a08ab22acda83e77860446bb9b6b61f14", null ]
 ];

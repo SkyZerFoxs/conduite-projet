@@ -18,7 +18,7 @@ var affichage_8h =
     [ "drawLine", "affichage_8h.html#a77b538d0f5b14c905d27a782c648c620", null ],
     [ "getWinInfo", "affichage_8h.html#a803f57a72cfe8dabcf47a654c9ce9ff7", null ],
     [ "Init_SDL", "affichage_8h.html#a8d8847dd8acd9cb9bcf669a0a79a6cf6", null ],
-    [ "Init_Sprite_Texture_Liste", "affichage_8h.html#a92574d9bf7e6983508446e6cf10b1c27", null ],
+    [ "Init_Sprite_Texture_Liste", "affichage_8h.html#a0b662be76be385245e772f373524ab90", null ],
     [ "Load_Sprite_Texture_Liste", "affichage_8h.html#ab197ccca3d00b65c9211e629087f23bf", null ],
     [ "Quit_SDL", "affichage_8h.html#adb7455d9e7c096d13726b1a17a53d57c", null ],
     [ "Respawn_Joueur", "affichage_8h.html#ab819095dda9ec0af509c0b68973da073", null ],

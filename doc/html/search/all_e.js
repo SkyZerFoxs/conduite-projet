@@ -4,7 +4,7 @@ var searchData=
   ['personnage_2ec_186',['personnage.c',['../personnage_8c.html',1,'']]],
   ['personnage_2eh_187',['personnage.h',['../personnage_8h.html',1,'']]],
   ['personnage_5ft_188',['personnage_t',['../structpersonnage__t.html',1,'']]],
-  ['play_189',['play',['../play_8h.html#af560d00a4d4d76e7d33cce60103222ed',1,'play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]):&#160;play.c'],['../play_8c.html#af560d00a4d4d76e7d33cce60103222ed',1,'play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]):&#160;play.c']]],
+  ['play_189',['play',['../play_8c.html#af560d00a4d4d76e7d33cce60103222ed',1,'play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]):&#160;play.c'],['../play_8h.html#af560d00a4d4d76e7d33cce60103222ed',1,'play(SDL_Window *window, SDL_Renderer *renderer, int charger, SDL_Texture *tabTextGif[9]):&#160;play.c']]],
   ['play_2ec_190',['play.c',['../play_8c.html',1,'']]],
   ['play_2eh_191',['play.h',['../play_8h.html',1,'']]],
   ['pnj_192',['pnj',['../structsprite__t.html#aaac46bf8b8ea5b861ea971f0401d9fc1',1,'sprite_t']]],

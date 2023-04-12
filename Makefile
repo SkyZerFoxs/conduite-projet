@@ -83,10 +83,10 @@ $(BINDIR)/jeu_test_personnage: $(JEU_TEST_PERSO_SRCS) | $(BINDIR)
 
 # Nettoyage des fichiers objets et de l'exécutable
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf obj/*.o
 
 mrproper: clean
-	rm -rf $(BINDIR)
+	rm -rf $(BINDIR)/main
 	rm -rf $(TEST_RESULT_DIR)
 
 #Création du dossier de tests

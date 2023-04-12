@@ -1,0 +1,20 @@
+<map id="include/map.h" name="include/map.h">
+<area shape="rect" id="node1" title="Header Gestion map." alt="" coords="264,5,367,32"/>
+<area shape="rect" id="node2" href="$affichage_8h.html" title="Header Gestion Affichage." alt="" coords="350,229,481,256"/>
+<area shape="rect" id="node13" href="$data_8h.html" title="Header pour la gestion des données." alt="" coords="9,80,112,107"/>
+<area shape="rect" id="node14" href="$sprite_8h.html" title="Header Gestion Sprite." alt="" coords="192,155,303,181"/>
+<area shape="rect" id="node16" href="$test__sprite_8c.html" title="Test des fonctionnalité des sprites." alt="" coords="94,229,214,256"/>
+<area shape="rect" id="node17" href="$map_8c.html" title="Gestion map." alt="" coords="378,80,458,107"/>
+<area shape="rect" id="node18" href="$test__map_8c.html" title="Test des fonctionnalité des map." alt="" coords="483,80,596,107"/>
+<area shape="rect" id="node3" href="$hud_8h.html" title="Header pour l&#39;hud." alt="" coords="154,304,253,331"/>
+<area shape="rect" id="node4" href="$play_8h.html" title="Header Fonction Play." alt="" coords="200,453,300,480"/>
+<area shape="rect" id="node12" href="$affichage_8c.html" title="Gestion affichage." alt="" coords="277,304,385,331"/>
+<area shape="rect" id="node9" href="$save_8h.html" title="Header Gestion Sauvegarder &amp; Chargement." alt="" coords="43,379,150,405"/>
+<area shape="rect" id="node11" href="$hud_8c.html" title="Gestion HUD." alt="" coords="175,379,251,405"/>
+<area shape="rect" id="node5" href="$menu_8h.html" title="Header Gestion Menu." alt="" coords="147,528,257,555"/>
+<area shape="rect" id="node8" href="$play_8c.html" title="Fonction Principal Du Jeu." alt="" coords="262,603,339,629"/>
+<area shape="rect" id="node6" href="$main_8c.html" title="Programme Principal." alt="" coords="155,603,238,629"/>
+<area shape="rect" id="node7" href="$menu_8c.html" title="Affichage du menu." alt="" coords="44,603,131,629"/>
+<area shape="rect" id="node10" href="$save_8c.html" title=" " alt="" coords="55,453,138,480"/>
+<area shape="rect" id="node15" href="$sprite_8c.html" title="Gestion des sprites." alt="" coords="239,229,325,256"/>
+</map>

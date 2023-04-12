@@ -1,0 +1,8 @@
+<map id="test/test_objet.c" name="test/test_objet.c">
+<area shape="rect" id="node1" title="Test des fonctionnalités des objets." alt="" coords="27,5,143,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="11,80,72,107"/>
+<area shape="rect" id="node3" href="$objets_8h.html" title="Header pour gérer les objets." alt="" coords="97,80,165,107"/>
+<area shape="rect" id="node4" href="$caract_8h.html" title="Header pour gérer les caractéristique." alt="" coords="5,155,75,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="99,155,163,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="187,155,253,181"/>
+</map>

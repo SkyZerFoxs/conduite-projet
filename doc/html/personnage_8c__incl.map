@@ -1,0 +1,8 @@
+<map id="src/personnage.c" name="src/personnage.c">
+<area shape="rect" id="node1" title="fonction pour gérer les personnages" alt="" coords="61,5,184,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,67,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="91,80,155,107"/>
+<area shape="rect" id="node4" href="$personnage_8h.html" title="Header pour gérer les personnage." alt="" coords="179,80,279,107"/>
+<area shape="rect" id="node5" href="$caract_8h.html" title="Header pour gérer les caractéristique." alt="" coords="148,155,217,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="242,155,307,181"/>
+</map>

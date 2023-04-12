@@ -807,7 +807,7 @@ static int Deplacement_Curseur_Inventaire(inventaire_t * inventaire, char direct
  * 
  * \param inventaire Pointeur sur l' inventaire_t
  * \param listeObjets Pointeur sur liste_objet_t, La liste des objets
- * \param dropMethode entier qui correspond a la manière de drop un objet
+ * \param dropMethode [ 0 = drop un objet || 1 = drop le stack d'objets ]
  * \return 0 Success || 1 Echec de la fonction ( statut fonction )
 */
 static int Drop_Item_Inventaire(inventaire_t * inventaire, liste_objet_t * listeObjets, int dropMethode ) {
@@ -2661,17 +2661,30 @@ extern int Mort_Joueur( personnage_t * perso, inventaire_t * inventaire, liste_o
     int x = rdmDroppedEquipement % 2;
     int itemId = inventaire->equipement[y][x];
     if ( itemId != -1 ) {
-        listeObjets->tab[itemId]->nb = 0;
-        inventaire->equipement[y][x] = -1;
+       if ( Drop_Item_Inventaire(inventaire,listeObjets,0) ) {
+            printf("Erreur : Echec Drop_Item_Inventaire() dans Mort_Joueur()\n");
+            return 1;
+       }
     }
     
     // Reset PV
-    perso->caract->pv = perso->caract->maxPv;
+    caract_t sortieStat = { 0, 0, 0, 0 };
+    int calcPalierExp;
+    if ( calculer_stats_perso(perso,&sortieStat) ) {
+        printf("Erreur : Echec calculer_stats_perso() dans Mort_Joueur()\n");
+        return 1;
+    }
+    perso->caract->pv = sortieStat.maxPv;
     if ( perso->niveau == 1 ) {
         perso->exp = 0;
     }
     else {
-        perso->exp =  calculePalierExp(perso->niveau - 1) + 1;
+        calcPalierExp = calculePalierExp(perso->niveau - 1);
+        if ( calcPalierExp == -1 ) {
+            printf("Erreur : Echec calculePalierExp() dans Mort_Joueur()\n");
+            return 1;
+        }
+        perso->exp =  calcPalierExp + 1;
     }
 
 

@@ -1,0 +1,5 @@
+<map id="include/monstre.h" name="include/monstre.h">
+<area shape="rect" id="node1" title="Header pour gérer les monstres." alt="" coords="23,5,148,32"/>
+<area shape="rect" id="node2" href="$caract_8h.html" title="Header pour gérer les caractéristique." alt="" coords="5,80,75,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="99,80,165,107"/>
+</map>

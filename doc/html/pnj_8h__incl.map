@@ -1,0 +1,5 @@
+<map id="include/pnj.h" name="include/pnj.h">
+<area shape="rect" id="node1" title="Header gestion des personnages non joueurs." alt="" coords="35,5,129,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,71,107"/>
+<area shape="rect" id="node3" href="$quete_8h.html" title="Header Gestion Quete." alt="" coords="95,80,160,107"/>
+</map>

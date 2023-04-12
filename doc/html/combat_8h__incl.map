@@ -1,0 +1,7 @@
+<map id="include/combat.h" name="include/combat.h">
+<area shape="rect" id="node1" title="Header pour gérer les combats." alt="" coords="51,5,172,32"/>
+<area shape="rect" id="node2" href="$personnage_8h.html" title="Header pour gérer les personnage." alt="" coords="5,80,105,107"/>
+<area shape="rect" id="node5" href="$monstre_8h.html" title="Header pour gérer les monstres." alt="" coords="129,80,209,107"/>
+<area shape="rect" id="node3" href="$caract_8h.html" title="Header pour gérer les caractéristique." alt="" coords="31,155,101,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="131,155,196,181"/>
+</map>

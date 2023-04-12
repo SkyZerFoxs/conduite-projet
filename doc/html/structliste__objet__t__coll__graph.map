@@ -1,0 +1,5 @@
+<map id="liste_objet_t" name="liste_objet_t">
+<area shape="rect" id="node1" title="Structure de la liste des objets ( Data )" alt="" coords="5,184,97,211"/>
+<area shape="rect" id="node2" href="$structobjet__t.html" title="Structure d&#39;un objet ( Data )" alt="" coords="21,95,82,121"/>
+<area shape="rect" id="node3" href="$structcaract__t.html" title="Structure des caracteristiques ( Data )" alt="" coords="17,5,86,32"/>
+</map>

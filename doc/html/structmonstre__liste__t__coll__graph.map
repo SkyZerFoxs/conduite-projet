@@ -1,0 +1,5 @@
+<map id="monstre_liste_t" name="monstre_liste_t">
+<area shape="rect" id="node1" title="Structure qui correspond à une liste de monstres." alt="" coords="5,184,116,211"/>
+<area shape="rect" id="node2" href="$structmonstre__t.html" title="Structure des monstres ( Data )" alt="" coords="21,95,101,121"/>
+<area shape="rect" id="node3" href="$structcaract__t.html" title="Structure des caracteristiques ( Data )" alt="" coords="26,5,95,32"/>
+</map>

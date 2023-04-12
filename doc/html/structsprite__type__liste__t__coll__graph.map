@@ -1,0 +1,4 @@
+<map id="sprite_type_liste_t" name="sprite_type_liste_t">
+<area shape="rect" id="node1" title="Liste des types de sprites." alt="" coords="5,95,133,121"/>
+<area shape="rect" id="node2" href="$structsprite__type__t.html" title="Structure avec pour attributs, les informations sur un type de sprite." alt="" coords="21,5,118,32"/>
+</map>

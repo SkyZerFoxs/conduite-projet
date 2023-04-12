@@ -1,0 +1,7 @@
+<map id="include/play.h" name="include/play.h">
+<area shape="rect" id="node1" title="Header Fonction Play." alt="" coords="159,5,259,32"/>
+<area shape="rect" id="node2" href="$menu_8h.html" title="Header Gestion Menu." alt="" coords="107,80,218,107"/>
+<area shape="rect" id="node5" href="$play_8c.html" title="Fonction Principal Du Jeu." alt="" coords="224,155,301,181"/>
+<area shape="rect" id="node3" href="$main_8c.html" title="Programme Principal." alt="" coords="5,155,88,181"/>
+<area shape="rect" id="node4" href="$menu_8c.html" title="Affichage du menu." alt="" coords="113,155,199,181"/>
+</map>

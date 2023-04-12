@@ -1,0 +1,9 @@
+<map id="include/save.h" name="include/save.h">
+<area shape="rect" id="node1" title="Header Gestion Sauvegarder &amp; Chargement." alt="" coords="213,5,320,32"/>
+<area shape="rect" id="node2" href="$play_8h.html" title="Header Fonction Play." alt="" coords="159,80,259,107"/>
+<area shape="rect" id="node7" href="$save_8c.html" title=" " alt="" coords="283,80,365,107"/>
+<area shape="rect" id="node3" href="$menu_8h.html" title="Header Gestion Menu." alt="" coords="107,155,218,181"/>
+<area shape="rect" id="node6" href="$play_8c.html" title="Fonction Principal Du Jeu." alt="" coords="224,229,301,256"/>
+<area shape="rect" id="node4" href="$main_8c.html" title="Programme Principal." alt="" coords="5,229,88,256"/>
+<area shape="rect" id="node5" href="$menu_8c.html" title="Affichage du menu." alt="" coords="113,229,199,256"/>
+</map>

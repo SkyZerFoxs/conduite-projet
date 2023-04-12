@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Hero&#39;s Quest:  Fichier source de include/map.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
@@ -26,8 +26,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Hero&#39;s Quest
-   &#160;<span id="projectnumber">1.0</span>
+   <div id="projectname">Hero&#39;s Quest<span id="projectnumber">&#160;1.0</span>
    </div>
    <div id="projectbrief">Hero&#39;s Quest est un jeu d&#39;aventure/RPG basé sur le langage C et SDL2 développé par Yamis Manfaloti, Nathan Raccouard, William Sardon Arraz et Cody Theard dans le cadre d&#39;un projet informatique en deuxième année à l&#39;Université du Mans.</div>
   </td>
@@ -36,21 +35,22 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Généré par Doxygen 1.9.1 -->
+<!-- Généré par Doxygen 1.9.2 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
 <script type="text/javascript" src="menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
   initMenu('',true,false,'search.php','Recherche');
   $(document).ready(function() { init_search(); });
 });
-/* @license-end */</script>
+/* @license-end */
+</script>
 <div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
@@ -64,7 +64,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(document).ready(function(){initNavTree('map_8h_source.html',''); initResizable(); });
 /* @license-end */
 </script>
@@ -84,8 +84,7 @@ $(document).ready(function(){initNavTree('map_8h_source.html',''); initResizable
 </div>
 
 <div class="header">
-  <div class="headertitle">
-<div class="title">map.h</div>  </div>
+  <div class="headertitle"><div class="title">map.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="map_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _MAP_H_</span></div>
@@ -115,14 +114,14 @@ $(document).ready(function(){initNavTree('map_8h_source.html',''); initResizable
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">/* ------------------ Fonction Externe ------------------ */</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">/* ------------------------------------------------------ */</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">extern</span> <a class="code" href="structmap__t.html">map_t</a> * <a class="code" href="map_8h.html#a7cfb1dac2f4be78275bdf06060861c3f">Initialiser_Map</a>(<span class="keywordtype">char</span> * fichier) ;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">extern</span> <a class="code" href="structmap__t.html">map_t</a> * <a class="code" href="map_8h.html#a08ab22acda83e77860446bb9b6b61f14">Initialiser_Map</a>(<span class="keywordtype">char</span> * fichier) ;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code" href="map_8h.html#a06ca4f44229769cf58ca8495a2a984ff">Detruire_Map</a>(<a class="code" href="structmap__t.html">map_t</a> ** map) ;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="map_8h.html#a764d0acf40624f50ea6040f6471cf2e7">Detecter_Coffre</a>(<a class="code" href="structmap__t.html">map_t</a> *map, <span class="keywordtype">int</span> y_joueur, <span class="keywordtype">int</span> x_joueur, <span class="keywordtype">char</span> direction, <span class="keywordtype">int</span> distance) ;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="amap_8h_html_a06ca4f44229769cf58ca8495a2a984ff"><div class="ttname"><a href="map_8h.html#a06ca4f44229769cf58ca8495a2a984ff">Detruire_Map</a></div><div class="ttdeci">void Detruire_Map(map_t **map)</div><div class="ttdoc">Fonction qui permet de détruire en mémoire la structure map_t passée en paramètre ainsi que ses dépen...</div><div class="ttdef"><b>Definition:</b> map.c:94</div></div>
+<div class="ttc" id="amap_8h_html_a08ab22acda83e77860446bb9b6b61f14"><div class="ttname"><a href="map_8h.html#a08ab22acda83e77860446bb9b6b61f14">Initialiser_Map</a></div><div class="ttdeci">map_t * Initialiser_Map(char *fichier)</div><div class="ttdoc">Fonction externe qui charge la map depuis le fichier map sélectionné</div><div class="ttdef"><b>Definition:</b> map.c:76</div></div>
 <div class="ttc" id="amap_8h_html_a764d0acf40624f50ea6040f6471cf2e7"><div class="ttname"><a href="map_8h.html#a764d0acf40624f50ea6040f6471cf2e7">Detecter_Coffre</a></div><div class="ttdeci">int Detecter_Coffre(map_t *map, int y_joueur, int x_joueur, char direction, int distance)</div><div class="ttdoc">Fonction externe qui détecte si un coffre est proche et renvoie un booleen.</div><div class="ttdef"><b>Definition:</b> map.c:142</div></div>
-<div class="ttc" id="amap_8h_html_a7cfb1dac2f4be78275bdf06060861c3f"><div class="ttname"><a href="map_8h.html#a7cfb1dac2f4be78275bdf06060861c3f">Initialiser_Map</a></div><div class="ttdeci">map_t * Initialiser_Map(char *fichier)</div><div class="ttdoc">Fonction externe qui charge la map depuis le fichier map sélectionné</div><div class="ttdef"><b>Definition:</b> map.c:76</div></div>
 <div class="ttc" id="astructmap__t_html"><div class="ttname"><a href="structmap__t.html">map_t</a></div><div class="ttdoc">Structure map.</div><div class="ttdef"><b>Definition:</b> map.h:39</div></div>
 <div class="ttc" id="astructmap__t_html_a047a3bad447ba2a80454c93bdb15f0e5"><div class="ttname"><a href="structmap__t.html#a047a3bad447ba2a80454c93bdb15f0e5">map_t::layer</a></div><div class="ttdeci">int layer</div><div class="ttdef"><b>Definition:</b> map.h:43</div></div>
 <div class="ttc" id="astructmap__t_html_a12f5e4b8d1f847802b7cd5b144668c3b"><div class="ttname"><a href="structmap__t.html#a12f5e4b8d1f847802b7cd5b144668c3b">map_t::tileSize</a></div><div class="ttdeci">int tileSize</div><div class="ttdef"><b>Definition:</b> map.h:42</div></div>
@@ -135,7 +134,7 @@ $(document).ready(function(){initNavTree('map_8h_source.html',''); initResizable
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="map_8h.html">map.h</a></li>
-    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Généré par <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>
 </body>

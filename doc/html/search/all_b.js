@@ -11,7 +11,7 @@ var searchData=
   ['max_5ftexture_5fnumber_158',['MAX_TEXTURE_NUMBER',['../affichage_8h.html#a37fcece4078ac62596abc92f23657e5a',1,'affichage.h']]],
   ['maxpv_159',['MAXPV',['../jeu__test__personnage_8c.html#a5b6c81ccd190d7ad8e115eae72c14c73',1,'jeu_test_personnage.c']]],
   ['maxpv_160',['maxPv',['../structcaract__t.html#a706500532e9fa45774a75928e28baffd',1,'caract_t']]],
-  ['menu_161',['menu',['../menu_8c.html#a2e231699d09cb58f7d9db370a0c06ef7',1,'menu(SDL_Window *window, SDL_Renderer *renderer):&#160;menu.c'],['../menu_8h.html#a2e231699d09cb58f7d9db370a0c06ef7',1,'menu(SDL_Window *window, SDL_Renderer *renderer):&#160;menu.c']]],
+  ['menu_161',['menu',['../menu_8h.html#a2e231699d09cb58f7d9db370a0c06ef7',1,'menu(SDL_Window *window, SDL_Renderer *renderer):&#160;menu.c'],['../menu_8c.html#a2e231699d09cb58f7d9db370a0c06ef7',1,'menu(SDL_Window *window, SDL_Renderer *renderer):&#160;menu.c']]],
   ['menu_2ec_162',['menu.c',['../menu_8c.html',1,'']]],
   ['menu_2eh_163',['menu.h',['../menu_8h.html',1,'']]],
   ['monstre_164',['monstre',['../structsprite__t.html#a7f326c2b4bf144c2aa0f04c99f0e3097',1,'sprite_t']]],
@@ -20,6 +20,6 @@ var searchData=
   ['monstre_5fliste_5ft_167',['monstre_liste_t',['../structmonstre__liste__t.html',1,'']]],
   ['monstre_5ft_168',['monstre_t',['../structmonstre__t.html',1,'']]],
   ['monstresize_169',['monstreSize',['../structmonstre__t.html#a94b43642fa233bd11f17cc8f13c441c2',1,'monstre_t']]],
-  ['mort_5fjoueur_170',['Mort_Joueur',['../hud_8c.html#a954ed30ef109282313da0101ff01b228',1,'Mort_Joueur(personnage_t *perso, inventaire_t *inventaire, liste_objet_t *listeObjets):&#160;hud.c'],['../hud_8h.html#a954ed30ef109282313da0101ff01b228',1,'Mort_Joueur(personnage_t *perso, inventaire_t *inventaire, liste_objet_t *listeObjets):&#160;hud.c']]],
+  ['mort_5fjoueur_170',['Mort_Joueur',['../hud_8h.html#a954ed30ef109282313da0101ff01b228',1,'Mort_Joueur(personnage_t *perso, inventaire_t *inventaire, liste_objet_t *listeObjets):&#160;hud.c'],['../hud_8c.html#a954ed30ef109282313da0101ff01b228',1,'Mort_Joueur(personnage_t *perso, inventaire_t *inventaire, liste_objet_t *listeObjets):&#160;hud.c']]],
   ['ms_5fframerate_5fgif_171',['MS_FRAMERATE_GIF',['../menu_8c.html#a4b0d963452ca057d4a5b27c488f34e8e',1,'menu.c']]]
 ];

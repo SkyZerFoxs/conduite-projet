@@ -1,0 +1,10 @@
+<map id="test/jeu_test_personnage.c" name="test/jeu_test_personnage.c">
+<area shape="rect" id="node1" title="Jeu de test sur la fonction upgrade_perso()" alt="" coords="148,5,327,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,67,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="91,80,155,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="287,155,353,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="230,80,335,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="360,80,464,107"/>
+<area shape="rect" id="node7" href="$personnage_8h.html" title="Header pour gérer les personnage." alt="" coords="489,80,589,107"/>
+<area shape="rect" id="node8" href="$caract_8h.html" title="Header pour gérer les caractéristique." alt="" coords="504,155,573,181"/>
+</map>

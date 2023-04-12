@@ -16,9 +16,9 @@ var sprite_8c =
     [ "Detruire_SpriteMap", "sprite_8c.html#a3dcc3a3aa9d14291ef76b7e445c5bd7f", null ],
     [ "Load_Monster", "sprite_8c.html#adc4dcb71166d440ed977981246e33fcb", null ],
     [ "Load_PersoSprite_List", "sprite_8c.html#a746428dcf1ec5885bc42f05e131c3176", null ],
-    [ "Load_Pnj", "sprite_8c.html#abe23bfaa68956113356b6bae55192219", null ],
-    [ "Load_Sprite", "sprite_8c.html#aefd212a0907d8d13622a35822a911063", null ],
-    [ "Load_Sprite_Type", "sprite_8c.html#a75f49f19cfe6f71b9cf243e06a4e9338", null ],
-    [ "Load_SpriteMap", "sprite_8c.html#a62f623990a11bb0cb21afd3912bda4f1", null ],
+    [ "Load_Pnj", "sprite_8c.html#ae93c4935a6a7b7d3676bfe9af8b96bfe", null ],
+    [ "Load_Sprite", "sprite_8c.html#aa8842c2814a1c279dbc6de38fa949752", null ],
+    [ "Load_Sprite_Type", "sprite_8c.html#a24c0b4a18417c8722409837ba6d435cf", null ],
+    [ "Load_SpriteMap", "sprite_8c.html#a585c24a0b2ed8253c1ed2edf055fa445", null ],
     [ "Respawn_Monstre", "sprite_8c.html#a5d5d9fa02969ab00e50acc40fd1fe2eb", null ]
 ];

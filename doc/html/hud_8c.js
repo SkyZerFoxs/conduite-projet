@@ -24,8 +24,8 @@ var hud_8c =
     [ "Introduction", "hud_8c.html#afb4c8ef6445d5554ecb05c3bde36db6d", null ],
     [ "Inventaire", "hud_8c.html#a067c6e370540674d91f7453c5602e2ef", null ],
     [ "Level_UP", "hud_8c.html#afc6545c3af41282bee73b1efe3a83f6c", null ],
-    [ "Load_Inventaire", "hud_8c.html#a5ceba14b99a70506cf081878a213aa72", null ],
-    [ "Load_Liste_Texture_Pnj_Dialogue", "hud_8c.html#ace6fc48520aece5d4837c42e83a9882b", null ],
+    [ "Load_Inventaire", "hud_8c.html#ac71293119bb27ea4dbe70a516739f718", null ],
+    [ "Load_Liste_Texture_Pnj_Dialogue", "hud_8c.html#a5e17d49a5c7a51c9e5aaab598d539aa2", null ],
     [ "Mort_Joueur", "hud_8c.html#a954ed30ef109282313da0101ff01b228", null ],
     [ "Update_Equipement_Stat", "hud_8c.html#a90f25f8f9a69d592af9cea156a33ec8e", null ],
     [ "Use_Item_Inventaire", "hud_8c.html#af326746caf977ea8fdc5736b02ec63a4", null ]

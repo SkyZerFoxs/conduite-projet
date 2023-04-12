@@ -152,10 +152,28 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
       </ul>
   </ul>
   <h4>Compilation :</h4>
-  <p>Exécuter la commande suivante :</p>
+  <p>Compilation de l'executable :</p>
   <ul>
       <li>make all</li>
   </ul>
+  <p>Nettoyer les fichiers objets : <br>( supressions des fichiers .o dans obj/) </p>
+  <ul>
+      
+      <li>make clean</li>
+  </ul>
+  <p>Nettoyer le répertoire : <br>( supressions du fichier executable (main) et des fichiers objets ) </p>
+  <ul>
+      <li>make mrproper</li>
+  </ul>
+  <p>Compilation des fichiers de tests :</p>
+  <ul>
+      <li>make test</li>
+  </ul>
+  <p>Compilation + Lancement fichiers tests:</p>
+  <ul>
+      <li>make test_full</li>
+  </ul>
+
   <h4>Lancement :</h4>
   <p>Exécuter la commande suivante :</p>
   <ul>

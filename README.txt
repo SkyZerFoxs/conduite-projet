@@ -94,7 +94,20 @@ Mode d'emploi :
             Manuelle        :  $(shell Chemin_Installation_SDL/bin/sdl2-config --cflags --libs)
 
 - Compilation :
-    - make all
+    - Compilation de l'executable :
+        - make all
+    - Nettoyer les fichiers objets :
+        ( supressions des fichiers .o dans obj/)
+        - make clean
+    - Nettoyer le répertoire :
+        ( supressions du fichier executable (main) et des fichiers objets )
+        - make mrproper
+    - Compilation des fichiers de tests :
+        - make test
+    - Compilation + Lancement fichiers tests :
+        - make test_full
+    
+    
 
 - Lancement
     - ./bin/main
